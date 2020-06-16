@@ -120,7 +120,7 @@ $ docker run -i -t ubuntu /bin/bash
 
 ## 底层技术
 
-Docker 是用 [Go](https://golang.org/) 编写的，并利用 Linux 内核的几个特性来实现其功能。
+Docker 是用 [Go](https://golang.org/){:target="_blandk"} 编写的，并利用 Linux 内核的几个特性来实现其功能。
 
 ### 命名空间
 
@@ -153,4 +153,4 @@ Docker 引擎将命名空间、控制组和 UnionFS 组合到一个称为容器�
 > 作者 ： Docker 官网 <br/>
 > 译者 ： 技术译民 <br/>
 > 出品 ： [技术译站](https://ittranslator.cn/){:target="_blandk"}<!--（ID： ITTranslator） --> <br/>
-> 链接 ： [英文原文](https://docs.docker.com/get-started/overview/)
+> 链接 ： [英文原文](https://docs.docker.com/get-started/overview/){:target="_blandk"}
