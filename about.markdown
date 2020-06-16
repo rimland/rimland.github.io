@@ -1,6 +1,6 @@
 ---
 layout: page
-title: About
+title: 关 于
 permalink: /about/
 ---
 <!-- 
