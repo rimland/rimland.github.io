@@ -152,5 +152,5 @@ Docker 引擎将命名空间、控制组和 UnionFS 组合到一个称为容器�
 
 > 作者 ： Docker 官网 <br/>
 > 译者 ： 技术译民 <br/>
-> 出品 ： 技术译站（ID： ITTranslator） <br/>
+> 出品 ： [技术译站](https://ittranslator.cn/)<!--（ID： ITTranslator） --> <br/>
 > 链接 ： [英文原文](https://docs.docker.com/get-started/overview/)
