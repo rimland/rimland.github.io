@@ -72,7 +72,7 @@ Docker 守护进程(`dockerd`)侦听 Docker API 请求并管理 Docker 对象，
 
 Docker 客户端(`docker`)是许多 Docker 用户与 Docker 交互的主要方式。当您使用诸如`docker run`之类的命令时，客户端将这些命令发送给`dockerd`, `dockerd` 会执行这些命令。`docker` 命令使用 Docker API。Docker 客户端可以与多个守护进程通信。
 
-### Docker 注册
+### Docker 注册表
 
 Docker 注册表存储 Docker 镜像。
 Docker Hub 是一个任何人都可以使用的公共注册表，默认情况下 Docker 被配置为在 Docker Hub 上寻找镜像。您甚至可以运行自己的私有注册表。如果您使用 Docker 数据中心(DDC)，它包括 Docker 可信注册表(DTR)。
