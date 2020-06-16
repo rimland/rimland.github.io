@@ -56,3 +56,4 @@ plugins:
 timezone: Asia/Shanghai
 minima:
   date_format: "%Y-%m-%d"
+
