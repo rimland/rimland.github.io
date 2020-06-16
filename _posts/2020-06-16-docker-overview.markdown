@@ -5,9 +5,6 @@ date:   2020-06-16 15:16:00 +0800
 categories: backend docker
 ---
 
-<center><font size=7>Docker 概述</font></center>
-<br/><br/>
-
 Docker 是一个开发、发布和运行应用程序的开放平台。Docker使您能够将应用程序与基础架构分离，以便快速交付软件。有了 Docker，你可以像管理应用程序一样管理你的基础设施。通过利用 Docker 快速发布、测试和部署代码的方法，您可以显著减少编写代码和在生产环境中运行它之间的延迟。
 
 ## Docker 平台
