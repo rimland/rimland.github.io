@@ -53,3 +53,6 @@ plugins:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+timezone: Asia/Shanghai
+minima:
+  date_format: "%Y-%m-%d"
