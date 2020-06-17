@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "快速启动 - 定位和安装"
+title:  "快速入门 - 介绍和安装"
 date:   2020-06-17 01:16:00 +0800
 categories: backend docker
 published: false
@@ -37,8 +37,48 @@ Docker 是一个供开发人员和系统管理员构建、运行和与容器共�
 
 ### 容器和虚拟机
 
-容器在 Linux 上本机运行，并与其他容器共享主机的内核。 它运行一个离散进程，占用的内存不比任何其他可执行文件多，从而使其轻巧。
+容器在 Linux 上本机运行，并与其他容器共享主机的内核。 它运行一个离散进程，占用的内存不比任何其他可执行文件多，从而使其轻巧。相比之下，虚拟机(VM)运行成熟的“来宾”操作系统，通过管理程序虚拟访问主机资源。一般而言，虚拟机会产生比应用程序逻辑本身所消耗资源更多的开销。
 
+|                            容器                             |                           虚拟机                           |
+| :---------------------------------------------------------: | :--------------------------------------------------------: |
+| ![Container stack example](/assets/images/Container@2x.png) | ![Virtual machine stack example](/assets/images/VM@2x.png) |
+
+## 设置 Docker 环境
+
+### 下载并安装Docker桌面
+
+Docker Desktop 是一款适用于Mac或Windows环境的易于安装的应用程序，使您能够在几分钟内开始编码和容器化。Docker Desktop 包含了从您的机器构建、运行和共享容器化应用程序所需的一切。
+
+按照适合您的操作系统的说明下载和安装 Docker Desktop：
+
+- [Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/install/)
+- [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/install/)
+
+### 检验 Docker 版本
+
+成功安装 Docker Desktop 后，打开一个终端，运行 `docker --version` 来检查机器上安装的 Docker 版本。
+
+```BASH
+$ docker --version
+Docker version 19.03.5, build 633a0ea
+```
+
+### 检验 Docker 安装结果
+Test that your installation works by running the hello-world Docker image:
+1. 通过运行 hello-world Docker 映像测试您的安装工作:
+   ```bash
+    $ docker run hello-world
+
+    Unable to find image 'hello-world:latest' locally
+    latest: Pulling from library/hello-world
+    ca4f61b1923c: Pull complete
+    Digest: sha256:ca0eeb6fb05351dfc8759c20733c91def84cb8007aa89a5bf606bc8b315b9fc7
+    Status: Downloaded newer image for hello-world:latest
+
+    Hello from Docker!
+    This message shows that your installation appears to be working correctly.
+    ...
+   ```
 
 <br/>
 
