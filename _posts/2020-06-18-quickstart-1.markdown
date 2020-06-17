@@ -15,8 +15,8 @@ published: false
 Docker 快速入门培训模块教你如何:
 
 - 设置 Docker 环境（在本页）
-- [构建并运行您的映像](https://docs.docker.com/get-started/part2/){:target="_blank"}
-- [在 Docker Hub 上共享映像](https://docs.docker.com/get-started/part3/){:target="_blank"}
+- [构建并运行您的镜像](https://docs.docker.com/get-started/part2/){:target="_blank"}
+- [在 Docker Hub 上共享镜像](https://docs.docker.com/get-started/part3/){:target="_blank"}
 
 ## Docker 概念 (Docker concepts)
 
@@ -33,7 +33,7 @@ Docker 是一个供开发人员和系统管理员构建、运行和与容器共�
 
 ### 镜像和容器
 
-从根本上讲，容器不过是一个正在运行的进程，对其应用了一些附加的封装特性，以便将它与主机和其他容器隔离开来。容器隔离的一个最重要的方面是，每个容器与自己的私有文件系统交互；这个文件系统由 Docker 映像提供。映像包含运行应用程序所需的所有内容——代码或二进制文件、运行时、依赖项以及所需的任何其他文件系统对象。
+从根本上讲，容器不过是一个正在运行的进程，对其应用了一些附加的封装特性，以便将它与主机和其他容器隔离开来。容器隔离的一个最重要的方面是，每个容器与自己的私有文件系统交互；这个文件系统由 Docker 镜像提供。镜像包含运行应用程序所需的所有内容——代码或二进制文件、运行时、依赖项以及所需的任何其他文件系统对象。
 
 ### 容器和虚拟机
 
