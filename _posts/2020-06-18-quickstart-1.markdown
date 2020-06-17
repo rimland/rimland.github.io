@@ -64,8 +64,8 @@ Docker version 19.03.5, build 633a0ea
 ```
 
 ### 检验 Docker 安装结果
-Test that your installation works by running the hello-world Docker image:
-1. 通过运行 hello-world Docker 映像测试您的安装工作:
+
+1. 通过运行 hello-world Docker 镜像测试您的安装工作:
    ```bash
     $ docker run hello-world
 
