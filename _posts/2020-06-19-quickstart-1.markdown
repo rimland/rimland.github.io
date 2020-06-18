@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "快速入门（一）- 情况介绍和安装"
+title:  "Docker 快速入门（一）- 情况介绍和安装"
 date:   2020-06-19 02:09:00 +0800
 categories: backend docker
 published: true
@@ -16,11 +16,11 @@ Docker 快速入门培训模块教你如何:
 - [构建并运行您的镜像](https://docs.docker.com/get-started/part2/)
 - [在 Docker Hub 上共享镜像](https://docs.docker.com/get-started/part3/)
 
-## Docker 概念 (Docker concepts)
+## Docker 概念
 
 Docker 是一个供开发人员和系统管理员构建、运行和与容器共享应用程序的平台。使用容器部署应用程序称为容器化。容器并不是新事物，但它们用于轻松部署应用程序却是新鲜的。
 
-容器化越来越受欢迎，因为容器有以下优点：
+容器化越来越受欢迎，归因于容器有以下优点：
 
 - **灵活性**：即使是最复杂的应用程序也可以容器化。
 - **轻量级**：容器利用并共享主机内核，使它们在系统资源方面比虚拟机更有效率。
