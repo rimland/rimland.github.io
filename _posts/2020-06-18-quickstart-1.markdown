@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "快速入门 - 情况介绍和安装"
+title:  "快速入门（一） - 情况介绍和安装"
 date:   2020-06-17 01:16:00 +0800
 categories: backend docker
-published: false
+published: true
 ---
 
 欢迎您! 我们很高兴您想学习 Docker 。
