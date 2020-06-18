@@ -43,9 +43,9 @@ Docker 是一个供开发人员和系统管理员构建、运行和与容器共�
 
 ## 设置 Docker 环境
 
-### 下载并安装Docker桌面
+### 下载并安装 Docker Desktop
 
-Docker Desktop 是一款适用于Mac或Windows环境的易于安装的应用程序，使您能够在几分钟内开始编码和容器化。Docker Desktop 包含了从您的机器构建、运行和共享容器化应用程序所需的一切。
+Docker Desktop 是一款适用于 Mac 或 Windows 环境的易于安装的应用程序，使您能够在几分钟内开始编码和容器化。Docker Desktop 包含了从您的机器构建、运行和共享容器化应用程序所需的一切。
 
 按照适合您的操作系统的说明下载和安装 Docker Desktop：
 
