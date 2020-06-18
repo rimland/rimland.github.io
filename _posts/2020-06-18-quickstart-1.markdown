@@ -1,12 +1,10 @@
 ---
 layout: post
-title:  "快速入门 - 介绍和安装"
+title:  "快速入门 - 情况介绍和安装"
 date:   2020-06-17 01:16:00 +0800
 categories: backend docker
 published: false
 ---
-
-# 情况介绍和安装 Orientation and setup
 
 欢迎您! 我们很高兴您想学习 Docker 。
 
@@ -15,8 +13,8 @@ published: false
 Docker 快速入门培训模块教你如何:
 
 - 设置 Docker 环境（在本页）
-- [构建并运行您的镜像](https://docs.docker.com/get-started/part2/){:target="_blank"}
-- [在 Docker Hub 上共享镜像](https://docs.docker.com/get-started/part3/){:target="_blank"}
+- [构建并运行您的镜像](https://docs.docker.com/get-started/part2/)
+- [在 Docker Hub 上共享镜像](https://docs.docker.com/get-started/part3/)
 
 ## Docker 概念 (Docker concepts)
 
@@ -66,23 +64,35 @@ Docker version 19.03.5, build 633a0ea
 ### 检验 Docker 安装结果
 
 1. 通过运行 hello-world Docker 镜像测试您的安装工作:
-   ```bash
-    $ docker run hello-world
+```BASH
+   $ docker run hello-world
 
-    Unable to find image 'hello-world:latest' locally
-    latest: Pulling from library/hello-world
-    ca4f61b1923c: Pull complete
-    Digest: sha256:ca0eeb6fb05351dfc8759c20733c91def84cb8007aa89a5bf606bc8b315b9fc7
-    Status: Downloaded newer image for hello-world:latest
+   Unable to find image 'hello-world:latest' locally
+   latest: Pulling from library/hello-world
+   ca4f61b1923c: Pull complete
+   Digest: sha256:ca0eeb6fb05351dfc8759c20733c91def84cb8007aa89a5bf606bc8b315b9fc7
+   Status: Downloaded newer image for hello-world:latest
 
-    Hello from Docker!
-    This message shows that your installation appears to be working correctly.
-    ...
-   ```
+   Hello from Docker!
+   This message shows that your installation appears to be working correctly.
+   ...
+```
+2. 运行 `docker image ls` 以列出你下载到计算机的 `hello-world` 镜像。
+3. 列出显示其消息后退出的 `hello-world` 容器(由镜像派生)。如果它仍在运行，则不需要 `--all` 选项:
+```BASH
+   $ docker ps --all
+
+   CONTAINER ID     IMAGE           COMMAND      CREATED            STATUS
+   54f4984ed6a8     hello-world     "/hello"     20 seconds ago     Exited (0) 19 seconds ago
+```
+
+## 结论
+
+现在，您已经在开发机器上安装了 Docker Desktop，并运行了一个快速测试，以确保您已经为构建和运行第一个容器化应用程序进行了设置。
 
 <br/>
 
 > 作者 ： Docker 官网 <br/>
 > 译者 ： 技术译民 <br/>
-> 出品 ： [技术译站](https://ittranslator.cn/){:target="_blank"} <br/>
-> 链接 ： [英文原文](https://docs.docker.com/get-started/){:target="_blank"}
+> 出品 ： [技术译站](https://ittranslator.cn/) <br/>
+> 链接 ： [英文原文](https://docs.docker.com/get-started/)
