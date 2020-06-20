@@ -6,3 +6,5 @@ vendor
 
 _includes
 _layouts
+
+!/_includes/footer.html

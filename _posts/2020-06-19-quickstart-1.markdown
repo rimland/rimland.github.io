@@ -90,6 +90,15 @@ Docker version 19.03.5, build 633a0ea
 
 现在，您已经在开发机器上安装了 Docker Desktop，并运行了一个快速测试，以确保您已经为构建和运行第一个容器化应用程序进行了设置。
 
+## CLI 参考文献
+
+有关本文中使用的所有CLI命令的进一步文档，请参阅以下主题：
+
+- [docker version](https://docs.docker.com/engine/reference/commandline/version/)
+- [docker run](https://docs.docker.com/engine/reference/commandline/run/)
+- [docker image](https://docs.docker.com/engine/reference/commandline/image/)
+- [docker container](https://docs.docker.com/engine/reference/commandline/container/)
+
 <br/>
 
 > 作者 ： Docker 官网 <br/>
