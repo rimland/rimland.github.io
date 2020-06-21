@@ -10,7 +10,7 @@ published: true
 
 完成[第一部分](https://ittranslator.cn/backend/docker/2020/06/19/quickstart-1.html)的情况介绍和安装
 
-## 介绍 Introduction
+## 介绍
 
 现在您已经安装了开发环境，可以开始开发容器化的应用程序了。一般来说，开发工作流是这样的：
 
@@ -99,7 +99,7 @@ docker rm --force bb
 
 ## 结论
 
-此时，您已经成功地构建了一个镜像，执行了一个应用程序的简单容器化，并确认了您的应用程序在其容器中成功运行。下一步是在 [Docker Hub](https://hub.docker.com/) 上分享您的镜像，以便它可以容易地被下载和运行在任意目标机器上。
+此时，您已经成功地构建了一个镜像，执行了一个应用程序的简单容器化，并确认了您的应用程序在其容器中成功运行。下一步是在 [Docker Hub](https://hub.docker.com/) 上分享您的镜像，以便它们可以被轻松地下载和运行在任意目标机器上。
 
 ## <span id="sample-dockerfile">Dockerfile 示例</span>
 

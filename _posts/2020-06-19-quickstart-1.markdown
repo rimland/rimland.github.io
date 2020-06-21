@@ -14,7 +14,7 @@ Docker 快速入门培训模块教你如何:
 
 - 设置 Docker 环境（在本页）
 - [构建并运行您的镜像](https://ittranslator.cn/backend/docker/2020/06/21/quickstart-2.html)
-- [在 Docker Hub 上共享镜像](https://docs.docker.com/get-started/part3/)
+- [在 Docker Hub 上共享镜像](https://ittranslator.cn/backend/docker/2020/06/23/quickstart-3.html)
 
 ## Docker 概念
 
