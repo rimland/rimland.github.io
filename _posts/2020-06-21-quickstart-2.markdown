@@ -1,9 +1,9 @@
 ---
 layout: post
 title:  "Docker 快速入门（二）- 构建并运行您的镜像"
-date:   2020-06-21 02:09:00 +0800
+date:   2020-06-21 12:00:00 +0800
 categories: backend docker
-published: false
+published: true
 ---
 
 ## 前提条件
@@ -86,39 +86,75 @@ docker run --publish 8000:8080 --detach --name bb bulletinboard:1.0
 这里有几个常见的标记：
    - `--publish` 要求 Docker 将主机端口8000上传入的流量转发到容器端口8080。容器有自己的私有端口集，因此如果您希望从网络访问一个端口，就必须以这种方式将流量转发给它。否则，作为默认的安全情形，防火墙规则将阻止所有网络流量到达您的容器。
    - `--detach` 要求 Docker 在后台运行此容器。
-   - `--name` 指定可以在后续命令中引用你的容器的名称，在本例中是 bb。
+   - `--name` 指定可以在后续命令中引用你的容器的名称，在本例中是 `bb`。
+
+2. 在浏览器中访问您的应用程序，地址是 localhost:8000。您应该会看到您的公告板应用程序启动并运行了。在此步骤中，您通常会尽一切可能确保容器按照预期的方式工作;例如，现在是运行单元测试的时候了。
+3. 一旦您确信您的公告栏容器工作正常，您可以删除它：
+
+```BASH
+docker rm --force bb
+```
+
+`--force` 选项会停止正在运行的容器，因此可以将其删除。 如果您先用 `docker stop bb` 停止运行的容器，那么您不需要使用 `--force` 来删除它。 
+
+## 结论
+
+此时，您已经成功地构建了一个镜像，执行了一个应用程序的简单容器化，并确认了您的应用程序在其容器中成功运行。下一步是在 [Docker Hub](https://hub.docker.com/) 上分享您的镜像，以便它可以容易地被下载和运行在任意目标机器上。
 
 ## <span id="sample-dockerfile">Dockerfile 示例</span>
 
+编写 Dockerfile 是容器化一个应用程序的第一步。您可以将这些 Dockerfile 命令看作是如何构建镜像的逐步配方。公告板应用程序中的Dockerfile 是这样的：
 
+```BASH
+# 使用官方镜像作为父镜像。
+FROM node:current-slim
 
+# 设置工作目录。
+WORKDIR /usr/src/app
 
+# 将文件从主机复制到当前位置。
+COPY package.json .
 
+# 在镜像文件系统中运行该命令。
+RUN npm install
 
+# 通知 Docker 容器在运行时监听指定的端口。
+EXPOSE 8080
 
+# 在容器中运行指定的命令。
+CMD [ "npm", "start" ]
 
+# 将应用程序的其余源代码从主机复制到镜像文件系统。
+COPY . .
+```
 
+本例中定义的 dockerfile 执行以下步骤：
 
+- `FROM` 预先存在的 `node:current-slim` 镜像开始。这是一个官方镜像，由 node.js 供应商构建，经过 Docker 验证是一个高质量的镜像，包含了 Node.js 的长期支持（LTS）解释器和基本依赖项。
+- 使用 `WORKDIR` 指定所有后续操作都应该从镜像文件系统中的目录 `/usr/src/app` 执行（永远不要从主机的文件系统执行）。
+- `COPY` 文件 `package.json` 从您的主机到镜像中的当前位置 (`.`) (在本示例中, 是到 `/usr/src/app/package.json`)。
+- 在镜像文件系统中 `RUN` 命令 `npm install`（它将读取 `package.json` 确定应用程序的节点依赖项并安装它们）。
+- 将应用程序的其余源代码从主机 `COPY` 到镜像文件系统。
 
+您可以看到，这些步骤与您在主机上设置和安装应用程序时所采取的步骤基本相同。但是，将这些捕获为 Dockerfile，允许您在一个可移植的、独立的Docker 镜像中做同样的事情。
 
+上面的步骤构建了镜像的文件系统，但是 Dockerfile 中还有其他行。
 
+`CMD` 指令是在镜像中指定一些元数据的第一个示例，这些元数据描述如何基于此镜像运行容器。在本例中，它表示此镜像要支持的容器化进程是 `npm start`。
 
+`EXPOSE 8080` 通知 Docker 容器在运行时监听端口 8080。
 
+What you see above is a good way to organize a simple Dockerfile; always start with a FROM command, follow it with the steps to build up your private filesystem, and conclude with any metadata specifications. There are many more Dockerfile directives than just the few you see above. For a complete list, see the Dockerfile reference.
 
-
-
-
-
-
+上面的内容是组织一个简单 Dockerfile 的好方法；始终从 FROM 命令开始，按照它的步骤构建您的私有文件系统，并以任何元数据规范结束。还有更多的 Dockerfile 指令，而不仅仅是您在上面看到几个。有关完整列表，请参阅 [Dockerfile 参考](https://docs.docker.com/engine/reference/builder/)。
 
 ## CLI 参考文献
 
-有关本文中使用的所有CLI命令的进一步文档，请参阅以下主题：
+有关本文中使用的所有 CLI 命令的进一步文档可以在这里找到：
 
-- [docker version](https://docs.docker.com/engine/reference/commandline/version/)
-- [docker run](https://docs.docker.com/engine/reference/commandline/run/)
 - [docker image](https://docs.docker.com/engine/reference/commandline/image/)
 - [docker container](https://docs.docker.com/engine/reference/commandline/container/)
+- [Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
 
 <br/>
 
