@@ -144,8 +144,6 @@ COPY . .
 
 `EXPOSE 8080` 通知 Docker 容器在运行时监听端口 8080。
 
-What you see above is a good way to organize a simple Dockerfile; always start with a FROM command, follow it with the steps to build up your private filesystem, and conclude with any metadata specifications. There are many more Dockerfile directives than just the few you see above. For a complete list, see the Dockerfile reference.
-
 上面的内容是组织一个简单 Dockerfile 的好方法；始终从 FROM 命令开始，按照它的步骤构建您的私有文件系统，并以任何元数据规范结束。还有更多的 Dockerfile 指令，而不仅仅是您在上面看到几个。有关完整列表，请参阅 [Dockerfile 参考](https://docs.docker.com/engine/reference/builder/)。
 
 ## CLI 参考文献
