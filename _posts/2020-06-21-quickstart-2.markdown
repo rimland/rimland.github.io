@@ -136,7 +136,7 @@ COPY . .
 - 在镜像文件系统中运行(`RUN`) 命令 `npm install`（它将读取 `package.json` 确定应用程序的节点依赖项并安装它们）。
 - 将应用程序的其余源代码从主机复制(`COPY`) 到镜像文件系统。
 
-您可以看到，这些步骤与您在主机上设置和安装应用程序时所采取的步骤基本相同。但是，将这些捕获为 Dockerfile，允许您在一个可移植的、独立的Docker 镜像中做同样的事情。
+您可以看到，这些步骤与您在主机上设置和安装应用程序时所采取的步骤基本相同。但是，将这些捕获为 Dockerfile，允许您在一个可移植的、独立的 Docker 镜像中做同样的事情。
 
 上面的步骤构建了镜像的文件系统，但是 Dockerfile 中还有其他行。
 
@@ -144,7 +144,7 @@ COPY . .
 
 `EXPOSE 8080` 通知 Docker 容器在运行时监听端口 8080。
 
-上面的内容是组织一个简单 Dockerfile 的好方法；始终从 FROM 命令开始，按照它的步骤构建您的私有文件系统，并以任何元数据规范结束。还有更多的 Dockerfile 指令，而不仅仅是您在上面看到几个。有关完整列表，请参阅 [Dockerfile 参考](https://docs.docker.com/engine/reference/builder/)。
+上面的内容是组织一个简单 Dockerfile 的好方法；始终从 `FROM` 命令开始，按照它的步骤构建您的私有文件系统，并以任何元数据指定结束。还有更多的 Dockerfile 指令，而不仅仅是您在上面看到几个。有关完整列表，请参阅 [Dockerfile 参考](https://docs.docker.com/engine/reference/builder/)。
 
 ## CLI 参考文献
 
