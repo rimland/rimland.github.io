@@ -103,7 +103,7 @@ docker rm --force bb
 
 ## <span id="sample-dockerfile">Dockerfile 示例</span>
 
-编写 Dockerfile 是容器化一个应用程序的第一步。您可以将这些 Dockerfile 命令看作是如何构建镜像的逐步配方。公告板应用程序中的Dockerfile 是这样的：
+编写 Dockerfile 是容器化一个应用程序的第一步。您可以将这些 Dockerfile 命令看作是如何构建镜像的逐步配方。公告板应用程序中的 Dockerfile 是这样的：
 
 ```BASH
 # 使用官方镜像作为父镜像。
@@ -132,9 +132,9 @@ COPY . .
 
 - `FROM` 预先存在的 `node:current-slim` 镜像开始。这是一个官方镜像，由 node.js 供应商构建，经过 Docker 验证是一个高质量的镜像，包含了 Node.js 的长期支持（LTS）解释器和基本依赖项。
 - 使用 `WORKDIR` 指定所有后续操作都应该从镜像文件系统中的目录 `/usr/src/app` 执行（永远不要从主机的文件系统执行）。
-- `COPY` 文件 `package.json` 从您的主机到镜像中的当前位置 (`.`) (在本示例中, 是到 `/usr/src/app/package.json`)。
-- 在镜像文件系统中 `RUN` 命令 `npm install`（它将读取 `package.json` 确定应用程序的节点依赖项并安装它们）。
-- 将应用程序的其余源代码从主机 `COPY` 到镜像文件系统。
+- 从您的主机复制(`COPY`) 文件 `package.json` 到镜像中的当前位置 (`.`) (在本示例中, 是到 `/usr/src/app/package.json`)。
+- 在镜像文件系统中运行(`RUN`) 命令 `npm install`（它将读取 `package.json` 确定应用程序的节点依赖项并安装它们）。
+- 将应用程序的其余源代码从主机复制(`COPY`) 到镜像文件系统。
 
 您可以看到，这些步骤与您在主机上设置和安装应用程序时所采取的步骤基本相同。但是，将这些捕获为 Dockerfile，允许您在一个可移植的、独立的Docker 镜像中做同样的事情。
 
