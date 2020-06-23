@@ -57,7 +57,7 @@ cd node-bulletin-board-master/bulletin-board-app
 
 下载项目后，查看公告板应用程序中名为 `Dockerfile` 的文件。Dockerfiles 描述了如何为容器组装私有文件系统，还可以包含描述如何基于此镜像运行容器的一些元数据。
 
-有关公告板应用程序中使用的 Dockerfile 的更多信息，请参阅 [示例 Dockerfile](#sample-dockerfile)。
+有关公告板应用程序中使用的 Dockerfile 的更多信息，请参阅 [Dockerfile 示例](#sample-dockerfile)。
 
 ## 构建并测试您的镜像
 
