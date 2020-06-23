@@ -59,6 +59,7 @@ timezone: Asia/Shanghai
 minima:
   date_format: "%Y年 %m月 %d日"
 
-rss: rss
+rss: RSS
 google_analytics: UA-169624459-1
+lang: zh
 

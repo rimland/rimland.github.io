@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Docker 快速入门（三）- 在 Docker Hub 上共享镜像"
-date:   2020-06-24 09:00:00 +0800
+date:   2020-06-23 09:00:00 +0800
 categories: backend docker
 published: true
 ---
@@ -35,25 +35,25 @@ published: true
 1. 单击菜单栏中的 Docker 图标，导航到 **Repositories > Create**。您将被重定向到 Docker Hub 上的 **Create Repository** 页。 
 2. 输入仓库名 `bulletinboard` 然后在页面底部点击 **Create** 。暂时不要填写任何其他细节。
 
-![make a repo](/assets/images/docker-repository-newrepo.png)
+    ![make a repo](/assets/images/docker-repository-newrepo.png)
 
 3. 您现在已经准备好在 Docker Hub 上共享镜像了，但是，必须先做一件事：镜像必须正确地设置命名空间，才能在 Docker Hub 上共享。具体来说，您必须将镜像命名为：`<Your Docker ID>/<Repository Name>:<tag>`。
 
-请确保您在终端或者 PowerShell 中的 `node-bulletin-board/bulletin-board-app` 目录下，然后运行：
+    请确保您在终端或者 PowerShell 中的 `node-bulletin-board/bulletin-board-app` 目录下，然后运行：
 
-```BASH
-docker tag bulletinboard:1.0 <Your Docker ID>/bulletinboard:1.0
-```
+    ```BASH
+    docker tag bulletinboard:1.0 <Your Docker ID>/bulletinboard:1.0
+    ```
 
 4. 最后，将您的镜像推送到 Docker Hub：
 
-```
-docker push <Your Docker ID>/bulletinboard:1.0
-```
+    ```
+    docker push <Your Docker ID>/bulletinboard:1.0
+    ```
 
-在 [Docker Hub](https://hub.docker.com/repositories) 中访问您的仓库，您将在那里看到您新的镜像。记住，Docker Hub 仓库在默认情况下是公开的。
+    在 [Docker Hub](https://hub.docker.com/repositories) 中访问您的仓库，您将在那里看到您新的镜像。记住，Docker Hub 仓库在默认情况下是公开的。
 
-> 推送遇到麻烦？请记住，您必须通过 Docker Desktop 或命令行登录到 Docker Hub，并且必须按照上述步骤正确命名您的镜像。如果推送看起来有效，但在 Docker Hub 中看不到新的镜像，请在几分钟后刷新浏览器，然后再次检查。
+    > 推送遇到麻烦？请记住，您必须通过 Docker Desktop 或命令行登录到 Docker Hub，并且必须按照上述步骤正确命名您的镜像。如果推送看起来有效，但在 Docker Hub 中看不到新的镜像，请在几分钟后刷新浏览器，然后再次检查。
 
 ## 结论
 
