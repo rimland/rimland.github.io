@@ -70,4 +70,4 @@ docker push <Your Docker ID>/bulletinboard:1.0
 > 作者 ： Docker 官网 <br/>
 > 译者 ： 技术译民 <br/>
 > 出品 ： [技术译站](https://ittranslator.cn/) <br/>
-> 链接 ： [英文原文](https://docs.docker.com/get-started/part2/)
+> 链接 ： [英文原文](https://docs.docker.com/get-started/part3/)
