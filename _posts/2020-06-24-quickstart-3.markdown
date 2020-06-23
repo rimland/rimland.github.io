@@ -37,7 +37,7 @@ published: true
 
     ![make a repo](/assets/images/docker-repository-newrepo.png)
 
-3. 您现在已经准备好在 Docker Hub 上共享镜像了，但是，必须先做一件事：镜像必须正确地设置命名空间，才能在 Docker Hub 上共享。具体来说，您必须将镜像命名为：`<Your Docker ID>/<Repository Name>:<tag>`。
+3. 您现在已经准备好在 Docker Hub 上共享镜像了，但是，必须先做一件事：镜像必须正确地设置命名空间，才能在 Docker Hub 上共享。具体来说，您必须将镜像命名为：<br/> `<Your Docker ID>/<Repository Name>:<tag>` 。
 
     请确保您在终端或者 PowerShell 中的 `node-bulletin-board/bulletin-board-app` 目录下，然后运行：
 
@@ -47,7 +47,7 @@ published: true
 
 4. 最后，将您的镜像推送到 Docker Hub：
 
-    ```
+    ```BASH
     docker push <Your Docker ID>/bulletinboard:1.0
     ```
 
