@@ -34,7 +34,7 @@ See 'C:\Program Files\Docker\Docker\resources\bin\docker.exe run --help'.
 
 1. 打开阿里云 [容器镜像服务 ACR](https://www.aliyun.com/product/acr) 
 2. 点击“管理控制台”，登录阿里云账号（如果没有账号，需先注册一个）。
-3. 左侧菜单导致到“镜像中心” --> "镜像加速器"，可以看到加速器地址及操作文档（有 Ubuntu、CentOS、Mac、Windows 各系统针对性的文档）。
+3. 左侧菜单导航到“镜像中心” --> "镜像加速器"，可以看到加速器地址及操作文档（有 Ubuntu、CentOS、Mac、Windows 各系统针对性的文档）。
 
 针对安装了 Docker for Windows 的用户，您可以参考以下配置步骤：
 在系统右下角托盘图标内右键菜单选择 Settings，打开配置窗口后左侧导航菜单选择 Docker Engine。编辑窗口内的JSON串，填写下方加速器地址：
