@@ -63,7 +63,7 @@ published: true
 
 ## 下一步做什么
 
-我们建议您看一下 [Develop with Docker](https://docs.docker.com/develop/) 中的主题，学习如何使用 Docker 开发您自己的应用程序。
+我们建议您看一下 [Develop with Docker](https://ittranslator.cn/backend/docker/2020/06/25/develop-with-docker.html) 中的主题，学习如何使用 Docker 开发您自己的应用程序。
 
 <br/>
 
