@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "为 Docker 配置镜像加速器（TLS handshake timeout）"
+title:  "为 Docker 配置镜像加速器（解决 TLS handshake timeout 问题）"
 date:   2020-06-26 03:00:00 +0800
 categories: backend docker
 published: true
