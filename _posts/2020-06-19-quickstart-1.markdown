@@ -52,13 +52,17 @@ Docker Desktop 是一款适用于 Mac 或 Windows 环境的易于安装的应用
 - [Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/install/)
 - [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/install/)
 
+> Docker 官网下载 Docker Desktop for Windows 可能比较慢，可以到百度云盘下载：<br/>
+> 链接：[https://pan.baidu.com/s/1HytCMXykgvaKfNFkPAb3gA](https://pan.baidu.com/s/1HytCMXykgvaKfNFkPAb3gA) <br/>
+> 提取码：p1ha
+
 ### 检验 Docker 版本
 
 成功安装 Docker Desktop 后，打开一个终端，运行 `docker --version` 来检查机器上安装的 Docker 版本。
 
 ```BASH
 $ docker --version
-Docker version 19.03.5, build 633a0ea
+Docker version 19.03.8, build afacb8b
 ```
 
 ### 检验 Docker 安装结果
