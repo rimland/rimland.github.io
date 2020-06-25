@@ -16,7 +16,7 @@ published: true
 
 如果你刚刚开始在 Docker 上开发一个全新的应用程序，请参阅这些资源，了解从 Docker 获得最大的收益的一些最常见的模式。
 
-- 使用多[阶段构建](https://docs.docker.com/develop/develop-images/multistage-build/)来保持你的镜像简洁
+- 使用[多阶段构建](https://docs.docker.com/develop/develop-images/multistage-build/)来保持你的镜像简洁
 - 使用[卷](https://docs.docker.com/storage/volumes/)和[绑定挂载](https://docs.docker.com/storage/bind-mounts/)管理应用程序数据
 - [使用 Kubernetes 扩展你的应用程序](https://docs.docker.com/get-started/kube-deploy/)
 - [将你的应用程序扩展为集群服务](https://docs.docker.com/get-started/swarm-deploy/)
