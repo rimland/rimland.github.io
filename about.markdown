@@ -20,7 +20,7 @@ You can find the source code for Jekyll at GitHub:
 
 **不做标题党，只分享技术干货**
 <br />
-> [**Charles Scalfani**](https://medium.com/@cscalfani/why-is-learning-functional-programming-so-damned-hard-bfd00202a7d1) <br/><br/>
+> [**Charles Scalfani:**](https://medium.com/@cscalfani/why-is-learning-functional-programming-so-damned-hard-bfd00202a7d1) <br/><br/>
 > Too many people on the Internet pose as experts. Most mean well.
 > <br/><br/>
 > Many people think they understand something right up until the point they have to explain or teach it to someone else. That’s what separates the wheat from the chaff. And far too many who teach are chaff.
