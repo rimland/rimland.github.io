@@ -18,7 +18,9 @@ You can find the source code for Jekyll at GitHub:
 [jekyll-organization]: https://github.com/jekyll
 -->
 
-> [***Charles Scalfani***](https://medium.com/@cscalfani/why-is-learning-functional-programming-so-damned-hard-bfd00202a7d1) <br/><br/>
+**不做标题党，只分享技术干货**
+
+> [**Charles Scalfani**](https://medium.com/@cscalfani/why-is-learning-functional-programming-so-damned-hard-bfd00202a7d1) <br/><br/>
 > Too many people on the Internet pose as experts. Most mean well.
 > <br/><br/>
 > Many people think they understand something right up until the point they have to explain or teach it to someone else. That’s what separates the wheat from the chaff. And far too many who teach are chaff.
@@ -28,9 +30,6 @@ You can find the source code for Jekyll at GitHub:
 <br />
 
 翻译和分享一些 IT 技术文章
-
-<br />
-**不做标题党，只分享技术干货**
 
 <br />
 微信公众号：**技术译站**， 搜索公众号或者扫描下面二维码可关注
