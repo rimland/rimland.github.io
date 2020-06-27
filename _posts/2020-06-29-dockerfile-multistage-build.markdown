@@ -3,7 +3,7 @@ layout: post
 title:  "使用 Docker 开发 - 使用多阶段构建"
 date:   2020-06-29 21:00:00 +0800
 categories: backend docker
-published: false
+published: true
 ---
 
 多阶段构建是一个新特性，需要 Docker 17.05 或更高版本的守护进程和客户端。对于那些努力优化 Dockerfiles 并使其易于阅读和维护的人来说，多阶段构建非常有用。
@@ -63,8 +63,6 @@ rm ./app
 
 ## 使用多阶段构建
 
-With multi-stage builds, you use multiple FROM statements in your Dockerfile. Each FROM instruction can use a different base, and each of them begins a new stage of the build. You can selectively copy artifacts from one stage to another, leaving behind everything you don’t want in the final image. To show how this works, let’s adapt the Dockerfile from the previous section to use multi-stage builds.
-
 对于多阶段构建，可以在 Dockerfile 中使用多个 `FROM` 语句。每个 `FROM` 指令都可以使用不同的基镜像，并且它们都开始了构建的新阶段。您可以选择性地将工件从一个阶段复制到另一个阶段，舍弃在最终镜像中您不想要的所有内容。为了说明这是如何工作的，让我们使用多阶段构建调整前一节中的 Dockerfile。
 
 `Dockerfile`：
@@ -83,8 +81,6 @@ COPY --from=0 /go/src/github.com/alexellis/href-counter/app .
 CMD ["./app"]  
 ```
 
-You only need the single Dockerfile. You don’t need a separate build script, either. Just run docker build.
-
 您只需要一个 Dockerfile。您也不需要单独的构建脚本。只要运行 `docker build`。
 
 ```BASH
@@ -97,14 +93,59 @@ $ docker build -t alexellis2/href-counter:latest .
 
 ## 为构建阶段命名
 
+默认情况下，没有对阶段进行命名，可以通过它们的整数来引用它们，`FROM` 指令的第一个整数从 0 开始。但是，您可以通过添加一个 `AS <NAME>` 到 `FROM` 指令来命名阶段。此示例通过命名阶段并在 `COPY` 指令中使用名称改进了前面一个示例。这意味着，即使 Dockerfile 中的指令稍后被重新排序，`COPY` 也不会破坏。
 
+```BASH
+FROM golang:1.7.3 AS builder
+WORKDIR /go/src/github.com/alexellis/href-counter/
+RUN go get -d -v golang.org/x/net/html  
+COPY app.go    .
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .
 
+FROM alpine:latest  
+RUN apk --no-cache add ca-certificates
+WORKDIR /root/
+COPY --from=builder /go/src/github.com/alexellis/href-counter/app .
+CMD ["./app"]  
+```
 
+## 在特定的构建阶段停止
 
+在构建映像时，不必构建包括每个阶段的整个 Dockerfile。你可以指定目标构建阶段。以下命令假设你正在使用之前的 `Dockerfile`，但是在名为 `builder` 的阶段停止：
 
+```BASH
+$ docker build --target builder -t alexellis2/href-counter:latest .
+```
 
+这可能非常强有力的几个场景是：
+- 调试一个特定的构建阶段
+- 使用一个启用了所有调试符号或工具的 `调试(debug)` 阶段和一个精益的 `生产(production)` 阶段
+- 使用一个`测试(testing)`阶段，在这个阶段你的应用会被测试数据填充，但是在构建产品时，使用一个使用真实的数据的不同阶段。
 
+## 使用外部镜像作为“阶段”
 
+当使用多阶段构建时，您不受限于从 Dockerfile 中先前创建的阶段进行复制。您可以使用 `COPY --from` 指令从单独的镜像中进行复制，可以使用本地镜像名称、本地或 Docker 注册表上可用的标签或标签 ID。Docker 客户端会在必要时拉取镜像并从中复制工件。语法是：
+
+```BASH
+COPY --from=nginx:latest /etc/nginx/nginx.conf /nginx.conf
+```
+
+## 把以前的阶段作为新的阶段
+
+在使用 `FROM` 指令时，您可以引用前一阶段的内容。例如：
+
+```BASH
+FROM alpine:latest as builder
+RUN apk --no-cache add build-base
+
+FROM builder as build1
+COPY source1.cpp source.cpp
+RUN g++ -o /binary source.cpp
+
+FROM builder as build2
+COPY source2.cpp source.cpp
+RUN g++ -o /binary source.cpp
+```
 
 
 <br/>
