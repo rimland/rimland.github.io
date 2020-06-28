@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "使用 Docker 开发 - 使用多阶段构建"
+title:  "使用 Docker 开发 - 使用多阶段构建镜像"
 date:   2020-06-29 21:00:00 +0800
 categories: backend docker
 published: true
