@@ -18,7 +18,7 @@ published: true
 
 如果您没有 Docker ID，请按照以下步骤创建一个。Docker ID 允许你在 Docker Hub 上共享镜像。
 
-- 访问 [Docker Hub](https://hub.docker.com/signup) 登录页。
+- 访问 [Docker Hub](https://hub.docker.com/signup) 注册页。
 - 填写表单并提交创建您的 Docker ID。
 - 验证您的电子邮件地址，以完成注册流程。
 - 单击工具栏或系统托盘中的 Docker 图标，然后单击 **登录/创建 Docker ID**(*Sign in / Create Docker ID*)。
