@@ -3,7 +3,7 @@ layout: post
 title:  "Docker 基础知识 - 使用卷（volumes）管理应用程序数据"
 date:   2020-07-02 21:00:00 +0800
 categories: backend docker
-published: true
+published: false
 ---
 
 卷（volumes）是 Docker 容器生产和使用持久化数据的首选机制。[绑定挂载（bind mounts）](https://docs.docker.com/storage/bind-mounts/)依赖于主机的目录结构，卷（volumes）完全由 Docker 管理。卷与绑定挂载相比有几个优势：
