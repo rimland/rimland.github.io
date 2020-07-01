@@ -39,11 +39,162 @@ The biggest difference is that the -v syntax combines all the options together i
   - 第二个字段是文件或目录在容器中挂载的路径。
   - 第三个字段是可选的，是一个逗号分隔的选项列表，比如 `ro`。这些选项会在下面讨论。(These options are discussed below.)
 - `--mount`：由多个键-值对组成，以逗号分隔，每个键-值对由一个 `<key>=<value>` 元组组成。`--mount` 语法比 `-v` 或 `--volume` 更冗长，但是键的顺序并不重要，而且标记的值更容易理解。
+  - 挂载的类型（`type`），可以是 `bind`、`volume` 或者 `tmpfs`。本主题讨论卷（volume），因此类型（`type`）始终为卷（`volume`）。
+  - 挂载的源（`source`），对于命名卷，这是卷的名称。对于匿名卷，此字段被省略。可以用 `source` 或者 `src` 来指定。
+  - 目标（`destination`），将容器中挂载的文件或目录的路径作为其值。可以用 `destination`、`dst` 或者 `target` 来指定。
+  - `readonly` 选项（如果存在），则会将绑定挂载以[只读形式挂载到容器](https://docs.docker.com/storage/volumes/#use-a-read-only-volume)中。
+  - `volume-opt` 选项，可以被指定多次，接受由选项名及其值组成的键-值对。
 
+> **从外部CSV解析器转义值**
+> 
+> 如果卷驱动程序接受以逗号分隔的列表作为选项，则必须从外部CSV解析器转义该值。要转义 `volume-opt`, 请使用双引号(")将其括起来，并使用单引号(')将整个挂载参数括起来。例如，本地驱动程序在参数 `o` 中接受以逗号分隔的列表作为挂载选项。下面这个例子展示了转义列表的正确写法。
+>  ```bash
+>  $ docker service create \
+>      --mount 'type=volume,src=<VOLUME-NAME>,dst=<CONTAINER-PATH>,volume-driver=local,volume-opt=type=nfs,volume-opt=device=<nfs-server>:<nfs-path>,"volume-opt=o=addr=<nfs-address>,vers=4,soft,timeo=180,bg,tcp,rw"'
+>      --name myservice \
+>      <IMAGE>
+>  ```
+> &nbsp;
 
+The examples below show both the --mount and -v syntax where possible, and --mount is presented first.
+下面的示例尽可能展示了 `--mount` 和 `-v` 语法，首先介绍 `--mount`。
 
+### `-v` 和 `--mount` 行为之间的差异
 
+与绑定挂载不同，卷的所有选项对于 `--mount` 和 `-v` 标记都可用。
 
+当卷与服务一起使用时，只有 `--mount` 支持。
+
+## 创建和管理卷
+
+与绑定挂载不同，您可以在任何容器的作用域之外创建和管理卷。
+
+创建一个卷：
+
+```bash
+$ docker volume create my-vol
+```
+
+卷列表：
+
+```bash
+$ docker volume ls
+# 输出结果：
+local               my-vol
+```
+
+检查卷：
+
+```bash
+$ docker volume inspect my-vol
+# 输出结果：
+[
+    {
+        "Driver": "local",
+        "Labels": {},
+        "Mountpoint": "/var/lib/docker/volumes/my-vol/_data",
+        "Name": "my-vol",
+        "Options": {},
+        "Scope": "local"
+    }
+]
+```
+
+删除卷：
+
+```bash
+$ docker volume rm my-vol
+```
+
+## 启动一个带有卷的容器
+
+如果您启动的容器的卷还不存在，Docker 将为您创建这个卷。下面的示例将卷 `myvol2` 挂载到容器中的 `/app/` 中。
+
+下面的 `-v` 和 `--mount` 示例会产生相同的结果。除非在运行第一个示例之后删除了 `devtest` 容器和 `myvol2` 卷，否则不能同时运行它们。
+
+`--mount`：
+
+```bash
+$ docker run -d \
+  --name devtest \
+  --mount source=myvol2,target=/app \
+  nginx:latest
+```
+
+`-v`：
+
+```bash
+$ docker run -d \
+  --name devtest \
+  -v myvol2:/app \
+  nginx:latest
+```
+
+使用 `docker inspect devtest` 验证卷的创建和挂载是否正确。查看 Mounts 部分：
+
+```bash
+"Mounts": [
+    {
+        "Type": "volume",
+        "Name": "myvol2",
+        "Source": "/var/lib/docker/volumes/myvol2/_data",
+        "Destination": "/app",
+        "Driver": "local",
+        "Mode": "",
+        "RW": true,
+        "Propagation": ""
+    }
+],
+```
+
+这表明挂载是一个卷，它显示了正确的源和目标，并且挂载是可读写的。
+
+停止容器并删除卷。注意删除卷是一个单独的步骤。
+
+```bash
+$ docker container stop devtest
+
+$ docker container rm devtest
+
+$ docker volume rm myvol2
+```
+
+### 启动带有卷的服务
+
+启动服务并定义卷时，每个服务容器都使用自己的本地卷。 如果使用本地（`local`）卷驱动程序，则没有任何容器可以共享此数据，但某些卷驱动程序确实支持共享存储。Docker for AWS 和Docker for Azure 都支持使用 Cloudstor 插件的持久存储。
+
+下面的示例使用四个副本启动 `nginx` 服务，每个副本使用一个名为 `myvol2` 的本地卷。
+
+```bash
+$ docker service create -d \
+  --replicas=4 \
+  --name devtest-service \
+  --mount source=myvol2,target=/app \
+  nginx:latest
+```
+
+使用 `docker service ps devtest-service` 验证服务是否正在运行：
+
+```bash
+$ docker service ps devtest-service
+
+ID                  NAME                IMAGE               NODE                DESIRED STATE       CURRENT STATE            ERROR               PORTS
+4d7oz1j85wwn        devtest-service.1   nginx:latest        moby                Running             Running 14 seconds ago
+```
+
+删除服务，该服务将停止其所有任务：
+
+```bash
+$ docker service rm devtest-service
+```
+
+删除服务不会删除该服务创建的任何卷。删除卷是一个单独的步骤。
+
+#### 服务的语法差异
+
+`docker service create` 命令不支持 `-v` 或 `--volume` 标记，在将卷挂载到服务的容器中时，必须使用 `--mount` 标记。
+
+### 使用容器填充卷
 
 
 
