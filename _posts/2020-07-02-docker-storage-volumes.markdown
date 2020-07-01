@@ -110,7 +110,7 @@ $ docker volume rm my-vol
 
 如果您启动的容器的卷还不存在，Docker 将为您创建这个卷。下面的示例将卷 `myvol2` 挂载到容器中的 `/app/` 中。
 
-下面的 `-v` 和 `--mount` 示例会产生相同的结果。除非在运行第一个示例之后删除了 `devtest` 容器和 `myvol2` 卷，否则不能同时运行它们。
+下面的 `--mount` 和 `-v` 示例会产生相同的结果。除非在运行第一个示例之后删除了 `devtest` 容器和 `myvol2` 卷，否则不能同时运行它们。
 
 `--mount`：
 
@@ -196,8 +196,41 @@ $ docker service rm devtest-service
 
 ### 使用容器填充卷
 
+如果您启动了一个创建新卷的容器，如上所述，并且该容器在要挂载的目录(例如上面的 `/app/`)中有文件或目录，那么该目录的内容将复制到新卷中。然后容器挂载并使用该卷，使用该卷的其他容器也可以访问预填充的内容。
 
+为了说明这一点，这个例子启动了一个 `nginx` 容器，并用容器的 `/usr/share/nginx/html` 目录中的内容填充新的卷 `nginx-vol`，Nginx 在其中存储默认的 HTML 内容。
 
+下面的 `--mount` 和 `-v` 示例具有相同的最终结果。
+
+`--mount`：
+
+```bash
+$ docker run -d \
+  --name=nginxtest \
+  --mount source=nginx-vol,destination=/usr/share/nginx/html \
+  nginx:latest
+```
+
+`-v`：
+
+```bash
+$ docker run -d \
+  --name=nginxtest \
+  -v nginx-vol:/usr/share/nginx/html \
+  nginx:latest
+```
+
+运行两个示例中的任何一个之后，运行以下命令来清理容器和卷。注意：删除卷是一个单独的步骤。
+
+```bash
+$ docker container stop nginxtest
+
+$ docker container rm nginxtest
+
+$ docker volume rm nginx-vol
+```
+
+## 使用只读卷
 
 
 
