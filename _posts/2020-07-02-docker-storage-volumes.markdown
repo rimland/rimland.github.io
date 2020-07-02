@@ -232,19 +232,159 @@ $ docker volume rm nginx-vol
 
 ## 使用只读卷
 
+对于某些开发应用程序，容器需要写入绑定挂载，以便更改传播回 Docker 主机。在其他时候，容器只需要对数据进行读访问。记住，多个容器可以挂载相同的卷，并且可以对其中一些容器以读写方式挂载，而对其他容器以只读方式挂载。
 
+这个示例修改了上面的示例，但是通过在容器内的挂载点之后的选项列表（默认为空）中添加 `ro`，将目录挂载为只读卷。当有多个选项时，请用逗号分隔它们。
 
+下面 `--mount` 和 `-v` 示例有相同的结果。
 
+`--mount`：
 
+```bash
+$ docker run -d \
+  --name=nginxtest \
+  --mount source=nginx-vol,destination=/usr/share/nginx/html,readonly \
+  nginx:latest
+```
 
+`-v`：
 
+```bash
+$ docker run -d \
+  --name=nginxtest \
+  -v nginx-vol:/usr/share/nginx/html:ro \
+  nginx:latest
+```
 
+使用 `docker inspect nginxtest` 验证是否正确创建了只读挂载。查看 `Mounts` 部分：
 
+```bash
+"Mounts": [
+    {
+        "Type": "volume",
+        "Name": "nginx-vol",
+        "Source": "/var/lib/docker/volumes/nginx-vol/_data",
+        "Destination": "/usr/share/nginx/html",
+        "Driver": "local",
+        "Mode": "",
+        "RW": false,
+        "Propagation": ""
+    }
+],
+```
 
+停止并删除容器，再删除卷。删除卷是一个单独的步骤。
 
+```bash
+$ docker container stop nginxtest
 
+$ docker container rm nginxtest
 
+$ docker volume rm nginx-vol
+```
 
+## 在机器之间共享数据
+
+在构建故障容错的应用程序时，您可能需要配置同一服务的多个副本，以访问相同的文件。
+
+![volumes-shared-storage](/assets/images/docker-volumes-shared-storage.png)
+
+在开发应用程序时，有几种方法可以实现这一点。一种方法是向您的应用程序添加逻辑，在云对象存储系统（如 Amazon S3）上存储文件。另一个方法是使用支持将文件写入外部存储系统（如 NFS 或 Amazon S3）的驱动程序来创建卷。
+
+卷驱动程序使您可以从应用程序逻辑中抽象底层存储系统。例如，如果您的服务使用带有 NFS 驱动程序的卷，那么您可以更新服务以使用其他的驱动程序（例如，将数据存储在云中），而无需更改应用程序逻辑。
+
+## 使用卷驱动程序
+
+When you create a volume using `docker volume create`, or when you start a container which uses a not-yet-created volume, you can specify a volume driver. The following examples use the `vieux/sshfs` volume driver, first when creating a standalone volume, and then when starting a container which creates a new volume.
+
+当您使用 `docker volume create` 创建卷时，或者当您启动使用尚未创建的卷的容器时，可以指定一个卷驱动程序。
+下面的示例首先在创建独立卷时使用 `vieux/sshfs` 卷驱动程序，然后在启动创建新卷的容器时使用。
+
+### 初始设置
+
+This example assumes that you have two nodes, the first of which is a Docker host and can connect to the second using SSH.
+
+这个示例假定您有两个节点，第一个节点是 Docker 主机，可以使用 SSH 连接到第二个节点。
+
+在 Docker 主机上，安装 `vieux/sshfs` 插件：
+
+```bash
+$ docker plugin install --grant-all-permissions vieux/sshfs
+```
+
+### 使用卷驱动程序创建卷
+
+本例指定了一个 SSH 密码，但是如果两个主机配置了共享密钥，则可以省略该密码。每个卷驱动程序可能有零个或多个可配置选项，每个选项都使用 `-o` 标记指定。
+
+```bash
+$ docker volume create --driver vieux/sshfs \
+  -o sshcmd=test@node2:/home/test \
+  -o password=testpassword \
+  sshvolume
+```
+
+### 启动使用卷驱动程序创建卷的容器
+
+本例指定了一个 SSH 密码，但是如果两个主机配置了共享密钥，则可以省略该密码。每个卷驱动程序可能有零个或多个可配置选项。如果卷驱动程序要求您传递选项，则必须使用 `--mount` 标记挂载卷，而不是使用 `-v`。
+
+```bash
+$ docker run -d \
+  --name sshfs-container \
+  --volume-driver vieux/sshfs \
+  --mount src=sshvolume,target=/app,volume-opt=sshcmd=test@node2:/home/test,volume-opt=password=testpassword \
+  nginx:latest
+```
+
+### 创建创建 NFS 卷的服务
+
+此示例显示如何在创建服务时创建 NFS 卷。本例使用 `10.0.0.10` 作为 NFS 服务器，使用 `/var/docker-nfs` 作为 NFS 服务器上的出口目录。请注意，指定的卷驱动程序是 `local`。
+
+#### NFSV3
+
+```bash
+$ docker service create -d \
+  --name nfs-service \
+  --mount 'type=volume,source=nfsvolume,target=/app,volume-driver=local,volume-opt=type=nfs,volume-opt=device=:/var/docker-nfs,volume-opt=o=addr=10.0.0.10' \
+  nginx:latest
+```
+
+#### NFSV4
+
+```bash
+docker service create -d \
+    --name nfs-service \
+    --mount 'type=volume,source=nfsvolume,target=/app,volume-driver=local,volume-opt=type=nfs,volume-opt=device=:/var/docker-nfs,"volume-opt=o=10.0.0.10,rw,nfsvers=4,async"' \
+    nginx:latest
+```
+
+## 备份、还原或迁移数据卷
+
+Volumes are useful for backups, restores, and migrations. Use the `--volumes-from` flag to create a new container that mounts that volume.
+
+卷对于备份、还原和迁移非常有用。使用 `--volumes-from` 标记创建一个挂载该卷的新容器。
+
+### 备份容器
+
+例如，创建一个名为 `dbstore` 的新容器：
+
+```bash
+$ docker run -v /dbdata --name dbstore ubuntu /bin/bash
+```
+
+然后在下一条命令中，我们：
+
+Launch a new container and mount the volume from the `dbstore` container
+Mount a local host directory as /backup
+Pass a command that tars the contents of the `dbdata` volume to a `backup.tar` file inside our `/backup` directory.
+
+- 启动一个新容器并从 `dbstore` 容器挂载卷
+~~- 启动一个新容器并挂载 `dbstore` 容器的卷~~
+- 挂载本地主机目录作为 `/backup`
+- 传递一个命令，将 `dbdata` 卷的内容压缩到 `backup.tar` 文件，位于我们的 `/backup` 目录中。
+
+```bash
+$ docker run --rm --volumes-from dbstore -v $(pwd):/backup ubuntu tar cvf /backup/backup.tar /dbdata
+```
 
 
 <br/>
