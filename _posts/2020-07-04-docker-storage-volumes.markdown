@@ -1,9 +1,9 @@
 ---
 layout: post
 title:  "Docker 基础知识 - 使用卷（volumes）管理应用程序数据"
-date:   2020-07-02 21:00:00 +0800
+date:   2020-07-04 21:00:00 +0800
 categories: backend docker
-published: false
+published: true
 ---
 
 卷（volumes）是 Docker 容器生产和使用持久化数据的首选机制。[绑定挂载（bind mounts）](https://docs.docker.com/storage/bind-mounts/)依赖于主机的目录结构，卷（volumes）完全由 Docker 管理。卷与绑定挂载相比有几个优势：
@@ -373,18 +373,61 @@ $ docker run -v /dbdata --name dbstore ubuntu /bin/bash
 
 然后在下一条命令中，我们：
 
-Launch a new container and mount the volume from the `dbstore` container
-Mount a local host directory as /backup
-Pass a command that tars the contents of the `dbdata` volume to a `backup.tar` file inside our `/backup` directory.
-
 - 启动一个新容器并从 `dbstore` 容器挂载卷
-~~- 启动一个新容器并挂载 `dbstore` 容器的卷~~
-- 挂载本地主机目录作为 `/backup`
-- 传递一个命令，将 `dbdata` 卷的内容压缩到 `backup.tar` 文件，位于我们的 `/backup` 目录中。
+- 挂载一个本地主机目录作为 `/backup`
+- 传递一个命令，将 `/dbdata` 卷的内容压缩到目录 `/backup` 中的 `backup.tar` 文件。
 
 ```bash
 $ docker run --rm --volumes-from dbstore -v $(pwd):/backup ubuntu tar cvf /backup/backup.tar /dbdata
 ```
+
+当命令完成且容器停止时，我们留下了 `dbdata` 卷的一个备份。
+
+### 从备份中还原容器
+
+使用刚刚创建的备份，您可以将其还原到同一个容器，或者其他地方创建的容器。
+
+例如，创建一个名为 `dbstore2` 的新容器：
+
+```bash
+$ docker run -v /dbdata --name dbstore2 ubuntu /bin/bash
+```
+
+然后解压新容器的数据卷中的备份文件：
+
+```bash
+$ docker run --rm --volumes-from dbstore2 -v $(pwd):/backup ubuntu bash -c "cd /dbdata && tar xvf /backup/backup.tar --strip 1"
+```
+
+您可以使用上述技术，使用您喜欢的工具自动执行备份、迁移和还原测试。
+
+## 删除卷
+
+当删除容器后，Docker 数据卷仍然存在。有两种类型的卷需要考虑：
+
+- 命名卷具有来自容器外部的特定源，例如 `awesome:/bar`。
+- 匿名卷没有特定的源，因此当容器被删除时，指示 Docker Engine 守护进程删除它们。
+
+### 删除匿名卷
+
+要自动删除匿名卷，请使用 `--rm` 选项。例如，这个命令创建一个匿名的 `/foo` 卷。当容器被删除时，Docker引擎会删除 `/foo` 卷，但不会删除 `awesome` 卷。
+
+```bash
+$ docker run --rm -v /foo -v awesome:/bar busybox top
+```
+
+### 删除所有卷
+
+要删除所有未使用的卷并释放空间，请执行以下操作：
+
+```bash
+$ docker volume prune
+```
+
+
+
+
+
 
 
 <br/>
