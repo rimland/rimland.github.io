@@ -424,12 +424,6 @@ $ docker run --rm -v /foo -v awesome:/bar busybox top
 $ docker volume prune
 ```
 
-
-
-
-
-
-
 <br/>
 
 > 作者 ： Docker 官网 <br/>
