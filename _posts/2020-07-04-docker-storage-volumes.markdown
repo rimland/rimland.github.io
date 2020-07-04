@@ -53,7 +53,6 @@ published: true
 >      --name myservice \
 >      <IMAGE>
 >  ```
-> &nbsp;
 
 The examples below show both the --mount and -v syntax where possible, and --mount is presented first.
 下面的示例尽可能展示了 `--mount` 和 `-v` 语法，首先介绍 `--mount`。
