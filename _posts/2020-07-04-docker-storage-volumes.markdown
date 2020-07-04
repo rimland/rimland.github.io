@@ -35,11 +35,11 @@ published: true
   - 对于命名卷，第一个字段是卷的名称，在给定的主机上是惟一的。对于匿名卷，省略第一个字段。
   - 第二个字段是容器中文件或目录挂载的路径。
   - 第三个字段是可选的，是一个逗号分隔的选项列表，比如 `ro`。这些选项会在本文下面讨论。
-- `--mount`：由多个键-值对组成，以逗号分隔，每个键-值对由一个 `<key>=<value>` 元组组成。`--mount` 语法比 `-v` 或 `--volume` 更冗长，但是键的顺序并不重要，而且标记的值更容易理解。
+- `--mount`：由多个键-值对组成，以逗号分隔，每个键-值对由一个 `<key>=<value>` 元组组成。`--mount` 语法比 `-v` 或 `--volume` 更冗长，但是键的顺序并不重要，标记的值也更容易理解。
   - 挂载的类型（`type`），可以是 `bind`、`volume` 或者 `tmpfs`。本主题讨论卷（volume），因此类型（`type`）始终为卷（`volume`）。
   - 挂载的源（`source`），对于命名卷，这是卷的名称。对于匿名卷，此字段被省略。可以用 `source` 或者 `src` 来指定。
-  - 目标（`destination`），将容器中挂载的文件或目录的路径作为其值。可以用 `destination`、`dst` 或者 `target` 来指定。
-  - `readonly` 选项（如果存在），则会将绑定挂载以[只读形式挂载到容器](https://docs.docker.com/storage/volumes/#use-a-read-only-volume)中。
+  - 目标（`destination`），将容器中文件或目录挂载的路径作为其值。可以用 `destination`、`dst` 或者 `target` 来指定。
+  - `readonly` 选项（如果存在），则会将绑定挂载以[只读形式挂载到容器](#use-a-read-only-volume)中。
   - `volume-opt` 选项，可以被指定多次，接受由选项名及其值组成的键-值对。
 
 > **从外部CSV解析器转义值**
@@ -227,7 +227,7 @@ $ docker container rm nginxtest
 $ docker volume rm nginx-vol
 ```
 
-## 使用只读卷
+## <span id="use-a-read-only-volume">使用只读卷</span>
 
 对于某些开发应用程序，容器需要写入绑定挂载，以便更改传播回 Docker 主机。在其他时候，容器只需要对数据进行读访问。记住，多个容器可以挂载相同的卷，并且可以对其中一些容器以读写方式挂载，而对其他容器以只读方式挂载。
 
