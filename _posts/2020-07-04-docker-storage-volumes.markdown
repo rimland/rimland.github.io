@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Docker 基础知识 - 使用卷管理应用程序数据"
+title:  "Docker 基础知识 - 使用卷(volume)管理应用程序数据"
 date:   2020-07-04 17:00:00 +0800
 categories: backend docker
 published: true
