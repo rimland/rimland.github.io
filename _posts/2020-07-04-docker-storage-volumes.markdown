@@ -42,9 +42,11 @@ published: true
   - `readonly` 选项（如果存在），则会将绑定挂载以[只读形式挂载到容器](#use-a-read-only-volume)中。
   - `volume-opt` 选项，可以被指定多次，接受由选项名及其值组成的键-值对。
 
-> **从外部CSV解析器转义值**
+> **从外部 CSV 解析器转义值**
 > 
-> 如果卷驱动程序接受以逗号分隔的列表作为选项，则必须从外部CSV解析器转义该值。要转义 `volume-opt`, 请使用双引号(")将其括起来，并使用单引号(')将整个挂载参数括起来。例如，本地驱动程序在参数 `o` 中接受以逗号分隔的列表作为挂载选项。下面这个例子展示了转义列表的正确写法。
+> 如果卷驱动程序接受以逗号分隔的列表作为选项，则必须从外部 CSV 解析器转义该值。要转义 `volume-opt`, 请使用双引号(")将其括起来，并使用单引号(')将整个挂载参数括起来。
+> 
+> 例如，本地(`local`)驱动程序在参数 `o` 中接受以逗号分隔的列表作为挂载选项。下面这个例子展示了转义列表的正确写法。
 >  ```bash
 >  $ docker service create \
 >      --mount 'type=volume,src=<VOLUME-NAME>,dst=<CONTAINER-PATH>,volume-driver=local,volume-opt=type=nfs,volume-opt=device=<nfs-server>:<nfs-path>,"volume-opt=o=addr=<nfs-address>,vers=4,soft,timeo=180,bg,tcp,rw"'
