@@ -129,7 +129,7 @@ $ docker run -d \
   nginx:latest
 ```
 
-使用 `docker inspect devtest` 验证卷的创建和挂载是否正确。查看 Mounts 部分：
+使用 `docker inspect devtest` 验证卷的创建和挂载是否正确。查看 `Mounts` 部分：
 
 ```bash
 "Mounts": [
