@@ -242,7 +242,6 @@ $ docker run -d \
 - `Z` 选项表示绑定挂载内容是私有的、非共享的。
 
 使用这些选项时要**格外**小心。使用 `Z` 选项绑定挂载系统目录(如 `/home` 或 `/usr` )会导致您的主机无法操作，您可能需要重新手动标记主机文件。
-Important: When using bind mounts with services, selinux labels (:Z and :z), as well as :ro are ignored. See moby/moby #32579 for details.
 
 > 重要提示：当对服务使用绑定挂载时，selinux 标签(`:Z` 和 `:Z`) 以及 `:ro` 将被忽略。详情请参阅 [moby/moby #32579](https://github.com/moby/moby/issues/32579)。
 
