@@ -1,9 +1,9 @@
 ---
 layout: post
 title:  "Docker 基础知识 - 使用绑定挂载(bind mounts)管理应用程序数据"
-date:   2020-07-04 17:00:00 +0800
+date:   2020-07-13 01:00:00 +0800
 categories: backend docker
-published: false
+published: true
 ---
 
 绑定挂载（bind mounts）在 Docker 的早期就已经出现了。与卷相比，绑定挂载的功能有限。当您使用绑定挂载时，主机上的文件或目录将挂载到容器中。文件或目录由其在主机上的完整或相对路径引用。相反地，当您使用卷时，在主机上 Docker 的存储目录中创建一个新目录，Docker 管理该目录的内容。
@@ -44,8 +44,6 @@ published: false
 如果使用 `--mount` 绑定挂载 Docker 主机上还不存在的文件或目录，Docker 不会自动为您创建它，而是产生一个错误。
 
 ## 启动带有绑定挂载的容器
-
- Use the following command to bind-mount the `target/` directory into your container at `/app/`. Run the command from within the `source` directory. The `$(pwd)` sub-command expands to the current working directory on Linux or macOS hosts.
 
 考虑这样一个情况：您有一个目录 `source`，当您构建源代码时，工件被保存到另一个目录 `source/target/` 中。您希望工件在容器的 `/app/` 目录可用，并希望每次在开发主机上构建源代码时，容器能访问新的构建。使用以下命令将 `target/` 目录绑定挂载到容器的 `/app/`。在 `source` 目录中运行命令。在 Linux 或 macOS 主机上，`$(pwd)` 子命令扩展到当前工作目录。
 
@@ -237,6 +235,61 @@ $ docker run -d \
 
 ## 配置 selinux 标签
 
+如果使用 `selinux` ，则可以添加 `z` 或 `Z` 选项，以修改挂载到容器中的主机文件或目录的 selinux 标签。这会影响主机上的文件或目录，并且会产生超出 Docker 范围之外的后果。
+
+- `z` 选项表示绑定挂载内容在多个容器之间共享。
+- `Z` 选项表示绑定挂载内容是私有的、非共享的。
+
+使用这些选项时要**格外**小心。使用 `Z` 选项绑定挂载系统目录(如 `/home` 或 `/usr` )会导致您的主机无法操作，您可能需要重新手动标记主机文件。
+Important: When using bind mounts with services, selinux labels (:Z and :z), as well as :ro are ignored. See moby/moby #32579 for details.
+
+> 重要提示：当对服务使用绑定挂载时，selinux 标签(`:Z` 和 `:Z`) 以及 `:ro` 将被忽略。详情请参阅 [moby/moby #32579](https://github.com/moby/moby/issues/32579)。
+
+这个示例设置了 `z` 选项来指定多个容器可以共享绑定挂载的内容：
+
+无法使用 `--mount ` 标记修改 selinux 标签。
+
+```bash
+$ docker run -d \
+  -it \
+  --name devtest \
+  -v "$(pwd)"/target:/app:z \
+  nginx:latest
+```
+
+## <span id="configure-mount-consistency-for-macos">为 macOS 配置挂载一致性</span>
+
+Docker Desktop for Mac 使用 `osxfs` 将从 macOS 共享的目录和文件传播到 Linux VM。这种传播使运行在 Docker Desktop for Mac 上的 Docker 容器可以使用这些目录和文件。
+
+默认情况下，这些共享是完全一致的，这意味着每次在 macOS 主机上或通过容器中的挂载发生写操作时，更改都会刷新到磁盘上，以便共享中的所有参与者都拥有完全一致的视图。在某些情况下，完全一致性会严重影响性能。Docker 17.05及更高版本引入了一些选项，在每个挂载、每个容器的基础上调整一致性设置。以下选项可供选择：
+
+- `consistent` 或 `default`: 完全一致性的默认设置，如上所述。
+- `delegated`: 容器运行时的挂载视图是权威的。在容器中所做的更新，在主机上可见之前，可能会有延迟。
+- `cached`: macOS 主机的挂载视图是权威的。在主机上所做的更新，在容器中可见之前，可能会有延迟。
+
+这些选项在除 macOS 之外的所有主机操作系统上都被完全忽略。
+
+`--mount` 和 `-v` 示例有相同的结果。
+
+`--mount`：
+
+```bash
+$ docker run -d \
+  -it \
+  --name devtest \
+  --mount type=bind,source="$(pwd)"/target,destination=/app,consistency=cached \
+  nginx:latest
+```
+
+`-v`：
+
+```bash
+$ docker run -d \
+  -it \
+  --name devtest \
+  -v "$(pwd)"/target:/app:cached \
+  nginx:latest
+```
 
 <br/>
 
