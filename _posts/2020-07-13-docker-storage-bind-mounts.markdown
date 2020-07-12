@@ -196,8 +196,7 @@ $ docker container rm devtest
 |  传播设置   | 描述  |
 |  ----  | ----  |
 | shared  | Sub-mounts of the original mount are exposed to replica mounts, and sub-mounts of replica mounts are also propagated to the original mount. |
-| slave  | similar to a shared mount, but only in one direction. If the original mount exposes a sub-mount, the replica mount can see it. However, if the replica  |
-| mount  | exposes a sub-mount, the original mount cannot see it. |
+| slave  | similar to a shared mount, but only in one direction. If the original mount exposes a sub-mount, the replica mount can see it. However, if the replica mount exposes a sub-mount, the original mount cannot see it. |
 | private  | The mount is private. Sub-mounts within it are not exposed to replica mounts, and sub-mounts of replica mounts are not exposed to the original mount. |
 | rshared  | The same as shared, but the propagation also extends to and from mount points nested within any of the original or replica mount points. |
 | rslave  | The same as slave, but the propagation also extends to and from mount points nested within any of the original or replica mount points. |
