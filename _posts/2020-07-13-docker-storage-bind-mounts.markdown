@@ -195,12 +195,12 @@ $ docker container rm devtest
 
 |  传播设置   | 描述  |
 |  ----  | ----  |
-| shared  | Sub-mounts of the original mount are exposed to replica mounts, and sub-mounts of replica mounts are also propagated to the original mount. |
-| slave  | similar to a shared mount, but only in one direction. If the original mount exposes a sub-mount, the replica mount can see it. However, if the replica mount exposes a sub-mount, the original mount cannot see it. |
-| private  | The mount is private. Sub-mounts within it are not exposed to replica mounts, and sub-mounts of replica mounts are not exposed to the original mount. |
-| rshared  | The same as shared, but the propagation also extends to and from mount points nested within any of the original or replica mount points. |
-| rslave  | The same as slave, but the propagation also extends to and from mount points nested within any of the original or replica mount points. |
-| rprivate  | The default. The same as private, meaning that no mount points anywhere within the original or replica mount points propagate in either direction. |
+| shared  | 原始挂载的子挂载公开给副本挂载，副本挂载的子挂载也传播给原始挂载。 |
+| slave  | 类似于共享(shared)挂载，但仅在一个方向上。如果原始挂载公开子挂载，副本挂载可以看到它。但是，如果副本挂载公开子挂载，则原始挂载无法看到它。 |
+| private  | 该挂载是私有的。原始挂载的子挂载不公开给副本挂载，副本挂载的子挂载也不公开给原始挂载。 |
+| rshared  | 与 shared 相同，但传播也扩展到嵌套在任何原始或复制挂载点中的挂载点。 |
+| rslave  | 与 slave 相同，但传播也扩展到嵌套在任何原始或复制挂载点中的挂载点。 |
+| rprivate  | 默认值。与 private 相同，这意味着原始或复制挂载点中的任何位置的挂载点都不会在任何方向传播。 |
 
 当你在挂载点上设置绑定传播之前，主机文件系统需要已经支持绑定传播。
 
