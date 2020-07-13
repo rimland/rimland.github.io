@@ -29,7 +29,7 @@ description: >- # this means to ignore newlines until "baseurl:"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://ittranslator.cn" # the base hostname & protocol for your site, e.g. http://example.com
 # twitter_username: jekyllrb
-github_username:  rimland
+# github_username:  rimland
 
 # Build settings
 theme: minima
@@ -60,7 +60,7 @@ timezone: Asia/Shanghai
 minima:
   date_format: "%Y年 %m月 %d日"
 
-rss: RSS
+# rss: RSS
 google_analytics: UA-169624459-1
 lang: zh
 
