@@ -30,18 +30,20 @@ published: true
 - `--mount`：由多个键-值对组成，，每个键-值对由一个 `<key>=<value>` 元组组成。`--mount` 语法比 `--tmpfs` 更冗长：
   - 挂载的类型（`type`），可以是 `bind`、`volume` 或者 `tmpfs`。本主题讨论 `tmpfs`，因此类型（`type`）始终为 `tmpfs`。
   - 目标（`destination`），将容器中 `tmpfs` 挂载设置的路径作为其值。可以用 `destination`、`dst` 或者 `target` 来指定。
-  - The `tmpfs-size` and `tmpfs-mode` 选项。请查看下文的 [指定 tmpfs 选项](#specify-tmpfs-options)。
+  - `tmpfs-size` 和 `tmpfs-mode` 选项。请查看下文的 [指定 tmpfs 选项](#specify-tmpfs-options)。
 
 下面的示例尽可能同时展示 `--mount` 和 `--tmpfs` 两种语法，并且先展示 `--mount`。
 
 ### `--tmpfs` 和 `--mount` 行为之间的差异
 
 - `--tmpfs` 标记不允许指定任何可配置选项。
-- `--tmpfs` 标记不能用于集群服务。您必须使用 `--mount`。
+- `--tmpfs` 标记不能用于集群服务。对于集群服务，您必须使用 `--mount`。
 
 ## 在容器中使用 tmpfs 挂载
 
-要在容器中使用 `tmpfs` 挂载， 请使用 `--tmpfs` 标记, 或者使用带有 `type=tmpfs` 和 `destination` 选项的 `--mount` 标记。没有用于 `tmpfs` 挂载的源(`source`)。 下面的示例在 Nginx 容器中的 `/app` 创建一个 `tmpfs` 挂载。第一个例子使用 `--mount` 标记，第二个使用 `--tmpfs` 标记。
+要在容器中使用 `tmpfs` 挂载， 请使用 `--tmpfs` 标记, 或者使用带有 `type=tmpfs` 和 `destination` 选项的 `--mount` 标记。没有用于 `tmpfs` 挂载的源(`source`)。 
+
+下面的示例在 Nginx 容器中的 `/app` 创建一个 `tmpfs` 挂载。第一个例子使用 `--mount` 标记，第二个使用 `--tmpfs` 标记。
 
 `--mount`：
 
@@ -89,7 +91,7 @@ $ docker container rm tmptest
 | `tmpfs-mode` | tmpfs 的八进制文件模式。例如，`700` 或 `0770`。默认为 `1777` 或全局可写。 |
 
 
-下面的示例将 `tmpfs-mode` 设置为 `1770`，因此它在容器中不是全局可读的。
+下面的示例将 `tmpfs-mode` 设置为 `1770`，因此在容器中它不是全局可读的。
 
 ```bash
 docker run -d \
