@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Docker 基础知识 - 使用 tmpfs 挂载(tmpfs mounts)管理应用程序数据"
-date:   2020-07-20 01:30:00 +0800
+date:   2020-07-20 01:00:00 +0800
 categories: backend docker
 published: true
 
