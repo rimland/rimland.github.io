@@ -4,6 +4,7 @@ title:  "Docker 基础知识 - 使用 tmpfs 挂载(tmpfs mounts)管理应用程�
 date:   2020-07-20 01:30:00 +0800
 categories: backend docker
 published: true
+
 ---
 
 [卷（volumes）](https://ittranslator.cn/backend/docker/2020/07/04/docker-storage-volumes.html) 和 [绑定挂载（bind mounts）](https://ittranslator.cn/backend/docker/2020/07/13/docker-storage-bind-mounts.html) 允许您在主机和容器之间共享文件，这样即使在容器停止后也可以持久存储数据。
@@ -62,8 +63,6 @@ $ docker run -d \
   nginx:latest
 ```
 
-Verify that the mount is a tmpfs mount by running docker container inspect tmptest and looking for the Mounts section:
-
 通过运行 `docker container inspect tmptest` 来验证挂载是否是 `tmpfs` 挂载，查看 `Mounts` 部分：
 
 ```bash
@@ -90,7 +89,7 @@ $ docker container rm tmptest
 | `tmpfs-mode` | tmpfs 的八进制文件模式。例如，`700` 或 `0770`。默认为 `1777` 或全局可写。 |
 
 
-下面的示例将 `tmpfs-mode` 设置为 `1770`，因为它在容器中不是全局可读的。
+下面的示例将 `tmpfs-mode` 设置为 `1770`，因此它在容器中不是全局可读的。
 
 ```bash
 docker run -d \
