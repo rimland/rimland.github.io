@@ -27,7 +27,7 @@ published: true
 
 - `--tmpfs`: 设置 `tmpfs` 挂载不允许您指定任何可配置选项，并且只能与独立容器一起使用。
 - `--mount`：由多个键-值对组成，，每个键-值对由一个 `<key>=<value>` 元组组成。`--mount` 语法比 `--tmpfs` 更冗长：
-  - 挂载的类型（`type`），可以是 `bind`、`volume` 或者 `tmpfs`。本主题讨 `tmpfs`，因此类型（`type`）始终为 `tmpfs`。
+  - 挂载的类型（`type`），可以是 `bind`、`volume` 或者 `tmpfs`。本主题讨论 `tmpfs`，因此类型（`type`）始终为 `tmpfs`。
   - 目标（`destination`），将容器中 `tmpfs` 挂载设置的路径作为其值。可以用 `destination`、`dst` 或者 `target` 来指定。
   - The `tmpfs-size` and `tmpfs-mode` 选项。请查看下文的 [指定 tmpfs 选项](#specify-tmpfs-options)。
 
