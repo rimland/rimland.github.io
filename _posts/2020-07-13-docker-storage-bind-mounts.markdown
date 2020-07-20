@@ -12,7 +12,7 @@ published: true
 
 ![docker-types-of-mounts-bind](/assets/images/docker-types-of-mounts-bind.png)
 
-## 选择 -v 或者 --mount 标记
+## 选择 `-v` 或者 `--mount` 标记
 
 最初，`-v` 或 `--volume` 标记用于独立容器，`--mount` 标记用于集群服务。但是，从 Docker 17.06 开始，您也可以将 `--mount` 用于独立容器。通常，`--mount` 标记表达更加明确和冗长。最大的区别是 `-v` 语法将所有选项组合在一个字段中，而 `--mount` 语法将选项分离。下面是每个标记的语法比较。
 
