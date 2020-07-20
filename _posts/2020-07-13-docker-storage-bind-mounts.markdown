@@ -16,8 +16,7 @@ published: true
 
 最初，`-v` 或 `--volume` 标记用于独立容器，`--mount` 标记用于集群服务。但是，从 Docker 17.06 开始，您也可以将 `--mount` 用于独立容器。通常，`--mount` 标记表达更加明确和冗长。最大的区别是 `-v` 语法将所有选项组合在一个字段中，而 `--mount` 语法将选项分离。下面是每个标记的语法比较。
 
-> 新用户推荐使用 `--mount` 语法，有经验的用户可能更熟悉 `-v` or `--volume` 语法，但是更鼓励使用 `--mount` 语法，因为研究表明它更易于使用。
-
+> 提示：新用户推荐使用 `--mount` 语法，有经验的用户可能更熟悉 `-v` or `--volume` 语法，但是更鼓励使用 `--mount` 语法，因为研究表明它更易于使用。
 
 
 - `-v` 或 `--volume`: 由三个字段组成，以冒号(:)分隔。字段必须按照正确的顺序排列，且每个字段的含义不够直观明显。
@@ -29,7 +28,7 @@ published: true
   - 挂载的源（`source`），对于绑定挂载，这是 Docker 守护进程主机上的文件或目录的路径。可以用 `source` 或者 `src` 来指定。
   - 目标（`destination`），将容器中文件或目录挂载的路径作为其值。可以用 `destination`、`dst` 或者 `target` 来指定。
   - `readonly` 选项（如果存在），则会将绑定挂载以[只读形式挂载到容器](#use-a-read-only-bind-mount)中。
-  - `bind-propagation` 选项（如果存在），则更改绑定传播。 可能的值是 `rprivate`、 `private`、 `rshared`、 `shared`、 `rslave` 或 `slave` 之一.
+  - `bind-propagation` 选项（如果存在），则更改[绑定传播](#configure-bind-propagation)。 可能的值是 `rprivate`、 `private`、 `rshared`、 `shared`、 `rslave` 或 `slave` 之一。
   - [`consistency`](#configure-mount-consistency-for-macos) 选项（如果存在）， 可能的值是 `consistent`、 `delegated` 或 `cached` 之一。 这个设置只适用于 Docker Desktop for Mac，在其他平台上被忽略。
   - `--mount` 标记不支持用于修改 selinux 标签的 `z` 或 `Z`选项。
 
@@ -187,7 +186,7 @@ $ docker container stop devtest
 $ docker container rm devtest
 ```
 
-## 配置绑定传播
+## <span id="configure-bind-propagation">配置绑定传播</span>
 
 对于绑定挂载和卷，绑定传播默认都是 `rprivate` 。只能为绑定挂载配置，而且只能在 Linux 主机上配置。绑定传播是一个高级主题，许多用户从不需要配置它。
 
