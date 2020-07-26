@@ -219,4 +219,4 @@ Docker Desktop 主要运行在 Docker 引擎上，它内置了运行 Swarm 所�
 > 作者 ： Docker 官网 <br/>
 > 译者 ： 技术译民 <br/>
 > 出品 ： [技术译站](https://ittranslator.cn/) <br/>
-> 链接 ： [英文原文](https://docs.docker.com/get-started/orchestration/)
+> 链接 ： [英文原文](https://docs.docker.com/get-started/kube-deploy/)
