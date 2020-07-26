@@ -1,14 +1,10 @@
 ---
 layout: post
-title:  "Docker 基础知识 - 在生产环境中运行您的应用 - 编排(Orchestration)"
+title:  "Docker 基础知识 - 在生产环境中运行您的应用 - 编排(Orchestration) - 概述"
 date:   2020-07-27 01:30:00 +0800
 categories: backend docker
-published: false
+published: true
 ---
-
-# 编排(Orchestration)
-# [总览](https://docs.docker.com/get-started/orchestration/)
-
 
 容器化流程的可移植性和可再现性意味着我们有机会跨云和数据中心移动和扩展我们的容器化应用程序。容器有效地保证了这些应用程序在任何地方都以相同的方式运行，从而使我们能够快速、轻松地利用所有这些环境。此外，随着应用程序规模的扩大，我们需要一些工具来帮助自动化这些应用程序的维护，能够自动替换失败的容器，并在这些容器的生命周期中管理更新和配置的上线。
 
@@ -31,7 +27,7 @@ Docker Desktop 将为您快速轻松地设置 Kubernetes。按照适用于您的
     > 译者注：
     > 
     > 如果看不到 **Kubernetes** 项，请右键单击系统托盘图标，选择 “Switch to Linux containers...” 后，再次导航到 **Settings** > **Kubernetes** 查看。
-3. 为了确认 Kubernetes 已经启动并正在运行，创建一个名为 `pod.yaml` 的文本文件，包括以下内容：
+3. 为了确认 Kubernetes 已经启动并正在运行，创建一个名为 `pod.yaml` 的文本文件，包含以下内容：
 
     ```yaml
     apiVersion: v1
@@ -56,7 +52,7 @@ Docker Desktop 将为您快速轻松地设置 Kubernetes。按照适用于您的
    ```powershell
     kubectl get pods
     ```
-    你应该会看到这样的东西：
+    你应该会看到这样的输出：
     ```powershell
     NAME      READY     STATUS    RESTARTS   AGE
     demo      1/1       Running   0          4s
@@ -65,7 +61,7 @@ Docker Desktop 将为您快速轻松地设置 Kubernetes。按照适用于您的
     ```powershell
     kubectl logs demo
     ```
-    您应该可以看到正常ping进程的输出：
+    您应该可以看到正常 ping 进程的输出：
     ```powershell
     PING 8.8.8.8 (8.8.8.8): 56 data bytes
     64 bytes from 8.8.8.8: seq=0 ttl=37 time=21.393 ms
@@ -80,12 +76,10 @@ Docker Desktop 将为您快速轻松地设置 Kubernetes。按照适用于您的
 
 ### Mac
 
-与 Windows 类似，具体请参看 https://docs.docker.com/get-started/orchestration/#kubeosx
+与 Windows 类似，具体请参看 [https://docs.docker.com/get-started/orchestration/#kubeosx](https://docs.docker.com/get-started/orchestration/#kubeosx)
 
 
 ## 启用 Docker Swarm
-
-Docker Desktop runs primarily on Docker Engine, which has everything you need to run a Swarm built in. Follow the setup and validation instructions appropriate for your operating system:
 
 Docker Desktop 主要运行在 Docker 引擎上，它内置了运行 Swarm 所需的一切。按照适用于您的操作系统的设置和验证说明进行操作：
 
@@ -106,30 +100,62 @@ Docker Desktop 主要运行在 Docker 引擎上，它内置了运行 Swarm 所�
 
     To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
     ```
+2. 运行一个简单的 Docker 服务，使用基于 alpin 的文件系统，并隔离一个 ping 到 8.8.8.8：
+    ```powershell
+    docker service create --name demo alpine:3.5 ping 8.8.8.8
+    ```
+3. 检查您的服务是否创建了一个正在运行的容器：
+    ```powershell
+    docker service ps demo
+    ```
+    你应该会看到这样的输出：
+    ```powershell
+    ID                  NAME                IMAGE               NODE                DESIRED STATE       CURRENT STATE           ERROR               PORTS
+    463j2s3y4b5o        demo.1              alpine:3.5          docker-desktop      Running             Running 8 seconds ago
+    ```
+4. 检查是否获得了您期望的 ping 进程的日志：
+    ```powershell
+    docker service logs demo
+    ```
+    您应该可以看到正常 ping 进程的输出：
+    ```powershell
+    demo.1.463j2s3y4b5o@docker-desktop    | PING 8.8.8.8 (8.8.8.8): 56 data bytes
+    demo.1.463j2s3y4b5o@docker-desktop    | 64 bytes from 8.8.8.8: seq=0 ttl=37 time=13.005 ms
+    demo.1.463j2s3y4b5o@docker-desktop    | 64 bytes from 8.8.8.8: seq=1 ttl=37 time=13.847 ms
+    demo.1.463j2s3y4b5o@docker-desktop    | 64 bytes from 8.8.8.8: seq=2 ttl=37 time=41.296 ms
+    ...
+    ```
+5. 最后，拆除测试服务：
+    ```powershell
+    docker service rm demo
+    ```
 
 ### Mac
 
-与 Windows 类似，具体请参看 https://docs.docker.com/get-started/orchestration/#swarmosx
+与 Windows 类似，具体请参看 [https://docs.docker.com/get-started/orchestration/#swarmosx](https://docs.docker.com/get-started/orchestration/#swarmosx)
 
 
 
+## 结论
 
+至此，您已经确认可以在 Kubernetes 和 Swarm 中运行简单的容器化工作负载。下一步是编写 Kubernetes yaml，描述如何在 Kubernetes 上运行和管理这些容器。
 
+[关于部署到 Kubernetes >>](https://docs.docker.com/get-started/kube-deploy/)
 
+要了解如何编写堆栈文件(stack file)来帮助您在 Swarm 上运行和管理容器，请参阅 [部署到 To Swarm](https://docs.docker.com/get-started/swarm-deploy/)。
 
+## CLI 参考文献
 
+本文中使用的所有 CLI 命令的进一步文档可以在这里找到：
 
+- [kubectl apply](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#apply)
+- [kubectl get](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#get)
+- [kubectl logs](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#logs)
+- [kubectl delete](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#delete)
+- [docker swarm init](https://docs.docker.com/engine/reference/commandline/swarm_init/)
+- [docker service *](https://docs.docker.com/engine/reference/commandline/service/)
 
-
-
-
-
-
-
-
-
-
-
+<!-- https://kubernetes.io/zh/docs/home/ -->
 <br/>
 
 > 作者 ： Docker 官网 <br/>
