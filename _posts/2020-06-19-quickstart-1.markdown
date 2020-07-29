@@ -53,8 +53,8 @@ Docker Desktop 是一款适用于 Mac 或 Windows 环境的易于安装的应用
 - [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/install/)
 
 > Docker 官网下载 Docker Desktop for Windows 可能比较慢，可以到百度云盘下载：<br/>
-> 链接：[https://pan.baidu.com/s/1HytCMXykgvaKfNFkPAb3gA](https://pan.baidu.com/s/1HytCMXykgvaKfNFkPAb3gA) <br/>
-> 提取码：p1ha
+> 链接：[https://pan.baidu.com/s/1vqPTzGVGs7JN2IIEQAkKYA](https://pan.baidu.com/s/1vqPTzGVGs7JN2IIEQAkKYA) <br/>
+> 提取码：iath
 
 ### 检验 Docker 版本
 
