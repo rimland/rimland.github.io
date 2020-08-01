@@ -135,7 +135,6 @@ Kubernetes 中的所有容器都被安排为 pods，即共享一些资源的位�
 - [Kubernetes Deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
 - [Kubernetes Services](https://kubernetes.io/docs/concepts/services-networking/service/)
 
-<br/>
 
 Kubernetes 中文文档：[https://kubernetes.io/zh/docs/home/](https://kubernetes.io/zh/docs/home/)
 
