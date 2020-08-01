@@ -39,7 +39,7 @@ Docker 是一个供开发人员和系统管理员构建、运行和与容器共�
 
 |                            容器                             |                           虚拟机                           |
 | :---------------------------------------------------------: | :--------------------------------------------------------: |
-| ![Container stack example](/assets/images/Container@2x.png) | ![Virtual machine stack example](/assets/images/VM@2x.png) |
+| ![Container stack example](/assets/images/docker-container@2x.png) | ![Virtual machine stack example](/assets/images/docker-VM@2x.png) |
 
 ## 设置 Docker 环境
 
