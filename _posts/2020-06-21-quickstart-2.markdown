@@ -22,7 +22,7 @@ published: true
 
 ## 配置
 
-让我们下载 `node-bulletin-board` 示例项目。这是一个用 Node.js 写的简单的公告板应用程序。
+让我们下载 `node-bulletin-board` 示例项目。这是一个用 Node.js 写的简单的公告栏应用程序。
 
 ### Git
 
@@ -55,9 +55,9 @@ cd node-bulletin-board-master/bulletin-board-app
 
 ## 用 Dockerfile 定义一个容器
 
-下载项目后，查看公告板应用程序中名为 `Dockerfile` 的文件。Dockerfiles 描述了如何为容器组装私有文件系统，还可以包含描述如何基于此镜像运行容器的一些元数据。
+下载项目后，查看公告栏应用程序中名为 `Dockerfile` 的文件。Dockerfiles 描述了如何为容器组装私有文件系统，还可以包含描述如何基于此镜像运行容器的一些元数据。
 
-有关公告板应用程序中使用的 Dockerfile 的更多信息，请参阅 [Dockerfile 示例](#sample-dockerfile)。
+有关公告栏应用程序中使用的 Dockerfile 的更多信息，请参阅 [Dockerfile 示例](#sample-dockerfile)。
 
 ## 构建并测试您的镜像
 
@@ -88,7 +88,7 @@ docker build --tag bulletinboard:1.0 .
       - `--detach` 要求 Docker 在后台运行此容器。
       - `--name` 指定可以在后续命令中引用你的容器的名称，在本例中是 `bb`。
 
-2. 在浏览器中访问您的应用程序，地址是 localhost:8000。您应该会看到您的公告板应用程序启动并运行了。在此步骤中，您通常会尽一切可能确保容器按照预期的方式工作；例如，现在是运行单元测试的时候了。
+2. 在浏览器中访问您的应用程序，地址是 localhost:8000。您应该会看到您的公告栏应用程序启动并运行了。在此步骤中，您通常会尽一切可能确保容器按照预期的方式工作；例如，现在是运行单元测试的时候了。
 3. 一旦您确信您的公告栏容器工作正常，您可以删除它：
 
 ```BASH
@@ -103,7 +103,7 @@ docker rm --force bb
 
 ## <span id="sample-dockerfile">Dockerfile 示例</span>
 
-编写 Dockerfile 是容器化一个应用程序的第一步。您可以将这些 Dockerfile 命令看作是如何构建镜像的逐步配方。公告板应用程序中的 Dockerfile 是这样的：
+编写 Dockerfile 是容器化一个应用程序的第一步。您可以将这些 Dockerfile 命令看作是如何构建镜像的逐步配方。公告栏应用程序中的 Dockerfile 是这样的：
 
 ```BASH
 # 使用官方镜像作为父镜像。
