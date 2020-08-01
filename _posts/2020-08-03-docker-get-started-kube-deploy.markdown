@@ -3,7 +3,7 @@ layout: post
 title:  "Docker 基础知识 - 在生产环境中运行您的应用 - 编排(Orchestration) - 部署到 Kubernetes"
 date:   2020-08-03 01:30:00 +0800
 categories: backend docker
-published: false
+published: true
 ---
 
 
@@ -26,9 +26,7 @@ published: false
 
 Kubernetes 中的所有容器都被安排为 pods，即共享一些资源的位于同一位置的容器组。此外，在实际的应用程序中，我们几乎从不创建单独的pods;相反，我们的大部分工作负载被安排为部署，部署是由 Kubernetes 自动维护的可伸缩的 pods 组。最后，所有 Kubernetes 对象都可以并且应该在名为 *Kubernetes YAML* 文件的清单中进行描述。这些 YAML 文件描述了 Kubernetes 应用程序的所有组件和配置，可用于在任何 Kubernetes 环境中轻松地创建和销毁应用程序。
 
-You already wrote a very basic Kubernetes YAML file in the Orchestration overview part of this tutorial. Now, let’s write a slightly more sophisticated YAML file to run and manage our bulletin board. Place the following in a file called `bb.yaml`:
-
-1. 您已经在本教程的[编排(Orchestration)概述](https://ittranslator.cn/backend/docker/2020/07/27/docker-get-started-orchestration.html)部分中编写了一个非常基本的 Kubernetes YAML 文件。现在，让我们编写一个稍微复杂一点的 YAML 文件来运行和管理我们的公告栏应用程序。将下面的内容放到一个名为 `bb.yaml` 的文件中：
+1. 您已经在本教程的[编排(Orchestration)概述](/backend/docker/2020/07/27/docker-get-started-orchestration.html)部分中编写了一个非常基本的 Kubernetes YAML 文件。现在，让我们编写一个稍微复杂一点的 YAML 文件来运行和管理我们的公告栏应用程序。将下面的内容放到一个名为 `bb.yaml` 的文件中：
 
     ```yaml
     apiVersion: apps/v1
@@ -124,21 +122,10 @@ You already wrote a very basic Kubernetes YAML file in the Orchestration overvie
 
 ## 结论
 
-At this point, we have successfully used Docker Desktop to deploy our application to a fully-featured Kubernetes environment on our development machine. We haven’t done much with Kubernetes yet, but the door is now open; you can begin adding other components to your app and taking advantage of all the features and power of Kubernetes, right on your own machine.
-
 至此，我们已经成功地使用 Docker Desktop 将我们的应用程序部署到开发机上功能齐全的 Kubernetes 环境中。我们还没有对 Kubernetes 做太多的工作，但是现在大门已经打开了;
-我们还没有对Kubernetes做太多，但是大门已经打开了;您可以开始在您的应用程序中添加其他组件，并利用 Kubernetes 的所有特性和功能，就在您自己的机器上。
+我们还没有对 Kubernetes 做太多的工作，但是大门已经打开了;您可以开始在您的应用程序中添加其他组件，并利用 Kubernetes 的所有特性和功能，就在您自己的机器上。
 
-This simple text file contains everything we need to create our application in a running state. We can check it into version control and share it with our colleagues, allowing us to distribute our applications to other clusters (like the testing and production clusters that probably come after our development environments) easily.
-
-除了部署到 Kubernetes 之外，我们还将我们的应用程序描述为 Kubernetes YAML 文件。这个简单的文本文件包含我们需要创建的我们的应用程序在运行状态下所需的所有内容。我们可以将其签入版本控制并与同事共享，从而使我们能够轻松地将应用程序分发到其他集群（比如开发环境之后可能出现的测试和生产集群）。
-
-<!-- 这个简单的文本文件包含在运行状态下创建应用程序所需的所有内容。我们可以将其签入版本控制并与同事共享，从而使我们能够轻松地将应用程序分发到其他集群（比如可能在开发环境之后的测试和生产集群）。
-
-
-这个简单的文本文件包含在运行状态下创建应用程序所需的所有内容。
-我们可以将其签入版本控制并与同事共享，从而使我们可以轻松地将应用程序分发到其他集群(比如开发环境之后可能出现的测试和生产集群)。 -->
-
+除了部署到 Kubernetes 之外，我们还将我们的应用程序描述为 Kubernetes YAML 文件。这个简单的文本文件包含我们需要创建的我们的应用程序在运行状态下所需的全部内容。我们可以将其签入版本控制并与同事共享，从而使我们能够轻松地将应用程序分发到其他集群（比如开发环境之后可能出现的测试和生产集群）。
 
 ## Kubernetes 参考文献
 

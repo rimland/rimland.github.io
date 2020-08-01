@@ -63,5 +63,5 @@ minima:
 # rss: RSS
 google_analytics: UA-169624459-1
 lang: zh
-future: false
+future: true
 
