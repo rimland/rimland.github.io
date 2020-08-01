@@ -30,7 +30,7 @@ published: true
 
 > 在创建仓库之前，请确保您已设置您的  Docker Hub 账户并将其连接到 Docker Desktop。
 
-现在，让我们创建第一个仓库，并将公告板镜像推送到 Docker Hub。
+现在，让我们创建第一个仓库，并将公告栏镜像推送到 Docker Hub。
 
 1. 单击菜单栏中的 Docker 图标，导航到 **Repositories > Create**。您将被重定向到 Docker Hub 上的 **Create Repository** 页。 
 2. 输入仓库名 `bulletinboard` 然后在页面底部点击 **Create** 。暂时不要填写任何其他细节。
