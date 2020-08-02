@@ -3,14 +3,14 @@
 
   <div class="wrapper">
 
-    <h2 class="footer-heading">{{ site.title | escape }}</h2>
+    <h2 class="footer-heading"><small>&copy;</small>{{ site.title | escape }}</h2>
 
     <div class="footer-col-wrapper">
       <div class="footer-col footer-col-1">
         <ul class="contact-list">
           <li class="p-name">
             {%- if site.author -%}
-              {{ site.author | escape }}
+              <small>&#8471;</small>{{ site.author | escape }}
             {%- else -%}
               {{ site.title | escape }}
             {%- endif -%}
