@@ -13,7 +13,8 @@ layout: default
 
   <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
 
-  <!-- Pagination links -->
+  <!-- top pagination links -->
+  {% if paginator.total_pages > 1 %}
   <div class="pagination">
     {% if paginator.previous_page %}
     <a href="{{ paginator.previous_page_path }}" class="previous">
@@ -38,6 +39,7 @@ layout: default
     {% endif %}
   </div>
   <br />
+  {% endif %}
 
   <ul class="post-list">
     {%- for post in paginator.posts -%}
@@ -55,8 +57,9 @@ layout: default
     </li>
     {%- endfor -%}
   </ul>
+  {%- endif -%}
 
-  <!-- Pagination links -->
+  <!-- another pagination links -->
   {% if paginator.total_pages > 1 %}
   <div class="pagination">
     {% if paginator.previous_page %}
@@ -83,11 +86,8 @@ layout: default
   </div>
   {% endif %}
 
-  {%- endif -%}
 
-
-
-  <br /><br />
+  <br />
   <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
 
 
