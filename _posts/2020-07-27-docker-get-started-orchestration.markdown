@@ -12,7 +12,7 @@ published: true
 
 高级模块教你如何：
 
-1. [在您的开发机上设置和使用 Kubernetes 环境](https://docs.docker.com/get-started/kube-deploy/)
+1. [在您的开发机上设置和使用 Kubernetes 环境](/backend/docker/2020/08/03/docker-get-started-kube-deploy.html)
 2. [在您的开发机上设置和使用 Swarm 环境](https://docs.docker.com/get-started/swarm-deploy/)
 
 ## 启用 Kubernetes
