@@ -5,6 +5,6 @@ _site
 vendor
 
 _includes/*
-_layouts
+#_layouts
 
 !_includes/footer.html

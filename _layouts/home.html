@@ -1,0 +1,92 @@
+---
+layout: default
+---
+
+<div class="home">
+  {%- if page.title -%}
+  <h1 class="page-heading">{{ page.title }}</h1>
+  {%- endif -%}
+
+  {{ content }}
+
+  {%- if site.posts.size > 0 -%}
+
+  <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
+
+  <!-- Pagination links -->
+  <div class="pagination">
+    {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path }}" class="previous">
+      上一页
+    </a>
+    {% else %}
+    <span class="previous" style="color: #bbb;">上一页</span>
+    {% endif %}
+
+    &nbsp;
+
+    <span class="page_number ">
+      {{ paginator.page }} / {{ paginator.total_pages }}
+    </span>
+
+    &nbsp;
+
+    {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path }}" class="next">下一页</a>
+    {% else %}
+    <span class="next " style="color: #bbb;">下一页</span>
+    {% endif %}
+  </div>
+  <br />
+
+  <ul class="post-list">
+    {%- for post in paginator.posts -%}
+    <li>
+      {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+      <span class="post-meta">{{ post.date | date: date_format }}</span>
+      <h3>
+        <a class="post-link" href="{{ post.url | relative_url }}">
+          {{ post.title | escape }}
+        </a>
+      </h3>
+      {%- if site.show_excerpts -%}
+      {{ post.excerpt }}
+      {%- endif -%}
+    </li>
+    {%- endfor -%}
+  </ul>
+
+  <!-- Pagination links -->
+  <div class="pagination">
+    {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path }}" class="previous">
+      上一页
+    </a>
+    {% else %}
+    <span class="previous" style="color: #bbb;">上一页</span>
+    {% endif %}
+
+    &nbsp;
+
+    <span class="page_number ">
+      {{ paginator.page }} / {{ paginator.total_pages }}
+    </span>
+
+    &nbsp;
+
+    {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path }}" class="next">下一页</a>
+    {% else %}
+    <span class="next " style="color: #bbb;">下一页</span>
+    {% endif %}
+  </div>
+
+  {%- endif -%}
+
+
+
+  <br /><br />
+  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
+
+
+</div>
