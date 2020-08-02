@@ -18,7 +18,7 @@ published: true
 
 - 使用[多阶段构建](/backend/docker/2020/06/29/dockerfile-multistage-build.html)来保持你的镜像简洁
 - 使用[卷](/backend/docker/2020/07/04/docker-storage-volumes.html)和[绑定挂载](/backend/docker/2020/07/13/docker-storage-bind-mounts.html)管理应用程序数据
-- [使用 Kubernetes 扩展你的应用程序](https://docs.docker.com/get-started/kube-deploy/)
+- [使用 Kubernetes 扩展你的应用程序](/backend/docker/2020/08/03/docker-get-started-kube-deploy.html)
 - [将你的应用程序扩展为集群服务](https://docs.docker.com/get-started/swarm-deploy/)
 - [一般应用程序开发最佳实践](https://docs.docker.com/develop/dev-best-practices/)
 
