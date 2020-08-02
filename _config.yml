@@ -65,7 +65,7 @@ minima:
 google_analytics: UA-169624459-1
 lang: zh
 future: true
-paginate: 5
+paginate: 10
 
 # Can't access in gfw.
 # # Disqus Comments
