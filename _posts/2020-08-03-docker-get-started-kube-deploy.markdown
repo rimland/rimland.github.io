@@ -18,13 +18,13 @@ published: true
 
 ## 介绍
 
-既然我们已经演示了应用程序的各个组件作为独立容器运行，那么现在就可以安排它们由类似 Kubernetes 的编排器管理了。Kubernetes 提供了许多扩展、联网、保护和维护您的容器化应用程序的工具，这些工具超出了容器本身的能力。
+既然我们已经演示了应用程序的各个组件作为独立容器运行，那么现在就可以安排它们由类似 Kubernetes 的编排器管理了。Kubernetes 提供了许多缩放、联网、保护和维护您的容器化应用程序的工具，这些工具超出了容器本身的能力。
 
 为了验证我们的容器化应用程序能否在 Kubernetes 上很好地工作，我们将在开发机上使用 Docker Desktop 内置的 Kubernetes 环境来部署我们的应用程序，然后将其移交到生产环境中一个完整的 Kubernetes 集群上运行。Docker Desktop 创建的 Kubernetes 环境功能齐全，这意味着它拥有您的应用程序将在真实集群上享受到的所有 Kubernetes 功能，可以通过您的开发机方便地访问。
 
 ## 使用 Kubernetes YAML 描述应用程序
 
-Kubernetes 中的所有容器都被安排为 *pods*，即共享一些资源的位于同一位置的容器组。此外，在实际的应用程序中，我们几乎从不创建单独的 pods;相反，我们的大部分工作负载被安排为*部署(deployments)*，部署是由 Kubernetes 自动维护的可扩展的 pods 组。最后，所有 Kubernetes 对象都可以并且应该在名为 *Kubernetes YAML* 文件的清单中进行描述。这些 YAML 文件描述了 Kubernetes 应用程序的所有组件和配置，可用于在任何 Kubernetes 环境中轻松地创建和销毁应用程序。
+Kubernetes 中的所有容器都被安排为 *pods*，即共享一些资源的位于同一位置的容器组。此外，在实际的应用程序中，我们几乎从不创建单独的 pods;相反，我们的大部分工作负载被安排为*部署(deployments)*，部署是由 Kubernetes 自动维护的可缩放的 pods 组。最后，所有 Kubernetes 对象都可以并且应该在名为 *Kubernetes YAML* 文件的清单中进行描述。这些 YAML 文件描述了 Kubernetes 应用程序的所有组件和配置，可用于在任何 Kubernetes 环境中轻松地创建和销毁应用程序。
 
 1. 您已经在本教程的[编排(Orchestration)概述](/backend/docker/2020/07/27/docker-get-started-orchestration.html)部分中编写了一个非常基本的 Kubernetes YAML 文件。现在，让我们编写一个稍微复杂一点的 YAML 文件来运行和管理我们的公告栏应用程序。将下面的内容放到一个名为 `bb.yaml` 的文件中：
 
@@ -64,7 +64,7 @@ Kubernetes 中的所有容器都被安排为 *pods*，即共享一些资源的�
     ```
 
     在此 Kubernetes YAML 文件中，有两个对象，以 `---` 分隔：
-    - 一个 `部署(Deployment)`，描述一个可扩展的相同 pods 组。在本例中，您只会得到一个 `副本(replica)`，即您的 pod 的副本，并且该 pod(在 `template:` 键下描述) 中只有一个容器，这个容器基于本教程[前一步骤](/backend/docker/2020/06/21/quickstart-2.html)中的 `bulletinboard:1.0` 镜像。
+    - 一个 `部署(Deployment)`，描述一个可缩放的相同 pods 组。在本例中，您只会得到一个 `副本(replica)`，即您的 pod 的副本，并且该 pod(在 `template:` 键下描述) 中只有一个容器，这个容器基于本教程[前一步骤](/backend/docker/2020/06/21/quickstart-2.html)中的 `bulletinboard:1.0` 镜像。
     - 一个 `NodePort` 服务，它将流量从您的主机上的 30001 端口转发到它所路由到的 pods 内的 8080 端口，允许您从网络到达您的公告栏应用。
 
     另外，请注意，虽然 Kubernetes YAML 一开始可能看起来又长又复杂，但它几乎总是遵循相同的模式：
