@@ -1,14 +1,14 @@
 ---
 layout: post
 title:  "Task.Run vs Task.Factory.StartNew"
-date:   2020-08-10 01:30:00 +0800
+date:   2020-08-10 00:30:00 +0800
 categories: dotnet csharp
 published: true
 ---
 
 > 翻译自 Stephen Toub 2011年10月24日的博文[《Task.Run vs Task.Factory.StartNew》](https://devblogs.microsoft.com/pfxteam/task-run-vs-task-factory-startnew/)，Stephen Toub 是微软 .NET 团队的一名开发人员。
 
-在 *.NET 4* 中，`Task.Factory.StartNew` 是安排新任务的首选方法。它有许多重载提供了高度可配置的机制，通过启用设置选项，可以传递任意状态、启用取消，甚至控制调度行为。所有这些功能的另一面是复杂性。您需要知道什么时候使用哪个重载、提供什么调度器等等。另外，`Task.Factory.StartNew` 用起来并不直截干脆，至少对于它的一些使用场景来说还不够快，比如它的主要使用场景——轻松地将工作交付到后台处理线程。 
+在 *.NET 4* 中，`Task.Factory.StartNew` 是安排新任务的首选方法。它有许多重载提供了高度可配置的机制，通过启用设置选项，可以传递任意状态、启用取消，甚至控制调度行为。所有这些功能的另一面是复杂性。您需要知道什么时候使用哪个重载、提供什么调度程序等等。另外，`Task.Factory.StartNew` 用起来并不直截干脆，至少对于它的一些使用场景来说还不够快，比如它的主要使用场景——轻松地将工作交付到后台处理线程。 
 
 因此，在 *.NET Framework 4.5 开发者预览版* 中，我们引入了新的 `Task.Run` 方法。这决不是要淘汰 `Task.Factory.StartNew`，而是应该简单地认为这是使用 `Task.Factory.StartNew` 而不必传递一堆参数的一个便捷方式。这是一个捷径。事实上，`Task.Run` 实际是按照与 `Task.Factory.StartNew` 相同的逻辑实现的，只是传入了一些默认的参数。当你传递一个 `Action` 给 `Task.Run`：
 
@@ -22,7 +22,7 @@ Task.Run(someAction);
 Task.Factory.StartNew(someAction, CancellationToken.None, TaskCreationOptions.DenyChildAttach, TaskScheduler.Default);
 ```
 
-通过这种方式，`Task.Run` 就可以并且应该被用于大多数通用场景——简单地将工作交给线程池处理（即参数 TaskScheduler.Default 的目标）。这并不意味着 `Task.Factory.StartNew` 将不再被使用; 远非如此，`Task.Factory.StartNew` 还有很多重要的（固然更高级）用途。你可以控制 `TaskCreationOptions` 来控制任务的行为，可以控制 `TaskScheduler` 来控制任务的调度和运行，也可以使用接收对象状态的重载，对于性能敏感的代码路径，使用该重载可以避免闭包和相应的内存分配。对于简单的情况，`Task.Run` 是你的朋友。
+通过这种方式，`Task.Run` 就可以并且应该被用于大多数通用场景——简单地将工作交给线程池`ThreadPool`处理（即参数 TaskScheduler.Default 的目标）。这并不意味着 `Task.Factory.StartNew` 将不再被使用; 远非如此，`Task.Factory.StartNew` 还有很多重要的（固然更高级）用途。你可以控制 `TaskCreationOptions` 来控制任务的行为，可以控制 `TaskScheduler` 来控制任务的调度和运行，也可以使用接收对象状态的重载，对于性能敏感的代码路径，使用该重载可以避免闭包和相应的内存分配。不过，对于简单的情况，`Task.Run` 是你的朋友。
 
 `Task.Run` 提供八个重载，以支持下面的所有组合：
 
@@ -98,8 +98,6 @@ var t = Task.Factory.StartNew(async delegate
 
 如前所述，这是一条捷径。
 
-All of this then means that you can use Task.Run either with either regular lambdas/anonymous methods or with async lambdas/anonymous methods, and the right thing will just happen.  If I wanted to offload this work to the ThreadPool and await its result, e.g.
-
 所有这些都意味着您可以将 `Task.Run` 与常规lambdas/匿名方法或与异步lambdas/匿名方法一起使用，都会发生正确的事情。如果我想将工作交给线程池(`ThreadPool`)并等待其结果，例如：
 
 ```csharp
@@ -135,10 +133,9 @@ int result = await await Task.Factory.StartNew(async delegate
 这里的 “await await” 不是输入错误，`Task.Factory.StartNew` 返回 `Task<Task<int>>`。 `await` `Task<Task<int>>` 返回 `Task<int>`，然后 `await` `Task<int>` 返回 `int`，很有趣，对吧？
 
 
-
 <br/>
 
-> 作者 ： Docker 官网 <br/>
+> 作者 ： Stephen Toub <br/>
 > 译者 ： 技术译民 <br/>
 > 出品 ： [技术译站](https://ittranslator.cn/) <br/>
 > 链接 ： [英文原文](https://devblogs.microsoft.com/pfxteam/task-run-vs-task-factory-startnew/)
