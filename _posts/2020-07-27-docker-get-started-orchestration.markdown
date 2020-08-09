@@ -155,7 +155,7 @@ Docker Desktop 主要运行在 Docker 引擎上，它内置了运行 Swarm 所�
 - [docker swarm init](https://docs.docker.com/engine/reference/commandline/swarm_init/)
 - [docker service *](https://docs.docker.com/engine/reference/commandline/service/)
 
-<!-- https://kubernetes.io/zh/docs/home/ -->
+
 <br/>
 
 > 作者 ： Docker 官网 <br/>
