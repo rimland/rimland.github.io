@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  ".NET - Task.Run vs Task.Factory.StartNew"
-date:   2020-08-09 23:10:00 +0800
+date:   2020-08-10 00:10:00 +0800
 categories: dotnet csharp
 published: true
 ---
