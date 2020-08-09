@@ -49,7 +49,7 @@ Docker Desktop 将为您快速轻松地设置 Kubernetes。按照适用于您的
    ```
 
 5. 检查 pod 是否已启动并运行：
-   ```powershell
+    ```powershell
     kubectl get pods
     ```
     你应该会看到这样的输出：
