@@ -6,7 +6,7 @@ categories: dotnet csharp
 published: true
 ---
 
-> 翻译自 Stephen Toub 2011年10月24日的博文[《Task.Run vs Task.Factory.StartNew》](https://devblogs.microsoft.com/pfxteam/task-run-vs-task-factory-startnew/)，Stephen Toub 是微软 .NET 团队的一名开发人员。
+> 翻译自 Stephen Toub 2011年10月24日的博文[《Task.Run vs Task.Factory.StartNew》](https://devblogs.microsoft.com/pfxteam/task-run-vs-task-factory-startnew/)，Stephen Toub 是微软并行计算平台团队的首席架构师。
 
 在 *.NET 4* 中，`Task.Factory.StartNew` 是安排新任务的首选方法。它有许多重载提供了高度可配置的机制，通过启用设置选项，可以传递任意状态、启用取消，甚至控制调度行为。所有这些功能的另一面是复杂性。您需要知道什么时候使用哪个重载、提供什么调度程序等等。另外，`Task.Factory.StartNew` 用起来并不直截干脆，至少对于它的一些使用场景来说还不够快，比如它的主要使用场景——轻松地将工作交付到后台处理线程。 
 
