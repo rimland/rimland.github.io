@@ -24,7 +24,7 @@ published: true
 
 ## 使用 Kubernetes YAML 描述应用程序
 
-Kubernetes 中的所有容器都被安排为 *pods*，即共享一些资源的位于同一位置的容器组。此外，在实际的应用程序中，我们几乎从不创建单独的 pods;相反，我们的大部分工作负载被安排为*部署(deployments)*，部署是由 Kubernetes 自动维护的可缩放的 pods 组。最后，所有 Kubernetes 对象都可以并且应该在名为 *Kubernetes YAML* 文件的清单中进行描述。这些 YAML 文件描述了 Kubernetes 应用程序的所有组件和配置，可用于在任何 Kubernetes 环境中轻松地创建和销毁应用程序。
+Kubernetes 中的所有容器都被安排为 *pods*，即共享一些资源的位于同一位置的容器组。此外，在实际的应用程序中，我们几乎从不创建单独的 pod;相反，我们的大部分工作负载被安排为*部署(deployments)*，部署是由 Kubernetes 自动维护的可缩放的 pods 组。最后，所有 Kubernetes 对象都可以并且应该在名为 *Kubernetes YAML* 文件的清单中进行描述。这些 YAML 文件描述了 Kubernetes 应用程序的所有组件和配置，可用于在任何 Kubernetes 环境中轻松地创建和销毁应用程序。
 
 1. 您已经在本教程的[编排(Orchestration)概述](/backend/docker/2020/07/27/docker-get-started-orchestration.html)部分中编写了一个非常基本的 Kubernetes YAML 文件。现在，让我们编写一个稍微复杂一点的 YAML 文件来运行和管理我们的公告栏应用程序。将下面的内容放到一个名为 `bb.yaml` 的文件中：
 
