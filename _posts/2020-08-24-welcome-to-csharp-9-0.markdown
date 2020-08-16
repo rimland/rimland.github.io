@@ -50,7 +50,30 @@ public class Person
 
 有了这个声明，上面的客户端代码仍然是合法的，但是随后对  `FirstName` 和 `LastName` 属性的任何赋值都是错误的。
 
-### `init` 访问器和只读字段
+### `init` 访问器和只读(`readonly`)字段
+
+因为 `init` 访问器只能在初始化期间调用，所以允许它们更改封闭类的只读(`readonly`)字段，就像在构造函数中一样。
+
+```csharp
+public class Person
+{
+    private readonly string firstName;
+    private readonly string lastName;
+    
+    public string FirstName 
+    { 
+        get => firstName; 
+        init => firstName = (value ?? throw new ArgumentNullException(nameof(FirstName)));
+    }
+    public string LastName 
+    { 
+        get => lastName; 
+        init => lastName = (value ?? throw new ArgumentNullException(nameof(LastName)));
+    }
+}
+```
+
+## Records
 
 ```csharp
 
