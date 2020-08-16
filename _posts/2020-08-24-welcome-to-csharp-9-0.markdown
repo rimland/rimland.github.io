@@ -75,6 +75,29 @@ public class Person
 
 ## 记录（Records）
 
+如果您想使单个属性不可变，那么仅初始化(init-only)属性是极好的。如果您想要整个对象是不可变的，行为像一个值，那么你应该考虑声明它为一个*记录(record)*：
+
+```csharp
+public data class Person
+{
+    public string FirstName { get; init; }
+    public string LastName { get; init; }
+}
+```
+
+类声明前的 `data` 关键字将其标记为一条记录(`record`)。这就赋予了它一些类似值的行为，我们将在下面深入探讨。一般来说，记录更应该被看作是“值”——数据(`data`)！而不是对象。它们并不具有可变的封装状态，相反，您需要通过创建表示新状态的新记录来表示其随时间的变化。它们不是由它们的身份(identity)定义的，而是由它们的内容定义的。
+
+### `with` 表达式
+
+当使用不可变数据(`data`)时，一种常见的模式是从现有的值中创建新值来表示新状态。例如，如果我们的 `person` 要更改他们的 `LastName`，我们会将其表示为一个新对象，该对象是旧对象的副本，只是有不同的 `LastName`。这种技巧通常被称之为*非破坏性突变(non-destructive mutation)*。记录(`record`)不是代表 `person` *在一段时间内的* 状态，而是代表 `person` *在给定时间内的* 状态。
+
+为了帮助实现这种编程风格，记录(`record`)允许使用一种新的表达式 —— `with` 表达式：
+
+```csharp
+var otherPerson = person with { LastName = "Hanselman" };
+```
+
+
 ```csharp
 
 ```
