@@ -73,7 +73,7 @@ public class Person
 }
 ```
 
-## Records
+## 记录（Records）
 
 ```csharp
 
