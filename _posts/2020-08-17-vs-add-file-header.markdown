@@ -1,24 +1,24 @@
 ---
 layout: post
-title:  "使用 Visual Studio 2019 添加文件头实践"
-date:   2020-08-17 00:10:00 +0800
+title:  "使用 Visual Studio 2019 批量添加代码文件头"
+date:   2020-08-17 00:05:00 +0800
 categories: dotnet vs2019
 published: true
 ---
 
-## 应用场景
+## 应用场景介绍
 
-在我们使用一些开源项目时，基本上都会在每个源代码文件的头部看到一段版权声明。一个项目或解决方案中源代码的个数少则几十，多则几千甚至更多，那么怎么才能给这么多文件方便地批量添加或者修改一致的文件头呢？在 2020 年 8 月 11 日 更新的 *Visual Studio 2019* **v16.7.1** 版中，就加入了*使用 EditorConfig 向现有文件、项目和解决方案添加文件头* 这一功能。
+在我们使用一些开源项目时，基本上都会在每个源代码文件的头部看到一段版权声明。一个项目或解决方案中源代码文件的个数少则几十，多则几千甚至更多，那么怎么才能给这么多文件方便地批量添加或者修改一致的文件头呢？在 2020 年 8 月 11 日 更新的 *Visual Studio 2019* **v16.7.1** 版中，就加入了*使用 EditorConfig 向现有文件、项目和解决方案添加文件头* 这一功能。提到 *EditorConfig*， 那么：
 
 ## 什么是 EditorConfig？
 
-`EditorConfig` 是帮助跨多个编辑器和 IDE 的从事同一项目的多个开发人员保持一致编码风格的一个文本文件。EditorConfig 文件可以设置诸如缩进样式、选项卡宽度、行尾字符以及编码等，而无需考虑使用的编辑器或 IDE。向项目添加 EditorConfig 文件，可以强制对使用该项目的所有人实施一致的编码风格。 EditorConfig 设置优先于全局 Visual Studio 文本编辑器设置。
+`EditorConfig` 是帮助跨多个编辑器和 IDE 的从事同一项目的多个开发人员保持一致性编码风格的一个文本文件。EditorConfig 文件可以设置诸如缩进样式、选项卡宽度、行尾字符以及编码等，而无需考虑使用的编辑器或 IDE。向项目添加 EditorConfig 文件，可以强制对使用该项目的所有人员实施一致的编码风格。 EditorConfig 设置优先于全局 Visual Studio 文本编辑器设置。
 
 由于这些设置包含在基本代码的文件中，因此能与基本代码一起移动。 只要在 EditorConfig 兼容的编辑器中打开代码文件，就能实现文本编辑器设置。 有关 EditorConfig 文件的详细信息，请参阅 [EditorConfig.org](https://editorconfig.org/) 网站。
 
 ## 使用 Visual Studio 2019 添加文件头
 
-首先，在 Visual Studio 中打开项目或解决方案，点击“帮助”>“关于”，查看您的 Visual Studio 2019 版本是否是 `16.7.1` 或更高版本，如果不是请先升级。
+首先，在 Visual Studio 中打开项目或解决方案，点击“帮助” > “关于”，查看您的 Visual Studio 2019 版本是否是 `16.7.1` 或更高版本，如果不是请先升级。
 
 
 1. 向项目或解决方案添加 EditorConfig。
@@ -33,7 +33,7 @@ published: true
 
    ![vs_file_header_template_1](/assets/images/vs_file_header/vs_file_header_template_1.png)
 
-   添加完成后可以看到 `.editorconfig` 文件内容大致如下：
+   添加完成后可以看到 `.editorconfig` 文件的内容大致如下：
 
    ![vs_file_header_template_2](/assets/images/vs_file_header/vs_file_header_template_2.png)
 
@@ -57,7 +57,7 @@ published: true
 
    ![vs_file_header_template_5](/assets/images/vs_file_header/vs_file_header_template_5.png)
 
-4. 选择“应用”，以应用更改。
+4. 点击“应用”按钮，以应用更改。
    
    此时可以看到项目中的所有代码文件都添加了 `.editorconfig` 中设置的 `file_header_template` 项的字符串作为文件头：
 
@@ -78,7 +78,7 @@ published: true
    
    ![vs_file_header_template_7](/assets/images/vs_file_header/vs_file_header_template_7.png)
 
-3. 重复上面“添加文件头”的第 4 步，结果如下图：
+3. 重复上面“添加文件头”的第 4 步，点击“应用”按钮，结果如下图：
    
    ![vs_file_header_template_8](/assets/images/vs_file_header/vs_file_header_template_8.png)
 
