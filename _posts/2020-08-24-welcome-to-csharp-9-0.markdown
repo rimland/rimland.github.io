@@ -105,7 +105,7 @@ var otherPerson = person with { LastName = "Hanselman" };
 
 `with` 表达式使用对象初始化器语法来声明新对象与旧对象的不同之处。您可以指定多个属性。
 
-记录(`record`)隐式定义了一个受保护的(`protected`)“复制构造函数”——一个接受现在有记录对象并逐字段将其复制到新记录对象的构造函数：
+记录(`record`)隐式定义了一个受保护的(`protected`)“复制构造函数”——一个接受现有记录对象并逐字段将其复制到新记录对象的构造函数：
 
 ```csharp
 protected Person(Person original) { /* copy all the fields */ } // generated
@@ -117,9 +117,9 @@ protected Person(Person original) { /* copy all the fields */ } // generated
 
 ### 基于值的相等（value-based equality）
 
-所有对象都从对象类(`object`)继承一个虚的 `Equals(object)` 方法。这被用作是当两个参数都是非空(`non-null`)时，静态方法 `Object.Equals(object, object)` 的基本原则。
+所有对象都从对象类(`object`)继承一个虚的 `Equals(object)` 方法。这被用作是当两个参数都是非空(`non-null`)时，静态方法 `Object.Equals(object, object)` 的基础。
 
-结构体重写了 `Equals(object)` 方法，通过递归地在结构体的每一个字段上调用 `Equals` 来比较结构体的每一个字段，从而实现了“基于值的相等”。**记录(`record`)是一样。**
+结构体重写了 `Equals(object)` 方法，通过递归地在结构体的每一个字段上调用 `Equals` 来比较结构体的每一个字段，从而实现了“基于值的相等”。**记录(`record`)是一样的。**
 
 这意味着，根据它们的“值性(value-ness)”，两个记录(`record`)对象可以彼此相等，而不是*同一个*对象。例如，如果我们将被修改 `person` 的 `LastName` 改回去：
 
@@ -131,7 +131,7 @@ var originalPerson = otherPerson with { LastName = "Hunter" };
 
 如果您不喜欢生成的 `Equals` 重写的默认逐个字段比较的行为，您可以自己编写。您只需要注意理解“基于值的相等”是如何在记录(`record`)中工作的，特别是在涉及继承时，我们后面会讲到。
 
-除了基于值的 `Equals` 之外，还有一个基于值的 `GetHashCode()` 重写。
+除了基于值的 `Equals` 之外，还有一个基于值 `GetHashCode()` 的重写。
 
 ### 数据成员（Data members）
 
