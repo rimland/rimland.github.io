@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "欢迎使用 C＃ 9.0"
+title:  "欢迎来到 C＃ 9.0（Welcome to C# 9.0）"
 date:   2020-08-24 00:10:00 +0800
 categories: dotnet csharp
 published: true
@@ -326,14 +326,77 @@ DeliveryTruck t when t.GrossWeightClass switch
 
 此例中间的案例使用 `and` 合并了两个关系模式，形成一个表示区间的模式。
 
+A common use of the `not` pattern will be applying it to the `null` constant pattern, as in `not null`. For instance we can split the handling of unknown cases depending on whether they are null:
 
+`not` 模式的一个常见用法是将其应用于 `null` 常量模式，如 `not null`。例如，我们可以根据未知实例是否为空来拆分它们的处理：
+
+```csharp
+not null => throw new ArgumentException($"Not a known vehicle type: {vehicle}", nameof(vehicle)),
+null => throw new ArgumentNullException(nameof(vehicle))
+```
+
+Also `not` is going to be convenient in if-conditions containing is-expressions where, instead of unwieldy double parentheses:
+
+此外，`not` 在 `if` 条件中包含 `is` 表达式时将会很方便，可以取代笨拙的双括号，例如：
+
+```csharp
+if (!(e is Customer)) { ... }
+```
+
+您可以写成：
+
+```csharp
+if (e is not Customer) { ... }
+```
+
+## 五、改进的目标类型（Improved target typing）
+
+“目标类型(`Target typing`)”是一个术语，当一个表达式从使用它的位置的上下文中获得它的类型时，我们使用这个术语。例如，`null` 和 `lambda`表达式始终是目标类型的。
+
+在 C# 9.0 中，一些以前不是目标类型的表达式变得可以由其上下文推导。
+
+### 目标类型的 `new` 表达式（Target-typed new expressions）
+
+C# 中的 `new` 表达式总是要求指定类型（隐式类型的数组表达式除外）。现在，如果表达式被赋值为一个明确的类型，则可以省略该类型。
+
+```csharp
+Point p = new (3, 5);
+```
+
+### 目标类型的 `??`** 和 **`?:`**（Target typed `??` and `?:`）
+
+有时有条件的 `??` 和 `?:` 表达式在分支之间没有明显的共享类型，这种情况目前是失败的。但是如果有一个两个分支都可以转换成的目标类型，在 C# 9.0 中将是允许的。
+
+```csharp
+Person person = student ?? customer; // Shared base type
+int? result = b ? 0 : null; // nullable value type
+```
+
+
+## 六、协变式返回值（Covariant returns）
+
+有时候，派生类中的方法重写具有一个比基类型中的声明更具体（更明确）的返回类型，这样的表达是有用的。C# 9.0 允许：
+
+```csharp
+abstract class Animal
+{
+    public abstract Food GetFood();
+    ...
+}
+class Tiger : Animal
+{
+    public override Meat GetFood() => ...;
+}
+```
+
+## 更多内容……
+
+要查看 C# 9.0 即将发布的全部特性并追随他们的完成，最好的地方是 Roslyn(C#/VB 编译器) GitHub 仓库上的 [Language Feature Status](https://github.com/dotnet/roslyn/blob/master/docs/Language%20Feature%20Status.md)。
 
 
 
 <br/>
 
-```csharp
-```
 > 作者 ： Mads Torgersen <br/>
 > 译者 ： 技术译民 <br/>
 > 出品 ： [技术译站](https://ittranslator.cn/) <br/>
@@ -342,4 +405,4 @@ DeliveryTruck t when t.GrossWeightClass switch
 <!-- https://developerpublish.com/how-to-download-c-9-0-preview-install-and-try/ -->
 <!-- https://morioh.com/p/8bb2b55e618d -->
 <!-- https://anthonygiretti.com/2020/06/17/introducing-c-9-records/ -->
-<!-- https://www.cnblogs.com/MrHuo/p/12927698.html -->
+
