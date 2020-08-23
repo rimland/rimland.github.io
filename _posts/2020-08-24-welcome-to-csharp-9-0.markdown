@@ -52,7 +52,7 @@ public class Person
 
 有了这个声明，上面的客户端代码仍然是合法的，但是随后对  `FirstName` 和 `LastName` 属性的任何赋值都是错误的。
 
-### `init` 访问器和只读(`readonly`)字段
+### 初始化(`init`) 访问器和只读(`readonly`)字段
 
 因为 `init` 访问器只能在初始化期间调用，所以允许它们更改封闭类的只读(`readonly`)字段，就像在构造函数中一样。
 
@@ -78,7 +78,7 @@ public class Person
 ## 二、记录（record）
 
 > 译者注：<br />
-> 原文中的声明一个记录的 `data class **` 联合关键字现在已经变成 `record` 关键字了，所以翻译过程中做了稍许改动。
+> 原文中声明一个记录的 `data class **` 联合关键字现在已经变成 `record` 关键字了，所以翻译过程中做了修正。
 
 如果您想使单个属性不可变，那么仅初始化(init-only)属性是极好的。如果您想要整个对象是不可变的，行为像一个值，那么你应该考虑声明它为一个*记录(record)*：
 
@@ -91,11 +91,11 @@ public record Person
 ```
 
 <!-- 类声明前的 `data` 关键字将其标记为一条记录(`record`)。-->
-对于记录(`record`)，我们赋予了它一些类似值的行为，我们将在下面深入探讨。一般来说，记录更应该被看作是“值”——数据(`data`)！而不是对象。它们并不具有可变的封装状态，相反，您需要通过创建表示新状态的新记录来表示其随时间的变化。它们不是由它们的身份(identity)定义的，而是由它们的内容定义的。 
+对于记录(`record`)，赋予了它一些类似值的行为，我们将在下面深入探讨。一般来说，记录更应该被看作是“值”——数据(`data`)，而不是对象！它们并不具有可变的封装状态，相反，您需要通过创建表示新状态的新记录来表示其随时间的变化。它们不是由它们的身份(identity)确定的，而是由它们的内容确定的。 
 
 ### `with` 表达式
 
-当使用不可变数据(`data`)时，一种常见的模式是从现有的值中创建新值来表示新状态。例如，如果我们的 `person` 要更改他们的 `LastName`，我们会将其表示为一个新对象，该对象是旧对象的副本，只是有不同的 `LastName`。这种技巧通常被称之为*非破坏性突变(non-destructive mutation)*。记录(`record`)不是代表 `person` *在一段时间内的* 状态，而是代表 `person` *在给定时间内的* 状态。
+当使用不可变数据(`data`)时，一种常见的模式是从现有的值中创建新值来表示新状态。例如，如果我们的 `person` 要更改他们的 `LastName`，我们会将其表示为一个新对象，该对象是旧对象的副本，只是有不同的 `LastName`。这种技巧通常被称之为*非破坏性突变(non-destructive mutation)*。记录(`record`)不是代表 `person` *在一段时间内的* 状态，而是代表 `person` *在给定时间点的* 状态。
 
 为了帮助实现这种编程风格，记录(`record`)允许使用一种新的表达式 —— `with` 表达式：
 
@@ -105,7 +105,7 @@ var otherPerson = person with { LastName = "Hanselman" };
 
 `with` 表达式使用对象初始化器语法来声明新对象与旧对象的不同之处。您可以指定多个属性。
 
-记录(`record`)隐式定义了一个受保护的(`protected`)“复制构造函数”——一个接受现在有记录(`record`)对象并逐字段将其复制到新记录对象的构造函数：
+记录(`record`)隐式定义了一个受保护的(`protected`)“复制构造函数”——一个接受现在有记录对象并逐字段将其复制到新记录对象的构造函数：
 
 ```csharp
 protected Person(Person original) { /* copy all the fields */ } // generated
@@ -113,12 +113,11 @@ protected Person(Person original) { /* copy all the fields */ } // generated
 
 `with` 表达式会调用“复制构造函数”，然后在上面应用对象初始化器来相应地变更属性。
 
-<!-- 如果您不喜欢生成的“复制构造函数”的默认行为，您可以定义自己的“复制构造函数”，它将被 `with` 表达式捕获。 -->
-如果您不喜欢生成的“复制构造函数”的默认行为，您可以定义自己的行为，它将被 `with` 表达式捕获。
+如果您不喜欢生成的“复制构造函数”的默认行为，您可以定义自己的“复制构造函数”，它将被 `with` 表达式捕获。
 
 ### 基于值的相等（value-based equality）
 
-所有对象都从对象类(`object`)继承一个虚拟 `Equals(object)` 方法。这被用作是当两个参数都是非空(`non-null`)时，静态方法 `Object.Equals(object, object)` 的基本原则。
+所有对象都从对象类(`object`)继承一个虚的 `Equals(object)` 方法。这被用作是当两个参数都是非空(`non-null`)时，静态方法 `Object.Equals(object, object)` 的基本原则。
 
 结构体重写了 `Equals(object)` 方法，通过递归地在结构体的每一个字段上调用 `Equals` 来比较结构体的每一个字段，从而实现了“基于值的相等”。**记录(`record`)是一样。**
 
@@ -130,7 +129,7 @@ var originalPerson = otherPerson with { LastName = "Hunter" };
 
 现在我们将得到 `ReferenceEquals(person, originalPerson)` = `false`(它们不是同一个对象)，但是 `Equals(person, originalPerson)` = `true`(它们有相同的值)。
 
-如果您不喜欢生成的 `Equals` 重写的默认逐个字段字段比较行为，您可以自己编写。您只需要注意理解“基于值的相等”是如何在记录(`record`)中工作的，特别是在涉及继承时，我们后面会讲到。
+如果您不喜欢生成的 `Equals` 重写的默认逐个字段比较的行为，您可以自己编写。您只需要注意理解“基于值的相等”是如何在记录(`record`)中工作的，特别是在涉及继承时，我们后面会讲到。
 
 除了基于值的 `Equals` 之外，还有一个基于值的 `GetHashCode()` 重写。
 
@@ -193,13 +192,13 @@ var (f, l) = person;                        // 用位置参数解构（positiona
 
 ### 记录和可变性（Records and mutation）
 
-记录(`record`)的基于值的语义不能很好地适应可变状态。想象一下，将一个记录(`record`)对象放入字典中。再次查找它依赖于 `Equals` 和 `GethashCode`(有时)。但是如果记录改变了状态，它的 `Equals` 值也会随之改变，我们可能再也找不到它了！在哈希表实现中，它甚至可能破坏数据结构，因为位置是基于它的哈希码得到的。
+记录(`record`)的基于值的语义不能很好地适应可变状态。想象一下，将一个记录(`record`)对象放入字典中。再次查找它依赖于 `Equals` 和 `GetHashCode`(有时)。但是如果记录改变了状态，它的 `Equals` 值也会随之改变，我们可能再也找不到它了！在哈希表实现中，它甚至可能破坏数据结构，因为位置是基于它的哈希码得到的。
 
-记录(`record`)内部的可变状态或许有一些有效的高级用法，特别是对于缓存。但是重写默认行为以忽略这种状态所涉及的手工工作可能是相当大的。
+记录(`record`)内部的可变状态或许有一些有效的高级用法，特别是对于缓存。但是重写默认行为以忽略这种状态所涉及的手工工作很可能是相当大的。
 
 ### `with` 表达式和继承（With-expressions and inheritance）
 
-众所周知，基于值的相等和非破坏性的变化与继承结合在一起时是极具挑战性的。让我们在运行示例中添加一个派生的记录(`record`)类 `Student`：
+众所周知，基于值的相等和非破坏性突变与继承结合在一起时是极具挑战性的。让我们在运行示例中添加一个派生的记录(`record`)类 `Student`：
 
 ```csharp
 public record Person { string FirstName; string LastName; }
@@ -219,13 +218,13 @@ otherPerson = person with { LastName = "Hanselman" };
 
 在最后一行带 `with` 表达式的地方，编译器不知道 `person` 实际上包含 `Student`。然而，如果新的 `person`(即 `otherPerson`) 不是一个*真正的* `Student` 对象，并且具有从第一个 `person` 复制过去的相同的 `ID`，那么它就不是一个恰当的拷贝。
 
-C# 实现了这一点。记录(`record`)有一个隐藏的虚方法（`virtual method`），它被委托“克隆”整个对象。每个派生记录类型都重写此方法以调用该类型的复制构造函数，并且派生记录的复制构造函数将链接到基记录的复制构造函数。`with` 表达式只需调用隐藏的“克隆”方法并将对象初始化器应用于其返回结果。
+C# 实现了这一点。记录(`record`)有一个隐藏的虚方法（`virtual method`），它被委托“克隆”*整个*对象。每个派生记录类型都重写此方法以调用该类型的复制构造函数，并且派生记录的复制构造函数将链接到基记录的复制构造函数。`with` 表达式只需调用隐藏的“克隆”方法并将对象初始化器应用于其返回结果。
 
 ### 基于值的相等和继承（Value-based equality and inheritance）
 
-与 `with` 表达式支持类似，基于值的相等也必须是“虚”的，即 `Student` 需要比较 `Student` 的所有字段，即使比较时静态已知的类型是 `Person` 之类的基类型。这很容易通过重写已经虚拟的(`virtual`) `Equals` 方法来实现。
+与 `with` 表达式支持类似，基于值的相等也必须是“虚的(`virtual`)”，即 `Student` 需要比较 `Student` 的所有字段，即使比较时静态已知的类型是 `Person` 之类的基类型。这很容易通过重写虚的(`virtual`) `Equals` 方法来实现。
 
-然而，关于相等还有一个额外的挑战：如果你比较两种不同的 `Person` 会怎样?我们不能仅仅让其中一个来决定应用哪个相等：相等应该是对称的，所以不管两个对象哪个先出现，结果应该是相同的。换句话说，它们必须在*平等*的应用上*达成一致*！
+然而，关于相等还有一个额外的挑战：如果你比较两种不同的 `Person` 会怎样?我们不能仅仅让其中一个来决定实施哪个相等：相等应该是对称的，所以不管两个对象哪个在前面，结果应该是相同的。换句话说，它们必须在*相等*的实施上*达成一致*！
 
 举例说明一下这个问题：
 
@@ -236,7 +235,7 @@ Person person2 = new Student { FirstName = "Scott", LastName = "Hunter", ID = Ge
 
 这两个对象相等吗？ `person1` 可能会认为相等，因为 `person2` 对于 `Person` 的所有属性都是正确的，但是 `person2` 不敢苟同！我们需要确保它们都同意它们是不同的对象。
 
-同样，C# 会自动为您处理这个问题。实现的方式是，记录有一个名为 `EqualityContract` 的“虚”的受保护的属性。每个派生记录(`record`)都会重写它，为了比较相等，这两个对象必须具有相同的 `EqualityContract`。
+同样，C# 会自动为您处理这个问题。实现的方式是，记录有一个名为 `EqualityContract` 的“虚的(`virtual`)”受保护的属性。每个派生记录(`record`)都会重写它，为了比较相等，这两个对象必须具有相同的 `EqualityContract`。
 
 ## 三、顶级程序（Top-level programs）
 
@@ -292,7 +291,7 @@ public static decimal CalculateToll(object vehicle) =>
 
 ### 简单类型模式（Simple type patterns）
 
-目前，类型模式需要在类型匹配时声明一个标识符——即使该标识符是一个丢弃的 `_`，如上面的 `DeliveryTruck _` 所示。但现在你只需写下类型：
+目前，类型模式需要在类型匹配时声明一个标识符——即使该标识符是一个丢弃的 `_`，如上面的 `DeliveryTruck _` 所示。但现在你只需写下类型就可以了：
 
 ```csharp
 DeliveryTruck => 10.00m,
@@ -311,6 +310,8 @@ DeliveryTruck t when t.GrossWeightClass switch
 },
 ```
 
+这里的 `> 5000` 和 `< 3000` 是关系模式。
+
 ### 逻辑模式（Logical patterns）
 
 最后，您可以将模式与逻辑运算符 `and`、`or` 和 `not` 组合起来，这些运算符用单词拼写，以避免与表达式中使用的运算符混淆。例如，上面嵌套的`switch`的示例可以按如下升序排列：
@@ -326,16 +327,12 @@ DeliveryTruck t when t.GrossWeightClass switch
 
 此例中间的案例使用 `and` 合并了两个关系模式，形成一个表示区间的模式。
 
-A common use of the `not` pattern will be applying it to the `null` constant pattern, as in `not null`. For instance we can split the handling of unknown cases depending on whether they are null:
-
 `not` 模式的一个常见用法是将其应用于 `null` 常量模式，如 `not null`。例如，我们可以根据未知实例是否为空来拆分它们的处理：
 
 ```csharp
 not null => throw new ArgumentException($"Not a known vehicle type: {vehicle}", nameof(vehicle)),
 null => throw new ArgumentNullException(nameof(vehicle))
 ```
-
-Also `not` is going to be convenient in if-conditions containing is-expressions where, instead of unwieldy double parentheses:
 
 此外，`not` 在 `if` 条件中包含 `is` 表达式时将会很方便，可以取代笨拙的双括号，例如：
 
@@ -363,7 +360,7 @@ C# 中的 `new` 表达式总是要求指定类型（隐式类型的数组表达�
 Point p = new (3, 5);
 ```
 
-### 目标类型的 `??`** 和 **`?:`**（Target typed `??` and `?:`）
+### 目标类型的 **`??`** 和 **`?:`**（Target typed `??` and `?:`）
 
 有时有条件的 `??` 和 `?:` 表达式在分支之间没有明显的共享类型，这种情况目前是失败的。但是如果有一个两个分支都可以转换成的目标类型，在 C# 9.0 中将是允许的。
 
