@@ -115,7 +115,7 @@ protected Person(Person original) { /* copy all the fields */ } // generated
 
 如果您不喜欢生成的“复制构造函数”的默认行为，您可以定义自己的“复制构造函数”，它将被 `with` 表达式捕获。
 
-### 基于值的相等（value-based equality）
+### 基于值的相等（Value-based equality）
 
 所有对象都从对象类(`object`)继承一个虚的 `Equals(object)` 方法。这被用作是当两个参数都是非空(`non-null`)时，静态方法 `Object.Equals(object, object)` 的基础。
 
