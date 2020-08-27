@@ -388,7 +388,7 @@ class Tiger : Animal
 
 ## 更多内容……
 
-要查看 C# 9.0 即将发布的全部特性并追随他们的完成，最好的地方是 Roslyn(C#/VB 编译器) GitHub 仓库上的 [Language Feature Status](https://github.com/dotnet/roslyn/blob/master/docs/Language%20Feature%20Status.md)。
+要查看 C# 9.0 即将发布的全部特性并追随它们的完成，最好的地方是 Roslyn(C#/VB 编译器) GitHub 仓库上的 [Language Feature Status](https://github.com/dotnet/roslyn/blob/master/docs/Language%20Feature%20Status.md)。
 
 
 
