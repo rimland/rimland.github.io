@@ -372,7 +372,7 @@ int? result = b ? 0 : null; // nullable value type
 
 ## 六、协变式返回值（Covariant returns）
 
-有时候，派生类中的方法重写具有一个比基类型中的声明更具体（更明确）的返回类型，这样的表达是有用的。C# 9.0 允许：
+有时候，这样的表达是有用的——派生类中的方法重写具有一个比基类型中的声明更具体（更明确）的返回类型。C# 9.0 允许：
 
 ```csharp
 abstract class Animal
