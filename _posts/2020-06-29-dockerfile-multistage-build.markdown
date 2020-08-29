@@ -18,7 +18,7 @@ published: true
 
 `Dockerfile.build`：
 
-```BASH
+```dockerfile
 FROM golang:1.7.3
 WORKDIR /go/src/github.com/alexellis/href-counter/
 COPY app.go .
@@ -30,7 +30,7 @@ RUN go get -d -v golang.org/x/net/html \
 
 `Dockerfile`：
 
-```BASH
+```dockerfile
 FROM alpine:latest  
 RUN apk --no-cache add ca-certificates
 WORKDIR /root/
@@ -67,7 +67,7 @@ rm ./app
 
 `Dockerfile`：
 
-```
+```dockerfile
 FROM golang:1.7.3
 WORKDIR /go/src/github.com/alexellis/href-counter/
 RUN go get -d -v golang.org/x/net/html  
@@ -95,7 +95,7 @@ $ docker build -t alexellis2/href-counter:latest .
 
 默认情况下，没有对阶段进行命名，可以通过它们的整数来引用它们，`FROM` 指令的第一个整数从 0 开始。但是，您可以通过添加一个 `AS <NAME>` 到 `FROM` 指令来命名阶段。下面示例通过命名阶段并在 `COPY` 指令中使用名称改进了前面一个示例。这意味着，即使 Dockerfile 中的指令稍后被重新排序，`COPY` 也不会破坏。
 
-```BASH
+```dockerfile
 FROM golang:1.7.3 AS builder
 WORKDIR /go/src/github.com/alexellis/href-counter/
 RUN go get -d -v golang.org/x/net/html  

@@ -105,7 +105,7 @@ docker rm --force bb
 
 编写 Dockerfile 是容器化一个应用程序的第一步。您可以将这些 Dockerfile 命令看作是如何构建镜像的逐步配方。公告栏应用程序中的 Dockerfile 是这样的：
 
-```BASH
+```dockerfile
 # 使用官方镜像作为父镜像。
 FROM node:current-slim
 
