@@ -43,7 +43,7 @@ dotnet new webapi -o myMicroservice --no-https
 cd myMicroservice
 ```
 
-第一行中 `dotnet` 命令创建了一个 `webapi`(一个 REST API 终端)类型的“新”应用。
+第一行中 `dotnet` 命令创建了一个 `webapi`（一个 REST API 终端）类型的“新”应用。
 
 - 参数 `-o` 创建一个名为 `myMicroservice` 的目录，用于存储应用程序。
 - 标记 `--no-https` 创建一个不需要 HTTPS 证书就可以运行的应用程序，以便简化部署。
