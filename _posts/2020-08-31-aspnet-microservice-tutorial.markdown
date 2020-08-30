@@ -12,9 +12,9 @@ published: true
 
 ## 安装 .NET SDK
 
-要开始构建 .NET 应用程序，首先下载并安装 .NET SDK（软件开发工具包）。
+要开始构建 .NET 应用程序，首先下载并安装 .NET Core SDK（软件开发工具包）。
 
-根据操作系统的类型下载并安装对应版本的 .NET SDK v3.1：
+根据操作系统的类型下载并安装对应版本的 .NET Core SDK v3.1：
 [.NET SDK (64-位)](https://download.visualstudio.microsoft.com/download/pr/547f9f81-599a-4b58-9322-d1d158385df6/ebe3e02fd54c29487ac32409cb20d352/dotnet-sdk-3.1.401-win-x64.exe) 
  或 
 [.NET SDK (32-位)](https://download.visualstudio.microsoft.com/download/pr/719cf74a-8a57-405d-a048-be8d94bbef37/1914f811ddbf10f7a2a45181b9cac714/dotnet-sdk-3.1.401-win-x86.exe)
@@ -53,7 +53,7 @@ cd myMicroservice
 
 可以看到，在 `myMicroservice` 目录中创建了几个文件，为您提供了一个可以运行的简单服务。
 
-- `myMicroservice.csproj` 定义项目引用的库等。
+- `myMicroservice.csproj` 定义了项目引用的库等。
 - `Startup.cs` 包含应用程序启动时加载的所有设置和配置。
 - `Controllers/WeatherForecastController.cs` 有一个简单 API 的代码，可以返回未来 5 天的天气预报（*模拟数据*）。
 
@@ -99,7 +99,7 @@ public class WeatherForecastController : ControllerBase
 dotnet run
 ```
 
-命令完成后，在浏览器中打开『http://localhost:5000/weatherforecast』
+命令完成后，在浏览器中打开『http://localhost:5000/WeatherForecast』
 
 ![The API endpoint returns JSON data containing weather forecast information](/assets/images/dotnet/screenshot-microservice-tutorial-run.png)
 
@@ -176,7 +176,7 @@ docker build -t mymicroservice .
 > 译者注：<br/>
 > 如果是第一次在本机上创建基于 `mcr.microsoft.com/dotnet/core/sdk:3.1` 和 `mcr.microsoft.com/dotnet/core/aspnet:3.1` 的镜像，构建 `mymicroservice` 镜像将会是一个漫长的过程，因为从官方 Docker 注册表拉取镜像实在是太慢了！耐心等待，终会成功的，我已经实践过了。
 
-等待镜像构建完成，可以运行下面的命令来查看计算机上可用的所有镜像的列表，包含您刚刚创建的 `mymicroservice` 镜像。
+等待镜像构建完成，可以运行下面的命令来查看计算机上可用的所有镜像的列表，包括您刚刚创建的 `mymicroservice` 镜像。
 
 ```bash
 docker images
@@ -209,7 +209,7 @@ docker ps
 
 <br/>
 
-> 作者 ： .NET 官网 <br/>
+> 作者 ： Microsoft 官网 <br/>
 > 译者 ： 技术译民 <br/>
 > 出品 ： [技术译站](https://ittranslator.cn/) <br/>
-> 链接 ： [英文原文](https://dotnet.microsoft.com/learn/dotnet/hello-world-tutorial/intro)
+> 链接 ： [英文原文](https://dotnet.microsoft.com/learn/aspnet/microservice-tutorial/intro)
