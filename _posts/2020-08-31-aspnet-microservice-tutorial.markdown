@@ -175,7 +175,7 @@ docker build -t mymicroservice .
 - 最后一个参数告诉命令使用哪个目录来查找 `Dockerfile` (`.` 指定当前目录)。
 
 > 译者注：<br/>
-> 如果是第一次在本机上创建基于 `mcr.microsoft.com/dotnet/core/sdk:3.1` 和 `mcr.microsoft.com/dotnet/core/aspnet:3.1` 的镜像，构建 `mymicroservice` 镜像将会是一个漫长的过程，因为从官方 Docker 注册表拉取镜像实在是太慢了！耐心等待，终会成功的，我已经实践过了。
+> 如果是第一次在本机上构建基于 `mcr.microsoft.com/dotnet/core/sdk:3.1` 和 `mcr.microsoft.com/dotnet/core/aspnet:3.1` 的镜像，构建 `mymicroservice` 镜像将会是一个漫长的过程，因为从官方 Docker 注册表拉取镜像实在是太慢了！耐心等待，终会成功的，我已经实践过了。
 
 等待镜像构建完成，可以运行下面的命令来查看计算机上可用的所有镜像的列表，包括您刚刚创建的 `mymicroservice` 镜像。
 
