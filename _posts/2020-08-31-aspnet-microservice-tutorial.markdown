@@ -207,7 +207,8 @@ docker ps
 以上这些就是微服务的基本构建块。
 
 
-
+<br/>
+下一篇：[将微服务部署到 Azure Kubernetes 服务 (AKS) 实践](/dotnet/csharp/2020/09/07/deploy-microservice-to-aks.html)
 
 <br/>
 
