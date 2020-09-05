@@ -19,7 +19,7 @@ published: true
  或 
 [.NET SDK (32-位)](https://download.visualstudio.microsoft.com/download/pr/719cf74a-8a57-405d-a048-be8d94bbef37/1914f811ddbf10f7a2a45181b9cac714/dotnet-sdk-3.1.401-win-x86.exe)
 
-> Download .NET SDKs for Visual Studio 
+> Download .NET SDKs for Visual Studio: <br/>
 > [https://dotnet.microsoft.com/download/visual-studio-sdks](https://dotnet.microsoft.com/download/visual-studio-sdks)
 
 ### 检查安装是否正确
