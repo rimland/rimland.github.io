@@ -285,7 +285,7 @@ Good Job！现在已将微服务部署到 Azure，并进行了缩放。
 
 ## 总结
 
-操作体验：Docker Hub，慢！Azure，慢！ 一顿操作猛如虎，步履蹒跚慢如牛，而且这牛还是只蜗牛。
+操作体验：Docker Hub，慢！Azure，慢！ 一顿操作猛如虎，步履蹒跚慢如牛，而且还是只蜗牛。
 
 可以用 [Azure 容器注册表](https://azure.microsoft.com/zh-cn/services/container-registry/) 替代 Docker Hub 管理镜像。
 
