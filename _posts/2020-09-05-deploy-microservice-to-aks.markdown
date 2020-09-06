@@ -52,7 +52,7 @@ docker tag mymicroservice [YOUR DOCKER ID]/mymicroservice
 docker push [YOUR DOCKER ID]/mymicroservice
 ```
 
-等待推送完成，在 Docker Hub 中访问您的仓库 [https://hub.docker.com/repositories](https://hub.docker.com/repositories)，可以看到您刚推送的镜像，如下图：
+等待推送完成，在 Docker Hub 中访问您的仓库 [https://hub.docker.com/repositories](https://hub.docker.com/repositories)，可以看到刚推送的镜像，如下图：
 
 ![docker-hub-mymicroservice](/assets/images/202009/docker-hub-mymicroservice.png)
 
