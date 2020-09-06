@@ -74,7 +74,7 @@ netsh interface ip add dnsservers "WLAN" 8.8.8.8 index=2
 
 ### 创建 Azure 账户
 
-如果您是 Azure 云的新手，您可以创建一个免费帐户。如果您有一个现有的帐户，您可以跳过这一步。
+如果您是 Azure 云的新手，可以创建一个免费帐户。如果您有一个现有的帐户，可以跳过这一步。
 
 创建账户的步骤，请查看 『[创建免费 Azure 账户](https://azure.microsoft.com/free/dotnet/?utm_source=dotnet-website&utm_medium=page&utm_campaign=dotnet-banner)』
 
