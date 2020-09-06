@@ -185,7 +185,7 @@ az aks get-credentials --resource-group myMicroserviceResources --name myMicrose
 
 ## 部署到 Azure
 
-AKS 与 Kubernetes 一样，使用 `.yaml` 文件来定义如何部署容器。
+与 Kubernetes 一样，AKS 使用 `.yaml` 文件来定义如何部署容器。
 
 ### 使用 Azure Cloud Shell 创建部署文件
 
