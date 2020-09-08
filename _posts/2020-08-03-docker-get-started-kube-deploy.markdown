@@ -32,35 +32,35 @@ Kubernetes 中的所有容器都被安排为 *pods*，即共享一些资源的�
     apiVersion: apps/v1
     kind: Deployment
     metadata:
-        name: bb-demo
-        namespace: default
+    name: bb-demo
+    namespace: default
     spec:
-        replicas: 1
-        selector:
-            matchLabels:
-                bb: web
-        template:
-            metadata:
-                labels:
-                    bb: web
-            spec:
-                containers:
-                -   name: bb-site
-                    image: bulletinboard:1.0
+    replicas: 1
+    selector:
+        matchLabels:
+        bb: web
+    template:
+        metadata:
+        labels:
+            bb: web
+        spec:
+        containers:
+        - name: bb-site
+            image: bulletinboard:1.0
     ---
     apiVersion: v1
     kind: Service
     metadata:
-        name: bb-entrypoint
-        namespace: default
+    name: bb-entrypoint
+    namespace: default
     spec:
-        type: NodePort
-        selector:
-            bb: web
-        ports:
-        -   port: 8080
-            targetPort: 8080
-            nodePort: 30001
+    type: NodePort
+    selector:
+        bb: web
+    ports:
+    - port: 8080
+        targetPort: 8080
+        nodePort: 30001
     ```
 
     在此 Kubernetes YAML 文件中，有两个对象，以 `---` 分隔：
