@@ -33,12 +33,12 @@ Docker Desktop 将为您快速轻松地设置 Kubernetes。按照适用于您的
     apiVersion: v1
     kind: Pod
     metadata:
-        name: demo
+      name: demo
     spec:
-        containers:
-        - name: testpod
-          image: alpine:3.5
-          command: ["ping", "8.8.8.8"]
+      containers:
+      - name: testpod
+        image: alpine:3.5
+        command: ["ping", "8.8.8.8"]
     ```
 
     这描述了一个带有单个容器的 pod，隔离一个简单的 ping 到 “8.8.8.8”。

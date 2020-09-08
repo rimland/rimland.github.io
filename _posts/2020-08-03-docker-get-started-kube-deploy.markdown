@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Docker 基础知识 - 在生产环境中运行您的应用 - 编排 - 部署到 Kubernetes"
+title:  "Docker 基础知识 - 编排 - 在开发机上设置和使用 Kubernetes 环境"
 date:   2020-08-03 01:30:00 +0800
 categories: backend docker
 published: true
@@ -32,33 +32,33 @@ Kubernetes 中的所有容器都被安排为 *pods*，即共享一些资源的�
     apiVersion: apps/v1
     kind: Deployment
     metadata:
-    name: bb-demo
-    namespace: default
+      name: bb-demo
+      namespace: default
     spec:
-    replicas: 1
-    selector:
+      replicas: 1
+      selector:
         matchLabels:
-        bb: web
-    template:
+          bb: web
+      template:
         metadata:
-        labels:
+          labels:
             bb: web
         spec:
-        containers:
-        - name: bb-site
+          containers:
+          - name: bb-site
             image: bulletinboard:1.0
     ---
     apiVersion: v1
     kind: Service
     metadata:
-    name: bb-entrypoint
-    namespace: default
+      name: bb-entrypoint
+      namespace: default
     spec:
-    type: NodePort
-    selector:
+      type: NodePort
+      selector:
         bb: web
-    ports:
-    - port: 8080
+      ports:
+      - port: 8080
         targetPort: 8080
         nodePort: 30001
     ```
