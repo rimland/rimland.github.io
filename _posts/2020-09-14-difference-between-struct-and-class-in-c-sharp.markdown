@@ -153,10 +153,10 @@ public struct Person
 
 static void Main()
 {
-    Person p1 = new Person("技术译民", 25);
+    Person p1 = new Person("技术译站", 100);
     Person p2;
-    p2.Name = "技术译民";
-    p2.Age = 25;
+    p2.Name = "技术译站";
+    p2.Age = 100;
 
     if (p2.Equals(p1))
         Console.WriteLine("p2 和 p1 有相同的值。");
