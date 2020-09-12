@@ -168,6 +168,8 @@ static void Main()
 
 `System.ValueType` 的 `Equals` 使用反射实现，因为它必须能够确定任何结构中有哪些字段。 在创建自己的结构时，重写 `Equals` 方法可以提供特定于你的类型的高效求等算法。
 
+这一点和 C# 9.0 中新增的记录(`record`) 具有相似之处，想了解 C# 9.0 可以查看 [欢迎来到 C＃ 9.0](https://mp.weixin.qq.com/s/0BWgiBuIxW-agyFNSejMtg)。
+
 <br/>
 
 > 作者 ： Manju lata Yadav <br/>
