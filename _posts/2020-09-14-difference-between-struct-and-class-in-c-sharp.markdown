@@ -26,7 +26,7 @@ published: true
             this.y = 4;
         }
         
-        public Coords(double x) //错误，必须给所有字段赋值
+        public Coords(double x) //错误，构造函数中必须给所有字段赋值
         {
             this.x = x;
         }
@@ -75,7 +75,7 @@ published: true
     ```csharp
     public struct Coords
     {
-        public double x = 4; //错误, 初始化器不允许
+        public double x = 4; //错误, 结构体中初始化器不允许实例字段设定初始值
         public static double y = 5; // 正确
         public static double z { get; set; } = 6; // 正确
     }
@@ -127,7 +127,7 @@ static void Main()
 
 ---
 
-> 以下内容为译者补充
+> 以下为译者补充
 
 ## 结构体实例与类实例
 
@@ -161,13 +161,12 @@ static void Main()
 
     Console.ReadKey();
 }
-
 // 输出: p2 和 p1 有相同的值。
 ```
 
 `System.ValueType` 的 `Equals` 使用反射实现，因为它必须能够确定任何结构中有哪些字段。 在创建自己的结构时，重写 `Equals` 方法可以提供特定于你的类型的高效求等算法。
 
-## 总结
+<br/>
 
 > 作者 ： Manju lata Yadav <br/>
 > 译者 ： 技术译民 <br/>
