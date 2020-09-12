@@ -6,6 +6,8 @@ categories: dotnet csharp
 published: true
 ---
 
+> 本文是对 [《.NET Tutorial - Deploy a microservice to Azure》](https://dotnet.microsoft.com/learn/aspnet/deploy-microservice-tutorial/intro) 的翻译和实践。
+
 ## 介绍
 
 本文的目的是：通过使用 DockerHub 和 Azure Kubernetes Service (AKS) 将之前 [使用 .NET 和 Docker 构建的微服务](https://ittranslator.cn/dotnet/csharp/2020/08/31/aspnet-microservice-tutorial.html) 部署到微软 Azure 云上，来介绍微服务的基本部署过程。
