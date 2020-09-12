@@ -56,7 +56,7 @@ docker push [YOUR DOCKER ID]/mymicroservice
 
 等待推送完成，在 Docker Hub 中访问您的仓库 [https://hub.docker.com/repositories](https://hub.docker.com/repositories)，可以看到刚推送的镜像，如下图：
 
-![docker-hub-mymicroservice](/assets/images/202009/docker-hub-mymicroservice.png)
+![docker-hub-mymicroservice](/assets/images/202009/docker-hub-mymicroservice.png#center)
 
 镜像完成推送后，如果前面有修改过 DNS，务必将 DNS 地址改回原来的动态获取，不然可能会影响网络访问速度：
 
@@ -132,7 +132,7 @@ az aks install-cli
 > 然而，这条命令重试了很多次始终因网络问题而执行失败，最后放弃在本机安装 AKS CLI，直接使用线上 Azure Cloud Shell，关于 Azure Cloud Shell 请参考文档：[https://docs.microsoft.com/en-us/azure/cloud-shell/overview](https://docs.microsoft.com/en-us/azure/cloud-shell/overview)
 
 在 Azure Portal 中打开 Azure Cloud Shell 的方法是：
-![Azure Cloud Shell](/assets/images/202009/portal-azure-cloud-shell.png)
+![Azure Cloud Shell](/assets/images/202009/portal-azure-cloud-shell.png#center)
 
 ## 创建 Azure 资源
 
@@ -163,7 +163,7 @@ C:\Users\xxx>az group create --name myMicroserviceResources --location eastasia
 }
 ```
 执行完，在 Azure Portal 中点击 “Resource groups” 查看：
-![portal-azure-resource-groups](/assets/images/202009/portal-azure-resource-groups.png)
+![portal-azure-resource-groups](/assets/images/202009/portal-azure-resource-groups.png#center)
 
 ### 使用 Azure Cloud Shell 创建 AKS 集群
 
@@ -177,7 +177,7 @@ az aks create --resource-group myMicroserviceResources --name myMicroserviceClus
 
 执行完成后，查看资源组列表，可以看到多了一个 AKS 集群资源组和一个网络观察资源组：
 
-![portal-azure-resource-groups-aks](/assets/images/202009/portal-azure-resource-groups-aks.png)
+![portal-azure-resource-groups-aks](/assets/images/202009/portal-azure-resource-groups-aks.png#center)
 
 使用 Azure Cloud Shell 运行以下命令下载要部署到 AKS 集群的凭证：
 
@@ -191,7 +191,7 @@ az aks get-credentials --resource-group myMicroserviceResources --name myMicrose
 
 ### 使用 Azure Cloud Shell 创建部署文件
 
-![azure-cloud-shell-vim-yaml](/assets/images/202009/azure-cloud-shell-vim-yaml.png)
+![azure-cloud-shell-vim-yaml](/assets/images/202009/azure-cloud-shell-vim-yaml.png#center)
 
 在 Azure Portal 中打开 Azure Cloud Shell 窗口， 运行 `cd clouddrive` 命令打开 `clouddrive` 目录， 
 
@@ -244,7 +244,7 @@ spec:
 
 此时打开 “cloud-shell-storage-southeastasia” 资源组，可以看到里面多了一个 `deploy-myMicroservice.yaml` 文件，如图：
 
-![cloud-shell-storage-file](/assets/images/202009/cloud-shell-storage-file.png)
+![cloud-shell-storage-file](/assets/images/202009/cloud-shell-storage-file.png#center)
 
 ### 运行部署
 
@@ -262,7 +262,7 @@ kubectl apply -f deploy-myMicroservice.yaml
 kubectl get service mymicroservice --watch
 ```
 
-![azure-cloud-shell-kubectl-apply](/assets/images/202009/azure-cloud-shell-kubectl-apply.png)
+![azure-cloud-shell-kubectl-apply](/assets/images/202009/azure-cloud-shell-kubectl-apply.png#center)
 
 另外，前面的 `kubectl get service` 命令会显示服务可用的外部 IP 地址（`EXTERNAL-IP`）。
 
