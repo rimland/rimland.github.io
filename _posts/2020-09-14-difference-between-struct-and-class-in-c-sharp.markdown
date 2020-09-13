@@ -66,7 +66,7 @@ published: true
     }
     ```
     
-- 结构体不能继承自另一个结构体或者类，类也不能继承结构体。所有结构体直接继承于抽象类 [`System.ValueType`](https://docs.microsoft.com/zh-cn/dotnet/api/system.valuetype)，`System.ValueType` 又继承于 `System.Object`。
+- 结构体不能继承于另一个结构体或者类，类也不能继承结构体。所有结构体都直接继承于抽象类 [`System.ValueType`](https://docs.microsoft.com/zh-cn/dotnet/api/system.valuetype)，`System.ValueType` 又继承于 `System.Object`。
 - 结构体不能是基类，因此，结构体不能是 `abstract` 的，且总是隐式密封的(`sealed`)。
 - 不允许对结构体使用抽象（`abstract`）和密封（`sealed`）修饰符，也不允许对结构体成员使用 `protected` 或 `protected internal` 修饰符。
 - 结构体中的函数成员不能是抽象的（`abstract`）或虚的（`virtual`），重写（`override`）修饰符只允许重写从 `System.ValueType` 继承的方法。
@@ -82,7 +82,7 @@ published: true
     ```
     
 - 结构体可以实现接口。
-- 结构体可以用作 `nullable type`（即：`Nullable<T>` 中的 `T`），赋值 `null` 值，参考【[`Nullable<T> Struct`](https://docs.microsoft.com/en-us/dotnet/api/system.nullable-1?view=netcore-3.1)】
+- 结构体可以用作 `nullable type`（即：`Nullable<T>` 中的 `T`），对其赋值 `null` 值，参考【[`Nullable<T> Struct`](https://docs.microsoft.com/en-us/dotnet/api/system.nullable-1?view=netcore-3.1)】
 
 ## 什么时候使用结构体或类？
 
@@ -132,7 +132,7 @@ static void Main()
 
 ## 结构体实例与类实例
 
-结构体实例的内存在栈（`stack`）上进行分配，所占用的内存随声明它的类型或方法一起回收。 这就是在赋值时复制结构体的一个原因。 相比之下，类实例的内存在堆（`heap`）上进行分配，当对类实例的所有引用都超出范围时，为该类实例分配的内存将由公共语言运行时自动回收（垃圾回收）。
+结构体实例的内存在栈（`stack`）上进行分配，所占用的内存随声明它的类型或方法一起回收。 这就是在赋值时要复制结构体的一个原因。 相比之下，类实例的内存在堆（`heap`）上进行分配，当对类实例的所有引用都超出范围时，为该类实例分配的内存将由公共语言运行时自动回收（垃圾回收）。
 
 ### 结构体实例的值相等性
 
