@@ -140,7 +140,7 @@ static void Main()
 
 两个结构体实例的比较是基于值的比较，而类实例的比较则是对其引用的比较。
 
-若要确定两个结构体实例中的实例字段是否具有相同的值，可使用 `ValueType.Equals` 方法。 由于所有结构都隐式继承自 [`System.ValueType`](https://docs.microsoft.com/zh-cn/dotnet/api/system.valuetype)，因此可以直接在其对象上调用该方法，如以下示例所示：
+若要确定两个结构体实例中的实例字段是否具有相同的值，可使用 `ValueType.Equals` 方法。 由于所有结构体都隐式继承于 [`System.ValueType`](https://docs.microsoft.com/zh-cn/dotnet/api/system.valuetype)，因此可以直接在其对象上调用该方法，如以下示例所示：
 
 ```csharp
 public struct Person
@@ -169,7 +169,7 @@ static void Main()
 // 输出: p2 和 p1 有相同的值。
 ```
 
-`System.ValueType` 是值类型的隐式基类， 它的 `Equals` 使用反射实现，因为它必须能够确定任何结构体中有哪些字段。 在创建自己的结构体时，重写 `Equals` 方法可以提供特定于你的类型的高效求等算法。
+`System.ValueType` 的 `Equals` 是使用反射实现，因为它必须能够确定任何结构体中有哪些字段。 在创建自己的结构体时，重写 `Equals` 方法可以提供特定于你的类型的高效求等算法。
 
 “基于值的相等”这一点和 C# 9.0 中新增的记录(`record`) 类型具有相似之处，想了解 C# 9.0 可以查看：[欢迎来到 C＃ 9.0](https://mp.weixin.qq.com/s/0BWgiBuIxW-agyFNSejMtg)。
 
