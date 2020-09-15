@@ -169,7 +169,7 @@ static void Main()
 // 输出: p2 和 p1 有相同的值。
 ```
 
-`System.ValueType` 的 `Equals` 是使用反射实现，因为它必须能够确定任何结构体中有哪些字段。 在创建自己的结构体时，重写 `Equals` 方法可以提供特定于你的类型的高效求等算法。
+`System.ValueType` 的 `Equals` 是使用反射实现的，因为它必须能够确定任何结构体中有哪些字段。 在创建自己的结构体时，重写 `Equals` 方法可以提供特定于你的类型的高效求等算法。
 
 “基于值的相等”这一点和 C# 9.0 中新增的记录(`record`) 类型具有相似之处，想了解 C# 9.0 可以查看：[欢迎来到 C＃ 9.0](https://mp.weixin.qq.com/s/0BWgiBuIxW-agyFNSejMtg)。
 
