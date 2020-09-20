@@ -37,8 +37,6 @@ C# 中异步方法的推荐返回类型是 `Task`。如果您想编写一个有�
 
 C# 中 `Task` 和 `ValueTask` 表示两种主要的 “可等待（awaitable）” 类型。请注意，您不能阻塞（block）一个 `ValueTask`。如果需要阻塞，则应使用 `AsTask` 方法将 `ValueTask` 转换为 `Task`，然后在该引用 `Task` 对象上进行阻塞。
 
-Also note that each ValueTask can be consumed only once. Here the word “consume” implies that a ValueTask can asynchronously wait for (await) the operation to complete or take advantage of AsTask to convert a ValueTask to a Task. However, a ValueTask should be consumed only once, after which the ValueTask<T> should be ignored.
-
 另外请注意，每个 `ValueTask` 只能被消费（consumed）一次。这里的单词 “消费（consume）” 意味着 `ValueTask` 可以异步等待（`await`）操作完成，或者利用 `AsTask` 将 `ValueTask` 转换为 `Task`。但是，`ValueTask` 只应被消费（consumed）一次，然后 `ValueTask<T>` 应被忽略。
 
 ## C# 中的 ValueTask 示例
