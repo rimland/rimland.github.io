@@ -39,7 +39,7 @@ C# 中 `Task` 和 `ValueTask` 表示两种主要的 “可等待（awaitable）�
 
 Also note that each ValueTask can be consumed only once. Here the word “consume” implies that a ValueTask can asynchronously wait for (await) the operation to complete or take advantage of AsTask to convert a ValueTask to a Task. However, a ValueTask should be consumed only once, after which the ValueTask<T> should be ignored.
 
-另外请注意，每个 `ValueTask` 只能被消费（consumed）一次。这里的单词 “消费（consume）” 意味着 `ValueTask` 可以异步等待（`await`）操作完成，或者利用 `AsTask` 将 `ValueTask` 转换为 `Task`。但是，`ValueTask` 只应被消费（consumed）一次，之后 `ValueTask<T>` 应被忽略。
+另外请注意，每个 `ValueTask` 只能被消费（consumed）一次。这里的单词 “消费（consume）” 意味着 `ValueTask` 可以异步等待（`await`）操作完成，或者利用 `AsTask` 将 `ValueTask` 转换为 `Task`。但是，`ValueTask` 只应被消费（consumed）一次，然后 `ValueTask<T>` 应被忽略。
 
 ## C# 中的 ValueTask 示例
 
@@ -52,14 +52,12 @@ public Task<int> GetCustomerIdAsync()
 }
 ```
 
-The above code snippet does not create the entire async state machine magic but it allocates a Task object in the managed heap. To avoid this allocation, you might want to take advantage of a ValueTask instead as shown in the code snippet given below.
-
 上面的代码片段并没有创建整个异步状态机制，但它在托管堆（`managed heap`）中分配了一个 `Task` 对象。为了避免这种分配，您可能希望利用 `ValueTask` 代替，像下面给出的代码片段所示的那样。
 
 ```csharp
 public ValueTask<int> GetCustomerIdAsync()
 {
-    return new ValueTask(1);
+    return new ValueTask<int>(1);
 }
 ```
 
@@ -100,8 +98,6 @@ static void Main(string[] args)
 }
 ```
 
-Let’s now add another method to our repository, this time an asynchronous method named GetDataAsync. Here is what the modified IRepository interface would look like.
-
 现在让我们将另一个方法添加到我们的存储库（repository）中，这次是一个名为 `GetDataAsync` 的异步方法。以下是修改后的 `IRepository` 接口的样子。
 
 ```csharp
@@ -137,15 +133,11 @@ public class Repository<T> : IRepository<T>
 
 尽管 `ValueTask` 提供了一些好处，但是使用 `ValueTask` 代替 `Task` 有一定的权衡。`ValueTask` 是具有两个字段的值类型，而 `Task` 是具有单个字段的引用类型。因此，使用 `ValueTask` 意味着要处理更多的数据，因为方法调用将返回两个数据字段而不是一个。另外，如果您等待(`await`)一个返回 `ValueTask` 的方法，那么该异步方法的状态机也会更大，因为它必须容纳一个包含两个字段的结构体而不是在使用 `Task` 时的单个引用。
 
-Further, if the consumer of an asynchronous method uses Task.WhenAll or Task.WhenAny, using `ValueTask<T>` as a return type in an asynchronous method might become costly. This is because you would need to convert the ValueTask<T> to Task<T> using the AsTask method, which would incur an allocation that could be easily avoided if a cached Task<T> had been used in the first place.
-
 此外，如果异步方法的使用者使用 `Task.WhenAll` 或者 `Task.WhenAny`，在异步方法中使用 `ValueTask<T>` 作为返回类型可能会代价很高。这是因为您需要使用 `AsTask` 方法将 `ValueTask<T>` 转换为 `Task<T>`，这将引发一个分配，而如果使用起初缓存的 `Task<T>`，则可以轻松避免这种分配。
 
-Here is the rule of the thumb. Use Task when you have a piece of code that will always be asynchronous, i.e., when the operation will not immediately complete. Take advantage of ValueTask when the result of an asynchronous operation is already available or when you already have a cached result. Either way, you should perform the necessary performance analysis before considering ValueTask.
+经验法则是这样的：当您有一段代码总是异步的时，即当操作（总是）不能立即完成时，请使用 `Task`。当异步操作的结果已经可用时，或者当您已经缓存了结果时，请利用 `ValueTask`。不管怎样，在考虑使用 `ValueTask` 之前，您都应该执行必要的性能分析。
 
-这是经验法则。当您有一段代码总是异步的时，即当操作（总是）不能立即完成时，请使用 `Task`。当异步操作的结果已经可用时，或者当您已经缓存了结果时，请利用 `ValueTask`。不管怎样，在考虑使用 `ValueTask` 之前，您都应该执行必要的性能分析。
-
-
+> `ValueTask` 是 `readonly struct` 类型，而 `Task` 是 `class` 类型。相关链接：[C# 中 Struct 和 Class 的区别总结](https://mp.weixin.qq.com/s/wVikRMfc4BbrB6WbDy1gXw)。
 
 
 <br/>
