@@ -135,8 +135,9 @@ public class Repository<T> : IRepository<T>
 
 经验法则是这样的：当您有一段代码总是异步的时，即当操作（总是）不能立即完成时，请使用 `Task`。当异步操作的结果已经可用时，或者当您已经缓存了结果时，请利用 `ValueTask`。不管怎样，在考虑使用 `ValueTask` 之前，您都应该执行必要的性能分析。
 
-> `ValueTask` 是 `readonly struct` 类型，而 `Task` 是 `class` 类型。相关链接：[C# 中 Struct 和 Class 的区别总结](https://mp.weixin.qq.com/s/wVikRMfc4BbrB6WbDy1gXw)。
+<br/>
 
+> `ValueTask` 是 `readonly struct` 类型，`Task` 是 `class` 类型。相关链接：[C# 中 Struct 和 Class 的区别总结](https://mp.weixin.qq.com/s/wVikRMfc4BbrB6WbDy1gXw)。
 
 <br/>
 
