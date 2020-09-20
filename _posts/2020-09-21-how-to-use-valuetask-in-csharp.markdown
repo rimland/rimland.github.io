@@ -137,7 +137,8 @@ public class Repository<T> : IRepository<T>
 
 <br/>
 
-> `ValueTask` 是 `readonly struct` 类型，`Task` 是 `class` 类型。相关链接：[C# 中 Struct 和 Class 的区别总结](https://mp.weixin.qq.com/s/wVikRMfc4BbrB6WbDy1gXw)。
+> `ValueTask` 是 `readonly struct` 类型，`Task` 是 `class` 类型。  
+> 相关链接：[C# 中 Struct 和 Class 的区别总结](https://mp.weixin.qq.com/s/wVikRMfc4BbrB6WbDy1gXw)。
 
 <br/>
 
