@@ -6,7 +6,7 @@ categories: dotnet csharp
 published: true
 ---
 
-### 副标题——在 C# 中利用 `ValueTask` 避免从异步方法返回任务对象时分配。
+# 在 C# 中利用 `ValueTask` 避免从异步方法返回任务对象时分配
 
 > 翻译自 Joydip Kanjilal 2020年7月6日 的博文 [《How to use ValueTask in C#》](https://www.infoworld.com/article/3565433/how-to-use-valuetask-in-csharp.html)
 
