@@ -8,7 +8,7 @@ published: true
 
 # 在 C# 中利用 `ValueTask` 避免从异步方法返回 `Task` 对象时分配
 
-> 翻译自 Joydip Kanjilal 2020年7月6日 的博文 [《How to use ValueTask in C#》](https://www.infoworld.com/article/3565433/how-to-use-valuetask-in-csharp.html)
+> 翻译自 Joydip Kanjilal 2020年7月6日 的文章 [《How to use ValueTask in C#》](https://www.infoworld.com/article/3565433/how-to-use-valuetask-in-csharp.html)
 
 异步编程已经使用了相当长一段时间了。近年来，随着 `async` 和 `await` 关键字的引入，它变得更加强大。您可以利用异步编程来提高应用程序的响应能力和吞吐量。
 
