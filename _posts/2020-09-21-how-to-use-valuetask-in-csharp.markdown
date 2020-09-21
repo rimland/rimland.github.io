@@ -27,7 +27,7 @@ C# 中异步方法的推荐返回类型是 `Task`。如果您想编写一个有�
 5. 在接下来显示的 “配置新项目” 窗口，指定新项目的名称和位置。
 6. 点击 “创建”。
 
-这将在 Visual Studio 2019 中创建一个新的 .NET Core 控制台应用程序项目。我们将在 本文后面的部分中使用这个项目来说明 `ValueTask` 的用法。
+这将在 Visual Studio 2019 中创建一个新的 .NET Core 控制台应用程序项目。我们将在本文后面的部分中使用这个项目来说明 `ValueTask` 的用法。
 
 ## 为什么要使用 ValueTask ？
 
@@ -39,7 +39,7 @@ C# 中异步方法的推荐返回类型是 `Task`。如果您想编写一个有�
 
 C# 中 `Task` 和 `ValueTask` 表示两种主要的 “可等待（awaitable）” 类型。请注意，您不能阻塞（block）一个 `ValueTask`。如果需要阻塞，则应使用 `AsTask` 方法将 `ValueTask` 转换为 `Task`，然后在该引用 `Task` 对象上进行阻塞。
 
-另外请注意，每个 `ValueTask` 只能被消费（consumed）一次。这里的单词 “消费（consume）” 意味着 `ValueTask` 可以异步等待（`await`）操作完成，或者利用 `AsTask` 将 `ValueTask` 转换为 `Task`。但是，`ValueTask` 只应被消费（consumed）一次，然后 `ValueTask<T>` 应被忽略。
+另外请注意，每个 `ValueTask` 只能被消费（consumed）一次。这里的单词 “消费（consume）” 是指 `ValueTask` 可以异步等待（`await`）操作完成，或者利用 `AsTask` 将 `ValueTask` 转换为 `Task`。但是，`ValueTask` 只应被消费（consumed）一次，之后 `ValueTask<T>` 应被忽略。
 
 ## C# 中的 ValueTask 示例
 
@@ -133,7 +133,7 @@ public class Repository<T> : IRepository<T>
 
 尽管 `ValueTask` 提供了一些好处，但是使用 `ValueTask` 代替 `Task` 有一定的权衡。`ValueTask` 是具有两个字段的值类型，而 `Task` 是具有单个字段的引用类型。因此，使用 `ValueTask` 意味着要处理更多的数据，因为方法调用将返回两个数据字段而不是一个。另外，如果您等待(`await`)一个返回 `ValueTask` 的方法，那么该异步方法的状态机也会更大，因为它必须容纳一个包含两个字段的结构体而不是在使用 `Task` 时的单个引用。
 
-此外，如果异步方法的使用者使用 `Task.WhenAll` 或者 `Task.WhenAny`，在异步方法中使用 `ValueTask<T>` 作为返回类型可能会代价很高。这是因为您需要使用 `AsTask` 方法将 `ValueTask<T>` 转换为 `Task<T>`，这将引发一个分配，而如果使用起初缓存的 `Task<T>`，则可以轻松避免这种分配。
+此外，如果异步方法的使用者使用 `Task.WhenAll` 或者 `Task.WhenAny`，在异步方法中使用 `ValueTask<T>` 作为返回类型可能会代价很高。这是因为您需要使用 `AsTask` 方法将 `ValueTask<T>` 转换为 `Task<T>`，这会引发一个分配，而如果使用起初缓存的 `Task<T>`，则可以轻松避免这种分配。
 
 **经验法则是这样的：当您有一段代码总是异步的时，即当操作（总是）不能立即完成时，请使用 `Task`。当异步操作的结果已经可用时，或者当您已经缓存了结果时，请利用 `ValueTask`。不管怎样，在考虑使用 `ValueTask` 之前，您都应该执行必要的性能分析。**
 
