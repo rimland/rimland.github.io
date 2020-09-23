@@ -8,4 +8,5 @@ Gemfile.lock
 _includes/*
 #_layouts
 
+!_includes/header.html
 !_includes/footer.html
