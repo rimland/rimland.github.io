@@ -1,12 +1,106 @@
 ---
 layout: post
-title:  "C# 中 System.Index 结构体和 Hat 运算符(^)的全新用法"
-date:   2020-09-28 00:10:00 +0800
+title:  "C# 中 System.Range 结构体和 "
+date:   2020-10-12 00:10:00 +0800
 categories: dotnet csharp
-published: true
+published: false
 ---
 
-> 翻译自 John Demetriou 2019年2月17日 的文章 [《C# 8 – Introducing Index Struct And A Brand New Usage For The Hat Operator》](http://www.devsanon.com/c/c-8-introducing-index-struct-and-a-brand-new-usage-for-the-hat-operator/)
+> 翻译自 John Demetriou 2020年4月6日 的文章 [《C# 8 Is Introducing Ranges》](http://www.devsanon.com/c/c-8-is-introducing-ranges/)
+
+我们之前讨论过的 C# 中的一个特性 [**System.Index 结构体**](https://mp.weixin.qq.com/s/k4qxPRaMRRUWal5muc0SQQ)，与另一特性 **System.Range 结构体** 是携手并进的。
+
+在 C# 8.0 之前，没有访问集合任意部分的范围或切片的语法。开发人员通常不得不执行一些自定义的切片操作，或者依靠诸如 `array.Skip(5).Take(2);` 的 LINQ 方法。
+
+Now C# is adding a new small feature, that can help people in getting a range of items from a bigger array of items.
+
+现在 C# 添加了一个新的小特性，它可以帮助人们从一个大的数组项目中获取一个小范围的项目。
+
+让我们看一下基本情况。假设我们有一个项目数组，我们仅需展示其中的一部分。通常情况下，我们只需要从头到尾循环，然后像下面这样输出它们。
+
+```csharp
+var array = new string[]
+    {
+        "Item0",
+        "Item1",
+        "Item2",
+        "Item3",
+        "Item4",
+        "Item5",
+        "Item6",
+        "Item7",
+        "Item8",
+        "Item9"
+    };
+
+for (int i = 1; i <= 5; i++)
+{
+    Console.WriteLine(array[i]);
+}
+```
+
+因此当我们仅需要几个特定的项，我们通过控制索引值来获取它们。
+
+通过使用 `Range`，我们可以用以下操作来替代：
+
+```csharp
+var array = new string[]
+    {
+        "Item0",
+        "Item1",
+        "Item2",
+        "Item3",
+        "Item4",
+        "Item5",
+        "Item6",
+        "Item7",
+        "Item8",
+        "Item9"
+    };
+
+foreach (var item in array[1..5])
+{
+    Console.WriteLine(item);
+}
+```
+
+在这里，第一次使用的人会注意到一些奇怪的情况——它只会打印四项。为什么呢？这是因为 `Range` 包含开始，但不包含末尾。  
+如果想要与上面的 `for` 循环有相同的效果，我们的 `foreach` 循环应该是：
+
+```csharp
+foreach (var item in array[1..6])
+{
+    Console.WriteLine(item);
+}
+```
+
+ ## Range 的一些快捷方式
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
 今天我们要讲的是 Hat 运算符(`^`)。目前为止，Hat 运算符(`^`)已经被用作布尔类型的异或运算符，以及字节、整型类型的按位异或运算符。在 C# 8 中，它有一个新的用法。
 

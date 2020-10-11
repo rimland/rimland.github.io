@@ -291,7 +291,7 @@ public static decimal CalculateToll(object vehicle) =>
 
 ### 简单类型模式（Simple type patterns）
 
-目前，类型模式需要在类型匹配时声明一个标识符——即使该标识符是一个丢弃的 `_`，如上面的 `DeliveryTruck _` 所示。但现在你只需写下类型就可以了：
+目前，类型模式需要在类型匹配时声明一个标识符——即使该标识符是一个弃元 `_`，如上面的 `DeliveryTruck _` 所示。但现在你只需写下类型就可以了：
 
 ```csharp
 DeliveryTruck => 10.00m,
