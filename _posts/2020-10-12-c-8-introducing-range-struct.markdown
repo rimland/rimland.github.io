@@ -74,13 +74,96 @@ foreach (var item in array[1..6])
 }
 ```
 
- ## Range 的一些快捷方式
+ ## Range 的一些实例
 
+1. 从索引 1（包含） 到末尾（包含）
+   
+```csharp
+foreach (var item in array[1..])
+{
+    Console.WriteLine(item);
+}
+```
 
+2. 从开始（包含）到索引 3（不包含）
 
+```csharp
+foreach (var item in array[..3])
+{
+    Console.WriteLine(item);
+}
+```
 
+3. 结合以上两种，您可以得到一个语法上正确的以下版本
 
+```csharp
+foreach (var item in array[..])
+{
+    Console.WriteLine(item);
+}
+```
 
+它的意思是说，获取整个范围。
+
+> 译者补充  
+> 它也等同于下面两种写法：
+
+```csharp
+foreach (var item in array[0..^0])
+{
+    Console.WriteLine(item);
+}
+```
+
+```csharp
+foreach (var item in array[0..array.Length])
+{
+    Console.WriteLine(item);
+}
+```
+
+4. 从索引 1（包含）到 *从末尾数*的索引 1（不包含）
+
+```csharp
+foreach (var item in array[1..^1])
+{
+    Console.WriteLine(item);
+}
+```
+
+在这里，它结合了[前面文章](https://mp.weixin.qq.com/s/k4qxPRaMRRUWal5muc0SQQ)中介绍的 `Index` 的 Hat 运算符(`^`)。
+
+一个快速的解释，Hat 运算符(`^`)，会给你一个特定的索引。如果你写 `^1`，你也就是在请求最后一项的索引。如上所述，考虑到最后一个索引号是排除的，在一个有 10 项的序列中，请求索引项直到 `^1`，您也就是在请求索引项直到索引 9（索引从 0 开始），并且该项不包括在其中。
+我希望我讲清楚了。
+
+## 将 Range 作为类型
+
+What we can do now, is use Ranges as a type to pass around. Which is what we did earlier, but we can also store it in a variable or pass it around, by simply typing
+
+我们现在可以做的是，用 `Range` 作为传递类型。这是我们之前所做的，但是我们也可以将它存储在一个变量中，或者通过简单的输入来传递它
+
+我们现在可以做的是，使用范围作为传递类型。这是我们之前做的，但我们也可以将它存储在一个变量中，或者通过输入
+
+```csharp
+Range range = 1..9;
+```
+
+将其作为方法的参数传递，将其存储为私有变量，或者用在其他业务逻辑所需的任何地方。
+
+现在，`Range` 不能被用在 `List` 或者 `IEnumerable<Τ>`，但是数组并不是唯一支持它的类型。
+
+您还可以将 `Index` 和 `Range` 与 `string`、`Span` 或 `ReadOnlySpan` 一起使用。
+
+与字符串一起使用的示例基本上是替换 `Substring` 方法，如下所示：
+
+```csharp
+string s = "01234567";
+string r = s[1..3]; // r 将会是 "12"
+```
+
+Now to everyone worrying about their lists (which probably is what you usually use instead of array), List already has the GetRange method since .Net Framework 2.0 (which is why they went with a method here).
+
+现在对于每个担心 `List`（它可能是您通常用来替代数组的类型）的人来说，`List` 从 .Net Framework 2.0 开始就已经有 `GetRange` 方法了（这就是他们在这里使用方法的原因）。
 
 
 
