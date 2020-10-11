@@ -120,7 +120,7 @@ foreach (var item in array[0..array.Length])
 }
 ```
 
-4、从索引 1（包含）到 *从末尾数*的索引 1（不包含）
+4、从索引 1（包含）到 *从末尾开始*的索引 1（不包含）
 
 ```csharp
 foreach (var item in array[1..^1])
@@ -136,7 +136,7 @@ foreach (var item in array[1..^1])
 
 ## 将范围作为变量
 
-我们前面所做的是，将范围(`Range`)作为类型传递。我们也可以将范围声明在一个变量中：
+我们前面所做的是，将范围(`Range`)作为类型传递。我们也可以将范围声明为一个变量：
 
 ```csharp
 Range range = 1..9;
