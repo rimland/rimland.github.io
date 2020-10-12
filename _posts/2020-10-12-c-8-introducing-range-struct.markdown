@@ -75,7 +75,7 @@ foreach (var item in array[1..6])
 ## Range 的一些示例
 
 1、从索引 1（包含） 到末尾（包含）
-   
+
 ```csharp
 foreach (var item in array[1..])
 {
@@ -211,8 +211,7 @@ string[] words = new string[]
 
 <br />
 
-> 作者 ： [John Demetriou](https://www.devsanon.com/whoami/)   
-> 译者 ： 技术译民   
-> 出品 ： [技术译站](https://ittranslator.cn/)   
+> 作者 ： [John Demetriou](https://www.devsanon.com/whoami/)  
+> 译者 ： 技术译民  
+> 出品 ： [技术译站](https://ittranslator.cn/)  
 > 链接 ： [英文原文](http://www.devsanon.com/c/c-8-is-introducing-ranges/)
-
