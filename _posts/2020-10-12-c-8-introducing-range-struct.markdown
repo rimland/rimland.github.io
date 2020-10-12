@@ -182,7 +182,7 @@ string r = s[1..3]; // r 将会是 "12"
 - [`System.Index`](https://docs.microsoft.com/zh-cn/dotnet/api/system.index) 类型表示一个序列索引。
 - Hat 运算符(`^`)，指定一个索引与序列末尾相关，用于构造 `System.Index` 对象。
 - [`System.Range`](https://docs.microsoft.com/zh-cn/dotnet/api/system.range) 类型表示序列的子范围。
-- 范围运算符 `..`，用于指定范围的开始和末尾，就像操作数一样，用于构造 `System.Range` 对象。
+- 范围运算符(`..`)，用于指定范围的开始和末尾，就像操作数一样，用于构造 `System.Range` 对象。
 
 考虑数组 `sequence`， `0` 索引与 `sequence[0]` 相同。 `^0` 索引与 `sequence[sequence.Length]` 相同。 请注意，`sequence[..^0]` 不会引发异常，就像 `sequence[..sequence.Length]` 一样。对于任意数字 `n`，索引 `^n` 与 `sequence.Length - n` 相同。 如下面代码中的注释所示：
 
