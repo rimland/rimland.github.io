@@ -63,7 +63,7 @@ foreach (var item in array[1..5])
 ```
 
 在这里，第一次使用的人会注意到一个奇怪的情况——它只会打印四项。为什么呢？这是因为**范围(`Range`)包含开始，但不包含末尾**。  
-如果想要与上面的 `for` 循环有相同的效果，我们的 `foreach` 循环应该是：
+如果想要与上面的 `for` 循环有相同的结果，我们的 `foreach` 循环应该是：
 
 ```csharp
 foreach (var item in array[1..6])
@@ -131,7 +131,7 @@ foreach (var item in array[1..^1])
 
 在这里，它结合了[前面文章](https://mp.weixin.qq.com/s/k4qxPRaMRRUWal5muc0SQQ)中介绍的 `Index` 的 Hat 运算符(`^`)。
 
-一个快速的解释，Hat 运算符(`^`)，会给你一个特定的索引。如果你写 `^1`，你也就是在请求最后一项的索引。如上所述，考虑到最后一个索引号是排除的，在一个有 10 项的序列中，请求索引项直到 `^1`，您也就是在请求索引项直到索引 9（索引从 0 开始），并且该项不包括在其中。
+一个快速的解释，Hat 运算符(`^`)，会给您一个特定的索引。如果您写 `^1`，也就是在请求最后一项的索引。如上所述，考虑到最后一个索引号是排除的，在一个有 10 项的序列中，请求索引项直到 `^1`，您也就是在请求索引项直到索引 9（索引从 0 开始），并且该项不包括在其中。
 我希望我讲清楚了。
 
 ## 将范围作为变量
@@ -156,7 +156,7 @@ var subarray = array[range];
 
 您还可以将索引(`Index`)和范围(`Range`) 与 `String`、[`Span<T>`](https://docs.microsoft.com/zh-cn/dotnet/api/system.span-1) 或 [`ReadOnlySpan<T>`](https://docs.microsoft.com/zh-cn/dotnet/api/system.readonlyspan-1) 一起使用。
 
-与字符串一起使用的示例基本上就是代替 `Substring` 方法，如下所示：
+与字符串一起使用的例子基本上就是代替 `Substring` 方法，如下所示：
 
 ```csharp
 string s = "01234567";
@@ -184,7 +184,7 @@ string r = s[1..3]; // r 将会是 "12"
 - [`System.Range`](https://docs.microsoft.com/zh-cn/dotnet/api/system.range) 类型表示序列的子范围。
 - 范围运算符 `..`，用于指定范围的开始和末尾，就像操作数一样，用于构造 `System.Range` 对象。
 
-考虑数组 `sequence`， `0` 索引与 `sequence[0]` 相同。 `^0` 索引与 `sequence[sequence.Length]` 相同。 请注意，`sequence[^0]` 不会引发异常，就像 `sequence[sequence.Length]` 一样。对于任意数字 `n`，索引 `^n` 与 `sequence.Length - n` 相同。 如下面代码中的注释所示：
+考虑数组 `sequence`， `0` 索引与 `sequence[0]` 相同。 `^0` 索引与 `sequence[sequence.Length]` 相同。 请注意，`sequence[..^0]` 不会引发异常，就像 `sequence[..sequence.Length]` 一样。对于任意数字 `n`，索引 `^n` 与 `sequence.Length - n` 相同。 如下面代码中的注释所示：
 
 ```csharp
 string[] words = new string[]
@@ -202,7 +202,8 @@ string[] words = new string[]
 };              // 9 (or words.Length) ^0
 ```
 
-一个范围指定了范围的*“开始”*和*“末尾”*。 范围是左闭右开的，也就是说范围包含*“开始”*，不包含*“末尾”*。 范围 `[0..sequence.Length]`、`[0..^0]`和 `[..]` 都表示整个范围。
+一个范围指定了范围的*“开始”*和*“末尾”*。 范围是左闭右开的，也就是说范围包含*“开始”*，不包含*“末尾”*。  
+范围 `[0..sequence.Length]`、`[0..^0]`和 `[..]` 都表示整个范围。
 
 <!-- ## 参考文献
 
