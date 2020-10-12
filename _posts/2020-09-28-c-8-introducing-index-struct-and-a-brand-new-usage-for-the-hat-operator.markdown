@@ -82,8 +82,7 @@ var x = array[secondToLast];
 
 <br />
 
-> 作者 ： [John Demetriou](https://www.devsanon.com/whoami/)   
-> 译者 ： 技术译民   
-> 出品 ： [技术译站](https://ittranslator.cn/)   
+> 作者 ： [John Demetriou](https://www.devsanon.com/whoami/)  
+> 译者 ： 技术译民  
+> 出品 ： [技术译站](https://ittranslator.cn/)  
 > 链接 ： [英文原文](http://www.devsanon.com/c/c-8-introducing-index-struct-and-a-brand-new-usage-for-the-hat-operator/)
-
