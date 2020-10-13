@@ -8,7 +8,9 @@ published: true
 
 > 翻译自 John Demetriou 2020年4月6日 的文章 [《C# 8 Is Introducing Ranges》](http://www.devsanon.com/c/c-8-is-introducing-ranges/)
 
-我们之前讨论过的 C# 中的一个特性 [**System.Index 结构体**](https://mp.weixin.qq.com/s/k4qxPRaMRRUWal5muc0SQQ)，与另一特性 **System.Range 结构体** 是携手并进的。
+我们之前讨论过的 C# 中的一个特性 [**System.Index 结构体**](https://mp.weixin.qq.com/s/k4qxPRaMRRUWal5muc0SQQ)[^1]，与另一特性 **System.Range 结构体** 是携手并进的。
+
+[^1]: <https://ittranslator.cn/dotnet/csharp/2020/09/28/c-8-introducing-index-struct-and-a-brand-new-usage-for-the-hat-operator.html> "`System.Index` 结构体"
 
 在 C# 8.0 之前，没有访问集合中任意部分的范围或切片的语法。开发人员通常不得不执行一些自定义的切片操作，或者依靠诸如 `array.Skip(5).Take(2);` 的 LINQ 方法。
 
