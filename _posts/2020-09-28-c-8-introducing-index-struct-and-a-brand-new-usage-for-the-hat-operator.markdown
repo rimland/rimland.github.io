@@ -82,7 +82,7 @@ var x = array[secondToLast];
 
 `System.Index` 结构体，与 `System.Range` 结构体[^1]是携手并进的，您可以点击[这里查看](https://ittranslator.cn/dotnet/csharp/2020/10/12/c-8-introducing-range-struct.html)。
 
-[^1]: <https://ittranslator.cn/dotnet/csharp/2020/10/12/c-8-introducing-range-struct.html> "`System.Range` 结构体"
+[^1]: <https://ittranslator.cn/dotnet/csharp/2020/10/12/c-8-introducing-range-struct.html> `System.Range` 结构体
 
 <br />
 
