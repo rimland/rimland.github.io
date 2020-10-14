@@ -10,7 +10,7 @@ published: true
 
 我们之前讨论过的 C# 中的一个特性 [**System.Index 结构体**](https://mp.weixin.qq.com/s/k4qxPRaMRRUWal5muc0SQQ)[^1]，与另一特性 **System.Range 结构体** 是携手并进的。
 
-[^1]: <https://ittranslator.cn/dotnet/csharp/2020/09/28/c-8-introducing-index-struct-and-a-brand-new-usage-for-the-hat-operator.html> "`System.Index` 结构体"
+[^1]: <https://ittranslator.cn/dotnet/csharp/2020/09/28/c-8-introducing-index-struct-and-a-brand-new-usage-for-the-hat-operator.html>  `System.Index` 结构体和 Hat 运算符(^)的全新用法
 
 在 C# 8.0 之前，没有访问集合中任意部分的范围或切片的语法。开发人员通常不得不执行一些自定义的切片操作，或者依靠诸如 `array.Skip(5).Take(2);` 的 LINQ 方法。
 
@@ -156,7 +156,10 @@ var subarray = array[range];
 
 范围(`Range`)不能被用在 `List` 或者 `IEnumerable<Τ>`，但数组并不是唯一支持它的类型。
 
-您还可以将索引(`Index`)和范围(`Range`) 与 `String`、[`Span<T>`](https://docs.microsoft.com/zh-cn/dotnet/api/system.span-1) 或 [`ReadOnlySpan<T>`](https://docs.microsoft.com/zh-cn/dotnet/api/system.readonlyspan-1) 一起使用。
+您还可以将索引(`Index`)和范围(`Range`) 与 `String`、`Span<T>`[^2] 或 `ReadOnlySpan<T>`[^3]一起使用。
+
+[^2]: <https://docs.microsoft.com/zh-cn/dotnet/api/system.span-1> `Span<T>`
+[^3]: <https://docs.microsoft.com/zh-cn/dotnet/api/system.readonlyspan-1> `ReadOnlySpan<T>`
 
 与字符串一起使用的例子基本上就是代替 `Substring` 方法，如下所示：
 
@@ -181,10 +184,13 @@ string r = s[1..3]; // r 将会是 "12"
 
 对索引和范围的语言支持依赖于*两个新类型*和*两个新运算符*：
 
-- [`System.Index`](https://docs.microsoft.com/zh-cn/dotnet/api/system.index) 类型表示一个序列索引。
+- `System.Index`[^4] 类型表示一个序列索引。
 - Hat 运算符(`^`)，指定一个索引与序列末尾相关，用于构造 `System.Index` 对象。
-- [`System.Range`](https://docs.microsoft.com/zh-cn/dotnet/api/system.range) 类型表示序列的子范围。
+- `System.Range`[^5] 类型表示序列的子范围。
 - 范围运算符(`..`)，用于指定范围的开始和末尾，就像操作数一样，用于构造 `System.Range` 对象。
+
+[^4]: <https://docs.microsoft.com/zh-cn/dotnet/api/system.index>  `System.Index`
+[^5]: <https://docs.microsoft.com/zh-cn/dotnet/api/system.range>  `System.Range`
 
 考虑数组 `sequence`， `0` 索引与 `sequence[0]` 相同。 `^0` 索引与 `sequence[sequence.Length]` 相同。 请注意，`sequence[..^0]` 不会引发异常，就像 `sequence[..sequence.Length]` 一样。对于任意数字 `n`，索引 `^n` 与 `sequence.Length - n` 相同。 如下面代码中的注释所示：
 
