@@ -195,19 +195,19 @@ string r = s[1..3]; // r 将会是 "12"
 考虑数组 `sequence`， `0` 索引与 `sequence[0]` 相同。 `^0` 索引与 `sequence[sequence.Length]` 相同。 请注意，`sequence[..^0]` 不会引发异常，就像 `sequence[..sequence.Length]` 一样。对于任意数字 `n`，索引 `^n` 与 `sequence.Length - n` 相同。 如下面代码中的注释所示：
 
 ```csharp
-string[] words = new string[]
+var array = new string[]
 {
-                // index from start    index from end
-    "The",      // 0                   ^9
-    "quick",    // 1                   ^8
-    "brown",    // 2                   ^7
-    "fox",      // 3                   ^6
-    "jumped",   // 4                   ^5
-    "over",     // 5                   ^4
-    "the",      // 6                   ^3
-    "lazy",     // 7                   ^2
-    "dog"       // 8                   ^1
-};              // 9 (or words.Length) ^0
+               // index from start    index from end
+    "Item0",   // 0                   ^9
+    "Item1",   // 1                   ^8
+    "Item2",   // 2                   ^7
+    "Item3",   // 3                   ^6
+    "Item4",   // 4                   ^5
+    "Item5",   // 5                   ^4
+    "Item6",   // 6                   ^3
+    "Item7",   // 7                   ^2
+    "Item8",   // 8                   ^1
+};             // 9 (or array.Length) ^0
 ```
 
 一个范围指定了范围的*“开始”*和*“末尾”*。 范围是左闭右开的，也就是说范围包含*“开始”*，不包含*“末尾”*。  
