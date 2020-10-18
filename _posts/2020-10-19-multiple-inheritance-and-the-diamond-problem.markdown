@@ -25,7 +25,7 @@ published: true
 
 就是由于这个原因，Java 和 C# 都不允许多重继承。不过它们允许多接口继承，并且 C# 的一个新特性将接口与多继承问题联系起来[^2]。
 
-[^2]: <https://ittranslator.cn/dotnet/csharp/2020/10/20/c-8-default-interface-methods.html>  C# 8: 默认接口方法
+[^2]: <https://ittranslator.cn/dotnet/csharp/2020/10/19/c-8-default-interface-methods.html>  C# 8: 默认接口方法
 
 <br />
 
