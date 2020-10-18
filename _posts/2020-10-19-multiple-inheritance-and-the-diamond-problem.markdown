@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "多重继承和菱形问题"
-date:   2020-10-20 00:10:00 +0800
+date:   2020-10-19 00:10:00 +0800
 categories: dotnet csharp
 published: true
 ---

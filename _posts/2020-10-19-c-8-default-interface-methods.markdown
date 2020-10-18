@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "C# 8: 默认接口方法"
-date:   2020-10-20 00:20:00 +0800
+date:   2020-10-19 00:20:00 +0800
 categories: dotnet csharp
 published: true
 ---
