@@ -42,9 +42,9 @@ abstract class ExampleBase
 ### 菱形问题
 
 那么有什么改变吗?为什么我们需要引入这个新特性？我们错过了什么并且从未注意到我们错过了什么？  
-由于[菱形问题](http://www.devsanon.com/language-agnostic/multiple-inheritance-and-the-diamond-problem/) [^diamond]，C#（以及许多其他语言）不支持多重继承。为了允许多重继承，同时避免菱形问题，C# 8 引用入了默认接口方法。
+由于菱形问题[^diamond]，C#（以及许多其他语言）不支持多重继承。为了允许多重继承，同时避免菱形问题，C# 8 引用入了默认接口方法。
 
-[^diamond]: <https://www.devsanon.com/c/c-8-default-interface-methods/>  菱形问题
+[^diamond]: <https://ittranslator.cn/dotnet/csharp/2020/10/19/multiple-inheritance-and-the-diamond-problem.html>  菱形问题
 
 从 C# 8 开始，使用默认接口方法，您可以拥有一个接口定义，以及该定义中某些或所有方法的默认实现。
 
