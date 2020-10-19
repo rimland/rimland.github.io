@@ -43,7 +43,7 @@ abstract class ExampleBase
 
 ### 菱形问题
 
-由于菱形问题[^diamond]，C#（以及许多其他语言）不支持多重继承。为了允许多重继承，同时避免菱形问题，C# 8 引入了默认接口方法。
+由于[菱形问题](https://mp.weixin.qq.com/s/EZ_jIjT6hYFrhbJ9BZ7Amw)[^diamond]，C#（以及许多其他语言）不支持多重继承。为了允许多重继承，同时避免菱形问题，C# 8 引入了默认接口方法。
 
 [^diamond]: <https://ittranslator.cn/dotnet/csharp/2020/10/19/multiple-inheritance-and-the-diamond-problem.html>  菱形问题
 
@@ -158,7 +158,7 @@ static void Main()
 
 ```csharp
 C c = new C(); // 或者 var c = new C();
-c.M();         // 错误: 类 'C' 未包含 'M' 的定义
+c.M();         // 错误: 类 'C' 不包含 'M' 的定义
 ```
 
 但如果实现此接口的类也实现了具体方法，则同一般的接口含义是一样的：
