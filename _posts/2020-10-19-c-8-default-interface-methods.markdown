@@ -85,7 +85,7 @@ interface IC : IA
 
 ```csharp
 //编译器提示：“D”未实现接口成员“IA.DoSomething()”
-public class D : IB, IC 
+public class D : IB, IC
 { }
 ```
 
@@ -127,6 +127,54 @@ Trait 模式大体上就是多个类需要的一组方法。
 
 不过，在接口中使用默认方法实现，这将发生改变。我们可以通过在接口中使用默认接口方法实现，提供一组需要类拥有的方法，然后让这些类继承此接口。  
 当然，任何一个类都可以用它们自己的实现覆盖这些方法，但是以防它们不希望这么做，我们为它们提供了一组默认的实现。
+
+> 以下为译者补充
+
+## 接口中的具体方法
+
+*默认接口方法*的最简单形式是在接口中声明*具体方法*，该方法是具有主体的方法。
+
+```csharp
+interface IA
+{
+    void M() { Console.WriteLine("IA.M"); }
+}
+```
+
+实现此接口的类不必实现其具体方法。
+
+```csharp
+class C : IA { } // OK
+
+static void Main()
+{
+    IA i = new C();
+    i.M(); // 输出 "IA.M"
+}
+```
+
+类 `C` 中 `IA.M` 的最终替代是 `M` 在 `IA` 中声明的具体方法。  
+请注意，**类只能实现接口，而不会从接口继承成员**：
+
+```csharp
+C c = new C(); // 或者 var c = new C();
+c.M();         // 错误: 类 'C' 未包含 'M' 的定义
+```
+
+但如果实现此接口的类也实现了具体方法，则同一般的接口含义是一样的：
+
+```csharp
+class C : IA
+{
+    public void M() { Console.WriteLine("C.M"); }
+}
+
+static void Main()
+{
+    IA i = new C();
+    i.M(); // 输出 "C.M"
+}
+```
 
 <br />
 
