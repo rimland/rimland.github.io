@@ -35,7 +35,7 @@ abstract class ExampleBase
 }
 ```
 
-不过还好，这已经足够满足我们的大部分需要了。
+不过还好，这已经足够满足我们的大部分需求了。
 
 ## C# 8 之后
 
@@ -43,7 +43,7 @@ abstract class ExampleBase
 
 ### 菱形问题
 
-由于菱形问题[^diamond]，C#（以及许多其他语言）不支持多重继承。为了允许多重继承，同时避免菱形问题，C# 8 引用入了默认接口方法。
+由于菱形问题[^diamond]，C#（以及许多其他语言）不支持多重继承。为了允许多重继承，同时避免菱形问题，C# 8 引入了默认接口方法。
 
 [^diamond]: <https://ittranslator.cn/dotnet/csharp/2020/10/19/multiple-inheritance-and-the-diamond-problem.html>  菱形问题
 
@@ -84,7 +84,7 @@ interface IC : IA
 然后，我创建一个实现上述两个接口的类 `D`，会引发一个编译错误：
 
 ```csharp
-//编译器提示：“D”没实现接口成员“IA.DoSomething()”
+//编译器提示：“D”未实现接口成员“IA.DoSomething()”
 public class D : IB, IC 
 { }
 ```
@@ -118,7 +118,7 @@ static void Main()
 ### Trait 模式
 
 > 译者注：  
-> 在计算机编程中，特征(Trait)是面向对象编程中使用的一个概念，它表示一组可用于扩展类的功能的方法。[^trait]
+> 在计算机编程中，特征(**Trait**)是面向对象编程中使用的一个概念，它表示可用于扩展类的功能的一组方法。[^trait]
 
 [^trait]: <https://en.wikipedia.org/wiki/Trait_(computer_programming)>  Trait  
 
