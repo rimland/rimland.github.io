@@ -118,7 +118,7 @@ static void Main()
 ### Trait 模式
 
 > 译者注：  
-> 在计算机编程中，特征(**Trait**)是面向对象编程中使用的一个概念，它表示可用于扩展类的功能的一组方法。[^trait]
+> 在计算机编程中，特征（**Trait**）是面向对象编程中使用的一个概念，它表示可用于扩展类的功能的一组方法。[^trait]
 
 [^trait]: <https://en.wikipedia.org/wiki/Trait_(computer_programming)>  Trait  
 
