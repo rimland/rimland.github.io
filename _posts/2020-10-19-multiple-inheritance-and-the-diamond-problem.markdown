@@ -10,13 +10,13 @@ published: true
 
 [^1]: <http://www.devsanon.com/language-agnostic/multiple-inheritance-and-the-diamond-problem/>   Multiple Inheritance And The Diamond Problem
 
-![...](/assets/images/202010/1024px-CPT-OOP-inheritance-300x169.png#center)
+![...](/assets/images/202010/CPT-OOP-inheritance-300x169.png#center)
 
 开篇之前，我假设每个人都知道在面向对象编程中继承是什么，以及它能提供什么好处。我不会深入探究对象继承的基础知识。这篇文章更关注于多重继承和它所面临的问题。
 
 确实如此，多重继承的一个大问题就是菱形问题。你可能会问为什么？想象一下继承的分布如下：
 
-![...](/assets/images/202010/500px-Diamond_inheritance-200x300.png#center)
+![...](/assets/images/202010/Diamond_inheritance-200x300.png#center)
 
 上面的图显示，***D*** 继承自 ***B*** 和 ***C***，而 ***B*** 和 ***C*** 继承自 ***A***。  
 
