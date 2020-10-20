@@ -198,7 +198,7 @@ class C : IB { }
 static void Main(string[] args)
 {
     IB i = new C();
-    i.IB_M();  // 输出 "IA.M"，如果把 IB 中的注释行打开，这里会输出 "IB.M"
+    i.IB_M();  // 输出 "IA.M"；如果把 IB 中的注释行打开，这里会输出 "IB.M"
 }
 ```
 
