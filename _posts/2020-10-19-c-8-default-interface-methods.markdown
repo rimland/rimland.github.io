@@ -178,13 +178,14 @@ static void Main()
 
 ## 子接口如何调用父接口的方法
 
-这是[博客园](https://www.cnblogs.com/ittranslator/p/13838092.html)一个朋友在评论中提问的问题，乍一看，还有这样的需求？细想一下，还真的可能会用到。下面就来演示一个简单的示例：
+这是[博客园](https://www.cnblogs.com/ittranslator/p/13838092.html)一个朋友在评论中提问的问题。乍一看，这问题还挺有意思，现实中会遇到这样的需求？细想一下，还真的可能会用到。下面就来演示一个简单的示例：
 
 ```csharp
 interface IA
 {
     void M() { Console.WriteLine("IA.M"); }
 }
+
 interface IB : IA
 {
     //void IA.M() { Console.WriteLine("IB.M"); }
