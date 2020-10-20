@@ -6,7 +6,7 @@ categories: dotnet csharp
 published: true
 ---
 
-> 翻译自 John Demetriou 2018年8月4日 的文章 《C# 8: Default Interface Methods》[^1]
+> 翻译自 John Demetriou 2018年8月4日 的文章 《C# 8: Default Interface Methods》[^1]，补充了一些内容
 
 [^1]: <https://www.devsanon.com/c/c-8-default-interface-methods/>   C# 8: Default Interface Methods
 
@@ -132,7 +132,7 @@ Trait 模式大体上就是多个类需要的一组方法。
 
 ## 接口中的具体方法
 
-*默认接口方法*的最简单形式是在接口中声明*具体方法*，该方法是具有主体的方法。
+*默认接口方法*的最简单形式是在接口中声明*具体方法*，该方法是具有主体部分的方法。
 
 ```csharp
 interface IA
@@ -153,7 +153,7 @@ static void Main()
 }
 ```
 
-类 `C` 中 `IA.M` 的最终替代是 `M` 在 `IA` 中声明的具体方法。  
+类 `C` 中 `IA.M` 的最终替代是在 `IA` 中声明的具体方法 `M` 。  
 请注意，**类只能实现接口，而不会从接口继承成员**：
 
 ```csharp
