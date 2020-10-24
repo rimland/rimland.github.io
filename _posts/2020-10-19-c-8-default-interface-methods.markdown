@@ -6,7 +6,7 @@ categories: dotnet csharp
 published: true
 ---
 
-> 翻译自 John Demetriou 2018年8月4日 的文章 《C# 8: Default Interface Methods》[^1]
+> 翻译自 John Demetriou 2018年8月4日 的文章 《C# 8: Default Interface Methods》[^1]，补充了一些内容
 
 [^1]: <https://www.devsanon.com/c/c-8-default-interface-methods/>   C# 8: Default Interface Methods
 
@@ -132,7 +132,7 @@ Trait 模式大体上就是多个类需要的一组方法。
 
 ## 接口中的具体方法
 
-*默认接口方法*的最简单形式是在接口中声明*具体方法*，该方法是具有主体的方法。
+*默认接口方法*的最简单形式是在接口中声明*具体方法*，该方法是具有主体部分的方法。
 
 ```csharp
 interface IA
@@ -153,7 +153,7 @@ static void Main()
 }
 ```
 
-类 `C` 中 `IA.M` 的最终替代是 `M` 在 `IA` 中声明的具体方法。  
+类 `C` 中 `IA.M` 的最终替代是在 `IA` 中声明的具体方法 `M` 。  
 请注意，**类只能实现接口，而不会从接口继承成员**：
 
 ```csharp
@@ -173,6 +173,32 @@ static void Main()
 {
     IA i = new C();
     i.M(); // 输出 "C.M"
+}
+```
+
+## 子接口如何调用父接口的方法？
+
+这是[博客园](https://www.cnblogs.com/ittranslator/p/13838092.html#4711421)一个朋友在评论中提问的问题。乍一看，这问题还挺有意思，现实中会遇到这样的需求？细想一下，还真的可能会用到。下面就来演示一个简单的示例，在接口 `IB` 中调用父接口 `IA` 中的成员方法 `M`，代码如下：
+
+```csharp
+interface IA
+{
+    void M() { Console.WriteLine("IA.M"); }
+}
+
+interface IB : IA
+{
+    //void IA.M() { Console.WriteLine("IB.M"); }
+
+    void IB_M() { M(); }
+}
+
+class C : IB { }
+
+static void Main(string[] args)
+{
+    IB i = new C();
+    i.IB_M();  // 输出 "IA.M"；如果把 IB 中的注释行打开，这里会输出 "IB.M"
 }
 ```
 
