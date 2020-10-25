@@ -65,7 +65,7 @@ public readonly struct Person
 
 编译器会显示如下面截图中的错误提示：
 
-![readonly struct error](/assets/images/202010/readonly-struct-err.png)
+![readonly struct error](/assets/images/202010/readonly-struct-err.png#center)
 
 为什么会这样？这是因为当我们向结构体定义添加 `readonly` 关键字，其实是把每个属性都设置为只读的了，包括 `this` 的值。
 
@@ -123,7 +123,7 @@ Person s = new Person("asd", "qwe", 15);
 
 ## 译者总结
 
-使用 `readonly` 修饰符声明 `struct` 的目的就是为了明确地声明一个不可变的值类型。
+**使用 `readonly` 修饰符声明 `struct` 的目的就是为了明确地声明一个不可变的值类型。**
 
 `readonly` 结构体的所有数据成员都必须是只读的：
 
