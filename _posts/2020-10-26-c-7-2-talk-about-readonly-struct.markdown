@@ -38,7 +38,7 @@ public struct Person
 ```
 
 如您所见，所有属性都可以公开访问和修改。更糟糕的是，我们甚至可以访问 `this` （通过调用 `Replace` 方法），将其更改为同一结构体类型的另一个实例。  
-这就是 `readonly` 关键字出现的原因。如果（*仅*）在结构体的定义中添加它，如下所示：
+这就是 `readonly` 关键字出现的原因。如果*（仅）*在结构体的定义中添加它，如下所示：
 
 ```csharp
 public readonly struct Person
