@@ -132,11 +132,9 @@ Person s = new Person("asd", "qwe", 15);
 
 这就保证了 `readonly` 结构体的成员不会修改该结构体的状态。在 C# 8.0 及更高版本中，除构造函数外的其他实例成员都是隐式 `readonly` 的。
 
-
 <br />
 
 > 作者 ： [John Demetriou](https://www.devsanon.com/whoami/)  
 > 译者 ： 技术译民  
 > 出品 ： [技术译站](https://ittranslator.cn/)  
 > 链接 ： [英文原文](https://www.devsanon.com/c/c-7-2-lets-talk-about-readonly-structs/)
-
