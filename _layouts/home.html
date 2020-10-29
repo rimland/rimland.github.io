@@ -76,6 +76,7 @@ layout: default
     {% else %}
     <a href="{{ site.paginate_path | relative_url | replace: ':num', page }}">{{ page }}</a>
     {% endif %}
+    &nbsp;
     {% endfor %}
 
     {% if paginator.next_page %}
