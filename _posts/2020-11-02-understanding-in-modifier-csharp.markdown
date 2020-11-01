@@ -6,11 +6,11 @@ categories: dotnet csharp
 published: true
 ---
 
-## in 修饰符
-
 `in` 修饰符也是从 C# 7.2 开始引入的，它与我们上一篇中讨论的 《[C# 中的只读结构体（readonly struct）](https://mp.weixin.qq.com/s/wwVZbdY7m7da1nmIKb2jCA)》[^1] 是紧密相关的。
 
 [^1]: <https://ittranslator.cn/dotnet/csharp/2020/10/26/c-7-2-talk-about-readonly-struct.html>   C# 中的只读结构体
+
+## in 修饰符
 
 `in` 修饰符通过引用传递参数。 它让形参成为实参的别名，即对形参执行的任何操作都是对实参执行的。 它类似于 `ref` 或 `out` 关键字，不同之处在于 `in` 参数无法通过调用的方法进行修改。
 
