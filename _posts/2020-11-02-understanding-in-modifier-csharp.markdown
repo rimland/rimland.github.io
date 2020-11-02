@@ -173,7 +173,7 @@ public decimal DoReadOnlyLoopByIn()
 }
 ```
 
-事实上，道理是一样的，在使用 `in` 参数的方法中，每次调用传入的是变量的一个新副本; 在使用 `in` 修饰符的方法中，每次传递的是同一副本的只读引用。  
+事实上，道理是一样的，在没有使用 `in` 参数的方法中，每次调用传入的是变量的一个新副本; 在使用 `in` 修饰符的方法中，每次传递的是同一副本的只读引用。  
 
 使用 BenchmarkDotNet 工具测试三个方法的运行时间，结果如下：
 
@@ -248,7 +248,7 @@ static void Main(string[] args)
 运行一下，您会发现，结果依然为 **2** ！这……就让人大跌眼镜了……  
 用工具查看一下 `UpdateMyNormalStruct` 方法的中间语言：
 
-```msil
+```csharp
 .method private hidebysig static 
 	void UpdateMyNormalStruct (
 		[in] valuetype ConsoleApp4InTest.MyNormalStruct& myStruct
@@ -281,7 +281,7 @@ static void Main(string[] args)
 
 Google 了一些资料是这么解释的：C# 无法知道当它调用一个结构体上的方法(或getter)时，是否也会修改它的值/状态。于是，它所做的就是创建所谓的“防御性副本”。当在结构体上运行方法(或getter)时，它会创建传入的结构体的副本，并在副本上运行方法。这意味着原始副本与传入时完全相同，调用者传入的值并没有被修改。
 
-有没有办法让方法 `UpdateMyNormalStruct` 调用后输出 8 呢？您将参数改成 `ref` 修饰符试试 :stuck_out_tongue_winking_eye: :grin: :joy:
+有没有办法让方法 `UpdateMyNormalStruct` 调用后输出 8 呢？您将参数改成 `ref` 修饰符试试看 :stuck_out_tongue_winking_eye: :grin: :joy:
 
 综上所述，**最好不要把 `in` 修饰符和一般*（非只读）*结构体一起使用，以免产生晦涩难懂的行为，而且可能对性能产生负面影响。**
 
