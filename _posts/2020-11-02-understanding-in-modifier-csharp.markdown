@@ -189,7 +189,7 @@ public decimal DoReadOnlyLoopByIn()
 
 ## 使用 in 参数需要注意的地方
 
-我们来看一下例子，定义一个一般的结构体，包含一个属性 `Value` 和 一个修改该属性的方法 `UpdateValue`。 然后在别的地方也定义一个方法 `UpdateMyNormalStruct` 来修改该结构体的属性 `Value`。
+我们来看一个例子，定义一个一般的结构体，包含一个属性 `Value` 和 一个修改该属性的方法 `UpdateValue`。 然后在别的地方也定义一个方法 `UpdateMyNormalStruct` 来修改该结构体的属性 `Value`。
 代码如下：
 
 ```csharp
@@ -225,16 +225,7 @@ class Program
 我们来理一下，在 `Main` 中先调用了结构体自身的方法 `UpdateValue` 将 `Value` 修改为 2， 再调用 `Program` 中的方法 `UpdateMyNormalStruct`， 而该方法中又调用了 `MyNormalStruct` 结构体自身的方法 `UpdateValue`，那么输出是不是应该是 8 呢？ 如果您这么想就错了。   
 它的正确输出结果是 **2**，这是为什么呢？
 
-这是因为，结构体和许多内置的简单类型（sbyte、byte、short、ushort、int、uint、long、ulong、char、float、double、decimal、bool 和 enum 类型）一样，都是值类型，在传递参数的时候以值的方式传递。在 `UpdateMyNormalStruct` 方法中实际上存在一个防御性副本（`defensive copy`），是此副本在调用 `UpdateValue` 方法，所以 `myStruct` 的 `Value` 不会发生变化。根据它的中间语言将它转换成我们容易理解的代码应该是这样的：
-
-```csharp
-static void UpdateMyNormalStruct(MyNormalStruct myStruct)
-{
-    //防御性副本
-    MyNormalStruct localStruct = myStruct; 
-    localStruct.UpdateValue(8);
-}
-```
+这是因为，结构体和许多内置的简单类型（sbyte、byte、short、ushort、int、uint、long、ulong、char、float、double、decimal、bool 和 enum 类型）一样，都是值类型，在传递参数的时候以值的方式传递。因此调用方法 `UpdateMyNormalStruct` 时传递的是 `myStruct` 变量的新副本，在此方法中，其实是此副本调用了 `UpdateValue` 方法，所以原变量 `myStruct` 的 `Value` 不会发生变化。
 
 说到这里，有聪明的朋友可能会想，我们给 `UpdateMyNormalStruct` 方法的参数加上 `in` 修饰符，是不是输出结果就变为 8 了，`in` 参数不就是引用传递吗？  
 我们可以试一下，把代码改成：
@@ -255,13 +246,44 @@ static void Main(string[] args)
 ```
 
 运行一下，您会发现，结果依然为 **2** ！这……就让人大跌眼镜了……  
-用工具查看一下它的中间语言，您会发现，在方法 `UpdateMyNormalStruct` 中调用 `UpdateValue` 前仍然创建了一个防御性副本，改变的是该副本的 `Value`;
+用工具查看一下 `UpdateMyNormalStruct` 方法的中间语言：
+
+```msil
+.method private hidebysig static 
+	void UpdateMyNormalStruct (
+		[in] valuetype ConsoleApp4InTest.MyNormalStruct& myStruct
+	) cil managed 
+{
+	.param [1]
+		.custom instance void [System.Runtime]System.Runtime.CompilerServices.IsReadOnlyAttribute::.ctor() = (
+			01 00 00 00
+		)
+	// Method begins at RVA 0x2164
+	// Code size 18 (0x12)
+	.maxstack 2
+	.locals init (
+		[0] valuetype ConsoleApp4InTest.MyNormalStruct
+	)
+
+	IL_0000: nop
+	IL_0001: ldarg.0
+	IL_0002: ldobj ConsoleApp4InTest.MyNormalStruct 
+	IL_0007: stloc.0
+	IL_0008: ldloca.s 0
+	IL_000a: ldc.i4.8
+	IL_000b: call instance void ConsoleApp4InTest.MyNormalStruct::UpdateValue(int32)
+	IL_0010: nop
+	IL_0011: ret
+} // end of method Program::UpdateMyNormalStruct
+```
+
+您会发现，在 `IL_0002`、`IL_0007` 和 `IL_0008` 这几行，仍然创建了一个 `MyNormalStruct` 结构体的防御性副本(`defensive copy`)。虽然在调用方法 `UpdateMyNormalStruct` 时以引用的方式传递参数，但在方法体中调用结构体自身的 `UpdateValue` 前，却创建了一个该结构体的防御性副本，改变的是该副本的 `Value`。这就有点奇怪了，不是吗？
 
 Google 了一些资料是这么解释的：C# 无法知道当它调用一个结构上的方法(或getter)时，是否也会修改它的值/状态。于是，它所做的就是创建所谓的“防御性副本”。当在结构上运行方法(或getter)时，它会创建传入的结构的副本，并在副本上运行方法。这意味着原始副本与传入时完全相同，调用者传入的值并没有被修改。
 
 有没有办法让方法 `UpdateMyNormalStruct` 调用后输出 8 呢？您将参数改成 `ref` 修饰符试试 :stuck_out_tongue_winking_eye: :grin: :joy:
 
-综上所述，**最好不要把 `in` 修饰符和一般结构体一起使用，以免产生晦涩难懂的行为，而且对性能提升无益。**
+综上所述，**最好不要把 `in` 修饰符和一般*（非只读）*结构体一起使用，以免产生晦涩难懂的行为，而且可能对性能产生负面影响。**
 
 ## in 参数的限制
 
@@ -275,8 +297,8 @@ Google 了一些资料是这么解释的：C# 无法知道当它调用一个结�
 ## 总结
 
 - 使用 `in` 参数，有助于明确表明此参数不可修改的意图。
-- 当只读结构体（`readonly struct`）的大小大于 `IntPtr.Size` [^IntPtr] 时，出于性能原因，应将其作为 `in` 参数传递。
-- 不要将一般*（非只读）*结构体作为 `in` 参数，因为结构体是可变的，并且可能产生晦涩难懂的行为。
+- 当**只读结构体（`readonly struct`）**的大小大于 `IntPtr.Size` [^IntPtr] 时，出于性能原因，应将其作为 `in` 参数传递。
+- 不要将一般*（非只读）*结构体作为 `in` 参数，因为结构体是可变的，反而有可能对性能产生负面影响，并且可能产生晦涩难懂的行为。
 
 [^IntPtr]: <https://docs.microsoft.com/zh-cn/dotnet/api/system.intptr.size#System_IntPtr_Size>  IntPtr.Size
 
