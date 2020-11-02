@@ -133,13 +133,11 @@ public class BenchmarkClass
 
 使用 BenchmarkDotNet 工具测试三个方法的运行时间，结果如下：
 
-```
 |             Method |       Mean |    Error |    StdDev |     Median | Ratio | RatioSD |
 |------------------- |-----------:|---------:|----------:|-----------:|------:|--------:|
 |       DoNormalLoop | 1,536.3 ms | 65.07 ms | 191.86 ms | 1,425.7 ms |  1.00 |    0.00 |
 |   DoNormalLoopByIn |   480.9 ms | 27.05 ms |  79.32 ms |   446.3 ms |  0.32 |    0.07 |
 | DoReadOnlyLoopByIn |   581.9 ms | 35.71 ms | 105.30 ms |   594.1 ms |  0.39 |    0.10 |
-```
 
 从这个结果可以看出，如果使用 `in` 参数，不管是一般的结构体还是只读结构体，相对于不用 `in` 修饰符的参数，性能都有较大的提升。这个性能差异在不同的机器上运行可能会有所不同，但是毫无疑问，使用 `in` 参数会得到更好的性能。
 
@@ -177,13 +175,11 @@ public decimal DoReadOnlyLoopByIn()
 
 使用 BenchmarkDotNet 工具测试三个方法的运行时间，结果如下：
 
-```
 |             Method |     Mean |    Error |   StdDev | Ratio |
 |------------------- |---------:|---------:|---------:|------:|
 |       DoNormalLoop | 793.4 ms | 13.02 ms | 11.54 ms |  1.00 |
 |   DoNormalLoopByIn | 352.4 ms |  6.99 ms | 17.27 ms |  0.42 |
 | DoReadOnlyLoopByIn | 341.1 ms |  6.69 ms | 10.02 ms |  0.43 |
-```
 
 同样表明，使用 `in` 参数会得到更好的性能。
 
@@ -222,7 +218,7 @@ class Program
 
 您可以猜想一下它的运行结果是什么呢？ 2 还是 8？  
 
-我们来理一下，在 `Main` 中先调用了结构体自身的方法 `UpdateValue` 将 `Value` 修改为 2， 再调用 `Program` 中的方法 `UpdateMyNormalStruct`， 而该方法中又调用了 `MyNormalStruct` 结构体自身的方法 `UpdateValue`，那么输出是不是应该是 8 呢？ 如果您这么想就错了。   
+我们来理一下，在 `Main` 中先调用了结构体自身的方法 `UpdateValue` 将 `Value` 修改为 2， 再调用 `Program` 中的方法 `UpdateMyNormalStruct`， 而该方法中又调用了 `MyNormalStruct` 结构体自身的方法 `UpdateValue`，那么输出是不是应该是 8 呢？ 如果您这么想就错了。  
 它的正确输出结果是 **2**，这是为什么呢？
 
 这是因为，结构体和许多内置的简单类型（sbyte、byte、short、ushort、int、uint、long、ulong、char、float、double、decimal、bool 和 enum 类型）一样，都是值类型，在传递参数的时候以值的方式传递。因此调用方法 `UpdateMyNormalStruct` 时传递的是 `myStruct` 变量的新副本，在此方法中，其实是此副本调用了 `UpdateValue` 方法，所以原变量 `myStruct` 的 `Value` 不会发生变化。
@@ -241,7 +237,7 @@ static void Main(string[] args)
     MyNormalStruct myStruct = new MyNormalStruct();
     myStruct.UpdateValue(2);
     UpdateMyNormalStruct(in myStruct);
-    Console.WriteLine(myStruct.Value); 
+    Console.WriteLine(myStruct.Value);
 }
 ```
 
