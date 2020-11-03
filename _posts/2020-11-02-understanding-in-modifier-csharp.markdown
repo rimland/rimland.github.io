@@ -112,19 +112,19 @@ public class BenchmarkClass
 
     public decimal Compute(NormalStruct s)
     {
-        //业务逻辑
+        //业务逻辑...
         return 0M;
     }
 
     public decimal ComputeIn(in NormalStruct s)
     {
-        //业务逻辑
+        //业务逻辑...
         return 0M;
     }
 
     public decimal ComputeIn(in ReadOnlyStruct s)
     {
-        //业务逻辑
+        //业务逻辑...
         return 0M;
     }
 }
