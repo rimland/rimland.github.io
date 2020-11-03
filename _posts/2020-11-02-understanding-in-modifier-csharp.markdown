@@ -64,6 +64,7 @@ public struct NormalStruct
 
 public readonly struct ReadOnlyStruct
 {
+    // 自动属性上的 readonly 关键字是可以省略的，这里加上是为了便于理解
     public readonly decimal Number1 { get; }
     public readonly decimal Number2 { get; }
     //...
@@ -273,7 +274,9 @@ static void Main(string[] args)
 } // end of method Program::UpdateMyNormalStruct
 ```
 
-您会发现，在 `IL_0002`、`IL_0007` 和 `IL_0008` 这几行，仍然创建了一个 `MyNormalStruct` 结构体的防御性副本(`defensive copy`)。虽然在调用方法 `UpdateMyNormalStruct` 时以引用的方式传递参数，但在方法体中调用结构体自身的 `UpdateValue` 前，却创建了一个该结构体的防御性副本，改变的是该副本的 `Value`。这就有点奇怪了，不是吗？
+您会发现，在 `IL_0002`、`IL_0007` 和 `IL_0008` 这几行，仍然创建了一个 `MyNormalStruct` 结构体的防御性副本(`defensive copy`)。虽然在调用方法 `UpdateMyNormalStruct` 时以引用的方式传递参数，但在方法体中调用结构体自身的 `UpdateValue` 前，却创建了一个该结构体的防御性副本，改变的是该副本的 `Value`。这就有点奇怪了，不是吗？  
+
+我们使用 `in` 参数的目的就是想减少结构体的复制从而提升性能，但这里并没有起到作用。甚至，假如 `UpdateMyNormalStruct` 方法中多次调用该结构体的*非只读方法*，编译器也会多次创建该结构体的防御性副本，这就对性能产生了负面影响。
 
 Google 了一些资料是这么解释的：C# 无法知道当它调用一个结构体上的方法(或getter)时，是否也会修改它的值/状态。于是，它所做的就是创建所谓的“防御性副本”。当在结构体上运行方法(或getter)时，它会创建传入的结构体的副本，并在副本上运行方法。这意味着原始副本与传入时完全相同，调用者传入的值并没有被修改。
 
