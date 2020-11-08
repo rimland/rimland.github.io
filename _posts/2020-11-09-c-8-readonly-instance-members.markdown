@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "C# 8：可变结构体中的只读实例成员"
+title:  "C# 8: 可变结构体中的只读实例成员"
 date:   2020-11-09 00:10:00 +0800
 categories: dotnet csharp
 published: true
