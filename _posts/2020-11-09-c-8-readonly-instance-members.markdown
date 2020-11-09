@@ -127,17 +127,17 @@ public struct Rect
 
 public class SampleClass
 {
-    public static float CallGetArea(Rect vector)
+    public float CallGetArea(Rect vector)
     {
         return vector.GetArea();
     }
 
-    public static float CallGetAreaIn(in Rect vector)
+    public float CallGetAreaIn(in Rect vector)
     {
         return vector.GetArea();
     }
 
-    public static float CallGetAreaReadOnly(in Rect vector)
+    public float CallGetAreaReadOnly(in Rect vector)
     {
         //调用可变结构体中的只读实例成员
         return vector.GetAreaReadOnly();
@@ -154,13 +154,13 @@ public class SampleClass
 我们来重点看一下第二个和第三个方法有什么区别，还是把它们的 IL 代码逻辑翻译成易懂的执行逻辑，[如下所示](https://sharplab.io/#v2:CYLg1APgAgTAjAWAFBQMwAIDOAXATgVwGNt0AlAU2OQG9l17010AzAGwHsBDEgdwG46DJmy4kAFgKSD6TXOU7B2AO1YBPFh27oAgnM7T0tJAxPoA5uWwGTR03cYB2dD3QAqdBOsMAvgd9TjIQw9RRV1ES0AcUtdeQoFAHkwgAoASgNbeygnWM5JE38DYU0SaOxctIyvGRy9fJ9kQpQMWHQAZU4AWwAHVnIAYVZOTEwaIpa4ADYNUXR+zlZWMoqKYnQAN0psdlx0wPpMu2yNrZ2AOmW9NPr6JpMmKCmZrXnFy/kASSVkgEslMi2J2IOz2NmqjiB21wFxiV1SN3QdyCjCeERIryWsLi8mASTUv3+qxIm2Buyq+1MxxJUJh5T08VxKXhfkaQA==)：
 
 ```csharp
-public static float CallGetAreaIn([In] [IsReadOnly] ref Rect vector)
+public float CallGetAreaIn([In] [IsReadOnly] ref Rect vector)
 {
     Rect rect = vector; //防御性副本
     return rect.GetArea();
 }
 
-public static float CallGetAreaReadOnly([In] [IsReadOnly] ref Rect vector)
+public float CallGetAreaReadOnly([In] [IsReadOnly] ref Rect vector)
 {
     return vector.GetAreaReadOnly();
 }
@@ -245,17 +245,17 @@ public class SampleClass
         return result;
     }
 
-    public static float CallGetArea(Rect vector)
+    public float CallGetArea(Rect vector)
     {
         return vector.GetArea();
     }
 
-    public static float CallGetAreaIn(in Rect vector)
+    public float CallGetAreaIn(in Rect vector)
     {
         return vector.GetArea();
     }
 
-    public static float CallGetAreaReadOnly(in Rect vector)
+    public float CallGetAreaReadOnly(in Rect vector)
     {
         return vector.GetAreaReadOnly();
     }
