@@ -270,11 +270,11 @@ public class SampleClass
 
 使用 BenchmarkDotNet 工具测试三个方法的运行时间，结果如下：
 
-|             Method |    Mean |    Error |   StdDev | Ratio |
-|-------------------:|--------:|---------:|---------:|------:|
-|       DoNormalLoop | 1.978 s | 0.0140 s | 0.0125 s |  1.00 |
-|   DoNormalLoopByIn | 3.363 s | 0.0280 s | 0.0262 s |  1.70 |
-| DoReadOnlyLoopByIn | 1.032 s | 0.0200 s | 0.0187 s |  0.52 |
+|             Method |    Mean |    Error |   StdDev | Ratio | RatioSD |
+|-------------------:|--------:|---------:|---------:|------:|--------:|
+|       DoNormalLoop | 2.034 s | 0.0392 s | 0.0348 s |  1.00 |    0.00 |
+|   DoNormalLoopByIn | 3.490 s | 0.0667 s | 0.0557 s |  1.71 |    0.03 |
+| DoReadOnlyLoopByIn | 1.041 s | 0.0189 s | 0.0202 s |  0.51 |    0.01 |
 
 从结果可以看出，当结构体可变时，使用 `in` 参数调用结构体的只读方法，性能高于其他两种; 使用 `in` 参数调用可变结构体的非只读方法，运行时间最长，严重影响了性能，应该避免这样调用。
 
