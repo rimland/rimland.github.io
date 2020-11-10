@@ -77,7 +77,7 @@ public struct Rect
 
     public readonly float GetAreaReadOnly()
     {
-        return Area; //警告	CS8656	从 "readonly" 成员调用非 readonly 成员 "Rect.Area.get" 将产生 "this" 的隐式副本。
+        return Area; //警告 CS8656 从 "readonly" 成员调用非 readonly 成员 "Rect.Area.get" 将产生 "this" 的隐式副本。
     }
 }
 ```
@@ -147,7 +147,7 @@ public class SampleClass
 
 类 `SampleClass` 中定义三个方法：
 
-- 第一个方法是以前我们常见的调用方式; 
+- 第一个方法是以前我们常见的调用方式;
 - 第二个以 `in` 参数传入可变结构体，调用非只读方法（可能修改结构体状态的方法）;
 - 第三个以 `in` 参数传入可变结构体，调用只读方法。
 
@@ -289,4 +289,4 @@ public class SampleClass
 <br />
 
 > 作者 ： 技术译民  
-> 出品 ： [技术译站](https://ittranslator.cn/) 
+> 出品 ： [技术译站](https://ittranslator.cn/)
