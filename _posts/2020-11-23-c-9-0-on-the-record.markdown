@@ -38,7 +38,7 @@ public class Person
 
 目前最大的限制是属性必须是*可变的（即可写的）*，对象初始化器才能工作：它们首先调用对象的构造函数(本例中是默认的无参数构造函数)，然后赋值给属性 `setter`。
 
-仅初始化(init-only)属性解决了这个问题！它引入了一个 `init` 访问器，它是 `set` 访问器的变体，只能在对象初始化时调用：
+**仅初始化(init-only)属性**解决了这个问题！它引入了一个 `init` 访问器，它是 `set` 访问器的变体，只能在对象初始化时调用：
 
 ```csharp
 public class Person
@@ -118,7 +118,7 @@ var otherPerson = person with { LastName = "Torgersen" };
 
 所有对象都从对象类(`object`)继承一个虚的 `Equals(object)` 方法。这被用作是当两个参数都是非空(`non-null`)时，静态方法 `Object.Equals(object, object)` 的基础。
 
-结构体重写了 `Equals(object)` 方法，通过递归地在结构体的每一个字段上调用 `Equals` 来比较结构体的每一个字段，从而实现了“基于值的相等”。**记录(`record`)是一样的。**
+**结构体重写了 `Equals(object)` 方法，通过递归地在结构体的每一个字段上调用 `Equals` 来比较结构体的每一个字段，从而实现了“基于值的相等”。记录(`record`)是一样的。**
 
 这意味着，根据它们的“值性(value-ness)”，两个记录(`record`)对象可以彼此相等，而不是*同一个*对象。例如，如果我们将被修改 `person` 的 `LastName` 改回去：
 
@@ -187,8 +187,6 @@ public record Person
 public record Person(string FirstName, string LastName);
 ```
 
-This declares the public init-only auto-properties and the constructor and the deconstructor, so that you can write:
-
 它声明了公共的仅初始化(init-only)自动属性以及构造函数和解构函数，因此您就可以编写：
 
 ```csharp
@@ -243,8 +241,7 @@ using System;
 Console.WriteLine("Hello World!");
 ```
 
-允许任何语句。此程序必须在文件中的 `using` 语句之后，任何类型或命名空间声明之前执行，并且只能在一个文件中执行。就像目前只能有一个 `Main` 方法一样。
-
+允许任何语句。此程序必须在文件中的 `using` 语句之后，任何类型或命名空间声明之前执行，并且只能在一个文件中执行。就像目前只能有一个 `Main` 方法一样。  
 如果您想返回一个状态码，您可以做。如果您想等待(`await`)事情，您可以做。如果您想访问命令行参数，`args` 可以作为一个“魔法”参数使用。
 
 ```csharp
