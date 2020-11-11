@@ -323,7 +323,6 @@ null => throw new ArgumentNullException(nameof(vehicle))
 此外，`not` 在 `if` 条件中包含 `is` 表达式时将会很方便，可以取代笨拙的双括号，例如：
 
 ```csharp
-
 if (!(e is Customer)) { ... } // 旧的写法
 ```
 
