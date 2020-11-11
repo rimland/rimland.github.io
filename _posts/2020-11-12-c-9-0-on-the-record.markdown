@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "C# 9.0 正式发布了（C# 9.0 on the record）"
-date:   2020-11-12 00:05:00 +0800
+date:   2020-11-12 00:10:00 +0800
 categories: dotnet csharp
 published: true
 ---
