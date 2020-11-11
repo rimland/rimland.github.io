@@ -383,9 +383,9 @@ class Tiger : Animal
 
 ## 更多内容……
 
-查看 C# 9.0 全部特性集的最好地方是 [“What’s new in C# 9.0” 文档页面](https://docs.microsoft.com/dotnet/csharp/whats-new/csharp-9) [^more]。
+查看 C# 9.0 全部特性集的最好地方是 [“What's new in C# 9.0” 文档页面](https://docs.microsoft.com/dotnet/csharp/whats-new/csharp-9) [^more]。
 
-[^more]: <https://docs.microsoft.com/dotnet/csharp/whats-new/csharp-9> What’s new in C# 9.0
+[^more]: <https://docs.microsoft.com/dotnet/csharp/whats-new/csharp-9> What's new in C# 9.0
 
 <br/>
 
