@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "官宣：C# 9.0 正式发布了（C# 9.0 on the record）"
+title:  "C# 9.0 正式发布了（C# 9.0 on the record）"
 date:   2020-11-12 00:10:00 +0800
 categories: dotnet csharp
 published: true
@@ -101,7 +101,7 @@ public record Person
 
 ### `with` 表达式（With-expressions）
 
-处理不可变数据时，一种常见的模式是从现有值创建新值以表示新状态。例如，如果我们的 `person` 要更改他们的 `LastName`，我们会将其表示为一个新对象，该对象是旧对象的副本，只是有不同的 `LastName`。这种技巧通常被称之为*非破坏性突变(non-destructive mutation)*。记录(`record`)不是代表 `person` *在一段时间内的* 状态，而是代表 `person` *在给定时间点的* 状态。
+处理不可变数据时，一种常见的模式是从现有值创建新值以表示新状态。例如，如果我们的 `person` 要更改其 `LastName`，我们会将其表示为一个新对象，该对象是旧对象的副本，只是有不同的 `LastName`。这种技巧通常被称之为*非破坏性突变(non-destructive mutation)*。记录(`record`)不是代表 `person` *在一段时间内的* 状态，而是代表 `person` *在给定时间点的* 状态。
 
 为了帮助实现这种编程风格，记录(`record`)允许使用一种新的表达式 —— `with` 表达式：
 
@@ -196,7 +196,7 @@ var (f, l) = person;                          //用位置参数解构（position
 
 <!-- If you don’t like the generated auto-property you can define your own property of the same name instead, and the generated constructor and deconstructor will just use that one. In this case, the parameter is in scope for you to use for initialization. Say, for instance, that you’d rather have the `FirstName` be a protected property: -->
 
-如果不喜欢生成的自动属性，您可以定义自己的同名属性，生成的构造函数和解构函数将只使用您自定义的属性。在这种情况下，该参数在作用域内供您用于初始化。举例来说，假设您希望将 `FirstName` 设为受保护的属性：
+如果不喜欢生成的自动属性，您可以定义自己的同名属性，生成的构造函数和解构函数将只使用您自定义的属性。在这种情况下，该参数在您用于初始化的作用域内。举例来说，假设您希望将 `FirstName` 设为受保护的属性：
 
 ```csharp
 public record Person(string FirstName, string LastName)
