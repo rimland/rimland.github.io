@@ -131,7 +131,7 @@ var originalPerson = otherPerson with { LastName = "Hunter" };
 
 如果您不喜欢生成的 `Equals` 重写的默认逐个字段比较的行为，您可以自己编写。您只需要注意理解“基于值的相等”是如何在记录(`record`)中工作的，特别是在涉及继承时，我们后面会讲到。
 
-除了基于值的 `Equals` 之外，还有一个基于值 `GetHashCode()` 的重写。
+除了基于值的 `Equals` 之外，还有一个基于值的 `GetHashCode()` 重写。
 
 ### 数据成员（Data members）
 
