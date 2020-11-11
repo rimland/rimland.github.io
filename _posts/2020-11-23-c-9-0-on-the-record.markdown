@@ -26,7 +26,7 @@ published: true
 var person = new Person { FirstName = "Mads", LastName = "Torgersen" };
 ```
 
-对象初始化器还使类型作者不必编写大量的构造函数——他们所要做的就是编写一些属性！
+对象初始化器还使类型作者不必编写大量的构造函数 —— 他们所要做的就是编写一些属性！
 
 ```csharp
 public class Person
@@ -95,7 +95,7 @@ public record Person
 }
 ```
 
-记录仍然是类，但是 `record` 关键字赋予了它一些另外的类似于值的行为。 一般来说，记录是根据其内容而不是其标识来定义的。 在这点上，记录更接近于结构体，但是记录仍然是引用类。型。
+记录仍然是类，但是 `record` 关键字赋予了它一些另外的类似于值的行为。 一般来说，记录是根据其内容而不是其标识来定义的。 在这点上，记录更接近于结构体，但是记录仍然是引用类型。
 
 虽然记录是可变的，但它们主要是为更好地支持不可变数据模型而构建的。
 
@@ -149,7 +149,7 @@ public record Student : Person
 Person student = new Student { FirstName = "Mads", LastName = "Nielsen", ID = 129 };
 ```
 
-`with` 表达式仍将复制整个对象并保持运行时类型：
+`with` 表达式仍将复制整个对象并保留运行时类型：
 
 ```csharp
 var otherStudent = student with { LastName = "Torgersen" };
@@ -277,7 +277,7 @@ public static decimal CalculateToll(object vehicle) =>
 
 ### 简单类型模式（Simple type patterns）
 
-目前，类型模式需要在类型匹配时声明一个标识符——即使该标识符是一个弃元 `_`，如上面的 `DeliveryTruck _` 所示。但现在你只需写下类型就可以了：
+目前，类型模式需要在类型匹配时声明一个标识符 —— 即使该标识符是一个弃元 `_`，如上面的 `DeliveryTruck _` 所示。但现在你只需写下类型就可以了：
 
 ```csharp
 DeliveryTruck => 10.00m,
@@ -344,7 +344,7 @@ var n = c.FirstName;                   // ... 在这里，c 肯定已赋值
 
 ## 五、目标类型的 `new` 表达式（Target-typed new expressions）
 
-“目标类型(`Target typing`)”是我们在表达式从使用位置的上下文中获取其类型时所用的一个术语。例如，`null` 和 `lambda`表达式始终是目标类型的。
+“目标类型(`Target typing`)”是我们在表达式从使用位置的上下文中获取其类型时所用的一个术语。例如，`null` 和 `lambda` 表达式始终是目标类型的。
 
 <!-- “目标类型(`Target typing`)”是一个术语，当一个表达式从使用它的地方的上下文中获得其类型时，我们使用这个术语。例如，`null` 和 `lambda`表达式始终是目标类型的。 -->
 
@@ -368,7 +368,7 @@ Point[] ps = { new (1, 2), new (5, 2), new (5, -3), new (1, -3) };
 
 <!-- It’s sometimes useful to express that a method override in a derived class has a more specific return type than the declaration in the base type. C# 9.0 allows that: -->
 
-有时候，这样的表达是有用的——派生类中的方法重写，具有一个比基类型中的声明更具体（更明确）的返回类型。C# 9.0 允许：
+有时候，这样的表达是有用的 —— 派生类中的方法重写，具有一个比基类型中的声明更具体（更明确）的返回类型。C# 9.0 允许：
 
 ```csharp
 abstract class Animal
