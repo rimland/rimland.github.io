@@ -37,19 +37,21 @@ const long loops = 50_000_000_000;
 
 ```csharp
 int bin = 0b1001_1010_0001_0100;// 二进制表示
-int hex = 0x64_95_ED;           // 十六进制表示
+int hex1 = 0x64_95_ED;          // 十六进制表示
+int hex2 = 0x_64_95_ED;         // 十六进制表示
 int dec1 = 1_000_000;           // 十进制
 int dec2 = 100_0000;            // 十进制
 int weird = 1_2__3___4____5_____6______7_______8________9;
 double real = 1_000.111_1e-5;
-decimal d = 1_222_345M;
+decimal d = 1_222_345;
 ```
 
 上面的这些数字声明编译之后实际运行的代码是：
 
 ```csharp
 int bin = 39444;
-int hex = 6591981;
+int hex1 = 6591981;
+int hex2 = 6591981;
 int dec1 = 1000000;
 int dec2 = 1000000;
 int weird = 123456789;
