@@ -3,7 +3,7 @@ layout: post
 title:  "C# 中的数字分隔符 _"
 date:   2020-11-17 00:10:00 +0800
 categories: dotnet csharp
-published: false
+published: true
 ---
 
 编写 C# 代码时，我们时常会用到很大的数字，例如下面定义的变量：
