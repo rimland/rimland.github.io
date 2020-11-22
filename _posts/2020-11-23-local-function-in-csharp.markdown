@@ -288,6 +288,7 @@ public static IEnumerable<T> Filter<T>(IEnumerable<T> source, Func<T, bool> pred
 运行上面的代码，由于迭代器方法的主体是延迟执行的，所以抛出异常的位置将发生在 `string.Join(',', result)` 所在的行，也就是在枚举返回的序列结果 `result` 时显示，如图：
 
 ![exception_1](/assets/images/202011/exception_1.png#center)
+<!-- ![exception_1](https://img2020.cnblogs.com/blog/2074831/202011/2074831-20201123005402984-170170532.png#center) -->
 
 如果我们把上面的迭代器方法 `Filter` 中的迭代器部分放入本地函数：
 
@@ -318,6 +319,7 @@ public static IEnumerable<T> Filter<T>(IEnumerable<T> source, Func<T, bool> pred
 那么这时抛出异常的位置将发生在 `Filter(list, null)` 所在的行，也就是在调用 `Filter` 方法时显示，如图：
 
 ![exception_2](/assets/images/202011/exception_2.png#center)
+<!-- ![exception_2](https://img2020.cnblogs.com/blog/2074831/202011/2074831-20201123005255869-1236807808.png#center) -->
 
 可以看出，使用了本地函数包装迭代器逻辑的写法，相当于把显示异常的位置提前了，这有助于我们更快的观察到异常并进行处理。
 
