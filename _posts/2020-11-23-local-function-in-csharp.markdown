@@ -321,9 +321,9 @@ public static IEnumerable<T> Filter<T>(IEnumerable<T> source, Func<T, bool> pred
 
 可以看出，使用了本地函数包装迭代器逻辑的写法，相当于把显示异常的位置提前了，这有助于我们更快的观察到异常并进行处理。
 
-同理，在使用了 `async` 的异步方法中，如果把异步执行部分放入 `async` 的本地函数中，也有助于立即显示异常。由于篇幅问题这里不再举例，可以查看[官方文档](https://docs.microsoft.com/zh-cn/dotnet/csharp/programming-guide/classes-and-structs/local-functions#local-functions-and-exceptions) [^ex]。
+同理，在使用了 `async` 的异步方法中，如果把异步执行部分放入 `async` 的本地函数中，也有助于立即显示异常。由于篇幅问题这里不再举例，可以查看[官方文档](https://docs.microsoft.com/zh-cn/dotnet/csharp/programming-guide/classes-and-structs/local-functions#local-functions-and-exceptions)<!-- [^ex]-->。
 
-[^ex]: <https://docs.microsoft.com/zh-cn/dotnet/csharp/programming-guide/classes-and-structs/local-functions#local-functions-and-exceptions> 本地函数和异常
+<!-- [^ex]: <https://docs.microsoft.com/zh-cn/dotnet/csharp/programming-guide/classes-and-structs/local-functions#local-functions-and-exceptions> 本地函数和异常 -->
 
 ## 总结
 
