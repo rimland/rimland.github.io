@@ -24,3 +24,23 @@
 .post-content h1, .post-content h2, .post-content h3{
     margin-top: 36px;
 }
+
+.post-content h3{
+    font-family: "微软雅黑", "宋体", "黑体", Arial;
+    color:#000022; 
+    background-color: rgb(245,250,255);
+    padding: 2px 6px;
+    border-radius: 1px 22px 0 1px;
+    border-left: dotted 1px rgba(180, 200, 255, .8);
+    border-right: dotted 1px rgba(180, 200, 255, .5);
+    font-size: 1.5rem;
+}
+
+.post-content h3::before{
+    content: "§";
+    color: #335;
+    font-family: "微软雅黑";
+    font-size: 1rem;
+    line-height:1.6;
+    margin-right:6px;
+}
