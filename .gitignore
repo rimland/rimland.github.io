@@ -11,3 +11,4 @@ _includes/*
 !_includes/header.html
 !_includes/footer.html
 !_includes/head.html
+!_includes/custom-head.html
