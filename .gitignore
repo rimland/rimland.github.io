@@ -10,3 +10,4 @@ _includes/*
 
 !_includes/header.html
 !_includes/footer.html
+!_includes/head.html
