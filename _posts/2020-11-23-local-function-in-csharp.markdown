@@ -258,6 +258,14 @@ public class C
 
 综上所述，使用本地函数相比使用 Lambda 表达式更能节省时间和空间上的开销。
 
+### 范型和迭代器
+
+本地函数支持范型，就像普通方法那样；而 Lambda 表达式不支持范型，因为它们必须被分配给一个有具体类型的委托变量（它们能够使用作用域内的外部范型变量，但那并不是一回事儿）。[^stackoverflow]
+
+本地函数可以作为迭代器实现；而 Lambda 表达式不可以使用 `yield return` 和 `yield break` 关键字实现返回 `IEnumerable<T>` 的功能。
+
+[^stackoverflow]: <https://stackoverflow.com/questions/40943117/local-function-vs-lambda-c-sharp-7-0> Local function vs Lambda C# 7.0
+
 ## 本地函数与异常
 
 本地函数还有一个比较实用的功能是，可以在迭代器方法和异步方法中立即显示异常。
@@ -323,13 +331,11 @@ public static IEnumerable<T> Filter<T>(IEnumerable<T> source, Func<T, bool> pred
 
 可以看出，使用了本地函数包装迭代器逻辑的写法，相当于把显示异常的位置提前了，这有助于我们更快的观察到异常并进行处理。
 
-同理，在使用了 `async` 的异步方法中，如果把异步执行部分放入 `async` 的本地函数中，也有助于立即显示异常。由于篇幅问题这里不再举例，可以查看[官方文档](https://docs.microsoft.com/zh-cn/dotnet/csharp/programming-guide/classes-and-structs/local-functions#local-functions-and-exceptions)<!-- [^ex]-->。
-
-<!-- [^ex]: <https://docs.microsoft.com/zh-cn/dotnet/csharp/programming-guide/classes-and-structs/local-functions#local-functions-and-exceptions> 本地函数和异常 -->
+同理，在使用了 `async` 的异步方法中，如果把异步执行部分放入 `async` 的本地函数中，也有助于立即显示异常。由于篇幅问题这里不再举例，可以查看[官方文档](https://docs.microsoft.com/zh-cn/dotnet/csharp/programming-guide/classes-and-structs/local-functions#local-functions-and-exceptions)。
 
 ## 总结
 
-综上所述，本地函数是*方法中的方法*，但它又不仅仅是*方法中的方法*，它还可以出现在构造函数、属性访问器、事件访问器等等成员中; 本地函数在功能上类似于 Lambda 表达式，但它比 Lambda 表达式更加方便和清晰，在分配和性能上也比 Lambda 表达式略占优势; 本地函数还有助于在迭代器方法和异步方法中立即显示异常。
+综上所述，本地函数是*方法中的方法*，但它又不仅仅是*方法中的方法*，它还可以出现在构造函数、属性访问器、事件访问器等等成员中; 本地函数在功能上类似于 Lambda 表达式，但它比 Lambda 表达式更加方便和清晰，在分配和性能上也比 Lambda 表达式略占优势; 本地函数支持范型和作为迭代器实现; 本地函数还有助于在迭代器方法和异步方法中立即显示异常。
 
 <br />
 
