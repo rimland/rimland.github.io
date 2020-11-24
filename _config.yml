@@ -60,6 +60,7 @@ plugins:
 timezone: Asia/Shanghai
 minima:
   date_format: "%Y年 %m月 %d日"
+  skin: classic
 
 # rss: RSS
 google_analytics: UA-169624459-1
