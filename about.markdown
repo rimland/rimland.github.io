@@ -40,4 +40,5 @@ You can find the source code for Jekyll at GitHub:
 <!-- 微信公众号：**技术译站**，  -->微信搜索公众号: **技术译站**，或者**扫描**下面**二维码**可关注
 
 <!-- ![微信公众号：技术译站](/assets/images/weixin.jpg){:height="300px" width="300px"} -->
-![微信公众号：技术译站](/assets/images/weixin-2.png){:height="263px"}
+<!-- ![微信公众号：技术译站](/assets/images/weixin-2.png){:height="263px"} -->
+![微信公众号：技术译站](/assets/images/weixin-2.png)
