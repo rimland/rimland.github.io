@@ -64,4 +64,14 @@
     blockquote{
         font-size: 1.05rem;
     }
+
+    img {
+        transition: -webkit-transform 0.25s ease;
+        transition: transform 0.25s ease;
+    }
+    
+    img:active {
+        -webkit-transform: scale(1.5);
+        transform: scale(1.5);
+    }
 }
