@@ -2,7 +2,7 @@
 layout: post
 title:  "C# 中的本地函数"
 date:   2020-11-23 00:10:00 +0800
-categories: dotnet csharp
+#categories: dotnet csharp
 published: true
 ---
 

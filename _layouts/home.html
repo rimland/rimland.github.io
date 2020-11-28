@@ -68,6 +68,8 @@ layout: default
     <span style="color: #bbb;">&laquo; Prev</span>
     {% endif %}
 
+    &nbsp;
+
     {% for page in (1..paginator.total_pages) %}
     {% if page == paginator.page %}
     <em>{{ page }}</em>
