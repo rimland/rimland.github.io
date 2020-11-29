@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Docker Vs Podman"
-date:   2020-11-27 00:05:00 +0800
+date:   2020-11-29 00:05:00 +0800
 categories: backend docker
 published: true
 ---
@@ -15,8 +15,6 @@ published: true
 容器化的一场全新革命是从 Docker 开始的，Docker 的守护进程管理着所有的事情，并成为最受欢迎和广泛使用的容器管理系统之一。
 
 但是，请稍等！您真的会假设 Docker 是唯一有效的容器化方式而认为值得坚持去使用它吗？
-
-<!-- This blog post will help you with such questions like: -->
 
 这篇博文将帮助您了解以下问题：
 
@@ -39,7 +37,7 @@ Docker 是一个容器化平台，在这个平台中，我们可以将我们的�
 
 **Docker 流程:**
 
-![Docker Flow](/assets/images/202011/docker-flow.png)
+![Docker Flow](/assets/images/202011/docker-flow.png#center)
 
 Docker 的两个主要组成模块是： **Docker Daemon** 和 **Docker CLI**。
 
@@ -69,7 +67,7 @@ Docker 的两个主要组成模块是： **Docker Daemon** 和 **Docker CLI**。
 
 - **Podman** 是一个无守护进程的容器引擎，用于在 Linux 系统上进行开发、管理和运行 OCI Containers。 Containers 能以 root 模式运行，也能以非 root 模式运行。
 
-![Podman](/assets/images/202011/podman.png)
+![Podman](/assets/images/202011/podman.png#center)
 
 - Podman 直接与镜像注册表、容器和镜像存储进行交互。
 - 我们知道，Docker 是建立在 runC 容器运行时之上 [^runC]，并且使用了守护进程的; Podman 中没有使用守护进程，而是直接使用 runC 容器运行时。
@@ -99,7 +97,7 @@ Docker 的两个主要组成模块是： **Docker Daemon** 和 **Docker CLI**。
 [cloudbunny@technopanti ~]$ yum install podman
 ```
 
-![install podman](/assets/images/202011/install-podman.png)
+![install podman](/assets/images/202011/install-podman.png#center)
 
 安装 podman 之后，您可以使用下面命令检查版本：
 
@@ -118,7 +116,7 @@ Docker 的两个主要组成模块是： **Docker Daemon** 和 **Docker CLI**。
 registry.fedoraproject.org/f29/httpd /usr/bin/run-httpd
 ```
 
-![Running a sample container](/assets/images/202011/podman-run.png)
+![Running a sample container](/assets/images/202011/podman-run.png#center)
 
 <!-- Because the container is being run in detached mode, represented by the -d in the podman run command, Podman will print the container ID after it has run. Note that we use port forwarding to be able to access the HTTP server. -->
 
@@ -136,10 +134,9 @@ registry.fedoraproject.org/f29/httpd /usr/bin/run-httpd
 [cloudbunny@technopanti ~]$ podman ps
 ```
 
-![Listing running containers](/assets/images/202011/podman-ps.png)
+![Listing running containers](/assets/images/202011/podman-ps.png#center)
 
 ### 检查运行中的容器
-
 
 ```bash
 [cloudbunny@technopanti ~]$ podman inspect -l
@@ -150,10 +147,9 @@ status : running/ stopped , date of creation , container ID , etc.
 
  -->
 
-这将有助于“检查”正在运行的容器中的元数据和相关的详细信息。  
-状态（运行或停止）、创建日期和容器 ID，等等。
+这将有助于“检查”正在运行的容器中的元数据和相关的详细信息 —— 状态（运行或停止）、创建日期和容器 ID，等等。
 
-![Inspecting a running container](/assets/images/202011/podman-inspect.png)
+![Inspecting a running container](/assets/images/202011/podman-inspect.png#center)
 
 <!-- Since we have a detail of container we can test our http server , in this example the port fowarding is done on port : 8080 -->
 
@@ -166,7 +162,7 @@ status : running/ stopped , date of creation , container ID , etc.
 
 上面的命令将会显示我们容器化的 httpd server 中的 index 页面。
 
-![curl http://localhost:8080](/assets/images/202011/curl-localhost.png)
+![curl http://localhost:8080](/assets/images/202011/curl-localhost.png#center)
 
 ### 查看容器日志
 
