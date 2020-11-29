@@ -30,7 +30,9 @@ Docker 使用本机 Windows 守护程序就可以很好地运行 Windows 或基�
 
 ## 安全
 
+A significant difference between Docker vs. Podman involves security concerns. The Docker daemon requires root privileges, which presents a security challenge when providing root privileges to users. It also means that an improperly configured Docker container could potentially access the host filesystem without restriction. Admins can prevent this by following some basic best practices, such as only using container images from trusted vendors, but the possibility still does exist.
 
+Docker 与 Podman 之间的一个重大区别涉及到安全问题。 Docker 守护进程需要 root 权限，这在向用户提供 root 权限时带来了安全挑战。 这也意味着配置不当的 Docker 容器可以无限制地访问主机文件系统。管理员可以通过遵循一些基本的最佳实践来防止这种情况发生，比如仅使用来自受信任的供应商的容器映像，但这种可能性仍然存在。
 
 
 
