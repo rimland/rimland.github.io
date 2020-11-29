@@ -127,7 +127,7 @@ registry.fedoraproject.org/f29/httpd /usr/bin/run-httpd
 注释：
 
 1. `-d` 表示以分离模式在后台运行此容器。
-2. Podman 在后台运行后会打印容器 ID。（例如：f1f7215ccf26fe7bb83dd108cdb41480aae5794058a007dd85a098af0d390563）
+2. Podman 在后台运行后会打印出容器 ID。（例如：f1f7215ccf26fe7bb83dd108cdb41480aae5794058a007dd85a098af0d390563）
 3. `-p`: 利用端口转发，使能够访问容器内的 HTTP server。
 
 ### 列出运行中的容器
