@@ -46,15 +46,18 @@ In addition, both Docker and Podman use a CLI as the primary management interfac
 
 Kubernetes has become the dominant player when it comes to container orchestration. VMware has adopted Kubernetes as its primary management plane for VMs and everything else connected to running containers. Kubernetes uses the term pod to define a collection of containers that share certain resources. Podman supports this same concept by implementing a pod command to manage multiple containers as a single entity.
 
-在容器编排方面，Kubernetes 已经成为占据主导地位的参与者。VMware 已采用 Kubernetes 作为 VM 以及与运行中的容器连接的所有其他设备的主要管理平台。 Kubernetes 使用术语 pod 来定义共享某些资源的容器集合。Podman 通过实现 pod 命令，将多个容器作为一个实体进行管理，从而支持同样的概念。
+在容器编排方面，Kubernetes 已经成为占据主导地位的参与者。VMware 已采用 Kubernetes 作为 VM 以及与运行中的容器连接的所有其他设备的主要管理平台。 Kubernetes 使用术语 pod 来定义共享某些资源的容器集合。Podman 通过实现 pod 命令，将多个容器作为一个实体进行管理，从而支持相同的概念。
 
 
 Similarly, Docker provides multiple options for container orchestration. Docker Swarm is the native tool maintained by Docker for managing a cluster. Docker also integrates well with Kubernetes, which is the popular choice for most development teams. For Windows deployments, admins have the option to enable Kubernetes during the installation process, which provides full access to the Kubernetes commands right from admins' desktop or laptop.
 
+同样，Docker 为容器编排提供了多个选项。Docker Swarm 是 Docker 维护的用于管理集群的本地工具。Docker 还与 Kubernetes 很好地集成，这是大多数开发团队的主流选择。 对于 Windows 部署，管理员可以选择在安装过程中启用 Kubernetes，从而可以从管理员的台式机或笔记本电脑直接访问 Kubernetes 命令。
 
+Taking this one step further, it's possible for admins to build their applications around the continuous integration and deployment model where development and test can happen anywhere based on some simple configuration files. A few additional steps to change the deployment target are all that's required when admins are ready to push a release to production.
 
+更进一步，管理员可以围绕持续集成和部署模型构建应用程序，在该模型中，开发人员可以根据一些简单的配置文件在任何地方进行开发和测试。 当管理员准备将发布发布到生产环境时，只需执行几个其他步骤即可更改部署目标。
 
-
+更进一步，管理员可以围绕持续集成和部署模型构建应用程序，在该模型中，开发人员可以根据一些简单的配置文件在任何地方进行开发和测试。 当管理员准备将发布发布到生产环境时，只需执行几个其他步骤即可更改部署目标。
 
 <br/>
 <br/>
