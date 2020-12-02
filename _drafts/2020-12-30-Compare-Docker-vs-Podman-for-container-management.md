@@ -38,7 +38,7 @@ Docker 与 Podman 之间的一个重大区别[涉及到安全问题](https://sea
 
 But admins can launch containers as a nonprivileged user with Podman. This provides Podman with an advantage over Docker when it comes to locked down environments. That being said, admins won't be able to execute any commands that require root privileges on the host system as a nonprivileged user. This includes mapping any privileged port numbers below 1024 on the host, as well as the default HTTP port 80.
 
-但是，管理员们使用 Podman 可以以非特权用户启动容器。就是使得 Podman 在锁定环境场景中具有了超越 Docker 的优势。 话虽如此，管理员们将无法以非特权用户身份在主机系统上执行任何需要 root 权限的命令。这包括映射主机上低于 1024 的任何特权端口号，以及默认的 HTTP 端口号 80。
+但是，管理员们使用 Podman 可以以非特权用户启动容器。这就使得 Podman 在锁定环境场景中具有了超越 Docker 的优势。 话虽如此，管理员们将无法以非特权用户身份在主机系统上执行任何需要 root 权限的命令。这包括映射主机上低于 1024 的任何特权端口号，以及默认的 HTTP 端口号 80。
 
 In addition, both Docker and Podman use a CLI as the primary management interface. Yet, Docker uses a REST API endpoint for communication with the daemon, and older versions use a TCP socket bound to the localhost IP address. This presents a potential attack surface for a cross-site forgery exploit. Docker addressed this vulnerability in version 0.5.2 by introducing a UNIX socket that admins can control with traditional UNIX permissions to restrict access. Considering Podman doesn't rely on a daemon, it's not susceptible to this type of attack.
 
