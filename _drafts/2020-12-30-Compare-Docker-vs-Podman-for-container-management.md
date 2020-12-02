@@ -61,7 +61,7 @@ Taking this one step further, it's possible for admins to build their applicatio
 
 Both Podman and Docker conform to OCI standards for images, but Podman is worth checking out for the security features alone. Podman also provides native commands to support the building and testing of pods with an eye toward deploying a production system running Kubernetes.
 
-Podman 和 Docker 都符合 OCI 镜像标准，但仅就安全特性而言，Podman 是[值得一试](https://www.youtube-nocookie.com/embed/YkBk52MGV0Y)的。Podman 还提供了本地命令来支持 pod 的构建和测试，着眼于部署到一个运行 Kubernetes 的生产系统。
+Podman 和 Docker 都符合 OCI 镜像标准，但仅就安全特性而言，Podman 是[值得一试](https://www.youtube-nocookie.com/embed/YkBk52MGV0Y)的。Podman 还提供了本地命令来支持 pod 的构建和测试，从而着眼于部署到一个运行 Kubernetes 的生产系统。
 
 <br/>
 
