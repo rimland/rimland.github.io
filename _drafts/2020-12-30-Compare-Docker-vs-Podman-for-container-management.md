@@ -16,7 +16,7 @@ published: true
 
 Docker has become the de facto standard for many IT administrators and does have the lion's share of developer interest today. Yet, Podman offers admins some security advantages over basic Docker due to its ability to run as a nonprivileged user and without a daemon.
 
-目前 Docker 已经成为许多 IT 管理员们事实上的标准，并且在开发人员中占有很大的份额。 但是，Podman 由于具有以非特权用户身份运行且无需守护进程的能力，因此与基本的 Docker 相比，它为管理员提供了一些安全上的优势。
+目前 Docker 已经成为许多 IT 管理员们事实上的标准，并且在开发人员中占有很大的份额。 但是，Podman 由于具有以非特权用户身份运行且无需守护进程的能力，因此与基本的 Docker 相比，它为管理员们提供了一些安全上的优势。
 
 Docker and Podman both offer many of the same features, such as their support for Open Container Initiative's (OCI) runtime and image specifications, as well as their ability to map commands to create and manage containers. Yet, there are several differences between Docker and Podman, including security concerns and reliance on daemon programs.
 
