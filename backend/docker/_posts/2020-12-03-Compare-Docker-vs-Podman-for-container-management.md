@@ -40,7 +40,7 @@ Docker 与 Podman 之间的一个重大区别[涉及到安全问题](https://sea
 
 更进一步来说，管理员可以围绕持续集成和持续部署（CI/CD）模型构建他们的应用程序，在该模型中，开发和测试工作可以基于一些简单的配置文件在任何地方进行。当管理员准备将发布推送到生产环境时，只需执行几个额外的步骤即可更改部署目标。
 
-Podman 和 Docker 都符合 OCI 镜像标准，但仅就安全特性而言，Podman 是[值得一试](https://www.youtube-nocookie.com/embed/YkBk52MGV0Y)的。Podman 还提供了本地命令来支持 pod 的构建和测试，从而着眼于部署到一个运行 Kubernetes 的生产系统。
+Podman 和 Docker 都符合 OCI 镜像标准，但仅就安全特性而言，Podman 是[值得一试](https://www.youtube-nocookie.com/embed/YkBk52MGV0Y)的。Podman 还提供了本地命令来支持 pod 的构建和测试，从而着眼于部署到一个运行 Kubernetes 的生产系统中。
 
 <br/>
 
