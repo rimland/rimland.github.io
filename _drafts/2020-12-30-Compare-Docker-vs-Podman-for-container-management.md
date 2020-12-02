@@ -53,7 +53,7 @@ Kubernetes has become the dominant player when it comes to container orchestrati
 
 Similarly, Docker provides multiple options for container orchestration. Docker Swarm is the native tool maintained by Docker for managing a cluster. Docker also integrates well with Kubernetes, which is the popular choice for most development teams. For Windows deployments, admins have the option to enable Kubernetes during the installation process, which provides full access to the Kubernetes commands right from admins' desktop or laptop.
 
-同样，Docker 为容器编排提供了多个选项。Docker Swarm 是 Docker 维护的用于管理集群的本地工具。Docker 还与 Kubernetes 很好地集成，这是大多数开发团队的主流选择。 对于 Windows 部署，管理员可以选择在安装过程中启用 Kubernetes，从而可以从管理员的台式机或笔记本电脑直接访问 Kubernetes 命令。
+同样，Docker 为容器编排提供了多个选项。Docker Swarm 是 Docker 维护的用于管理集群的本地工具。Docker 还与 Kubernetes 集成得很好，这是大多数开发团队的主流选择。 对于 Windows 部署，管理员可以选择在安装过程中启用 Kubernetes，从而可以从管理员的台式机或笔记本电脑直接访问 Kubernetes 命令。
 
 Taking this one step further, it's possible for admins to build their applications around the continuous integration and deployment model where development and test can happen anywhere based on some simple configuration files. A few additional steps to change the deployment target are all that's required when admins are ready to push a release to production.
 
