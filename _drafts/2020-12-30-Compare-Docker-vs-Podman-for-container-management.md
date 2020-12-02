@@ -48,7 +48,7 @@ In addition, both Docker and Podman use a CLI as the primary management interfac
 
 Kubernetes has become the dominant player when it comes to container orchestration. VMware has adopted Kubernetes as its primary management plane for VMs and everything else connected to running containers. Kubernetes uses the term pod to define a collection of containers that share certain resources. Podman supports this same concept by implementing a pod command to manage multiple containers as a single entity.
 
-在容器编排方面，Kubernetes 已经成为占据主导地位的参与者。VMware 已采用 Kubernetes 作为 VM 以及与连接到运行中的容器的所有其他设备的主要管理平台。 Kubernetes 使用术语 pod 来定义共享某些资源的容器集合。Podman 通过实现 pod 命令，将多个容器作为一个实体进行管理，从而支持相同的概念。
+在容器编排方面，Kubernetes 已经成为占据主导地位的参与者。VMware 已采用 Kubernetes 作为 VM 以及连接到运行中的容器的所有其他设备的主要管理平台。 Kubernetes 使用术语 pod 来定义共享某些资源的容器集合。Podman 通过实现 pod 命令，将多个容器作为一个实体进行管理，从而支持相同的概念。
 
 
 Similarly, Docker provides multiple options for container orchestration. Docker Swarm is the native tool maintained by Docker for managing a cluster. Docker also integrates well with Kubernetes, which is the popular choice for most development teams. For Windows deployments, admins have the option to enable Kubernetes during the installation process, which provides full access to the Kubernetes commands right from admins' desktop or laptop.
