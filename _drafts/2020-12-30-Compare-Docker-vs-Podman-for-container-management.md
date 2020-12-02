@@ -57,7 +57,7 @@ Similarly, Docker provides multiple options for container orchestration. Docker 
 
 Taking this one step further, it's possible for admins to build their applications around the continuous integration and deployment model where development and test can happen anywhere based on some simple configuration files. A few additional steps to change the deployment target are all that's required when admins are ready to push a release to production.
 
-更进一步来说，管理员可以围绕持续集成和部署模型构建他们的应用程序，在该模型中，开发和测试工作可以基于一些简单的配置文件在任何地方进行。当管理员准备将一个发行版推入生产环境时，只需执行几个其他步骤即可更改部署目标。
+更进一步来说，管理员可以围绕持续集成和持续部署（CI/CD）模型构建他们的应用程序，在该模型中，开发和测试工作可以基于一些简单的配置文件在任何地方进行。当管理员准备将一个发行版推入生产环境时，只需执行几个其他步骤即可更改部署目标。
 
 Both Podman and Docker conform to OCI standards for images, but Podman is worth checking out for the security features alone. Podman also provides native commands to support the building and testing of pods with an eye toward deploying a production system running Kubernetes.
 
