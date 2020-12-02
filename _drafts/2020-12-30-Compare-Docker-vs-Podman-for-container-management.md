@@ -12,7 +12,7 @@ published: true
 
 ![docker vs podman](/assets/images/202011/docker-vs-podman.jpeg#center)
 
-**Docker 和 Podman 在管理容器方面提供了类似的功能，但是 Docker 的安全漏洞可能使 Podman 对某些管理员更具吸引力。**
+**Docker 和 Podman 在管理容器方面提供了类似的功能，但是 Docker 的安全漏洞可能使 Podman 对于某些管理员来说更具吸引力。**
 
 Docker has become the de facto standard for many IT administrators and does have the lion's share of developer interest today. Yet, Podman offers admins some security advantages over basic Docker due to its ability to run as a nonprivileged user and without a daemon.
 
@@ -28,7 +28,7 @@ Considering Podman does not use a daemon to develop, manage and run OCI containe
 
 Docker runs just fine using a native Windows daemon to launch either Windows or Linux-based images. Podman requires version 2 of the Windows Subsystem (WSL) for Linux to function properly. As a result, admins must have the May 2020 Windows 10 update to get started with Podman because this was the first release to include WSL2 as a part of the update.
 
-Docker 使用本机 Windows 守护程序就可以很好地运行 Windows 或基于 Linux 的镜像。Podman 需要 Windows Subsystem for Linux 版本2（WSL2）才能正常运行。 因此，管理员们必须有2020年5月以后的 Windows 10 更新才能开始使用 Podman，因为这是第一个将 WSL2 作为更新的一部分的发行版。
+Docker 使用本机 Windows 守护进程就可以很好地运行 Windows 或基于 Linux 的镜像。Podman 需要 Windows Subsystem for Linux 版本2（WSL2）才能正常运行。 因此，管理员们必须有2020年5月以后的 Windows 10 更新才能开始使用 Podman，因为这是第一个将 WSL2 作为更新的一部分的发行版。
 
 ## 安全
 
