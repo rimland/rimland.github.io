@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Docker 与 Podman 容器管理的比较"
-date:   2020-12-02 00:05:00 +0800
+date:   2020-12-03 00:05:00 +0800
 categories: backend docker
 published: true
 ---
