@@ -42,13 +42,13 @@ But admins can launch containers as a nonprivileged user with Podman. This provi
 
 In addition, both Docker and Podman use a CLI as the primary management interface. Yet, Docker uses a REST API endpoint for communication with the daemon, and older versions use a TCP socket bound to the localhost IP address. This presents a potential attack surface for a cross-site forgery exploit. Docker addressed this vulnerability in version 0.5.2 by introducing a UNIX socket that admins can control with traditional UNIX permissions to restrict access. Considering Podman doesn't rely on a daemon, it's not susceptible to this type of attack.
 
-此外，Docker 和 Podman 都使用 CLI 作为主要管理界面。但是，Docker 使用 REST API 终端与守护进程进行通信，且较旧的版本使用绑定到本机 IP 地址的 TCP socket 通信。这为跨站点伪造利用提供了一个[潜在的攻击面](https://searchsecurity.techtarget.com/feature/How-to-mitigate-5-persistent-application-security-threats)。Docker 在 0.5.2 版本中通过引入 UNIX socket 解决了这个漏洞（管理员可以使用传统的 UNIX 权限进行控制，以限制访问）。考虑到 Podman 不依赖守护进程，因此不易受到此类攻击的影响。
+此外，Docker 和 Podman 都使用 CLI 作为主要管理界面。但是，Docker 使用 REST API 终端与守护进程进行通信，且较旧的版本使用绑定到本机 IP 地址的 TCP socket 通信。这为跨站伪造利用提供了一个[潜在的攻击面](https://searchsecurity.techtarget.com/feature/How-to-mitigate-5-persistent-application-security-threats)。Docker 在 0.5.2 版本中通过引入 UNIX socket 解决了这个漏洞（管理员可以使用传统的 UNIX 权限进行控制，以限制访问）。考虑到 Podman 不依赖守护进程，因此不易受到此类攻击的影响。
 
 ## 容器编排
 
 Kubernetes has become the dominant player when it comes to container orchestration. VMware has adopted Kubernetes as its primary management plane for VMs and everything else connected to running containers. Kubernetes uses the term pod to define a collection of containers that share certain resources. Podman supports this same concept by implementing a pod command to manage multiple containers as a single entity.
 
-在容器编排方面，Kubernetes 已经成为占据主导地位的参与者。VMware 已采用 Kubernetes 作为 VM 以及与运行中的容器连接的所有其他设备的主要管理平台。 Kubernetes 使用术语 pod 来定义共享某些资源的容器集合。Podman 通过实现 pod 命令，将多个容器作为一个实体进行管理，从而支持相同的概念。
+在容器编排方面，Kubernetes 已经成为占据主导地位的参与者。VMware 已采用 Kubernetes 作为 VM 以及与连接到运行中的容器的所有其他设备的主要管理平台。 Kubernetes 使用术语 pod 来定义共享某些资源的容器集合。Podman 通过实现 pod 命令，将多个容器作为一个实体进行管理，从而支持相同的概念。
 
 
 Similarly, Docker provides multiple options for container orchestration. Docker Swarm is the native tool maintained by Docker for managing a cluster. Docker also integrates well with Kubernetes, which is the popular choice for most development teams. For Windows deployments, admins have the option to enable Kubernetes during the installation process, which provides full access to the Kubernetes commands right from admins' desktop or laptop.
