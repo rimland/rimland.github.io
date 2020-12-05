@@ -16,7 +16,7 @@ published: true
 
 目前 Docker 已经成为许多 IT 管理员们事实上的标准，并且在开发人员中占有很大的份额。 但是，Podman 由于具有以非特权用户身份运行且无需守护进程的能力，因此与基本的 Docker 相比，它为管理员们提供了一些安全上的优势。
 
-Docker 和 Podman 都提供许多相同的功能，例如，它们对开放式容器倡议（OCI）[^OCI]的运行时和镜像规范的支持，以及它们映射命令以创建和管理容器的能力。 但是，Docker 和 Podman 之间存在一些差异，包括安全方面的问题和对守护程序的依赖。[^2]
+Docker 和 Podman 都提供许多相同的功能，例如，它们对开放式容器倡议（OCI）[^OCI] 的运行时和镜像规范的支持，以及它们映射命令以创建和管理容器的能力。 但是，Docker 和 Podman 之间存在一些差异，包括安全方面的问题和对守护程序的依赖。[^2]
 
 [^OCI]: <https://opencontainers.org/> OCI
 [^2]: <https://ittranslator.cn/backend/docker/2020/11/30/docker-vs-podman.html> Docker Vs Podman
