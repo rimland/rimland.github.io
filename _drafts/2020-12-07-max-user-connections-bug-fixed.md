@@ -46,7 +46,7 @@ What?! Shit!
 
 ### 基本情况
 
-先简单介绍一下程序的情况：C# 开发，基于 .NET Framework 4.5.2（嗯~ o(*￣▽￣*)o，很老的运行框架，很多时候不得不这么做，因为调用的类库太多，且全基于这个框架，升级的成本太大）; 数据库访问调用的是 MySql 官方提供的 MySql.Data（Version=6.9.7.0, Runtime: v4.0.30319）。
+先简单介绍一下程序的情况：C# 开发，基于 .NET Framework 4.5.2（嗯~ o(*￣▽￣*)o，古老的运行框架，很多时候不得不这么做，因为调用的类库太多，且全基于这个框架，升级的成本太大）; 数据库访问调用的是 MySql 官方提供的 MySql.Data（Version=6.9.7.0, Runtime: v4.0.30319）。
 
 ![MySql.Data.dll Version](/assets/images/202012/MySql.Data.dll.png)
 
@@ -82,7 +82,7 @@ SELECT @@max_user_connections, @@max_connections, @@wait_timeout, @@interactive_
 
 程序实现的业务虽简单，但数据库的访问和逻辑计算有太多了，大量的 CRUD 操作，使用到 MySqlCommand 的 ExecuteScalar 、ExecuteReader、ExecuteNonQuery 以及 MySqlDataAdapter 的 Fill 方法。一个一个看方法查下去，遗憾的是，发现所有的数据库访问之后都同步执行了 MySqlConnection 的 Close 方法。
 
-虽然最先怀疑的就是这个原因，但事实证明并不是。除非 MySql.Data 内部在调用 Close 后实际上没有立即 Close？ 我用 ILSpy 查看了源码，也没有发现问题。
+虽然最先怀疑的就是这个原因，但事实证明并不是。除非 MySql.Data 内部在调用 Close 后实际上没有立即 Close？ 用 ILSpy 查看了源码，也没有发现问题。
 
 #### 2、检查程序中的并发逻辑
 
@@ -186,7 +186,7 @@ private void StatisticOneStore(ShopInfo shopInfo, DateTime statisticDate)
 
 ## 总结
 
-问题虽然是解决了，但是依然有个疑惑，官方文档上明明说的是**并发连接数**限制，为什么在阿里云 RDS MySql 中，却感觉是限制了每个 MySql 实例每秒或每分的累计连接数呢？
+问题虽然是解决了，但是依然有个疑惑，MySql 官方文档上明明说的是**并发连接数**限制，为什么在阿里云 RDS MySql 中，却感觉是限制了每个 MySql 实例每秒或每分的累计连接数呢？
 
 不知道有没有别的朋友遇到过这样的问题？
 
