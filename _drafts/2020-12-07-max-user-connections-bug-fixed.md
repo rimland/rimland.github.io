@@ -10,9 +10,7 @@ published: true
 
 ## 问题
 
-最近应业务的需求，加了一个定时统计的任务，其中的算法很简单，只是需要大量的 CRUD 操作。
-由于业务简单，且时效性要求不高，所以代码写起来若行云流水，一气呵成，本地测试一遍通过。
-没料想，当部署到线上测试的时候，却上演了现场翻车，真是让人大跌眼镜……
+最近应业务的需求，加了一个定时统计的任务，其中的算法很简单，只是需要大量的 CRUD 操作。由于业务简单，且时效性要求不高，所以代码写起来若行云流水，一气呵成，本地测试一遍通过。没料想，当部署到线上测试的时候，却上演了现场翻车，真是让人大跌眼镜……
 
 看了一下错误日志，大致如下所示：
 
@@ -38,7 +36,7 @@ MySql.Data.MySqlClient.MySqlException (0x80004005): Authentication to host 'rdsx
 
 <font color="red">User juxxxxxxxxxx already has more than 'max_user_connections' active connections……</font>
 
-What?! Shit!
+What?!
 
 ## 问题分析
 
