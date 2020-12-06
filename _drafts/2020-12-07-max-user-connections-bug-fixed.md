@@ -10,11 +10,11 @@ published: true
 
 ## 问题
 
-最近，应业务的需求，加了一个定时统计的任务，其中的算法很简单，只是需要大量的 CRUD 操作。
+最近应业务的需求，加了一个定时统计的任务，其中的算法很简单，只是需要大量的 CRUD 操作。
 由于业务简单，且时效性要求不高，所以代码写起来若行云流水，一气呵成，本地测试一遍通过。
 没料想，当部署到线上测试的时候，却上演了现场翻车，真是让人大跌眼镜……
 
-看了一下错误日志，大致如下显示：
+看了一下错误日志，大致如下所示：
 
 ```yaml
 ERROR [DAL.EvaluateDetails:403] GetCount [(null)] - GetCount Error :Authentication to host 'rdsxxxxxxxxxxxxxxxxx.mysql.rds.aliyuncs.com' for user 'juxxxxxxxxxx' using method 'mysql_native_password' failed with message: User juxxxxxxxxxx already has more than 'max_user_connections' active connections
@@ -36,17 +36,17 @@ MySql.Data.MySqlClient.MySqlException (0x80004005): Authentication to host 'rdsx
    在 DAL.EvaluateDetails.GetCount(String connStr, Nullable`1 startDate, Nullable`1 endDate, Nullable`1 marketingType) 位置 D:\Work\git\DAL\EvaluateDetails.cs:行号 403
 ```
 
-<font color="red">User juxxxxxxxxxx already has more than 'max_user_connections' active connections</font>……
+<font color="red">User juxxxxxxxxxx already has more than 'max_user_connections' active connections……</font>
 
 What?! Shit!
 
 ## 问题分析
 
-以前从来没有遇到过 *max_user_connections* 这样的错误，倒是遇到过几次 *max_connections*，**根据经验，这种错误基本上都是使用连接后忘记关闭连接导致的。** 是的，我一开始就是这么想的，尽管作为多年耕耘于一线的资深编程老鸟，对于自己写的代码满怀信心，认为不可能犯这么低级的错误，但暂时想不到别的问题了！于是，开始围绕这个思路展开复查和求证……
+以前从来没有遇到过 *max_user_connections* 这样的错误，倒是遇到过几次 *max_connections*，**根据经验，这种错误基本上都是使用连接后忘记关闭连接导致的。** 是的，我一开始就是这么想的，尽管作为多年耕耘于一线的资深编程老鸟，对于写的代码满怀信心，认为不可能犯这么低级的错误，但暂时想不到别的问题。于是，开始围绕这个思路展开复查和求证……
 
 ### 基本情况
 
-先简单介绍一下程序的情况：C# 开发，基于 .NET Framework 4.5.2（哈哈，很老的运行框架，很多时候不得不这么做，因为调用的类库太多，全基于这个框架，升级的成本太大），数据库访问调用的是 MySql 官方提供的 MySql.Data（Version=6.9.7.0, Runtime: v4.0.30319）。
+先简单介绍一下程序的情况：C# 开发，基于 .NET Framework 4.5.2（嗯~ o(*￣▽￣*)o，很老的运行框架，很多时候不得不这么做，因为调用的类库太多，且全基于这个框架，升级的成本太大）; 数据库访问调用的是 MySql 官方提供的 MySql.Data（Version=6.9.7.0, Runtime: v4.0.30319）。
 
 ![MySql.Data.dll Version](/assets/images/202012/MySql.Data.dll.png)
 
@@ -70,33 +70,33 @@ SELECT @@max_user_connections, @@max_connections, @@wait_timeout, @@interactive_
 
 ![max connections query](/assets/images/202012/max_connections_query.png)
 
-在控制台查看一下程序运行时的 IOPS 和 连接数：
+在控制台查看一下统计程序运行时的 IOPS 和 连接数：
 
 ![IOPS and Connections 1](/assets/images/202012/iops-connections-1.png)
 
-数据库的配置是 max_user_connections = 600，程序运行时，总连接数确实超过了这项配置。
+数据库的配置是 max_user_connections = 600，程序运行时，总连接数确实超过了这项配置，报异常的原因就是这个，那么是什么引起的呢？
 
 ### 问题排查
 
 #### 1、检查数据库打开后是否忘记关闭
 
-程序实现的业务虽简单，但数据库的访问和逻辑运算有太多了，大量的 CRUD 操作，使用到 MySqlCommand 的 ExecuteScalar 、ExecuteReader、ExecuteNonQuery 以及 MySqlDataAdapter 的 Fill 方法。一个一个看方法查下去，遗憾的是，发现所有的数据库访问之后都同步执行了 MySqlConnection 的 Close 方法。
+程序实现的业务虽简单，但数据库的访问和逻辑计算有太多了，大量的 CRUD 操作，使用到 MySqlCommand 的 ExecuteScalar 、ExecuteReader、ExecuteNonQuery 以及 MySqlDataAdapter 的 Fill 方法。一个一个看方法查下去，遗憾的是，发现所有的数据库访问之后都同步执行了 MySqlConnection 的 Close 方法。
 
 虽然最先怀疑的就是这个原因，但事实证明并不是。除非 MySql.Data 内部在调用 Close 后实际上没有立即 Close？ 我用 ILSpy 查看了源码，也没有发现问题。
 
 #### 2、检查程序中的并发逻辑
 
-另一个可想到的原因就是，并发 CRUD 太多？
+另一个可以想到的原因就是，**并发** CRUD **太多？**
 
-上面我说过，因为这个程序用于常规统计，所以时效性要不高，为避免给数据库服务带来压力，根本没有用到并发执行。
+上面我说过，因为这个程序的时效性要求不高，为避免给数据库服务带来压力，根本没有用到并发处理。
 
-那是什么问题呢？
+那到底是什么原因引起的呢？
 
 #### 3、关于 max_user_connections 的思考
 
 错误提示是 <font color="red">用户 juxxxxxxxxxx 的活动连接数已超过 'max_user_connections'</font>，注意这里提示的是***活动连接数***。
 
-到官网查看一下配置项 [max_user_connections](https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_max_user_connections) [^max_user] 和 [max_connections](https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_max_connections) [^max]
+到官网查看一下配置项 [max_user_connections](https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_max_user_connections) [^max_user] 和 [max_connections](https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_max_connections) [^max] 的解释：
 
 [^max_user]: <https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_max_user_connections> max_user_connections
 [^max]: <https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_max_connections> max_connections
@@ -107,7 +107,7 @@ SELECT @@max_user_connections, @@max_connections, @@wait_timeout, @@interactive_
 
 `max_connections` 是允许的最大**并发**客户端连接数，`max_user_connections` 是**给定用户账号**允许的最大**并发**连接数。注意它们都是***并发数***。
 
-*活动连接数* 正好是对应 MySql 官方说的 *并发连接数* 了。
+报错日志中的 *活动连接数* 正好是对应 MySql 官方说的 *并发连接数* 。
 
 问题是，**明明每次执行 CRUD 后都关闭了连接，而且程序是单线程运行的，为什么活动连接数还是超出了 max_user_connections 的值 600 呢？**
 
@@ -180,15 +180,13 @@ private void StatisticOneStore(ShopInfo shopInfo, DateTime statisticDate)
 
 折腾了半天，最终居然只是加了个 `Sleep` 问题便解决了，实在是太出乎意料了！
 
-大跌眼镜！
-
-有没有？！
+大跌眼镜，有没有？！
 
 好在程序没有那么高的时效性要求，不然只能升级 MySql Server 的配置规格了。
 
 ## 总结
 
-问题虽然是解决了，但是依然有个疑惑，官方文档上明明说的是**并发连接数**限制，为什么在阿里云 RDS MySql 中，却感觉是限制了每秒或者每分钟的累计连接数呢？
+问题虽然是解决了，但是依然有个疑惑，官方文档上明明说的是**并发连接数**限制，为什么在阿里云 RDS MySql 中，却感觉是限制了每个 MySql 实例每秒或每分的累计连接数呢？
 
 不知道有没有别的朋友遇到过这样的问题？
 
