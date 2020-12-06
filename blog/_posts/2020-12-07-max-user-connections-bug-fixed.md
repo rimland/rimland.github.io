@@ -44,13 +44,13 @@ What?!
 
 ### 基本情况
 
-先简单介绍一下程序的情况：C# 开发，基于 .NET Framework 4.5.2（嗯~ o(*￣▽￣*)o，古老的运行框架，很多时候不得不这么做，因为调用的类库太多，且全基于这个框架，升级的成本太大）; 数据库访问调用的是 MySql 官方提供的 MySql.Data（Version=6.9.7.0, Runtime: v4.0.30319）。
+先简单介绍一下程序的情况：C# 开发，基于 .NET Framework 4.5.2（嗯~ o(*￣▽￣*)o，古老的运行框架，很多时候不得不这么做，因为调用的类库太多，且全基于这个框架，升级的成本太大）; 数据库访问调用的是 MySQL 官方提供的 MySql.Data（Version=6.9.7.0, Runtime: v4.0.30319）。
 
 ![MySql.Data.dll Version](/assets/images/202012/MySql.Data.dll.png)
 
-在阿里云控制台查看一下这台 MySql Server 的配置情况：
+在阿里云控制台查看一下这台 MySQL Server 的配置情况：
 
-![RDS MySql Configuration](/assets/images/202012/rds-mysql-configuration.png)
+![RDS MySQL Configuration](/assets/images/202012/rds-mysql-configuration.png)
 
 数据库中查询一下连接数的配置情况：
 
@@ -105,7 +105,7 @@ SELECT @@max_user_connections, @@max_connections, @@wait_timeout, @@interactive_
 
 `max_connections` 是允许的最大**并发**客户端连接数，`max_user_connections` 是**给定用户账号**允许的最大**并发**连接数。注意它们都是***并发数***。
 
-报错日志中的 *活动连接数* 正好是对应 MySql 官方说的 *并发连接数* 。
+报错日志中的 *活动连接数* 正好是对应 MySQL 官方说的 *并发连接数* 。
 
 问题是，**明明每次执行 CRUD 后都关闭了连接，而且程序是单线程运行的，为什么活动连接数还是超出了 max_user_connections 的值 600 呢？**
 
@@ -121,7 +121,7 @@ SELECT @@max_user_connections, @@max_connections, @@wait_timeout, @@interactive_
 
 Google 了一下，也查到不到类似的说法啊！
 
-那是不是*阿里云改了 MySql 底层*，做了 per second 或者 per minute 的限制呢？
+那是不是*阿里云改了 MySQL 底层*，做了 per second 或者 per minute 的限制呢？
 
 想不出别的原因了，死马当活马医，试一下吧！
 
@@ -180,11 +180,11 @@ private void StatisticOneStore(ShopInfo shopInfo, DateTime statisticDate)
 
 大跌眼镜，有没有？！
 
-好在程序没有那么高的时效性要求，不然只能升级 MySql Server 的配置规格了。
+好在程序没有那么高的时效性要求，不然只能升级 MySQL Server 的配置规格了。
 
 ## 总结
 
-问题虽然是解决了，但是依然有个疑惑，MySql 官方文档上明明说的是**并发连接数**限制，为什么在阿里云 RDS MySql 中，却感觉是限制了每个 MySql 实例每秒或每分的累计连接数呢？
+问题虽然是解决了，但是依然有个疑惑，MySql 官方文档上明明说的是**并发连接数**限制，为什么在阿里云 RDS MySQL 中，却感觉是限制了每个 MySQL 实例每秒或每分的累计连接数呢？
 
 不知道有没有别的朋友遇到过这样的问题？
 
