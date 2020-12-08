@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "连接数从异常到 300 到 5 （RDS MySQL 的一个大坑之后记）"
+title:  "连接数从异常到 300 到 5（RDS MySQL 的一个大坑•后记）"
 date:   2020-12-09 00:05:00 +0800
 categories: blog
 published: true
@@ -14,7 +14,7 @@ published: true
 
 运行结果：**连接数：300，运行时间：68 分钟，IOPS：7**。
 
-昨天在[博客园中发出上篇文章](https://www.cnblogs.com/ittranslator/p/14094449.html)后，热心的朋友（[@沈赟](https://www.cnblogs.com/ittranslator/p/14094449.html#4766142)，[@不知道风往哪儿吹](https://www.cnblogs.com/ittranslator/p/14094449.html#4766160)）对此问题提出了宝贵的意见和想法，激发了我对此问题继续深究的想法。
+昨天在[博客园中发出上篇文章](https://www.cnblogs.com/ittranslator/p/14094449.html)后，热心的朋友（[@沈赟](https://www.cnblogs.com/ittranslator/p/14094449.html#4766142)，[@不知道风往哪儿吹](https://www.cnblogs.com/ittranslator/p/14094449.html#4766160)）对此问题提出了宝贵的意见和想法，激发了我对此问题继续深究的决定。
 
 下午经过几个小时的分析和测试，终于找到了该问题的真正原因和更好的解决方法，在此做个补充。
 
@@ -54,7 +54,7 @@ server=xxx;port=3306;userid=myuserid;password=pwd123;database=db125;charset=utf8
 
 [上一篇](https://www.cnblogs.com/ittranslator/p/14094449.html)中有介绍过我的程序的基本情况，这里有必要再补充一下关键的使用场景：
 
-> 我们的 MySql 服务实例有很多台，每台实例上有很多个数据库，只有其中一台 MySql 服务实例出现了超出 max_user_connections 的异常，这台实例最大的连接数限制在 600，但是这台实例上的数据库就有 700 多个
+> 我们的 MySql 服务实例有很多台，每台实例上有很多个数据库，只有其中一台 MySql 服务实例出现了超出 max_user_connections 的异常，这台实例最大的连接数限制在 600，但是这台实例上的数据库就有 700 多个。
 
 聪明的朋友看到这里，估计已经明白为什么使用了连接池会出现问题了。为什么呢？就因为上面提到的连接池每三分钟运行一次清理操作呗。循环语句执行的速度是很快的，有的小库瞬间就执行完了，但是在连接池中却保持了一个连接，还没有到每隔三分钟的资源回收时间（*这也是我在上篇中添加了 Thread.Sleep 后连接数减少的原因*）。当这台实例的 600 个连接被全部占满时，再连接同一实例上另一个连接池中没有缓存的数据库时，就报了超出 max_user_connections 的异常。
 
