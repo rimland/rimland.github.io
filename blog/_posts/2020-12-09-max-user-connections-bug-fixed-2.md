@@ -14,7 +14,7 @@ published: true
 
 运行结果：**连接数：300，运行时间：68 分钟，IOPS：7**。
 
-昨天在[博客园中发出上一篇文章](https://www.cnblogs.com/ittranslator/p/14094449.html)后，热心的朋友（[@沈赟](https://www.cnblogs.com/ittranslator/p/14094449.html#4766142)，[@不知道风往哪儿吹](https://www.cnblogs.com/ittranslator/p/14094449.html#4766160)）对此问题提出了宝贵的意见和想法，激发了我对此问题继续深究的想法。
+昨天在[博客园中发出上篇文章](https://www.cnblogs.com/ittranslator/p/14094449.html)后，热心的朋友（[@沈赟](https://www.cnblogs.com/ittranslator/p/14094449.html#4766142)，[@不知道风往哪儿吹](https://www.cnblogs.com/ittranslator/p/14094449.html#4766160)）对此问题提出了宝贵的意见和想法，激发了我对此问题继续深究的想法。
 
 下午经过几个小时的分析和测试，终于找到了该问题的真正原因和更好的解决方法，在此做个补充。
 
