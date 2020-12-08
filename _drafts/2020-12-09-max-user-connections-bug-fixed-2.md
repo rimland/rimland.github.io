@@ -82,16 +82,16 @@ server=xxx;port=3306;userid=myuserid;password=pwd123;database=db125;charset=utf8
 
 阿里云 RDS MySQL 没有问题，问题出在，在不恰当的场景使用了 MySQL 连接池，连接池也是不可乱用的，切记切记！
 
-<!-- https://dev.mysql.com/doc/connector-net/en/connector-net-8-0-connection-options.html#connector-net-8-0-connection-options-classic-pooling
-
-https://dev.mysql.com/doc/connector-net/en/connector-net-connections-pooling.html
-
-https://dev.mysql.com/doc/connector-net/en/connector-net-connections-pooling.html
- -->
-
 > 作者 ： 技术译民  
 > 出品 ： [技术译站](https://ittranslator.cn/)
 
-<!-- https://github.com/mysql-net/MySqlConnector/issues/211
+<!-- 
+https://dev.mysql.com/doc/connector-net/en/connector-net-8-0-connection-options.html#connector-net-8-0-connection-options-classic-pooling
+
+https://dev.mysql.com/doc/connector-net/en/connector-net-connections-pooling.html
+
+https://dev.mysql.com/doc/connector-net/en/connector-net-connections-pooling.html
+
+https://github.com/mysql-net/MySqlConnector/issues/211
 
 https://github.com/mysql-net/MySqlConnector/issues/442 -->
