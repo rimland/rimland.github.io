@@ -12,7 +12,7 @@ published: true
 
 ![iops-connections-3](https://ittranslator.cn/assets/images/202012/iops-connections-3.png)
 
-**连接数：300，运行时间：68 分钟，IOPS：7**。
+运行结果：**连接数：300，运行时间：68 分钟，IOPS：7**。
 
 昨天在[博客园中发出此文](https://www.cnblogs.com/ittranslator/p/14094449.html)后，有热心的朋友（[@沈赟](https://www.cnblogs.com/ittranslator/p/14094449.html#4766142)，[@不知道风往哪儿吹](https://www.cnblogs.com/ittranslator/p/14094449.html#4766160)）对此问题提出了宝贵的意见和想法，激发了我对此问题继续深究的想法。
 
