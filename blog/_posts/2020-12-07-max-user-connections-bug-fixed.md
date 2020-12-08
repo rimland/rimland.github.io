@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "记阿里云 RDS MySQL 的一个大坑"
+title:  "记 RDS MySQL 的一个大坑"
 date:   2020-12-07 00:05:00 +0800
 categories: blog
 published: true
@@ -191,3 +191,6 @@ private void StatisticOneStore(ShopInfo shopInfo, DateTime statisticDate)
 不管怎样，问题解决了，聊以记之，以儆效尤。
 
 <!-- https://help.aliyun.com/knowledge_detail/41714.html?spm=5176.13643027.213.1.492f1450fEDUAT -->
+
+> 作者 ： 技术译民  
+> 出品 ： [技术译站](https://ittranslator.cn/)
