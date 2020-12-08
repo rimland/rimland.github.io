@@ -26,7 +26,7 @@ published: true
 
 根据 [官方介绍](https://dev.mysql.com/doc/connector-net/en/connector-net-connections-pooling.html)：MySQL Connector/NET 中（即 MySql.Data 中）连接池的工作的机制是，当客户端配置 MySqlConnection 时，连接池通过保持一组与服务器的本地连接使其处于活动状态，随后，如果打开一个新的 MySqlConnection 对象，它将从连接池中创建连接，而不是重新创建一个新的本地连接。这样便可以重用数据库连接，避免了频繁创建、释放连接引起的大量性能开销，这有助于缩短响应时间、统一管理、提高运行性能等等。
 
-在软件开发中，大多数情况下，数据库连接都有重用的可能，即便永不重用，连接池也有自己的回收机制在适当的时候释放资源，这有点像带有过期时间的缓存数据，也像 .NET 的 GC 回收机制。正因为在大多数情况下，它可以提高运行的性能，也有完善且可配置的回收机制。所以在没有提供连接池选项的情况，MySQL Connector/NET 默认情况下启用连接池，也就是说，创建 MySqlConnection 时使用下面的连接字符串：
+在软件开发中，大多数情况下，数据库连接都有重用的可能，即便永不重用，连接池也有自己的回收机制在适当的时候释放资源，这有点像带有过期时间的缓存数据，也像 .NET 的 GC 回收机制。正因为在大多数情况下，它可以提高运行的性能，也有完善且可配置的回收机制。所以**在没有提供任何连接池选项的情况下，MySQL Connector/NET 默认启用连接池**，也就是说，创建 MySqlConnection 时使用下面的连接字符串：
 
 ```sql
 server=xxx;port=3306;userid=myuserid;password=pwd123;database=db125;charset=utf8;
