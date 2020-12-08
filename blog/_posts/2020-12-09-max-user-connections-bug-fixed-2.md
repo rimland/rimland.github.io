@@ -70,7 +70,7 @@ server=xxx;port=3306;userid=myuserid;password=pwd123;database=db125;charset=utf8
 
 惊不惊喜，意不意外，嚯嚯嚯~~~🥰🥰🥰
 
-**连接数只有 5 个，运行时间缩短到了 8 分钟，IOPS 为 36**，与之前添加 `Thread.Sleep` 的测试结果相比，天壤之别呀……
+运行结果：**连接数只有 5 个，运行时间缩短到了 8 分钟，IOPS 为 36**，与之前添加 `Thread.Sleep` 的测试结果相比，天壤之别呀……
 
 <!-- `ClearPoolAsync` `ClearAllPoolsAsync` -->
 
