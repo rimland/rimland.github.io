@@ -74,7 +74,7 @@ server=xxx;port=3306;userid=myuserid;password=pwd123;database=db125;charset=utf8
 
 <!-- `ClearPoolAsync` `ClearAllPoolsAsync` -->
 
-最后，用一张图来描述一下测试的结果：
+最后，用一张图来描述一下两种解决方法的运行效果比较：
 
 ![activity-diagram](https://ittranslator.cn/assets/images/202012/activity-diagram.png)
 
