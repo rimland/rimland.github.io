@@ -8,6 +8,7 @@ permalink: /links/
 - [.NET](https://dotnet.microsoft.com/)
 - [Download .NET SDKs for Visual Studio](https://dotnet.microsoft.com/download/visual-studio-sdks)
 - [Download Visual Studio](https://visualstudio.microsoft.com/zh-hans/downloads/)
+- [Microsoft Developer Blogs](https://devblogs.microsoft.com/)
 - [Microsoft Archived Content](https://docs.microsoft.com/zh-cn/archive/)
 
 ## Tools
