@@ -8,6 +8,7 @@ permalink: /links/
 - [.NET](https://dotnet.microsoft.com/)
 - [Download .NET SDKs for Visual Studio](https://dotnet.microsoft.com/download/visual-studio-sdks)
 - [Download Visual Studio](https://visualstudio.microsoft.com/zh-hans/downloads/)
+- [Microsoft Archived Content](https://docs.microsoft.com/zh-cn/archive/)
 
 ## Tools
 
@@ -18,6 +19,12 @@ permalink: /links/
 - [ILSpy](https://github.com/icsharpcode/ILSpy)
 - [dnSpy](https://github.com/dnSpy/dnSpy)
 - [WinDbg](https://docs.microsoft.com/zh-cn/windows-hardware/drivers/debugger/debugger-download-tools)
+
+## Favorite Blogs
+
+- Eric Lippert
+  - [ericlippert.com](https://ericlippert.com/)
+  - [microsoft ericlippert](https://docs.microsoft.com/zh-cn/archive/blogs/ericlippert/)
 
 ## Others
 
