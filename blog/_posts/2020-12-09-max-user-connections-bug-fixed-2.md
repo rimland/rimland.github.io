@@ -49,7 +49,8 @@ server=xxx;port=3306;userid=myuserid;password=pwd123;database=db125;charset=utf8
 > 官方文档：  
 > Connector/NET runs a background job every three minutes and removes connections from pool that have been idle (unused) for more than three minutes. The pool cleanup frees resources on both client and server side. This is because on the client side every connection uses a socket, and on the server side every connection uses a socket and a thread.  
 
-> 译文：  
+译文：  
+
 > Connector/NET 每三分钟运行一次后台作业，从连接池中删除闲置（未使用）超过三分钟的连接。连接池清理会释放客户端和服务器端的资源。这是因为在客户端，每个连接使用一个套接字，而在服务器端，每个连接都使用一个套接字和一个线程。
 
 [上一篇](https://www.cnblogs.com/ittranslator/p/14094449.html)中有介绍过我的程序的基本情况，这里有必要再补充一下关键的使用场景：
