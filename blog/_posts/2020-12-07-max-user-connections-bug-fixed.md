@@ -192,7 +192,7 @@ private void StatisticOneStore(ShopInfo shopInfo, DateTime statisticDate)
 
 <!-- https://help.aliyun.com/knowledge_detail/41714.html?spm=5176.13643027.213.1.492f1450fEDUAT -->
 
-## （次日）重要补充
+## (次日) 重要补充
 
 错怪了阿里云 RDS😥😥😥，已找到真正原因和更优的解决方法，请看：[**连接数从异常到 300 到 5（RDS MySQL 的一个大坑•后记）**](https://www.cnblogs.com/ittranslator/p/14106594.html)
 
