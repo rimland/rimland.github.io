@@ -26,6 +26,8 @@ permalink: /links/
 - Eric Lippert
   - [ericlippert.com](https://ericlippert.com/)
   - [microsoft ericlippert](https://docs.microsoft.com/zh-cn/archive/blogs/ericlippert/)
+- John Demetriou
+  - [devsanon.com](https://www.devsanon.com/whoami/)
 
 ## Others
 
