@@ -26,7 +26,7 @@ published: true
 
 根据 [官方介绍](https://dev.mysql.com/doc/connector-net/en/connector-net-connections-pooling.html)：MySQL Connector/NET 中（即 MySql.Data 中）连接池的工作的机制是，当客户端配置 MySqlConnection 时，连接池通过保持一组与服务器的本地连接使其处于活动状态，随后，如果打开一个新的 MySqlConnection 对象，它将从连接池中创建连接，而不是重新创建一个新的本地连接。这样便可以重用数据库连接，避免了频繁创建、释放连接引起的大量性能开销，这有助于缩短响应时间、统一管理、提高运行性能等等。
 
-在软件开发中，大多数情况下，数据库连接都有重用的可能，即便永不重用，连接池也有自己的回收机制在适当的时候释放资源，这有点像带有过期时间的缓存数据，也像 .NET 的 GC 回收机制。正因为在大多数情况下，它可以提高运行的性能，也有完善且可配置的回收机制。所以**在没有提供任何连接池选项的情况下，MySQL Connector/NET 默认启用连接池**，也就是说，创建 MySqlConnection 时使用下面的连接字符串：
+在软件开发中，大多数情况下，数据库连接都有复用的可能，即便永不复用，连接池也有自己的回收机制在适当的时候释放资源，这有点像带有过期时间的缓存数据，也像 .NET 的 GC 回收机制。正因为在大多数情况下，它可以提高运行的性能，也有完善且可配置的回收机制。所以**在没有提供任何连接池选项的情况下，MySQL Connector/NET 默认启用连接池**，也就是说，创建 MySqlConnection 时使用下面的连接字符串：
 
 ```sql
 server=xxx;port=3306;userid=myuserid;password=pwd123;database=db125;charset=utf8;
@@ -44,23 +44,24 @@ server=xxx;port=3306;userid=myuserid;password=pwd123;database=db125;charset=utf8
 
 上面说到连接池有那么多的好处，为什么我用了连接池反倒出问题了呢？我们来看一下
 
-**连接对池资源的利用情况：**
+**连接池对资源的利用情况：**
 
 > 官方文档：  
 > Connector/NET runs a background job every three minutes and removes connections from pool that have been idle (unused) for more than three minutes. The pool cleanup frees resources on both client and server side. This is because on the client side every connection uses a socket, and on the server side every connection uses a socket and a thread.  
 
-> 译文：  
+译文：  
+
 > Connector/NET 每三分钟运行一次后台作业，从连接池中删除闲置（未使用）超过三分钟的连接。连接池清理会释放客户端和服务器端的资源。这是因为在客户端，每个连接使用一个套接字，而在服务器端，每个连接都使用一个套接字和一个线程。
 
 [上一篇](https://www.cnblogs.com/ittranslator/p/14094449.html)中有介绍过我的程序的基本情况，这里有必要再补充一下关键的使用场景：
 
-> 我们的 MySql 服务实例有很多台，每台实例上有很多个数据库，只有其中一台 MySql 服务实例出现了超出 max_user_connections 的异常，这台实例最大的连接数限制在 600，但是这台实例上的数据库就有 700 多个。
+> 我们的 MySQL 服务实例有很多台，每台实例上有很多个数据库，只有其中一台 MySQL 服务实例出现了超出 max_user_connections 的异常，这台实例最大的连接数限制在 600，但是这台实例上的数据库就有 700 多个。
 
 聪明的朋友看到这里，估计已经明白为什么使用了连接池会出现问题了。为什么呢？就因为上面提到的连接池每三分钟运行一次清理操作呗。循环语句执行的速度是很快的，有的小库瞬间就执行完了，但是在连接池中却保持了一个连接，还没有到每隔三分钟的资源回收时间（*这也是我在上篇中添加了 Thread.Sleep 后连接数减少的原因*）。当这台实例的 600 个连接被全部占满时，再连接同一实例上另一个连接池中没有缓存的数据库时，就报了超出 max_user_connections 的异常。
 
 ## 解决方法
 
-怎么解决呢？最简单的解决方法就是，判断请求的是这台 MySql 服务实例时，不使用连接池，这样就会在调用 MySqlConnection 的 Close 方法时，立即释放客户端和服务端所占用的资源。因此，在数据库连接字符串中加上 `Pooling=false`，改成下面这样：
+怎么解决呢？最简单的解决方法就是，判断请求的是这台 MySQL 服务实例时，不使用连接池，这样就会在调用 MySqlConnection 的 Close 方法时，立即释放客户端和服务端所占用的资源。因此，在数据库连接字符串中加上 `Pooling=false`，改成下面这样：
 
 ```sql
 server=xxx;port=3306;userid=myuserid;password=pwd123;database=db125;charset=utf8;Pooling=false;

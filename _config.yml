@@ -80,3 +80,6 @@ Navigation:
 - title: JSON 解析
   url: https://h5css.com
 
+header_pages:
+ - links.md
+ - about.markdown

@@ -1,12 +1,12 @@
 ---
 layout: post
-title:  "记 RDS MySQL 的一个大坑"
+title:  "连接数从异常到 300 到 5（记 RDS MySQL 的一个大坑）"
 date:   2020-12-07 00:05:00 +0800
 categories: blog
 published: true
 ---
 
-花了一个下午的时间，终于把一个阿里云 RDS MySQL 的一个大坑填上了，解决方法令人匪夷所思！绝对会让各位看官感到大吃一惊，阿里云 RDS MySQL 居然有这样 xx 的大坑！
+花了一个下午的时间，终于把一个 RDS MySQL 连接数的一个大坑填上了，解决方法令人匪夷所思！绝对会让各位看官感到大吃一惊，RDS MySQL 居然有这样 xx 的大坑？
 
 ## 问题
 
@@ -46,11 +46,11 @@ What?!
 
 先简单介绍一下程序的情况：C# 开发，基于 .NET Framework 4.5.2（嗯~ o(*￣▽￣*)o，古老的运行框架，很多时候不得不这么做，因为调用的类库太多，且全基于这个框架，升级的成本太大）; 数据库访问调用的是 MySQL 官方提供的 MySql.Data（Version=6.9.7.0, Runtime: v4.0.30319）。
 
-![MySql.Data.dll Version](/assets/images/202012/MySql.Data.dll.png)
+![MySql.Data.dll Version](https://ittranslator.cn/assets/images/202012/MySql.Data.dll.png)
 
 在阿里云控制台查看一下这台 MySQL Server 的配置情况：
 
-![RDS MySQL Configuration](/assets/images/202012/rds-mysql-configuration.png)
+![RDS MySQL Configuration](https://ittranslator.cn/assets/images/202012/rds-mysql-configuration.png)
 
 数据库中查询一下连接数的配置情况：
 
@@ -66,11 +66,11 @@ SELECT @@max_user_connections, @@max_connections, @@wait_timeout, @@interactive_
 | 600                  | 1112            | 7200         | 7200                |
 ```
 
-![max connections query](/assets/images/202012/max_connections_query.png)
+![max connections query](https://ittranslator.cn/assets/images/202012/max_connections_query.png)
 
 在控制台查看一下统计程序运行时的 IOPS 和 连接数：
 
-![IOPS and Connections 1](/assets/images/202012/iops-connections-1.png)
+![IOPS and Connections 1](https://ittranslator.cn/assets/images/202012/iops-connections-1.png)
 
 数据库的配置是 max_user_connections = 600，程序运行时，总连接数确实超过了这项配置，报异常的原因就是这个，那么是什么引起的呢？
 
@@ -99,9 +99,9 @@ SELECT @@max_user_connections, @@max_connections, @@wait_timeout, @@interactive_
 [^max_user]: <https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_max_user_connections> max_user_connections
 [^max]: <https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_max_connections> max_connections
 
-![max connections](/assets/images/202012/max_connections.png)
+![max connections](https://ittranslator.cn/assets/images/202012/max_connections.png)
 
-![max user connections](/assets/images/202012/max_user_connections.png)
+![max user connections](https://ittranslator.cn/assets/images/202012/max_user_connections.png)
 
 `max_connections` 是允许的最大**并发**客户端连接数，`max_user_connections` 是**给定用户账号**允许的最大**并发**连接数。注意它们都是***并发数***。
 
@@ -172,7 +172,7 @@ private void StatisticOneStore(ShopInfo shopInfo, DateTime statisticDate)
 
 再在控制台查看一下程序运行时的 IOPS 和 连接数：
 
-![IOPS and Connections 2](/assets/images/202012/iops-connections-2.png)
+![IOPS and Connections 2](https://ittranslator.cn/assets/images/202012/iops-connections-2.png)
 
 连接数居然降至不到原来的一半了！！！
 
@@ -186,11 +186,15 @@ private void StatisticOneStore(ShopInfo shopInfo, DateTime statisticDate)
 
 问题虽然是解决了，但是依然有个疑惑，MySql 官方文档上明明说的是**并发连接数**限制，为什么在阿里云 RDS MySQL 中，却感觉是限制了每个 MySQL 实例每秒或每分的累计连接数呢？
 
-不知道有没有别的朋友遇到过这样的问题？
+不管怎样，问题暂时解决了，聊以记之，以儆效尤。
 
-不管怎样，问题解决了，聊以记之，以儆效尤。
+<!-- 不知道有没有别的朋友遇到过这样的问题？ -->
 
 <!-- https://help.aliyun.com/knowledge_detail/41714.html?spm=5176.13643027.213.1.492f1450fEDUAT -->
+
+## (次日) 重要补充
+
+错怪了阿里云 RDS😥😥😥，已找到真正原因和更优的解决方法，请看：[**连接数从异常到 300 到 5（RDS MySQL 的一个大坑•后记）**](https://www.cnblogs.com/ittranslator/p/14106594.html)
 
 > 作者 ： 技术译民  
 > 出品 ： [技术译站](https://ittranslator.cn/)
