@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "如何在 Windows 10 安装 WSL 2"
+title:  "如何在 Windows 10 上安装 WSL 2"
 date:   2020-12-13 00:05:00 +0800
 categories: backend docker
 published: true
