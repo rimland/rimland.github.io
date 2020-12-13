@@ -12,7 +12,7 @@ published: true
 
 ![ubuntu-20.4-wsl](/assets/images/202012/ubuntu-20.4-wsl.jpg#center)
 
-如果您想在最新的 Windows 版本中尝试经过改进的 [Windows 子系统 Linux 2](https://docs.microsoft.com/zh-cn/windows/wsl/wsl2-index) (即 WSL 2) [^wsl2]，怎么做呢？我们在本文中介绍了安装它所需要做的一切。
+如果您想在最新的 Windows 版本中尝试经过改进的 [Windows 子系统 Linux 2](https://docs.microsoft.com/zh-cn/windows/wsl/wsl2-index) (即 WSL 2) [^wsl2]，要怎么做呢？我们在本文中介绍了安装它所需要做的所有事情。
 
 [^wsl2]: <https://docs.microsoft.com/zh-cn/windows/wsl/wsl2-index> WSL 2
 
@@ -22,7 +22,7 @@ WSL 2 是微软早在 2017 年推出的 [WSL 的原始版本](https://www.omgubu
 
 “添加 WSL 2 为新架构，为 WSL 团队提供了一个更好的平台来提供一些特性，使 WSL 成为在 Windows 中运行 Linux 环境的一种令人惊叹的方式。” [微软表示](https://docs.microsoft.com/en-us/windows/wsl/wsl2-faq)。
 
-微软还计划让用户[在 Windows 10 运行桌面 Linux 应用程序](https://www.omgubuntu.co.uk/2020/05/run-linux-apps-on-windows-10-wsl-2)，并使用 GPU 加强的任务，因此这种疯狂尚没有减弱的迹象。它还使得[用单条命令安装 WSL](https://www.omgubuntu.co.uk/2020/06/microsoft-wsl-install-command) 成为可能。
+微软还计划让用户[在 Windows 10 上运行桌面 Linux 应用程序](https://www.omgubuntu.co.uk/2020/05/run-linux-apps-on-windows-10-wsl-2)，并使用 GPU 加强的任务，因此这种疯狂尚没有减弱的迹象。它还使得[用单条命令安装 WSL](https://www.omgubuntu.co.uk/2020/06/microsoft-wsl-install-command) 成为可能。
 
 目前，除非您使用的是最新的内部版本，否则 WSL 2 的设置工作需要一点点的努力——但是，为了在 Windows 中调用和指挥一个完整的 Linux 系统，难道不值得吗？
 
@@ -43,7 +43,7 @@ Windows 10 2020年5月更新已于 2020年5月发布（显然），但并非每�
 
 高级（和心急）的 Windows 用户可以强制安装 Windows 10 2020年5月更新，但请记住，如果按照这种方法操作，您可能会遭遇缺失驱动程序、GUI 故障或其他硬件故障。
 
-从技术上讲，您可以在 Windows 10 build 18917 或更高版本的“内部”版本上安装 WSL 2。我不太熟悉“内部”版本系统是如何工作的，所以请注意，本文的其余部分都基于在稳定版的 Windows 上使用该功能。
+从技术上来讲，您可以在 Windows 10 build 18917 或更高版本的“内部”版本上安装 WSL 2。我不太熟悉“内部”版本系统是如何工作的，所以请注意，本文的其余部分都基于在稳定版的 Windows 上使用该功能。
 
 为了运行 WSL 2，您的计算机还需要支持 Hyper-V 虚拟化。您可以[检查您的计算机确认对 Hyper-V 的支持](https://www.zdnet.com/article/windows-10-tip-find-out-if-your-pc-can-run-hyper-v/) [^HyperV]。
 
@@ -124,9 +124,9 @@ wsl --set-default-version 2
 
 还将提示您设置用于发行版的用户名和密码。尝试挑选一些您不会忘记的字符。
 
-## 将 WSL 1 上的 Ubuntu 转换为 WSL 2
+## 将 WSL 1 上的 Ubuntu 转换到 WSL 2
 
-如果您使用 WSL 1，则可以将现有的 WSL 1 安装升级到 WSL 2。要将现有的 WSL 1 发行版转换为 WSL 2，请在 PowerShell 中运行以下命令，例如：
+如果您使用 WSL 1，则可以将现有的 WSL 1 安装升级到 WSL 2。要将现有的 WSL 1 发行版转换到 WSL 2，请在 PowerShell 中运行以下命令，例如：
 
 ```powershell
 wsl.exe --set-version Ubuntu 2
@@ -142,7 +142,7 @@ wsl.exe --set-version Ubuntu 2
 wsl --list --verbose
 ```
 
-命令 `wsl --set-version` 更改指定分发版的版本，其用法为：
+命令 `wsl --set-version` 可更改指定分发版的版本，其用法为：
 
 ```powershell
 wsl --set-version <颁发版名称> <版本号>
