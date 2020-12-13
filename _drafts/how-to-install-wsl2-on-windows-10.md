@@ -18,7 +18,7 @@ published: true
 
 WSL 2 是微软早在 2017 年推出的 [WSL 的原始版本](https://www.omgubuntu.co.uk/2017/07/windows-subsystem-linux-left-beta)的重大升级。WSL 2 不仅仅是版本的升级。它更快、更通用，并且使用**真正的 Linux 内核**。未来的 Linux 内核更新甚至会以 Windows 10 软件更新的形式发布——想想看，这有点疯狂!
 
-微软创建 WSL 2 的目的是提高性能。最好的方法是什么？添加完整的系统调用兼容性，即以真正的 Linux 内核为核心。
+微软创建 WSL 2 的目的是为了提高性能。最好的方法是什么？添加完整的系统调用兼容性，即以真正的 Linux 内核为核心。
 
 “添加 WSL 2 为新架构，为 WSL 团队提供了一个更好的平台来提供一些特性，使 WSL 成为在 Windows 中运行 Linux 环境的一种令人惊叹的方式。” [微软表示](https://docs.microsoft.com/en-us/windows/wsl/wsl2-faq)。
 
@@ -145,7 +145,7 @@ wsl --list --verbose
 命令 `wsl --set-version` 可更改指定分发版的版本，其用法为：
 
 ```powershell
-wsl --set-version <颁发版名称> <版本号>
+wsl --set-version <分发版名称> <版本号>
 ```
 
 例如：
