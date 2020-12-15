@@ -10,9 +10,9 @@ published: true
 
 [^1]: <https://www.omgubuntu.co.uk/how-to-install-wsl2-on-windows-10> How to Install WSL 2 on Windows 10
 
-![ubuntu-20.4-wsl](/assets/images/202012/ubuntu-20.4-wsl.jpg#center)
-
 如果您想在最新的 Windows 版本中尝试经过改进的 [Windows 子系统 Linux 2](https://docs.microsoft.com/zh-cn/windows/wsl/wsl2-index) (即 WSL 2) [^wsl2]，要怎么做呢？我们在本文中介绍了安装它所需要做的所有事情。
+
+![ubuntu-20.4-wsl](/assets/images/202012/ubuntu-20.4-wsl.jpg#center)
 
 [^wsl2]: <https://docs.microsoft.com/zh-cn/windows/wsl/wsl2-index> WSL 2
 
