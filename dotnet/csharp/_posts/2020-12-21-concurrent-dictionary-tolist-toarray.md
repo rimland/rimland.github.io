@@ -85,7 +85,7 @@ static void Main(string[] args)
 
 此时调用 `ConcurrentDictionary.ToArray`，而不是调用 `Enumerable.ToArray`，因为后者是一个扩展方法，前者重载解析的优先级高于后者。所以这段代码不会抛出异常。
 
-但是，如果通过字典实现的接口（继承自 IEnumerable）使用字典，将会调用 `Enumerable.ToArray` 方法并抛出异常。例如，下面的代码显示地将 `ConcurrentDictionary` 实例分配给一个 `IDictionary` 变量：
+但是，如果通过字典实现的接口（继承自 IEnumerable）使用字典，将会调用 `Enumerable.ToArray` 方法并抛出异常。例如，下面的代码显式地将 `ConcurrentDictionary` 实例分配给一个 `IDictionary` 变量：
 
 ```csharp
 static void Main(string[] args)
