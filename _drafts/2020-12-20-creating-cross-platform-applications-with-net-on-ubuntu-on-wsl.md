@@ -146,6 +146,162 @@ cat /etc/os-release
 
 The example below uses Ubuntu 20.04, the latest LTS release from Canonical. If you are still using Ubuntu 16.04, 18.04, or 19.10, you can find the corresponding repos in the Microsoft docs. To learn more about the differences between LTS and interim releases, we have a release cycle page.
 
+下面的示例使用 Ubuntu 20.04，来自 Canonical 的最新 LTS 发行版。如果您仍在使用 Ubuntu 16.04、18.04 或 19.10，您可以在[微软文档](https://docs.microsoft.com/en-us/dotnet/core/install/linux-ubuntu) [^repos]中找到相应的资源库。要了解关于 LTS 和中间版本之间的更多区别，我们有一个[发布周期页面](https://ubuntu.com/about/release-cycle) [^cycle]。
+
+[^repos]: <https://docs.microsoft.com/en-us/dotnet/core/install/linux-ubuntu>
+[^cycle]: <https://ubuntu.com/about/release-cycle>
+
+为 20.04 版本下载微软的资源库和密钥包：
+
+```bash
+wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+```
+
+![Download the Microsoft repository and key package](/assets/images/202012/wsl-ubuntu-net-9.png)
+
+Install the Microsoft repo package manually using dpg -i:
+
+使用 dpkg -i 手动安装微软资源包：
+
+```bash
+sudo dpkg -i packages-microsoft-prod.deb
+```
+
+![Install the Microsoft repo package](/assets/images/202012/wsl-ubuntu-net-10.png)
+
+Now when you update apt you will see the Microsoft repository is checked for upgrades:
+
+现在当你更新 apt 时，你会看到微软资源库已检查升级了：
+
+![apt update](/assets/images/202012/wsl-ubuntu-net-11.png)
+
+## 安装 .NET SDK
+
+使用 apt 从微软资源库安装 .NET 和相关依赖项：
+
+```bash
+sudo apt-get install dotnet-sdk-3.1 -y
+```
+
+![Install the .NET SDK](/assets/images/202012/wsl-ubuntu-net-12.png)
+
+## 新建工作区（workspace）
+
+Create a new directory for to work in and change to that directory:
+
+创建一个新的工作目录并转到该目录：
+
+```bash
+mkdir dotnetproject
+cd dotnetproject/
+```
+
+![Create a workspace](/assets/images/202012/wsl-ubuntu-net-13.png)
+
+## 新建一个 .NET 项目
+
+Create a new .NET console project using `dotnet new`. This will create a file called Program.cs and other necessary folders and files:
+
+使用 `dotnet new` 创建一个新的 .NET 控制台项目，这会创建一个名为 `Program.cs` 的文件和其他一些必要的文件夹和文件：
+
+```bash
+dotnet new console
+```
+
+![Create a new .NET project](/assets/images/202012/wsl-ubuntu-net-14.png)
+
+## 探索我们的 .NET 应用
+
+List the files in your new .NET project:
+
+列出您的新 .NET 项目中的文件：
+
+```bash
+ls
+```
+
+查看 `Program.cs` 的内容：
+
+```bash
+cat Program.cs
+```
+
+![Explore our .NET app](/assets/images/202012/wsl-ubuntu-net-15.png)
+
+运行示例程序：
+
+```bash
+dotnet run
+```
+
+![Run the sample program](/assets/images/202012/wsl-ubuntu-net-16.png)
+
+## 定制化我们的 .NET 应用
+
+在您最喜欢的编辑器中打开 `Program.cs`，vi、nano、emacs 或者有 remote WSL 扩展的 [VS Code](https://code.visualstudio.com/)：
+
+![Code with the remote WSL extension](/assets/images/202012/wsl-ubuntu-net-17.png)
+
+<!-- For our purposes, we will use nano, which is included with Ubuntu on WSL: -->
+
+在这里，我们使用 WSL 上的 Ubuntu 中包含的 nano：
+
+```bash
+nano Program.cs
+```
+
+![nano Program.cs](/assets/images/202012/wsl-ubuntu-net-18.png)
+
+首先，我们添加 [Interop services namespace](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.interopservices?view=netcore-3.1)：
+
+```csharp
+using System.Runtime.InteropServices;
+```
+
+然后把：
+
+```csharp
+Console.WriteLine("Hello World!");
+```
+
+替换成：
+
+```csharp
+Console.WriteLine($"Hello {System.Environment.GetEnvironmentVariable("USER")}");
+
+if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+ {
+  Console.WriteLine("We're on Linux!");
+ }
+
+if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+ {
+  Console.WriteLine("We're on Windows!");
+ }
+
+Console.WriteLine("Version {0}", Environment.OSVersion.Version);
+```
+
+![replace code](/assets/images/202012/wsl-ubuntu-net-19.png)
+
+这段代码也可以在[这里](https://pastebin.ubuntu.com/p/swbPxXXSKD/?_ga=2.158712185.2144654207.1608393893-1964088564.1608393893) [^code]找到。
+
+[^code]: <https://pastebin.ubuntu.com/p/swbPxXXSKD/?_ga=2.158712185.2144654207.1608393893-1964088564.1608393893>
+
+This application tells us our current user, checks if we are on Windows or Linux, and then gives the OS kernel version.
+
+这个应用程序告诉我们当前的用户，检查是在 Windows 还是 Linux 上，然后给出 OS 内核版本。
+
+退出并保存，然后运行：
+
+```bash
+dotnet run
+```
+
+![Exit and save and run](/assets/images/202012/wsl-ubuntu-net-20.png)
+
+## Make our .NET application cross-platform
+
 <br/>
 
 > 作者 ： haydenb  
