@@ -300,7 +300,82 @@ dotnet run
 
 ![Exit and save and run](/assets/images/202012/wsl-ubuntu-net-20.png)
 
-## Make our .NET application cross-platform
+<!-- ## Make our .NET application cross-platform -->
+## 让我们的 .NET 应用程序跨平台
+
+We need to update our .NET project file, dotnetproject.csproj, to tell .NET to build for both Linux and Windows.
+
+我们需要更新 .NET 项目文件 `dotnetproject.csproj`，告诉 .NET 同时为 Linux 和 Windows 平台构建。
+
+在我们的编辑器中打开 `dotnetproject.csproj` 并添加：
+
+```xml
+<PropertyGroup>
+    <RuntimeIdentifiers>win10-x64;linux-x64</RuntimeIdentifiers>
+</PropertyGroup>
+```
+
+<!-- This directs .NET to build self-contained binaries for both Windows 10 x64 and Linux x64. -->
+
+这将引导 .NET 同时为 Windows 10 x64 和 Linux x64 构建自包含的二进制文件。
+
+![Make our .NET application cross-platform](/assets/images/202012/wsl-ubuntu-net-21.png)
+
+## 构建我们的跨平台应用程序
+
+Once our project is properly configured, building our .NET application is as simple as:
+
+我们的配置好项目属性后，构建 .NET 应用程序变得如此简单：
+
+```csharp
+dotnet publish -r win10-x64
+dotnet publish -r linux-x64
+```
+
+![dotnet publish](/assets/images/202012/wsl-ubuntu-net-22.png)
+
+Self-contained binaries for each platform with all required libraries can be found in the project’s /bin/ folder:
+
+可以在项目的 `/bin/` 文件夹中找到每个平台的自包含二进制文件及所有必需的库：
+
+```bash
+ls bin/Debug/netcoreapp3.1/
+```
+
+![ls bin/Debug/netcoreapp3.1/](/assets/images/202012/wsl-ubuntu-net-23.png)
+
+## 测试 Linux 版本
+
+您可以直接运行 Linux 二进制文件，如下所示：
+
+```bash
+./bin/Debug/netcoreapp3.1/linux-x64/publish/dotnetproject
+```
+
+![Test Linux build](/assets/images/202012/wsl-ubuntu-net-24.png)
+
+## 测试 Windows 版本
+
+要运行 Windows 版本，请将其复制到 Windows 文件系统中：
+
+```bash
+cp -r ~/dotnetproject/bin/Debug/netcoreapp3.1/win10-x64/publish /mnt/c/Users/Hayden/OneDrive/Desktop/
+```
+
+> 译者注：`/mnt/` 为 Ubuntu 系统中看到的 Windows 文件系统的根目录。
+
+然后运行：
+
+```bash
+/mnt/c/Users/Hayden/OneDrive/Desktop/publish/dotnetproject.exe
+```
+
+![Test Windows build](/assets/images/202012/wsl-ubuntu-net-25.png)
+
+<!-- We have built and run the same application for both Linux and Windows. We can test them both simultaneously using WSL. -->
+
+至此，我们已经为 Linux 和 Windows 构建并运行了相同的应用程序。我们可以使用 WSL 同时测试它们。
+
 
 <br/>
 

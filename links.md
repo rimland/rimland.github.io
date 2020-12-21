@@ -10,6 +10,8 @@ permalink: /links/
 - [Download Visual Studio](https://visualstudio.microsoft.com/zh-hans/downloads/)
 - [Microsoft Developer Blogs](https://devblogs.microsoft.com/)
 - [Microsoft Archived Content](https://docs.microsoft.com/zh-cn/archive/)
+- [.NET on GitHub](https://github.com/dotnet)
+- [.NET documentation](https://docs.microsoft.com/en-us/dotnet/core/)
 
 ## Tools
 
