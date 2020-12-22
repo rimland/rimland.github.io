@@ -35,6 +35,13 @@ Windows Terminal 预览版是新功能首先推出的版本。这个版本是为
 
 Windows Terminal is the main build for the product. Features that arrive in Windows Terminal Preview appear in Windows Terminal after a month of being in production. This allows for extensive bug testing and stabilization of new features. This build is intended for those who want to receive features after they have been introduced and tested by the Preview community.
 
+Windows Terminal 是该产品的主要版本。Windows Terminal 预览版出现的功能
+
+Windows终端是该产品的主要架构。
+在Windows终端预览功能出现在Windows终端在一个月后的生产。
+这允许广泛的bug测试和新功能的稳定。
+这个构建是为那些希望在预览社区引入和测试后接收特性的人准备的。
+
 
 
 <br/>

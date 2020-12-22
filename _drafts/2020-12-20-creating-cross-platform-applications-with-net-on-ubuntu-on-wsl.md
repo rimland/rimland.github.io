@@ -376,7 +376,6 @@ cp -r ~/dotnetproject/bin/Debug/netcoreapp3.1/win10-x64/publish /mnt/c/Users/Hay
 
 至此，我们已经为 Linux 和 Windows 构建并运行了相同的应用程序。我们可以使用 WSL 同时测试它们。
 
-
 <br/>
 
 > 作者 ： haydenb  
