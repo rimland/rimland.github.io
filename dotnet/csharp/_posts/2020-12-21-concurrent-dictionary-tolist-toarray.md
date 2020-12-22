@@ -8,8 +8,6 @@ published: true
 
 根据 [.NET 官方文档](https://docs.microsoft.com/en-us/dotnet/api/system.collections.concurrent.concurrentdictionary-2)的定义：*`ConcurrentDictionary<TKey,TValue>` Class* 表示可由多个线程同时访问的线程安全的键/值对集合。这也是我们在并发任务中比较常用的一个类型，但它真的是绝对线程安全的吗？
 
-[^dic]: <https://docs.microsoft.com/en-us/dotnet/api/system.collections.concurrent.concurrentdictionary-2> ConcurrentDictionary Class
-
 仔细阅读官方文档，我们会发现在文档的底部*线程安全性*小节里这样描述：
 
 > `ConcurrentDictionary<TKey,TValue>` 的所有公共和受保护的成员都是线程安全的，可从多个线程并发使用。但是，通过一个由 `ConcurrentDictionary<TKey,TValue>` 实现的接口的成员（包括扩展方法）访问时，不保证其线程安全性，并且可能需要由调用方进行同步。
