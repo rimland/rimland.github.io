@@ -10,7 +10,7 @@ published: true
 
 [^1]: <https://ubuntu.com/blog/creating-cross-platform-applications-with-net-on-ubuntu-on-wsl> Getting started with cross-platform development using .NET on Ubuntu on WSL
 
-.NET is an open source software framework for building cross-platform applications on Linux, Windows, and macOS. Ubuntu on WSL allows you to build and test applications for Ubuntu and Windows simultaneously. What happens when we mix these together? This blog will demonstrate how to install a .NET development stack on WSL, build a simple OS-aware application, and then test it on both Linux and Windows.
+<!-- .NET is an open source software framework for building cross-platform applications on Linux, Windows, and macOS. Ubuntu on WSL allows you to build and test applications for Ubuntu and Windows simultaneously. What happens when we mix these together? This blog will demonstrate how to install a .NET development stack on WSL, build a simple OS-aware application, and then test it on both Linux and Windows. -->
 
 .NET 是一个开源软件框架，用于在 Linux、Windows 和 macOS 上构建跨平台应用程序。[WSL 上的 Ubuntu](https://ubuntu.com/wsl) [^wsl]允许您同时为 Ubuntu 和 Windows 构建和测试应用程序。当我们把这些融合在一起时会发生什么呢？这篇博客将演示如何在 WSL 上安装 .NET 开发栈，构建一个简单的操作系统感知应用，然后在 Linux 和 Windows 上测试它。
 
