@@ -8,23 +8,7 @@
 
 .post-content {
 
-    .footnotes {
-        margin: 1em auto;
-        border-top: 1px solid #999;
-        padding-top: 10px;
-        font-size: 15px;
-    }
-
-    .footnotes::before {
-        content: "相关链接：";
-        color: #333;
-        font-weight: bold;
-        font-family: "微软雅黑";
-        font-size: 14px;
-        display: block;
-        margin-bottom: 5px;
-    }
-
+    
     h1,
     h2,
     h3 {
@@ -51,17 +35,7 @@
         margin-right: 6px;
     }
 
-    sup {
-        font-style: normal;
-    }
-
-    sup .footnote::before {
-        content: "[";
-    }
-
-    sup .footnote::after {
-        content: "]";
-    }
+    
 
     blockquote {
         font-size: 1.05rem;
@@ -87,4 +61,40 @@
         background: #666;
         background-image: linear-gradient(to right, #dfdfdf, #999, #dfdfdf);
     }
+
+    /*--- footnote ---*/
+    sup {
+        font-style: normal;
+    }
+
+    sup .footnote::before {
+        content: "[";
+    }
+
+    sup .footnote::after {
+        content: "]";
+    }
+
+    sup .footnote{
+        margin-left: 2px;
+        margin-right: 2px;
+    }
+
+    .footnotes {
+        margin: 1em auto;
+        border-top: 1px solid #999;
+        padding-top: 10px;
+        font-size: 15px;
+    }
+
+    .footnotes::before {
+        content: "相关链接：";
+        color: #333;
+        font-weight: bold;
+        font-family: "微软雅黑";
+        font-size: 14px;
+        display: block;
+        margin-bottom: 5px;
+    }
 }
+
