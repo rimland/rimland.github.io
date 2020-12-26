@@ -80,9 +80,7 @@ Windows Terminal 中包含两个设置文件。**一个是 *defaults.json*，可
 
 ## 基本定制
 
-<!-- Here are some basic settings to get you started with customizing your terminal. -->
-
-以下是一些基本设置，可帮助您开始定制 Windows 终端。
+以下是一些基本设置，可帮助您开始自定义 Windows 终端。
 
 ### 背景图片
 
