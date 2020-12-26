@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "在 WSL Ubuntu 上进行 .NET 跨平台开发入门"
+title:  "在 WSL Ubuntu 上使用 .NET 进行跨平台开发新手入门"
 date:   2020-12-25 00:05:00 +0800
 categories: os
 published: true
@@ -78,21 +78,19 @@ Restart-Computer
 
 ![Windows Terminal on the Microsoft Store](/assets/images/202012/wsl-ubuntu-net-4.png)
 
-Windows Terminal can also be downloaded from GitHub.
-
 也可以从 [GitHub](https://github.com/microsoft/terminal/releases) 下载 Windows Terminal。
 
 ## 运行 WSL 上的 Ubuntu
 
 打开 Windows Terminal 并运行：
 
-```csharp
+```powershell
 ubuntu.exe
 ```
 
- When you run Ubuntu on WSL for the first time it will install and then you will create a Linux user. This is separate from your Windows user.
+ <!-- When you run Ubuntu on WSL for the first time it will install and then you will create a Linux user. This is separate from your Windows user. -->
 
-当您第一次在 WSL 上运行 Ubuntu 时，它将安装，并提示您创建一个 Linux 用户，这个用户是独立于 Windows 用户的。
+当您首次在 WSL 上运行 Ubuntu 时，它将安装，并提示您创建一个 Linux 用户，这个用户是独立于 Windows 用户的。
 
 ![Run Ubuntu on WSL](/assets/images/202012/wsl-ubuntu-net-5.png)
 
@@ -100,13 +98,13 @@ ubuntu.exe
 
 ![Ubuntu on the drop-down](/assets/images/202012/wsl-ubuntu-net-6.png)
 
-You can set Ubuntu as the default and configure Windows Terminal in settings.json.
+<!-- You can set Ubuntu as the default and configure Windows Terminal in settings.json. -->
 
-您可以将 Ubuntu 设置为默认项，并在 [settings.json](https://docs.microsoft.com/en-us/windows/terminal/get-started#configuration) 中配置 Windows Terminal。
+您可以在 [settings.json](https://docs.microsoft.com/en-us/windows/terminal/get-started#configuration) 中设置 Windows Terminal，将 Ubuntu 设置为默认项。
 
 ## 更新 WSL 上的 Ubuntu
 
-You should periodically check for updates and run upgrades on Ubuntu on WSL. We do this with apt, the Ubuntu package manager.
+<!-- You should periodically check for updates and run upgrades on Ubuntu on WSL. We do this with apt, the Ubuntu package manager. -->
 
 您应该定期检查更新，并在 WSL 上的 Ubuntu 中运行升级。我们用 apt (Ubuntu 包管理器)来实现。
 
@@ -138,13 +136,13 @@ sudo apt update && sudo apt upgrade -y
 
 <!-- Make sure you are installing the correct repo for your version of Ubuntu. You can check your current version of Ubuntu with: -->
 
-请确保您正在为您的 Ubuntu 版本安装正确的资源库。您可以使用下面命令检查 Ubuntu 的当前版本：
+请确保您正在为您的 Ubuntu 版本安装正确的资源库。您可以使用下面的命令检查 Ubuntu 的当前版本：
 
 ```bash
 cat /etc/os-release
 ```
 
-The example below uses Ubuntu 20.04, the latest LTS release from Canonical. If you are still using Ubuntu 16.04, 18.04, or 19.10, you can find the corresponding repos in the Microsoft docs. To learn more about the differences between LTS and interim releases, we have a release cycle page.
+<!-- The example below uses Ubuntu 20.04, the latest LTS release from Canonical. If you are still using Ubuntu 16.04, 18.04, or 19.10, you can find the corresponding repos in the Microsoft docs. To learn more about the differences between LTS and interim releases, we have a release cycle page. -->
 
 下面的示例使用 Ubuntu 20.04，来自 Canonical 的最新 LTS 发行版。如果您仍在使用 Ubuntu 16.04、18.04 或 19.10，您可以在[微软文档](https://docs.microsoft.com/en-us/dotnet/core/install/linux-ubuntu) [^repos]中找到相应的资源库。要了解关于 LTS 和中间版本之间的更多区别，我们有一个[发布周期页面](https://ubuntu.com/about/release-cycle) [^cycle]。
 
@@ -159,7 +157,7 @@ wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.
 
 ![Download the Microsoft repository and key package](/assets/images/202012/wsl-ubuntu-net-9.png)
 
-Install the Microsoft repo package manually using dpg -i:
+<!-- Install the Microsoft repo package manually using dpg -i: -->
 
 使用 dpkg -i 手动安装微软资源包：
 
@@ -169,7 +167,7 @@ sudo dpkg -i packages-microsoft-prod.deb
 
 ![Install the Microsoft repo package](/assets/images/202012/wsl-ubuntu-net-10.png)
 
-Now when you update apt you will see the Microsoft repository is checked for upgrades:
+<!-- Now when you update apt you will see the Microsoft repository is checked for upgrades: -->
 
 现在当你更新 apt 时，你会看到微软资源库已检查升级了：
 
@@ -187,9 +185,9 @@ sudo apt-get install dotnet-sdk-3.1 -y
 
 ## 新建工作区（workspace）
 
-Create a new directory for to work in and change to that directory:
+<!-- Create a new directory for to work in and change to that directory: -->
 
-创建一个新的工作目录并转到该目录：
+创建一个新的工作目录并打开该目录：
 
 ```bash
 mkdir dotnetproject
@@ -200,7 +198,7 @@ cd dotnetproject/
 
 ## 新建一个 .NET 项目
 
-Create a new .NET console project using `dotnet new`. This will create a file called Program.cs and other necessary folders and files:
+<!-- Create a new .NET console project using `dotnet new`. This will create a file called Program.cs and other necessary folders and files: -->
 
 使用 `dotnet new` 创建一个新的 .NET 控制台项目，这会创建一个名为 `Program.cs` 的文件和其他一些必要的文件夹和文件：
 
@@ -212,7 +210,7 @@ dotnet new console
 
 ## 探索我们的 .NET 应用
 
-List the files in your new .NET project:
+<!-- List the files in your new .NET project: -->
 
 列出您的新 .NET 项目中的文件：
 
@@ -236,9 +234,9 @@ dotnet run
 
 ![Run the sample program](/assets/images/202012/wsl-ubuntu-net-16.png)
 
-## 定制化我们的 .NET 应用
+## 自定义我们的 .NET 应用
 
-在您最喜欢的编辑器中打开 `Program.cs`，vi、nano、emacs 或者有 remote WSL 扩展的 [VS Code](https://code.visualstudio.com/)：
+在您最喜欢的编辑器中打开 `Program.cs`：vi、nano、emacs 或者有 remote WSL 扩展的 [VS Code](https://code.visualstudio.com/)：
 
 ![Code with the remote WSL extension](/assets/images/202012/wsl-ubuntu-net-17.png)
 
@@ -252,7 +250,7 @@ nano Program.cs
 
 ![nano Program.cs](/assets/images/202012/wsl-ubuntu-net-18.png)
 
-首先，我们添加 [Interop services namespace](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.interopservices?view=netcore-3.1)：
+首先，我们添加 [Interop services 命名空间](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.interopservices?view=netcore-3.1)：
 
 ```csharp
 using System.Runtime.InteropServices;
@@ -270,14 +268,14 @@ Console.WriteLine("Hello World!");
 Console.WriteLine($"Hello {System.Environment.GetEnvironmentVariable("USER")}");
 
 if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
- {
+{
   Console.WriteLine("We're on Linux!");
- }
+}
 
 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
- {
+{
   Console.WriteLine("We're on Windows!");
- }
+}
 
 Console.WriteLine("Version {0}", Environment.OSVersion.Version);
 ```
@@ -286,11 +284,11 @@ Console.WriteLine("Version {0}", Environment.OSVersion.Version);
 
 这段代码也可以在[这里](https://pastebin.ubuntu.com/p/swbPxXXSKD/?_ga=2.158712185.2144654207.1608393893-1964088564.1608393893) [^code]找到。
 
-[^code]: <https://pastebin.ubuntu.com/p/swbPxXXSKD/?_ga=2.158712185.2144654207.1608393893-1964088564.1608393893>
+[^code]: <https://pastebin.ubuntu.com/p/swbPxXXSKD/>
 
-This application tells us our current user, checks if we are on Windows or Linux, and then gives the OS kernel version.
+<!-- This application tells us our current user, checks if we are on Windows or Linux, and then gives the OS kernel version. -->
 
-这个应用程序告诉我们当前的用户，检查是在 Windows 还是 Linux 上，然后给出 OS 内核版本。
+这个应用程序告诉我们：当前的用户，检查是在 Windows 还是 Linux 上，然后给出 OS 内核版本。
 
 退出并保存，然后运行：
 
@@ -303,7 +301,7 @@ dotnet run
 <!-- ## Make our .NET application cross-platform -->
 ## 让我们的 .NET 应用程序跨平台
 
-We need to update our .NET project file, dotnetproject.csproj, to tell .NET to build for both Linux and Windows.
+<!-- We need to update our .NET project file, dotnetproject.csproj, to tell .NET to build for both Linux and Windows. -->
 
 我们需要更新 .NET 项目文件 `dotnetproject.csproj`，告诉 .NET 同时为 Linux 和 Windows 平台构建。
 
@@ -323,9 +321,9 @@ We need to update our .NET project file, dotnetproject.csproj, to tell .NET to b
 
 ## 构建我们的跨平台应用程序
 
-Once our project is properly configured, building our .NET application is as simple as:
+<!-- Once our project is properly configured, building our .NET application is as simple as: -->
 
-我们的配置好项目属性后，构建 .NET 应用程序变得如此简单：
+当我们的配置好项目后，构建 .NET 应用程序变得如此简单：
 
 ```csharp
 dotnet publish -r win10-x64
@@ -334,9 +332,9 @@ dotnet publish -r linux-x64
 
 ![dotnet publish](/assets/images/202012/wsl-ubuntu-net-22.png)
 
-Self-contained binaries for each platform with all required libraries can be found in the project’s /bin/ folder:
+<!-- Self-contained binaries for each platform with all required libraries can be found in the project’s /bin/ folder: -->
 
-可以在项目的 `/bin/` 文件夹中找到每个平台的自包含二进制文件及所有必需的库：
+可以在项目的 `/bin/` 文件夹中找到每个平台的自包含二进制文件及其所有必需的库：
 
 ```bash
 ls bin/Debug/netcoreapp3.1/
@@ -362,7 +360,8 @@ ls bin/Debug/netcoreapp3.1/
 cp -r ~/dotnetproject/bin/Debug/netcoreapp3.1/win10-x64/publish /mnt/c/Users/Hayden/OneDrive/Desktop/
 ```
 
-> 译者注：`/mnt/` 为 Ubuntu 系统中看到的 Windows 文件系统的根目录。
+> 译者注：  
+> `/mnt/` 为 Ubuntu 系统中看到的 Windows 文件系统的根目录，`/mnt/c/` 即为 Windows 系统中的 C 盘。
 
 然后运行：
 
