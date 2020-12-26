@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "在 WSL Ubuntu 上使用 .NET 进行跨平台开发新手入门"
-date:   2020-12-25 00:05:00 +0800
+date:   2020-12-28 00:05:00 +0800
 categories: os
 published: true
 ---
