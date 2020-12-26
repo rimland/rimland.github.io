@@ -10,8 +10,6 @@ published: true
 
 [^1]: <https://ubuntu.com/blog/creating-cross-platform-applications-with-net-on-ubuntu-on-wsl> Getting started with cross-platform development using .NET on Ubuntu on WSL
 
-<!-- .NET is an open source software framework for building cross-platform applications on Linux, Windows, and macOS. Ubuntu on WSL allows you to build and test applications for Ubuntu and Windows simultaneously. What happens when we mix these together? This blog will demonstrate how to install a .NET development stack on WSL, build a simple OS-aware application, and then test it on both Linux and Windows. -->
-
 .NET 是一个开源软件框架，用于在 Linux、Windows 和 macOS 上构建跨平台应用程序。[WSL 上的 Ubuntu](https://ubuntu.com/wsl) [^wsl]允许您同时为 Ubuntu 和 Windows 构建和测试应用程序。当我们把这些融合在一起时会发生什么呢？这篇博客将演示如何在 WSL 上安装 .NET 开发栈，构建一个简单的操作系统感知应用，然后在 Linux 和 Windows 上测试它。
 
 [^wsl]: <https://ubuntu.com/wsl> Ubuntu on WSL
@@ -88,8 +86,6 @@ Restart-Computer
 ubuntu.exe
 ```
 
- <!-- When you run Ubuntu on WSL for the first time it will install and then you will create a Linux user. This is separate from your Windows user. -->
-
 当您首次在 WSL 上运行 Ubuntu 时，它将安装，并提示您创建一个 Linux 用户，这个用户是独立于 Windows 用户的。
 
 ![Run Ubuntu on WSL](/assets/images/202012/wsl-ubuntu-net-5.png)
@@ -98,13 +94,9 @@ ubuntu.exe
 
 ![Ubuntu on the drop-down](/assets/images/202012/wsl-ubuntu-net-6.png)
 
-<!-- You can set Ubuntu as the default and configure Windows Terminal in settings.json. -->
-
 您可以在 [settings.json](https://docs.microsoft.com/en-us/windows/terminal/get-started#configuration) 中设置 Windows Terminal，将 Ubuntu 设置为默认项。
 
 ## 更新 WSL 上的 Ubuntu
-
-<!-- You should periodically check for updates and run upgrades on Ubuntu on WSL. We do this with apt, the Ubuntu package manager. -->
 
 您应该定期检查更新，并在 WSL 上的 Ubuntu 中运行升级。我们用 apt (Ubuntu 包管理器)来实现。
 
@@ -134,15 +126,11 @@ sudo apt update && sudo apt upgrade -y
 
 我们需要为 apt 添加微软的 .NET 资源库和签名密钥。我们将从微软下载并安装一个包来完成这项工作。
 
-<!-- Make sure you are installing the correct repo for your version of Ubuntu. You can check your current version of Ubuntu with: -->
-
 请确保您正在为您的 Ubuntu 版本安装正确的资源库。您可以使用下面的命令检查 Ubuntu 的当前版本：
 
 ```bash
 cat /etc/os-release
 ```
-
-<!-- The example below uses Ubuntu 20.04, the latest LTS release from Canonical. If you are still using Ubuntu 16.04, 18.04, or 19.10, you can find the corresponding repos in the Microsoft docs. To learn more about the differences between LTS and interim releases, we have a release cycle page. -->
 
 下面的示例使用 Ubuntu 20.04，来自 Canonical 的最新 LTS 发行版。如果您仍在使用 Ubuntu 16.04、18.04 或 19.10，您可以在[微软文档](https://docs.microsoft.com/en-us/dotnet/core/install/linux-ubuntu) [^repos]中找到相应的资源库。要了解关于 LTS 和中间版本之间的更多区别，我们有一个[发布周期页面](https://ubuntu.com/about/release-cycle) [^cycle]。
 
@@ -157,8 +145,6 @@ wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.
 
 ![Download the Microsoft repository and key package](/assets/images/202012/wsl-ubuntu-net-9.png)
 
-<!-- Install the Microsoft repo package manually using dpg -i: -->
-
 使用 dpkg -i 手动安装微软资源包：
 
 ```bash
@@ -166,8 +152,6 @@ sudo dpkg -i packages-microsoft-prod.deb
 ```
 
 ![Install the Microsoft repo package](/assets/images/202012/wsl-ubuntu-net-10.png)
-
-<!-- Now when you update apt you will see the Microsoft repository is checked for upgrades: -->
 
 现在当你更新 apt 时，你会看到微软资源库已检查升级了：
 
@@ -185,8 +169,6 @@ sudo apt-get install dotnet-sdk-3.1 -y
 
 ## 新建工作区（workspace）
 
-<!-- Create a new directory for to work in and change to that directory: -->
-
 创建一个新的工作目录并打开该目录：
 
 ```bash
@@ -198,8 +180,6 @@ cd dotnetproject/
 
 ## 新建一个 .NET 项目
 
-<!-- Create a new .NET console project using `dotnet new`. This will create a file called Program.cs and other necessary folders and files: -->
-
 使用 `dotnet new` 创建一个新的 .NET 控制台项目，这会创建一个名为 `Program.cs` 的文件和其他一些必要的文件夹和文件：
 
 ```bash
@@ -209,8 +189,6 @@ dotnet new console
 ![Create a new .NET project](/assets/images/202012/wsl-ubuntu-net-14.png)
 
 ## 探索我们的 .NET 应用
-
-<!-- List the files in your new .NET project: -->
 
 列出您的新 .NET 项目中的文件：
 
@@ -239,8 +217,6 @@ dotnet run
 在您最喜欢的编辑器中打开 `Program.cs`：vi、nano、emacs 或者有 remote WSL 扩展的 [VS Code](https://code.visualstudio.com/)：
 
 ![Code with the remote WSL extension](/assets/images/202012/wsl-ubuntu-net-17.png)
-
-<!-- For our purposes, we will use nano, which is included with Ubuntu on WSL: -->
 
 在这里，我们使用 WSL 上的 Ubuntu 中包含的 nano：
 
@@ -286,8 +262,6 @@ Console.WriteLine("Version {0}", Environment.OSVersion.Version);
 
 [^code]: <https://pastebin.ubuntu.com/p/swbPxXXSKD/>
 
-<!-- This application tells us our current user, checks if we are on Windows or Linux, and then gives the OS kernel version. -->
-
 这个应用程序告诉我们：当前的用户，检查是在 Windows 还是 Linux 上，然后给出 OS 内核版本。
 
 退出并保存，然后运行：
@@ -298,10 +272,7 @@ dotnet run
 
 ![Exit and save and run](/assets/images/202012/wsl-ubuntu-net-20.png)
 
-<!-- ## Make our .NET application cross-platform -->
 ## 让我们的 .NET 应用程序跨平台
-
-<!-- We need to update our .NET project file, dotnetproject.csproj, to tell .NET to build for both Linux and Windows. -->
 
 我们需要更新 .NET 项目文件 `dotnetproject.csproj`，告诉 .NET 同时为 Linux 和 Windows 平台构建。
 
@@ -313,15 +284,11 @@ dotnet run
 </PropertyGroup>
 ```
 
-<!-- This directs .NET to build self-contained binaries for both Windows 10 x64 and Linux x64. -->
-
 这将引导 .NET 同时为 Windows 10 x64 和 Linux x64 构建自包含的二进制文件。
 
 ![Make our .NET application cross-platform](/assets/images/202012/wsl-ubuntu-net-21.png)
 
 ## 构建我们的跨平台应用程序
-
-<!-- Once our project is properly configured, building our .NET application is as simple as: -->
 
 当我们的配置好项目后，构建 .NET 应用程序变得如此简单：
 
@@ -331,8 +298,6 @@ dotnet publish -r linux-x64
 ```
 
 ![dotnet publish](/assets/images/202012/wsl-ubuntu-net-22.png)
-
-<!-- Self-contained binaries for each platform with all required libraries can be found in the project’s /bin/ folder: -->
 
 可以在项目的 `/bin/` 文件夹中找到每个平台的自包含二进制文件及其所有必需的库：
 
@@ -370,8 +335,6 @@ cp -r ~/dotnetproject/bin/Debug/netcoreapp3.1/win10-x64/publish /mnt/c/Users/Hay
 ```
 
 ![Test Windows build](/assets/images/202012/wsl-ubuntu-net-25.png)
-
-<!-- We have built and run the same application for both Linux and Windows. We can test them both simultaneously using WSL. -->
 
 至此，我们已经为 Linux 和 Windows 构建并运行了相同的应用程序。我们可以使用 WSL 同时测试它们。
 
