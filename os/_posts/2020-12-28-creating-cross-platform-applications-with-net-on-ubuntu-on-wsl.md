@@ -10,7 +10,7 @@ published: true
 
 [^1]: <https://ubuntu.com/blog/creating-cross-platform-applications-with-net-on-ubuntu-on-wsl> Getting started with cross-platform development using .NET on Ubuntu on WSL
 
-.NET 是一个开源软件框架，用于在 Linux、Windows 和 macOS 上构建跨平台应用程序。[WSL 上的 Ubuntu](https://ubuntu.com/wsl) [^wsl]允许您同时为 Ubuntu 和 Windows 构建和测试应用程序。当我们把这些融合在一起时会发生什么呢？这篇博客将演示如何在 WSL 上安装 .NET 开发栈，构建一个简单的操作系统感知应用，然后在 Linux 和 Windows 上测试它。
+.NET 是一个开源软件框架，用于在 Linux、Windows 和 macOS 上构建跨平台应用程序。[WSL 上的 Ubuntu](https://ubuntu.com/wsl) [^wsl]允许您同时为 Ubuntu 和 Windows 构建和测试应用程序。当我们把这些融合在一起时会发生什么呢？这篇博客将演示如何在 WSL 上安装 .NET 开发栈，并构建一个简单的操作系统感知应用，然后在 Linux 和 Windows 上测试它。
 
 [^wsl]: <https://ubuntu.com/wsl> Ubuntu on WSL
 
@@ -34,7 +34,7 @@ Restart-Computer
 
 ## 启用 WSL 2 (Windows 10 2004+)
 
-查看 “[Ubuntu on WSL 2 Is Generally Available](https://ubuntu.com/blog/ubuntu-on-wsl-2-is-generally-available)” [^wsl2]了解更多关于 Ubuntu on WSL 2 的细节。
+想要了解更多关于 Ubuntu on WSL 2 的细节，请查看 “[Ubuntu on WSL 2 Is Generally Available](https://ubuntu.com/blog/ubuntu-on-wsl-2-is-generally-available)” [^wsl2]。
 
 [^wsl2]: <https://ubuntu.com/blog/ubuntu-on-wsl-2-is-generally-available> Ubuntu on WSL 2 Is Generally Available
 
@@ -62,7 +62,7 @@ Restart-Computer
 
 ![Ubuntu 20.04 LTS on the Microsoft Store](/assets/images/202012/wsl-ubuntu-net-3.png)
 
-要想了解更多在 WSL 上安装 Ubuntu 的方法，请查看 [Ubuntu on WSL wiki 页面](https://wiki.ubuntu.com/WSL) [^wsl-wiki]。
+想要了解更多在 WSL 上安装 Ubuntu 的方法，请查看 [Ubuntu on WSL wiki 页面](https://wiki.ubuntu.com/WSL) [^wsl-wiki]。
 
 [^wsl-wiki]: <https://wiki.ubuntu.com/WSL> Ubuntu on WSL wiki
 
@@ -132,7 +132,7 @@ sudo apt update && sudo apt upgrade -y
 cat /etc/os-release
 ```
 
-下面的示例使用 Ubuntu 20.04，来自 Canonical 的最新 LTS 发行版。如果您仍在使用 Ubuntu 16.04、18.04 或 19.10，您可以在[微软文档](https://docs.microsoft.com/en-us/dotnet/core/install/linux-ubuntu) [^repos]中找到相应的资源库。要了解关于 LTS 和中间版本之间的更多区别，我们有一个[发布周期页面](https://ubuntu.com/about/release-cycle) [^cycle]。
+下面的示例使用 Ubuntu 20.04，来自 Canonical 的最新 LTS 发行版。如果您仍在使用 Ubuntu 16.04、18.04 或 19.10，您可以在[微软文档](https://docs.microsoft.com/en-us/dotnet/core/install/linux-ubuntu) [^repos]中找到相应的资源库。想要了解更多关于 LTS 和中间版本之间的区别，我们有一个[发布周期页面](https://ubuntu.com/about/release-cycle) [^cycle]。
 
 [^repos]: <https://docs.microsoft.com/en-us/dotnet/core/install/linux-ubuntu>
 [^cycle]: <https://ubuntu.com/about/release-cycle>
@@ -167,7 +167,7 @@ sudo apt-get install dotnet-sdk-3.1 -y
 
 ![Install the .NET SDK](/assets/images/202012/wsl-ubuntu-net-12.png)
 
-## 新建工作区（workspace）
+## 新建工作区
 
 创建一个新的工作目录并打开该目录：
 
@@ -290,7 +290,7 @@ dotnet run
 
 ## 构建我们的跨平台应用程序
 
-当我们的配置好项目后，构建 .NET 应用程序变得如此简单：
+当我们配置好项目后，构建 .NET 应用程序变得如此简单：
 
 ```csharp
 dotnet publish -r win10-x64
@@ -326,7 +326,7 @@ cp -r ~/dotnetproject/bin/Debug/netcoreapp3.1/win10-x64/publish /mnt/c/Users/Hay
 ```
 
 > 译者注：  
-> `/mnt/` 为 Ubuntu 系统中看到的 Windows 文件系统的根目录，`/mnt/c/` 即为 Windows 系统中的 C 盘。
+> 此处的 `/mnt/` 为 Ubuntu 系统中看到的 Windows 文件系统的根目录，`/mnt/c/` 即为 Windows 系统中的 C 盘。
 
 然后运行：
 
