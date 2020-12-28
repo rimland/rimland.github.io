@@ -51,7 +51,7 @@ Windows Terminal 安装完成后，您可以启动它，并开启命令行界面
 
 ### 新增一个配置文件
 
-可以通过 Windows 终端或者手动动态地添加新的配置文件。Windows Terminal 会自动地为 PowerShell 和 WSL 分发版创建配置文件。这些配置文件具有一个 `"source"` 属性，告诉 Windows 终端在哪里可以找到合适的可执行程序。
+可以通过 Windows 终端或者手动动态地添加新的配置文件。Windows Terminal 会自动为 PowerShell 和 WSL 分发版创建配置文件。这些配置文件具有一个 `"source"` 属性，告诉 Windows 终端在哪里可以找到合适的可执行程序。
 
 如果您想要手动创建新的配置文件，您只需[生成一个新的 `"guid"`](https://guidgenerator.com/online-guid-generator.aspx)[^guid]，提供一个 `"name"`，并为 `"commandline"` 属性提供可执行程序。
 
