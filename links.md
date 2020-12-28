@@ -13,6 +13,10 @@ permalink: /links/
 - [.NET on GitHub](https://github.com/dotnet)
 - [.NET documentation](https://docs.microsoft.com/en-us/dotnet/core/)
 
+## Tech
+
+- [kubernetes.io](https://kubernetes.io/)
+
 ## Tools
 
 - [JSON 解析](ttps://h5css.com/)
