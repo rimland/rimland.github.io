@@ -12,10 +12,11 @@ published: true
 
 ## 安装
 
-Windows Terminal（Windows 终端）有两个不同的版本：[Windows Terminal](https://www.microsoft.com/p/windows-terminal/9n0dx20hk701)[^Terminal] 和 [Windows Terminal 预览版](https://www.microsoft.com/p/windows-terminal-preview/9n8g5rfz9xk3)[^Preview]。两个版本都可以从 Microsoft Store 和 [GitHub 发布页](https://github.com/microsoft/terminal/releases)下载。
+Windows Terminal（Windows 终端）有两个不同的版本：[Windows Terminal](https://www.microsoft.com/p/windows-terminal/9n0dx20hk701)[^Terminal] 和 [Windows Terminal 预览版](https://www.microsoft.com/p/windows-terminal-preview/9n8g5rfz9xk3)[^Preview]。两个版本都可以从 Microsoft Store 和 [GitHub 发布页](https://github.com/microsoft/terminal/releases)[^GitHubRe]下载。
 
 [^Terminal]: <https://www.microsoft.com/p/windows-terminal/9n0dx20hk701> Windows Terminal
 [^Preview]: <https://www.microsoft.com/p/windows-terminal-preview/9n8g5rfz9xk3> Windows Terminal Preview
+[^GitHubRe]: <https://github.com/microsoft/terminal/releases> Windows Terminal Releases
 
 ### 必备条件
 
