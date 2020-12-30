@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Windows Terminal 新手入门"
-date:   2020-12-30 00:05:00 +0800
+date:   2020-12-31 00:05:00 +0800
 categories: os
 published: true
 ---
