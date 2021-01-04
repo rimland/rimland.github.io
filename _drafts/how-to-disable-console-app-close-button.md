@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "如何禁用控制台窗口的关闭按钮？"
-date:   2020-08-31 00:10:00 +0800
+date:   2021-01-06 00:10:00 +0800
 categories: dotnet csharp
 published: true
 ---
