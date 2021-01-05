@@ -1,6 +1,7 @@
 ```csharp
 //https://www.newtonsoft.com/json/help/html/DeserializeAnonymousType.htm
             //https://stackoverflow.com/questions/6904825/deserialize-json-to-anonymous-object
+            //https://makolyte.com/csharp-deserialize-json-to-dynamic-object/
             string input = @"{ ""first"": ""Foo"", ""last"": ""Bar"", ""time"":""2019-12-23T11:22:02"" }";
 
             dynamic myObject = JsonConvert.DeserializeObject<dynamic>(input);
