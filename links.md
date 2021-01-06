@@ -37,4 +37,6 @@ permalink: /links/
 
 ## Others
 
-- [Emoji](https://emojipedia.org/)
+- Emoji
+  - [emojipedia.org](https://emojipedia.org/)
+  - [github markdown emoji](https://gist.github.com/rxaviers/7360908)
