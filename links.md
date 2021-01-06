@@ -11,10 +11,9 @@ permalink: /links/
 - [Microsoft Developer Blogs](https://devblogs.microsoft.com/)
 - [Microsoft Archived Content](https://docs.microsoft.com/zh-cn/archive/)
 - [.NET on GitHub](https://github.com/dotnet)
-- [.NET documentation](https://docs.microsoft.com/en-us/dotnet/core/)
-- Learning
+- .NET documentation
+  - <https://docs.microsoft.com/en-us/dotnet/core/>
   - <https://docs.microsoft.com/zh-cn/dotnet/>
-  - <https://docs.microsoft.com/zh-cn/dotnet/standard/get-started>
 
 ## Tech
 
