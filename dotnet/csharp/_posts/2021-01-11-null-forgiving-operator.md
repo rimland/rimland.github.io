@@ -82,7 +82,7 @@ void LogPerson(Person person)
 
 这个 `!` 运算符基本上就是关闭了编译器的空检查。
 
-### 内部运作机制
+### 内部运行机制
 
 使用此运算符*告诉编译器可以安全地访问可能为 `null` 的内容*。您可以用它来表达在这种情况下“不关心” `null` 安全性。
 
@@ -173,7 +173,7 @@ string? y = null;
 public BlogSite BlogSite { get; set; } = null!;
 ```
 
-这一行定义了一个名称为 `BlogSite`、类型为 `BlogSite` 的*不可以为 `null` 的*类属性。因为它是*不可以为 `null` 的*，因此单从技术上讲，很明显它是不可以被赋值为 `null`的。
+这行代码定义了一个名称为 `BlogSite`、类型为 `BlogSite` 的*不可以为 `null` 的*类属性。因为它是*不可以为 `null` 的*，因此单从技术上讲，很明显它是不可以被赋值为 `null`的。
 
 但是，您可以通过使用 `!` 运算符，将 `BlogSite` 属性赋值为 `null`。因为，**就编译器所关心的 `null` 安全性而言，`null!` 不是 `null`。**
 
