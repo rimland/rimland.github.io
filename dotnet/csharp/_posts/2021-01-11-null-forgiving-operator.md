@@ -6,7 +6,7 @@ categories: dotnet csharp
 published: true
 ---
 
-在 2020 年的最后一天，[博客园发起了一个开源项目：基于 .NET 的博客引擎 fluss](https://www.cnblogs.com/cmt/p/14217355.html)，我抽空把源码下载下来看了下，发现在属性的定义中，有很多地方都用到了 `null!`，如下图所示：
+在 2020 年的最后一天，[博客园发起了一个开源项目：基于 .NET 的博客引擎 fluss](https://www.cnblogs.com/cmt/p/14217355.html)，我抽空把源码下载下来看了下，发现在属性的定义中，有很多地方都用到了 `null!`，[如下图所示](https://github.com/cnblogs/fluss/blob/main/src/Cnblogs.Fluss.Domain/Entities/ContentBlock.cs)：
 
 ![cnblog null](/assets/images/202101/cnblog-null.png)
 
@@ -45,7 +45,7 @@ C# 8.0 引入了[可为 null 的引用类型](https://docs.microsoft.com/zh-cn/d
 
 ### 在自定义项目属性中启用
 
-在 `Directory.Build.props` 文件中可以为目录下的所有项目启用 *可为 null 的引用类型*， 下面截图是 fluss 项目中的设置：
+在 `Directory.Build.props` 文件中可以为目录下的所有项目启用 *可为 null 的引用类型*， 下面截图是 [fluss 项目中的设置](https://github.com/cnblogs/fluss/blob/main/Directory.Build.props)：
 
 ![cnblog nullable enable 3](/assets/images/202101/cnblog-nullable-enable.png)
 
