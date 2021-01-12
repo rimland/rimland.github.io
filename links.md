@@ -29,6 +29,7 @@ permalink: /links/
 - [ILSpy](https://github.com/icsharpcode/ILSpy)
 - [dnSpy](https://github.com/dnSpy/dnSpy)
 - [WinDbg](https://docs.microsoft.com/zh-cn/windows-hardware/drivers/debugger/debugger-download-tools)
+- [Online GUID / UUID Generator](https://guidgenerator.com/online-guid-generator.aspx)
 
 ## Favorite Blogs
 <!-- Most Valuable Pepoles -->
