@@ -3,13 +3,13 @@ layout: post
 title:  "Docker 常用命令集锦"
 date:   2020-01-01 00:00:00 +0800
 categories: utils
-permalink: /docker-commands-collection
+permalink: /utils/docker-commands-collection
 published: true
 ---
 
-## Docker remove <none> TAG images
+## Docker remove `<none>` TAG images
 
-### Remove all docker images marked as "none" in Powershell
+### Remove all docker images marked as `<none>` in Powershell
 
 ```powershell
 docker rmi ((docker images | select-string "<none>" | ConvertFrom-String) | Select -ExpandProperty "P3")
