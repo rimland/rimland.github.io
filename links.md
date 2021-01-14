@@ -15,6 +15,7 @@ permalink: /links/
   - <https://docs.microsoft.com/en-us/dotnet/core/>
   - <https://docs.microsoft.com/zh-cn/dotnet/>
 - [Json.NET Documentation](https://www.newtonsoft.com/json/help/html/Introduction.htm)
+- [C# 语言版本控制](https://docs.microsoft.com/zh-cn/dotnet/csharp/language-reference/configure-language-version)
 
 ## Tech
 
