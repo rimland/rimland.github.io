@@ -195,7 +195,7 @@ C# 8.0之前：
 
 C# 8.0之后：
 
-![null forgiving operator 2](/assets/images/202101/null-forgiving-operator-1.png)
+![null forgiving operator 2](/assets/images/202101/null-forgiving-operator-2.png)
 
 ---
 
