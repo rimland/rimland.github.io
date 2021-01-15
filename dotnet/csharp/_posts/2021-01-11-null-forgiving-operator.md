@@ -84,7 +84,7 @@ void LogPerson(Person person)
 
 ![nullable enable warning](/assets/images/202101/nullable-enable-warning.png)
 
-这个 `!` 运算符基本上就是关闭了编译器的空检查。
+这个 `!` 运算符其实就是关闭了编译器的空检查，它就是在告诉编译器或者以后维护你代码的同事：“我”肯定不是 null ，你不用做 null 安全检查了。
 
 ### 内部运行机制
 
@@ -184,6 +184,18 @@ public BlogSite BlogSite { get; set; } = null!;
 ## 总结
 
 看到这里，想必您肯定已经明白了 `null!` 是什么意思，也学会了 `null` 包容运算符 `!` 的概念、由来和用法。但是正如我在文中提到的那样，编程时应该尽量避免使用 `!`，因为它抵消了您本可以获得的编译器保证的 `null` 安全性；而且，这种写法阅读起来有点让人费解。
+
+---
+
+## 有朋友说文章内容不太容易看懂，我补充两张图帮助理解一下
+
+C# 8.0之前：
+
+![null forgiving operator 1](/assets/images/202101/null-forgiving-operator-1.png)
+
+C# 8.0之后：
+
+![null forgiving operator 2](/assets/images/202101/null-forgiving-operator-1.png)
 
 ---
 
