@@ -81,7 +81,9 @@ Think of the DLR as supporting three primary services:
 - 调用站点缓存，即缓存动态操作的结果。DLR 缓存 `a + b` 之类的操作，并存储 `a` 和 `b` 的特征。当执行动态操作时，DLR 将检索先前操作中可用的信息。
 - 动态对象互操作性是可用于访问 DLR 的 C# 类型。这些类型包括 `DynamicObject` 和 `ExpandoObject`。可用的类型还有很多，但是在使用动态类型时请注意这两种类型。
 
+要了解 DLR 和 CLR 是如何结合在一起的，请看下图：
 
+![how the DLR and CLR fit together](/assets/images/202101/dlr-clr-fit.png)
 
 <br />
 
