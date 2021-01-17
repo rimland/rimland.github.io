@@ -74,6 +74,13 @@ For C#, this enables working with libraries where types aren’t known at compil
 
 对于 C#，这允许您可以使用在编译时不知道类型的库。动态类型消除了自然 API 代码中的万能字符串。这就开启了像 IronPython 一样位于 CLR 之上的动态语言。
 
+将DLR视为支持三项主要服务：
+Think of the DLR as supporting three primary services:
+
+- 表达式树，来自 System.Linq.Expressions 命名空间。编译器在运行时生成具有动态语言互操作性的表达式树。动态语言不在本文的讨论范围之内，因此在此不再赘述。
+- 调用站点缓存，即缓存动态操作的结果。DLR 缓存 `a + b` 之类的操作，并存储 `a` 和 `b` 的特征。当执行动态操作时，DLR 将检索先前操作中可用的信息。
+- 动态对象互操作性是可用于访问 DLR 的 C# 类型。这些类型包括 `DynamicObject` 和 `ExpandoObject`。可用的类型还有很多，但是在使用动态类型时请注意这两种类型。
+
 
 
 <br />
