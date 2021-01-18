@@ -369,9 +369,9 @@ public void SendsWithDynamicObject()
 
 <!-- Using C# generics, you can swap dynamic types for the serializer while reusing code. The Callback method in Moq allows you to make the necessary hop between type systems. Having an elegant type hierarchy with a common parent turns to be a lifesaver. -->
 
-使用 C# 泛型，您可以在重用代码的同时替换序列化程序的动态类型。Moq 中的 `Callback` 方法使您可以在类型系统之间进行必要的转换。拥有一个优雅的类型层次结构和一个共同的父类将会是一个救星。
+使用 C# 泛型，您可以在重用代码的同时转换序列化程序的动态类型。Moq 中的 `Callback` 方法允许您在两种类型系统之间进行必要的跳转。拥有一个优雅的类型层次结构和一个共同的父类成为了一个救星。
 
-## Using Statements 引用语句
+## Using 语句
 
 下面的 using 语句是代码示例的一部分：
 
@@ -386,7 +386,7 @@ public void SendsWithDynamicObject()
 
 <!-- The C# dynamic type may seem scary at first but has benefits on top of a strongly typed system. The DLR is where all dynamic operations occur and interoperate with the CLR. Type inheritance makes it easy to work with both type systems at the same time. In C#, there is no animosity between dynamic and static programming. Both type systems work together to solve dynamic problems in a creative way. -->
 
-C# 动态类型或许看起来令人望而生畏，但它在强类型系统之上具有很多好处。DLR 是所有动态操作发生和与 CLR 交互的地方，类型继承使同时使用这两个类型系统变得容易。在 C# 中，动态和静态编程之间并没有对立，这两种类型的系统一起工作，以创造性的方式解决动态问题。
+C# 动态类型或许看起来令人望而生畏，但它在强类型系统之上具有很多好处。DLR 是所有动态操作发生和与 CLR 交互的地方，类型继承使同时处理这两个类型系统变得容易。在 C# 中，动态和静态编程之间并没有对立，这两种类型系统一起工作，以创造性的方式解决动态问题。
 
 <br />
 
