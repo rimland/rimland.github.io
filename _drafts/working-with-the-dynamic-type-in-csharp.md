@@ -323,9 +323,13 @@ dynamic message = null;
 _messageBus.Setup(m => m.Send(It.IsAny<ExpandoObject>())).Callback<object>(o => message = o);
 ```
 
-Note the callback gets typed to a System.Object. Because all types inherit from the object type, you’re able to make the assignment into a dynamic type. C# can unbox the object inside the lambda expression into a dynamic message.
+<!-- Note the callback gets typed to a System.Object. Because all types inherit from the object type, you’re able to make the assignment into a dynamic type. C# can unbox the object inside the lambda expression into a dynamic message. -->
 
-Time to write a nice unit test for the ExpandoObject type. Use xUnit as the testing framework, so you’ll see the method with a Fact attribute.
+注意，回调函数被类型化为 `System.Object`。因为所有类型都继承自 `object` 类型，所以可以将其赋值为动态类型。C# 可以将 lambda 表达式中的对象拆箱成动态消息。
+
+<!-- Time to write a nice unit test for the ExpandoObject type. Use xUnit as the testing framework, so you’ll see the method with a Fact attribute. -->
+
+是时候为 `ExpandoObject` 类型编写一个漂亮的单元测试了。使用 xUnit 作为测试框架，您将看到带有 Fact 属性的方法。
 
 ```csharp
 [Fact]
@@ -335,8 +339,7 @@ public void SendsWithExpandoObject()
     const string json = "{\"a\":1}";
     dynamic message = null;
 
-    _messageBus.Setup(m => m.Send(It.IsAny<ExpandoObject>()))
-        .Callback<object>(o => message = o);
+    _messageBus.Setup(m => m.Send(It.IsAny<ExpandoObject>())).Callback<object>(o => message = o);
 
     // act
     _service.SendRawJson<ExpandoObject>(json);
@@ -347,7 +350,8 @@ public void SendsWithExpandoObject()
 }
 ```
 
-Test with a DynamicObject type, reusing the TypedDymaicJson that you’ve seen before:
+<!-- Test with a DynamicObject type, reusing the TypedDymaicJson that you’ve seen before: -->
+使用 `DynamicObject` 类型进行测试，重用您之前看到的 `TypedDynamicJson`：
 
 ```csharp
 [Fact]
@@ -357,8 +361,7 @@ public void SendsWithDynamicObject()
     const string json = "{\"a\":1,\"b\":\"1\"}";
     dynamic message = null;
 
-    _messageBus.Setup(m => m.Send(It.IsAny<TypedDynamicJson<long>>()))
-        .Callback<object>(o => message = o);
+    _messageBus.Setup(m => m.Send(It.IsAny<TypedDynamicJson<long>>())).Callback<object>(o => message = o);
 
     // act
     _service.SendRawJson<TypedDynamicJson<long>>(json);
