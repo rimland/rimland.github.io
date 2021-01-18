@@ -74,7 +74,7 @@ For C#, this enables working with libraries where types aren’t known at compil
 
 对于 C#，这允许您可以使用在编译时不知道类型的库。动态类型消除了自然 API 代码中的万能字符串。这就开启了像 IronPython 一样位于 CLR 之上的动态语言。
 
-将DLR视为支持三项主要服务：
+将 DLR 视为支持三项主要服务：
 Think of the DLR as supporting three primary services:
 
 - 表达式树，来自 System.Linq.Expressions 命名空间。编译器在运行时生成具有动态语言互操作性的表达式树。动态语言不在本文的讨论范围之内，因此在此不再赘述。
@@ -379,15 +379,14 @@ public void SendsWithDynamicObject()
 
 ## Using Statements 引用语句
 
-<!-- The following using statements are part of the code samples: -->
 下面的 using 语句是代码示例的一部分：
 
-- System: CLR’s base types such as Object and Console
-- System.Collections.Generic: Enumerable types such as IDictionary
-- System.Dynamic: DLR’s dynamic types such as ExpandoObject and DynamicObject
-- Newtonsonft.Json: JSON serializer
-- Moq: Mocking library
-- Xunit: Testing framework
+- System: CLR 的基础类型，例如 Object 和 Console
+- System.Collections.Generic: 可枚举类型，例如 IDictionary
+- System.Dynamic: DLR 的动态类型，例如 ExpandoObject 和 DynamicObject
+- Newtonsonft.Json: JSON 序列化程序
+- Moq: 模拟库
+- Xunit: 测试框架
 
 ## Conclusion
 
