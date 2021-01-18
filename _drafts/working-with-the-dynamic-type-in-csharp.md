@@ -141,17 +141,15 @@ foreach (var exObjProp in exObj as IDictionary<string, object> ?? new Dictionary
 
 ## DynamicObject 动态类型
 
-<!-- DynamicObject offers precise control over the dynamic type. You inherit from this type and override dynamic behavior. For example, you can define how to set and get dynamic members in the type. The DynamicObject lets you choose which dynamic operations to implement through overrides. This grants easier access than a language implementer which implements the IDynamicMetaObjectProvider. It is an abstract class, so it inherits from this instead of instantiating it. This class has 14 virtual methods which define dynamic operations on the type. Each virtual method allows overrides that specify dynamic behavior. -->
-
-`DynamicObject` 提供对动态类型的精确控制。您从该类型继承并重写动态行为。例如，您可以定义如何设置和获取类型中的动态成员。`DynamicObject` 允许您通过重写选择实现哪些动态操作。这比实现 `IDynamicMetaObjectProvider` 的语言实现方式更容易访问。它是一个抽象类，需要继承它而不是实例化它。该类有 14 个虚方法，它们定义了类型的动态操作。每个虚方法都允许重写以指定动态行为。
+`DynamicObject` 提供对动态类型的精确控制。您可以继承该类型并重写动态行为。例如，您可以定义如何设置和获取类型中的动态成员。`DynamicObject` 允许您通过重写选择实现哪些动态操作。这比实现 `IDynamicMetaObjectProvider` 的语言实现方式更容易访问。它是一个抽象类，需要继承它而不是实例化它。该类有 14 个虚方法，它们定义了类型的动态操作。每个虚方法都允许重写以指定动态行为。
 
 <!-- Say you want precise control over what gets into the dynamic JSON. Although you do not know the properties ahead of time, with a DynamicObject, you get control over the type. -->
 
-假设您想要精确控制动态 JSON 中的内容。尽管事先不知道其属性，但是使用 `DynamicObject` 您可以控制类型。
+假设您想要精确控制动态 JSON 中的内容。尽管事先不知道其属性，您却可以使用 `DynamicObject` 来控制类型。
 
-Let’s override three methods, TryGetMember, TrySetMember, and GetDynamicMemberNames:
+<!-- Let’s override three methods, TryGetMember, TrySetMember, and GetDynamicMemberNames: -->
 
-我们来重写三个方法，`TryGetMember`、`TrySetMember` 和 `GetDynamicMemberNames`：
+让我们来重写三个方法，`TryGetMember`、`TrySetMember` 和 `GetDynamicMemberNames`：
 
 ```csharp
 public class TypedDynamicJson<T> : DynamicObject
@@ -200,7 +198,7 @@ public class TypedDynamicJson<T> : DynamicObject
 
 <!-- C# generics strong type the _typedProperty in a generic way which drives member types. This means the property type comes from the T generic type. Dynamic JSON members are inside a dictionary and only store the generic type. This dynamic type allows for a homogeneous set of members of the same type. Although it allows a dynamic set of members, you can strongly type the behavior. Say you only care about long types from an arbitrary JSON: -->
 
-C# 泛型强类型 `_typedProperty` 以泛型的方式驱动成员类型。这意味着其属性类型来自泛型类型 `T`。动态 JSON 成员位于字典中，并且仅存储泛型类型。此动态类型允许相同类型的同类成员集合。尽管它允许动态成员集，但您可以强类型约束其行为。假设您只关心任意 JSON 中的 `long` 类型：
+C# 泛型强类型 `_typedProperty` 以泛型的方式驱动成员类型。这意味着其属性类型来自泛型类型 `T`。动态 JSON 成员位于字典中，并且仅存储泛型类型。此动态类型允许同一类型的同类成员集合。尽管它允许动态成员集，但您可以强类型约束其行为。假设您只关心任意 JSON 中的 `long` 类型：
 
 ```csharp
 var dynObj = JsonConvert.DeserializeObject<TypedDynamicJson<long>>("{\"a\":1,\"b\":\"1\"}") as dynamic;
@@ -210,7 +208,7 @@ var members = string.Join(",", dynObj?.GetDynamicMemberNames());
 Console.WriteLine($"dynObj member names: {members}");
 ```
 
-结果，您将看到一个值为 `1` 的属性，因为第二个属性是 `string` 类型。如果将泛型类型更改为 `string`，将会获得第二个属性。
+结果是，您将看到一个值为 `1` 的属性，因为第二个属性是 `string` 类型。如果将泛型类型更改为 `string`，将会获得第二个属性。
 
 ## 类型结果
 
@@ -221,18 +219,18 @@ The DLR is where all dynamic operations take place
 ExpandoObject implements enumerable types from the CLR such as IDictionary
 DynamicObject has precise control over the dynamic type through virtual methods -->
 
-到目前为止，已经涉及了相当多的领域了; 以下是一些亮点：
+到目前为止，已经涉及了相当多的领域; 以下是一些亮点：
 
-- CLR 和 DLR 的所有类型都继承自 `System.Object`
+- CLR 和 DLR 中的所有类型都继承自 `System.Object`
 - DLR 是所有动态操作发生的地方
-- `ExpandoObject` 实现了 CLR 中的可枚举类型，例如 `IDictionary`
-- `DynamicObject` 通过虚拟方法对动态类型进行精确控制
+- `ExpandoObject` 实现了 CLR 中诸如 `IDictionary` 的可枚举类型
+- `DynamicObject` 通过虚方法对动态类型进行精确控制
 
-看一看在控制台捕获的结果：
+看一下在控制台捕获的结果：
 
 ![dynamic type results](/assets/images/202101/dynamic-type-results.png)
 
-## 单元测试
+## 可能的单元测试
 
 <!-- For unit tests, I’ll use the xUnit test framework. In .NET Core, you add a test project with the dotnet new xunit command. One problem that becomes evident is mocking and verifying dynamic parameters. For example, say you want to verify that a method call exists with dynamic properties. -->
 
@@ -274,11 +272,11 @@ public class MessageService
 }
 ```
 
-You can make use of generics, so you can pass in the dynamic type for the serializer. Then call the IMessageBus and send the dynamic message. The method under test takes a string parameter and makes a call with a dynamic type.
+<!-- You can make use of generics, so you can pass in the dynamic type for the serializer. Then call the IMessageBus and send the dynamic message. The method under test takes a string parameter and makes a call with a dynamic type. -->
 
 您可以使用泛型，这样就可以为序列化程序传入动态类型。然后调用 `IMessageBus` 并发送动态消息。被测试的方法接受一个 `string` 参数，并使用动态类型进行调用。
 
-对于单元测试，请将其封装在 `MessageServiceTests` 类中。首先初始化 Mock 和被测服务：
+对于单元测试，请将其封装在 `MessageServiceTests` 类中。首先初始化 Mock 和被测试的服务：
 
 ```csharp
 public class MessageServiceTests
@@ -295,7 +293,7 @@ public class MessageServiceTests
 }
 ```
 
-The IMessageBus gets mocked using a C# generic in the Moq library. Then create a mock instance using the Object property. The private instance variables are useful inside all unit tests. Private instances with high reusability add class cohesion.
+<!-- The IMessageBus gets mocked using a C# generic in the Moq library. Then create a mock instance using the Object property. The private instance variables are useful inside all unit tests. Private instances with high reusability add class cohesion. -->
 
 使用 Moq 库中的 C# 泛型来模拟 `IMessageBus`，然后使用 `Object` 属性创建一个模拟实例。私有实例变量在所有单元测试中都很有用。具有高可重用性的私有实例增加了类的内聚性。
 
@@ -305,11 +303,11 @@ The IMessageBus gets mocked using a C# generic in the Moq library. Then create a
 _messageBus.Verify(m => m.Send(It.Is<ExpandoObject>(o => o != null && (o as dynamic).a == 1)));
 ```
 
-But alas, the error message you’ll see is this: “An expression tree may not contain a dynamic operation.” This is because C# lambda expressions do not have access to the DLR. It expects a type from the CLR which makes this dynamic parameter hard to verify. Remember your training and tap into your “code-sense” to solve this problem.
+<!-- But alas, the error message you’ll see is this: “An expression tree may not contain a dynamic operation.” This is because C# lambda expressions do not have access to the DLR. It expects a type from the CLR which makes this dynamic parameter hard to verify. Remember your training and tap into your “code-sense” to solve this problem. -->
 
-但是，遗憾的是，您将看到这样的错误消息：“表达式树不能包含动态操作。” 这是因为 C# lambda 表达式无法访问 DLR。它期望一个来自 CLR 的类型，这使得此动态参数难以验证。记得您的训练，利用您的“代码感”来解决这个问题。
+但是，遗憾的是，您将看到这样的错误消息：“表达式树不能包含动态操作。” 这是因为 C# lambda 表达式无法访问 DLR，它期望一个来自 CLR 的类型，这使得此动态参数难以验证。记得您的训练，利用您的“代码感”来解决这个问题。
 
-To navigate around what seems like a discrepancy between types, use a Callback method:
+<!-- To navigate around what seems like a discrepancy between types, use a Callback method: -->
 
 要处理类型之间的差异，请使用 `Callback` 方法：
 
@@ -321,11 +319,11 @@ _messageBus.Setup(m => m.Send(It.IsAny<ExpandoObject>())).Callback<object>(o => 
 
 <!-- Note the callback gets typed to a System.Object. Because all types inherit from the object type, you’re able to make the assignment into a dynamic type. C# can unbox the object inside the lambda expression into a dynamic message. -->
 
-注意，回调函数被类型化为 `System.Object`。因为所有类型都继承自 `object` 类型，所以可以将其赋值为动态类型。C# 可以将 lambda 表达式中的对象拆箱成动态消息。
+请注意，回调函数将类型转换为 `System.Object`。因为所有类型都继承自 `object` 类型，所以可以将其赋值为 `dynamic` 类型。C# 可以将 lambda 表达式中的 `object` 拆箱成 `dynamic message`。
 
 <!-- Time to write a nice unit test for the ExpandoObject type. Use xUnit as the testing framework, so you’ll see the method with a Fact attribute. -->
 
-是时候为 `ExpandoObject` 类型编写一个漂亮的单元测试了。使用 xUnit 作为测试框架，您将看到带有 Fact 属性的方法。
+是时候为 `ExpandoObject` 类型编写一个漂亮的单元测试了。使用 xUnit 作为测试框架，您将看到带有 `Fact` 属性的方法。
 
 ```csharp
 [Fact]
