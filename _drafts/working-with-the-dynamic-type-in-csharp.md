@@ -16,15 +16,15 @@ published: true
 
 动态编程可能使您面临运行时错误。声明一个在执行过程中会发生变化的动态变量是可怕的，当开发人员对数据做出错误的假设时，代码质量就会受到影响。
 
-对 C# 程序员来说，避免代码中的动态行为是合乎逻辑的。具有强类型的经典方法有很多好处。通过类型检查得到的数据类型的良好反馈对于正常运行的程序是至关重要的。一个好的类型系统可以传达意图并减少代码中的歧义。
+对 C# 程序员来说，避免代码中的动态行为是合乎逻辑的。具有强类型的经典方法有很多好处。通过类型检查得到的数据类型的良好反馈对于正常运行的程序是至关重要的。一个好的类型系统可以更好地表达意图并减少代码中的歧义。
 
-随着动态语言运行时（Dynamic Language Runtime，DLR）的引入，这对 C# 意味着什么呢？ .NET 提供了丰富的类型系统，可用于编写企业级软件。让我们仔细看看 `dynamic` 关键字，并探索一下它的功能。
+随着动态语言运行时（Dynamic Language Runtime，DLR）的引入，这对 C# 意味着什么呢？ .NET 提供了丰富的类型系统，可用于编写企业级软件。让我们来仔细看看 `dynamic` 关键字，并探索一下它的功能。
 
 ## 类型层次结构
 
 <!-- Every type in the Common Language Runtime (CLR) inherits from System.Object. Now, read that last sentence again until you internalize this. This means the object type is the common parent to the entire type system. This fact alone aids us when we get to more exotic dynamic behavior. The idea here is to develop this ‘code-sense’, so you know how to navigate around dynamic types in C#. -->
 
-公共语言运行时（Common Language Runtime，CLR）中的每种类型都继承自 `System.Object`。 现在，再次阅读最后一句话，直到将其铭记于心。这意味着 `object` 类型是整个类型系统的公共父类。当我们研究更神奇的动态行为时，这一事实本身就能为我们提供帮助。这里的想法是开发这种“代码感”，这样您就会知道如何驾驭 C# 中的动态类型。
+公共语言运行时（Common Language Runtime，CLR）中的每种类型都继承自 `System.Object`，现在，请重复阅读这句话，直到将其铭记于心。这意味着 `object` 类型是整个类型系统的公共父类。当我们研究更神奇的动态行为时，这一事实本身就能为我们提供帮助。这里的想法是开发这种“代码感”，以便于您了解如何驾驭 C# 中的动态类型。
 
 为了演示这一点，你可以编写以下程序：
 
@@ -34,19 +34,19 @@ Console.WriteLine("long inherits from ValueType: " + typeof(long).IsSubclassOf(t
 
 <!-- I will omit using statements until the end of this article to keep code samples focused. Then, I will go over each namespace and what it does. This keeps me from having to repeat myself and provides an opportunity to review all types. -->
 
-我将忽略 `using` 语句直到本文结束，以保持对代码示例的专注。然后，我将介绍每个命名空间及其作用。这使我不必重复自己，并提供了一个回顾所有类型的机会。
+我将忽略 `using` 语句直到本文结束，以保持对代码示例的专注。然后，我再介绍每个命名空间及其作用。这样我就不必重复说过的话，并提供了一个回顾所有类型的机会。
 
 <!-- The code above evaluates to True inside the console. The long type in .NET is a value type, so it’s more like an enumeration or a struct. The ValueType overrides the default behavior that comes from the object class. ValueType descendants go on the stack which have a short lifetime and are more efficient. -->
 
-上面的代码在控制台中的运算结果为 `True`。.NET 中的 `long` 类型是值类型，因此它更像是枚举或结构体。`ValueType` 覆盖来自 `object` 类的默认行为。`ValueType` 的子类在栈（stack）上运行，它们的生命周期较短，效率更高。
+上面的代码在控制台中的运算结果为 `True`。.NET 中的 `long` 类型是值类型，因此它更像是枚举或结构体。`ValueType` 重写来自 `object` 类的默认行为。`ValueType` 的子类在栈（stack）上运行，它们的生命周期较短，效率更高。
 
-要验证 `ValueType` 是继承 `System.Object` 的，请执行以下代码：
+要验证 `ValueType` 是继承自 `System.Object` 的，请执行以下代码：
 
 ```csharp
 Console.WriteLine("ValueType inherits from System.Object: " + typeof(ValueType).IsSubclassOf(typeof(Object)));
 ```
 
-它的运算结果为 `True`。这是一个可以追溯到 `System.Object` 的继承链。对于值类型，链中至少有两个父级。
+它的运算结果为 `True`。这是一条可以追溯到 `System.Object` 的继承链。对于值类型，链中至少有两个父级。
 
 看一下从 `System.Object` 派生的另一种 C# 类型，例如：
 
@@ -68,26 +68,23 @@ Both value and reference types are the basic building blocks of the CLR. This el
 
 ## 动态语言运行时（DLR）
 
-动态语言运行时（DLR）是使用动态对象的便捷方法。例如，假设您有 XML 或 JSON 格式的数据，其中的成员事先并不知道。DLR 允许您使用自然代码来处理对象和访问成员。
+动态语言运行时（Dynamic Language Runtime, DLR）是处理动态对象的一种便捷方法。比如，假设您有 XML 或 JSON 格式的数据，其中的成员事先并不知道。DLR 允许您使用自然代码来处理对象和访问成员。
 
-For C#, this enables working with libraries where types aren’t known at compile time. A dynamic type eliminates magic strings in code for a natural API. This unlocks dynamic languages that sit on top of the CLR such as IronPython.
+对于 C#，这允许您可以使用在编译时不知道其类型的库。动态类型消除了自然 API 代码中的万能字符串。这就开启了像 IronPython 一样位于 CLR 之上的动态语言。
 
-对于 C#，这允许您可以使用在编译时不知道类型的库。动态类型消除了自然 API 代码中的万能字符串。这就开启了像 IronPython 一样位于 CLR 之上的动态语言。
+可以将 DLR 视为支持三项主要服务：
 
-将 DLR 视为支持三项主要服务：
-Think of the DLR as supporting three primary services:
-
-- 表达式树，来自 System.Linq.Expressions 命名空间。编译器在运行时生成具有动态语言互操作性的表达式树。动态语言不在本文的讨论范围之内，因此在此不再赘述。
-- 调用站点缓存，即缓存动态操作的结果。DLR 缓存 `a + b` 之类的操作，并存储 `a` 和 `b` 的特征。当执行动态操作时，DLR 将检索先前操作中可用的信息。
+- 表达式树，来自 System.Linq.Expressions 命名空间。编译器在运行时生成具有动态语言互操作性的表达式树。动态语言超出了本文的讨论范围，这里就不介绍它们了。
+- 调用站点缓存，即缓存动态操作的结果。DLR 缓存像 `a + b` 之类的操作，并存储 `a` 和 `b` 的特征。当执行动态操作时，DLR 将检索先前操作中可用的信息。
 - 动态对象互操作性是可用于访问 DLR 的 C# 类型。这些类型包括 `DynamicObject` 和 `ExpandoObject`。可用的类型还有很多，但是在使用动态类型时请注意这两种类型。
 
 要了解 DLR 和 CLR 是如何结合在一起的，请看下图：
 
 ![how the DLR and CLR fit together](/assets/images/202101/dlr-clr-fit.png)
 
-The DLR sits on top of the CLR. Recall that I said every type descends from System.Object. Well, I did scope it to the CLR but what about the DLR? Test this theory with this program:
+<!-- The DLR sits on top of the CLR. Recall that I said every type descends from System.Object. Well, I did scope it to the CLR but what about the DLR? Test this theory with this program: -->
 
-DLR 位于 CLR 之上。回想一下，我说过*每种类型都是从 `System.Object` 派生的*。呃，这句话对于 CLR 是适用的，但是对于 DLR 呢？我们使用下面的程序来测试一下这个推测：
+DLR 位于 CLR 之上。回想一下，我说过的*每种类型都是从 `System.Object` 派生的而来*。嗯，这句话对于 CLR 是适用的，但是对于 DLR 呢？我们使用下面的程序来测试一下这个理论：
 
 ```csharp
 Console.WriteLine("ExpandoObject inherits from System.Object: " + typeof(ExpandoObject).IsSubclassOf(typeof(Object)));
@@ -95,11 +92,11 @@ Console.WriteLine("ExpandoObject inherits from System.Object: " + typeof(Expando
 Console.WriteLine("DynamicObject inherits from System.Object: " + typeof(DynamicObject).IsSubclassOf(typeof(Object)));
 ```
 
-`ExpandoObject` and `DynamicObject` 在命令行中输出的值都是 `True`。可以将这两个类视作使用动态类型的基本构建块，它们清楚地描绘了两个运行时是如何结合在一起的。
+`ExpandoObject` 和 `DynamicObject` 在命令行中输出的值都是 `True`。可以将这两个类视为使用动态类型的基本构建块，它们清楚地描绘了两个运行时是如何结合在一起的。
 
-## 一个 JSON Serializer
+## 一个 JSON 序列化程序
 
-动态类型解决的一个问题是，当您有一个不知道其成员的 JSON HTTP 请求时，假设要在 C# 中使用此随机的 JSON。要解决这个问题，可以将此 JSON 序列化为 C# 动态类型。
+动态类型解决的一个问题是，当您有一个不知道其成员的 JSON HTTP 请求时，假设要在 C# 中使用此任意的 JSON。要解决这个问题，请将此 JSON 序列化为 C# 动态类型。
 
 <!-- I’ll use the Newtonsoft serializer, you can add this dependency through NuGet, for example: -->
 
@@ -111,13 +108,13 @@ dotnet add package Newtonsoft.Json –-version 11.0.2
 
 <!-- You can use this serializer to work with both ExpandoObject and DynamicObject. Explore what each dynamic type brings to dynamic programming. -->
 
-您可以使用这个序列化程序来处理 `ExpandoObject` 和 `DynamicObject`。探索每种动态类型为动态编程带来的好处。
+您可以使用这个序列化程序来处理 `ExpandoObject` 和 `DynamicObject`。探索每种动态类型给动态编程带来了什么。
 
 ## ExpandoObject 动态类型
 
 <!-- The ExpandoObject is a convenience type that allows setting and retrieving dynamic members. It implements IDynamicMetaObjectProvider which enables sharing instances between languages in the DLR. Because it implements IDictionary and IEnumerable, it works with types from the CLR. This allows an instance of the ExpandoObject to cast to IDictionary, for example. Then enumerate members like any other IDictionary type. -->
 
-`ExpandoObject` 是一种方便的类型，允许设置和检索动态成员。它实现了 `IDynamicMetaObjectProvider`，该接口允许在 DLR 中的语言之间共享实例。因为它实现了 `IDictionary` 和 `IEnumerable`，所以它可以处理 CLR 中的类型。比如，它允许将 `ExpandoObject` 的实例转换为 `IDictionary`，然后像其它任意的 `IDictionary` 类型一样枚举成员。
+`ExpandoObject` 是一种方便的类型，允许设置和检索动态成员。它实现了 `IDynamicMetaObjectProvider`，该接口允许在 DLR 中的语言之间共享实例。因为它实现了 `IDictionary` 和 `IEnumerable`，所以它也可以处理 CLR 中的类型。举例而言，它允许将 `ExpandoObject` 的实例转换为 `IDictionary`，然后像其它任意的 `IDictionary` 类型一样枚举成员。
 
 要用 `ExpandoObject` 处理任意 JSON，您可以编写以下程序：
 
@@ -125,13 +122,12 @@ dotnet add package Newtonsoft.Json –-version 11.0.2
 var exObj = JsonConvert.DeserializeObject<ExpandoObject>("{\"a\":1}") as dynamic;
 
 Console.WriteLine($"exObj.a = {exObj?.a}, type of {exObj?.a.GetType()}");
-
 //exObj.a = 1, type of System.Int64
 ```
 
-它将会在控制台打印 `1` 和 `long`。请注意，尽管它是一个动态 JSON，但它会绑定到 CLR 中的 C# 类型。由于数字的类型未知，因此序列化程序默认会选择最大的 `long` 类型。注意，我成功地将序列化结果转换成了具有 null 检查的 `dynamic` 类型，其原因是序列化程序从 CLR 返回对象类型。因为 `ExpandoObject` 继承自 `System.Object`，可以将其拆箱成 DLR 类型。
+它将会在控制台打印 `1` 和 `long`。请注意，尽管它是一个动态 JSON，但它会绑定到 CLR 中的 C# 类型。由于数字的类型未知，因此序列化程序默认会选择最大的 `long` 类型。注意，我成功地将序列化结果转换成了具有 null 检查的 `dynamic` 类型，其原因是序列化程序返回来自 CLR 的 `object` 类型。因为 `ExpandoObject` 继承自 `System.Object`，所以可以被拆箱成 DLR 类型。
 
-更奇妙的是，用 `IDictionary` 枚举 `exObj`：
+更奇妙的是，可以用 `IDictionary` 枚举 `exObj`：
 
 ```csharp
 foreach (var exObjProp in exObj as IDictionary<string, object> ?? new Dictionary<string, object>())
@@ -140,8 +136,8 @@ foreach (var exObjProp in exObj as IDictionary<string, object> ?? new Dictionary
 }
 ```
 
-它在控制台输出 `IDictionary = a: 1`。请确保使用 `string` 和 `object` 作为键和值类型。
-否则，它将在转换过程中抛出 `RuntimeBinderException` 异常。
+它在控制台输出 `IDictionary = a: 1`。请确保使用 `string` 和 `object` 作为键和值的类型。
+否则，将在转换的过程中抛出 `RuntimeBinderException` 异常。
 
 ## DynamicObject 动态类型
 
