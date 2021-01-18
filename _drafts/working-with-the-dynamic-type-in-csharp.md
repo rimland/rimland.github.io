@@ -393,7 +393,7 @@ public void SendsWithDynamicObject()
 
 <!-- The C# dynamic type may seem scary at first but has benefits on top of a strongly typed system. The DLR is where all dynamic operations occur and interoperate with the CLR. Type inheritance makes it easy to work with both type systems at the same time. In C#, there is no animosity between dynamic and static programming. Both type systems work together to solve dynamic problems in a creative way. -->
 
-C# 动态类型或许看起来令人望而生畏，但在强类型系统之上具有很多好处。DLR 是所有动态操作发生和与 CLR 交互的地方。类型继承使同时使用这两个类型系统变得容易。在 C# 中，动态和静态编程之间没有对立。这两种类型的系统一起工作，以创造性的方式解决动态问题。
+C# 动态类型或许看起来令人望而生畏，但它在强类型系统之上具有很多好处。DLR 是所有动态操作发生和与 CLR 交互的地方，类型继承使同时使用这两个类型系统变得容易。在 C# 中，动态和静态编程之间并没有对立，这两种类型的系统一起工作，以创造性的方式解决动态问题。
 
 <br />
 
