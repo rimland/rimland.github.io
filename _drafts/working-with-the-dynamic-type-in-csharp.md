@@ -48,7 +48,7 @@ Console.WriteLine("ValueType inherits from System.Object: " + typeof(ValueType).
 
 它的运算结果为 `True`。这是一条可以追溯到 `System.Object` 的继承链。对于值类型，链中至少有两个父级。
 
-看一下从 `System.Object` 派生的另一个 C# 类型，例如：
+再看一下从 `System.Object` 派生的另一个 C# 类型，例如：
 
 ```csharp
 Console.WriteLine("string inherits from System.Object: " + typeof(string).IsSubclassOf(typeof(Object)));
@@ -56,7 +56,7 @@ Console.WriteLine("string inherits from System.Object: " + typeof(string).IsSubc
 
 <!-- This code spits out True in the console. Another type that inherits from the object are reference types. Reference types get allocated on the heap and undergo garbage collection. The CLR manages reference types and deallocates them from the heap when necessary. -->
 
-此代码在控制台中显示 `True`。从 `object` 继承的另一种类型是引用类型。引用类型在堆（heap）上分配并进行垃圾回收。CLR 管理着引用类型，并在必要时从堆中释放它们。
+此代码在控制台中显示为 `True`。另一种从 `object` 继承的类型是引用类型，引用类型在堆（heap）上分配并进行垃圾回收，CLR 管理着引用类型，并在必要时从堆中释放它们。
 
 查看下图，您可以直观地看到 CLR 的类型系统：
 
@@ -64,17 +64,17 @@ Console.WriteLine("string inherits from System.Object: " + typeof(string).IsSubc
 <!-- 
 Both value and reference types are the basic building blocks of the CLR. This elegant type system predates both .NET 4.0 and dynamic types. I recommend keeping this figure in your mind’s eye when you work with types in C#. So how does the DLR fit into this picture? -->
 
-值类型和引用类型都是 CLR 的基本构建块。这种优雅的类型系统在 .NET 4.0 和动态类型之前就有了。我建议您在使用 C# 中的类型时，在脑海中记住这张图。那么，DLR 是如何适应这张图的呢?
+值类型和引用类型都是 CLR 的基本构建块，这种优雅的类型系统在 .NET 4.0 和动态类型之前就有了。我建议您在使用 C# 中的类型时，在脑海中记住这张图。那么，DLR 是如何适应这张图的呢?
 
 ## 动态语言运行时（DLR）
 
 动态语言运行时（Dynamic Language Runtime, DLR）是处理动态对象的一种便捷方法。比如，假设您有 XML 或 JSON 格式的数据，其中的成员事先并不知道。DLR 允许您使用自然代码来处理对象和访问成员。
 
-对于 C#，这允许您可以使用在编译时不知道其类型的库。动态类型消除了自然 API 代码中的万能字符串。这就开启了像 IronPython 一样位于 CLR 之上的动态语言。
+对于 C#，这使您可以处理在编译时不知道其类型的库。动态类型消除了自然 API 代码中的万能字符串。这就开启了像 IronPython 一样位于 CLR 之上的动态语言。
 
 可以将 DLR 视为支持三项主要服务：
 
-- 表达式树，来自 System.Linq.Expressions 命名空间。编译器在运行时生成具有动态语言互操作性的表达式树。动态语言超出了本文的讨论范围，这里就不介绍它们了。
+- 表达式树，来自 System.Linq.Expressions 命名空间。编译器在运行时生成具有动态语言互操作性的表达式树。动态语言超出了本文的讨论范围，这里就不作介绍了。
 - 调用站点缓存，即缓存动态操作的结果。DLR 缓存像 `a + b` 之类的操作，并存储 `a` 和 `b` 的特征。当执行动态操作时，DLR 将检索先前操作中可用的信息。
 - 动态对象互操作性是可用于访问 DLR 的 C# 类型。这些类型包括 `DynamicObject` 和 `ExpandoObject`。可用的类型还有很多，但是在使用动态类型时请注意这两种类型。
 
