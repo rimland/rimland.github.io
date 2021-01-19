@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "C# 中的动态类型"
-date:   2020-08-10 00:10:00 +0800
+date:   2021-01-20 00:10:00 +0800
 categories: dotnet csharp
 published: true
 ---
