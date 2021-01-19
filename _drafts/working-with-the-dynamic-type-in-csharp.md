@@ -76,7 +76,7 @@ Both value and reference types are the basic building blocks of the CLR. This el
 
 - 表达式树，来自 System.Linq.Expressions 命名空间。编译器在运行时生成具有动态语言互操作性的表达式树。动态语言超出了本文的讨论范围，这里就不作介绍了。
 - 调用站点缓存，即缓存动态操作的结果。DLR 缓存像 `a + b` 之类的操作，并存储 `a` 和 `b` 的特征。当执行动态操作时，DLR 将检索先前操作中可用的信息。
-- 动态对象互操作性是可用于访问 DLR 的 C# 类型。这些类型包括 `DynamicObject` 和 `ExpandoObject`。可用的类型还有很多，但是在使用动态类型时请注意这两种类型。
+- 动态对象互操作性是可用于访问 DLR 的 C# 类型。这些类型包括 `DynamicObject` 和 `ExpandoObject`。可用的类型还有很多，但是在处理动态类型时请注意这两种类型。
 
 要了解 DLR 和 CLR 是如何结合在一起的，请看下图：
 
@@ -84,7 +84,7 @@ Both value and reference types are the basic building blocks of the CLR. This el
 
 <!-- The DLR sits on top of the CLR. Recall that I said every type descends from System.Object. Well, I did scope it to the CLR but what about the DLR? Test this theory with this program: -->
 
-DLR 位于 CLR 之上。回想一下，我说过的*每种类型都是从 `System.Object` 派生的而来*。嗯，这句话对于 CLR 是适用的，但是对于 DLR 呢？我们使用下面的程序来测试一下这个理论：
+DLR 位于 CLR 之上。回想一下，我说过的*每种类型都是从 `System.Object` 派生而来的*。嗯，这句话对于 CLR 是适用的，但是对于 DLR 呢？我们使用下面的程序来测试一下这个理论：
 
 ```csharp
 Console.WriteLine("ExpandoObject inherits from System.Object: " + typeof(ExpandoObject).IsSubclassOf(typeof(Object)));
@@ -114,7 +114,7 @@ dotnet add package Newtonsoft.Json –-version 11.0.2
 
 <!-- The ExpandoObject is a convenience type that allows setting and retrieving dynamic members. It implements IDynamicMetaObjectProvider which enables sharing instances between languages in the DLR. Because it implements IDictionary and IEnumerable, it works with types from the CLR. This allows an instance of the ExpandoObject to cast to IDictionary, for example. Then enumerate members like any other IDictionary type. -->
 
-`ExpandoObject` 是一种方便的类型，允许设置和检索动态成员。它实现了 `IDynamicMetaObjectProvider`，该接口允许在 DLR 中的语言之间共享实例。因为它实现了 `IDictionary` 和 `IEnumerable`，所以它也可以处理 CLR 中的类型。举例而言，它允许将 `ExpandoObject` 的实例转换为 `IDictionary`，然后像其它任意的 `IDictionary` 类型一样枚举成员。
+`ExpandoObject` 是一种方便的类型，允许设置和检索动态成员。它实现了 `IDynamicMetaObjectProvider`，该接口允许在 DLR 中的语言之间共享实例。因为它实现了 `IDictionary` 和 `IEnumerable`，所以它也可以处理 CLR 中的类型。举例来说，它允许将 `ExpandoObject` 的实例转换为 `IDictionary`，然后像其它任意的 `IDictionary` 类型一样枚举成员。
 
 要用 `ExpandoObject` 处理任意 JSON，您可以编写以下程序：
 
@@ -136,12 +136,11 @@ foreach (var exObjProp in exObj as IDictionary<string, object> ?? new Dictionary
 }
 ```
 
-它在控制台输出 `IDictionary = a: 1`。请确保使用 `string` 和 `object` 作为键和值的类型。
-否则，将在转换的过程中抛出 `RuntimeBinderException` 异常。
+它在控制台中输出 `IDictionary = a: 1`。请确保使用 `string` 和 `object` 作为键和值的类型。否则，将在转换的过程中抛出 `RuntimeBinderException` 异常。
 
 ## DynamicObject 动态类型
 
-`DynamicObject` 提供对动态类型的精确控制。您可以继承该类型并重写动态行为。例如，您可以定义如何设置和获取类型中的动态成员。`DynamicObject` 允许您通过重写选择实现哪些动态操作。这比实现 `IDynamicMetaObjectProvider` 的语言实现方式更容易访问。它是一个抽象类，需要继承它而不是实例化它。该类有 14 个虚方法，它们定义了类型的动态操作。每个虚方法都允许重写以指定动态行为。
+`DynamicObject` 提供对动态类型的精确控制。您可以继承该类型并重写动态行为。例如，您可以定义如何设置和获取类型中的动态成员。`DynamicObject` 允许您通过重写选择实现哪些动态操作。这比实现 `IDynamicMetaObjectProvider` 的语言实现方式更容易访问。它是一个抽象类，需要继承它而不是实例化它。该类有 14 个虚方法，它们定义了类型的动态操作，每个虚方法都允许重写以指定动态行为。
 
 <!-- Say you want precise control over what gets into the dynamic JSON. Although you do not know the properties ahead of time, with a DynamicObject, you get control over the type. -->
 
@@ -198,7 +197,7 @@ public class TypedDynamicJson<T> : DynamicObject
 
 <!-- C# generics strong type the _typedProperty in a generic way which drives member types. This means the property type comes from the T generic type. Dynamic JSON members are inside a dictionary and only store the generic type. This dynamic type allows for a homogeneous set of members of the same type. Although it allows a dynamic set of members, you can strongly type the behavior. Say you only care about long types from an arbitrary JSON: -->
 
-C# 泛型强类型 `_typedProperty` 以泛型的方式驱动成员类型。这意味着其属性类型来自泛型类型 `T`。动态 JSON 成员位于字典中，并且仅存储泛型类型。此动态类型允许同一类型的同类成员集合。尽管它允许动态成员集，但您可以强类型约束其行为。假设您只关心任意 JSON 中的 `long` 类型：
+C# 泛型强类型 `_typedProperty` 以泛型的方式驱动成员类型。这意味着其属性类型来自泛型类型 `T`。动态 JSON 成员位于字典中，并且仅存储泛型类型。此动态类型允许同一类型的同类成员集合。尽管它允许动态成员集，但您可以强类型其行为。假设您只关心任意 JSON 中的 `long` 类型：
 
 ```csharp
 var dynObj = JsonConvert.DeserializeObject<TypedDynamicJson<long>>("{\"a\":1,\"b\":\"1\"}") as dynamic;
@@ -234,7 +233,7 @@ DynamicObject has precise control over the dynamic type through virtual methods 
 
 <!-- For unit tests, I’ll use the xUnit test framework. In .NET Core, you add a test project with the dotnet new xunit command. One problem that becomes evident is mocking and verifying dynamic parameters. For example, say you want to verify that a method call exists with dynamic properties. -->
 
-对于单元测试，我将使用 xUnit 测试框架。 在 .NET Core 中，您可以使用 `dotnet new xunit` 命令添加一个测试项目。一个明显的问题是模拟和验证动态参数。例如，假设您想验证一个方法调用是否具有动态属性。
+对于单元测试，我将使用 xUnit 测试框架。 在 .NET Core 中，您可以使用 `dotnet new xunit` 命令添加一个测试项目。一个显而易见的问题是模拟和验证动态参数，例如，假设您想验证一个方法调用是否具有动态属性。
 
 要使用 Moq 模拟库，您可以通过 NuGet 添加此依赖项，例如：
 
@@ -274,7 +273,7 @@ public class MessageService
 
 <!-- You can make use of generics, so you can pass in the dynamic type for the serializer. Then call the IMessageBus and send the dynamic message. The method under test takes a string parameter and makes a call with a dynamic type. -->
 
-您可以使用泛型，这样就可以为序列化程序传入动态类型。然后调用 `IMessageBus` 并发送动态消息。被测试的方法接受一个 `string` 参数，并使用动态类型进行调用。
+您可以使用泛型，这样就可以为序列化程序传入动态类型。然后调用 `IMessageBus` 并发送动态消息。被测试的方法接受一个 `string` 参数，并使用 `dynamic` 类型进行调用。
 
 对于单元测试，请将其封装在 `MessageServiceTests` 类中。首先初始化 Mock 和被测试的服务：
 
@@ -295,9 +294,9 @@ public class MessageServiceTests
 
 <!-- The IMessageBus gets mocked using a C# generic in the Moq library. Then create a mock instance using the Object property. The private instance variables are useful inside all unit tests. Private instances with high reusability add class cohesion. -->
 
-使用 Moq 库中的 C# 泛型来模拟 `IMessageBus`，然后使用 `Object` 属性创建一个模拟实例。私有实例变量在所有单元测试中都很有用。具有高可重用性的私有实例增加了类的内聚性。
+使用 Moq 库中的 C# 泛型来模拟 `IMessageBus`，然后使用 `Object` 属性创建一个模拟实例。在所有的单元测试中私有实例变量都很有用，高可重用性的私有实例增加了类的内聚性。
 
-通过 Moq 验证调用，一种直观的方法是尝试这样做：
+使用 Moq 验证调用，一种直观的方式是尝试这么做：
 
 ```csharp
 _messageBus.Verify(m => m.Send(It.Is<ExpandoObject>(o => o != null && (o as dynamic).a == 1)));
@@ -309,7 +308,7 @@ _messageBus.Verify(m => m.Send(It.Is<ExpandoObject>(o => o != null && (o as dyna
 
 <!-- To navigate around what seems like a discrepancy between types, use a Callback method: -->
 
-要处理类型之间的差异，请使用 `Callback` 方法：
+要处理诸如类型之间不一致的问题，请使用 `Callback` 方法：
 
 ```csharp
 dynamic message = null;
@@ -319,9 +318,7 @@ _messageBus.Setup(m => m.Send(It.IsAny<ExpandoObject>())).Callback<object>(o => 
 
 <!-- Note the callback gets typed to a System.Object. Because all types inherit from the object type, you’re able to make the assignment into a dynamic type. C# can unbox the object inside the lambda expression into a dynamic message. -->
 
-请注意，回调函数将类型转换为 `System.Object`。因为所有类型都继承自 `object` 类型，所以可以将其赋值为 `dynamic` 类型。C# 可以将 lambda 表达式中的 `object` 拆箱成 `dynamic message`。
-
-<!-- Time to write a nice unit test for the ExpandoObject type. Use xUnit as the testing framework, so you’ll see the method with a Fact attribute. -->
+请注意，`Callback` 方法将类型转换为 `System.Object`。因为所有类型都继承自 `object` 类型，所以可以将其赋值给 `dynamic` 类型。C# 可以把 lambda 表达式中的 `object` 拆箱成 `dynamic message`。
 
 是时候为 `ExpandoObject` 类型编写一个漂亮的单元测试了。使用 xUnit 作为测试框架，您将看到带有 `Fact` 属性的方法。
 
@@ -344,7 +341,6 @@ public void SendsWithExpandoObject()
 }
 ```
 
-<!-- Test with a DynamicObject type, reusing the TypedDymaicJson that you’ve seen before: -->
 使用 `DynamicObject` 类型进行测试，重用您之前看到的 `TypedDynamicJson`：
 
 ```csharp
@@ -367,8 +363,6 @@ public void SendsWithDynamicObject()
 }
 ```
 
-<!-- Using C# generics, you can swap dynamic types for the serializer while reusing code. The Callback method in Moq allows you to make the necessary hop between type systems. Having an elegant type hierarchy with a common parent turns to be a lifesaver. -->
-
 使用 C# 泛型，您可以在重用代码的同时转换序列化程序的动态类型。Moq 中的 `Callback` 方法允许您在两种类型系统之间进行必要的跳转。拥有一个优雅的类型层次结构和一个共同的父类成为了一个救星。
 
 ## Using 语句
@@ -384,9 +378,7 @@ public void SendsWithDynamicObject()
 
 ## Conclusion
 
-<!-- The C# dynamic type may seem scary at first but has benefits on top of a strongly typed system. The DLR is where all dynamic operations occur and interoperate with the CLR. Type inheritance makes it easy to work with both type systems at the same time. In C#, there is no animosity between dynamic and static programming. Both type systems work together to solve dynamic problems in a creative way. -->
-
-C# 动态类型或许看起来令人望而生畏，但它在强类型系统之上具有很多好处。DLR 是所有动态操作发生和与 CLR 交互的地方，类型继承使同时处理这两个类型系统变得容易。在 C# 中，动态和静态编程之间并没有对立，这两种类型系统一起工作，以创造性的方式解决动态问题。
+C# 动态类型或许看起来令人望而生畏，但它在强类型系统之上有很多好处。DLR 是所有动态操作发生和与 CLR 交互的地方，类型继承使同时处理这两个类型系统变得容易。在 C# 中，动态和静态编程之间并没有对立，这两种类型系统共同协作，以创造性的方式解决了动态问题。
 
 <br />
 
