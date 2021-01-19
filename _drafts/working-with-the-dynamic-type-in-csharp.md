@@ -194,7 +194,7 @@ Console.WriteLine($"dynObj member names: {members}");
 - `ExpandoObject` 实现了 CLR 中诸如 `IDictionary` 的可枚举类型
 - `DynamicObject` 通过虚方法对动态类型进行精确控制
 
-看一下在控制台捕获的结果：
+看一下在控制台的结果截图：
 
 ![dynamic type results](/assets/images/202101/dynamic-type-results.png)
 
