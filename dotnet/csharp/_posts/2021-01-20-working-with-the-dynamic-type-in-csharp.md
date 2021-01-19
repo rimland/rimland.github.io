@@ -6,9 +6,11 @@ categories: dotnet csharp
 published: true
 ---
 
-> 翻译自 Camilo Reyes 2018年10月15日的文章 [《Working with the Dynamic Type in C#》](https://www.red-gate.com/simple-talk/dotnet/c-programming/working-with-the-dynamic-type-in-c/)  
+> 翻译自 Camilo Reyes 2018年10月15日的文章 [《Working with the Dynamic Type in C#》](https://www.red-gate.com/simple-talk/dotnet/c-programming/working-with-the-dynamic-type-in-c/) [^1]  
 >  
 > .NET 4 中引入了动态类型。动态对象使您可以处理诸如 JSON 文档之类的结构，这些结构的组成可能要到运行时才能知道。在本文中，Camilo Reyes 解释了如何使用动态类型。
+
+[^1]: <https://www.red-gate.com/simple-talk/dotnet/c-programming/working-with-the-dynamic-type-in-c/> Working with the Dynamic Type in C#
 
 .NET 4.0 中引入的 `dynamic` 关键字为 C# 编程带来了一个范式转变。对于 C# 程序员来说，强类型系统之上的动态行为可能会让人感到不适 —— 当您在编译过程中失去类型安全性时，这似乎是一种倒退。
 
@@ -331,7 +333,7 @@ public void SendsWithDynamicObject()
 - Moq: 模拟库
 - Xunit: 测试框架
 
-## Conclusion
+## 总结
 
 C# 动态类型或许看起来令人望而生畏，但它在强类型系统之上有很多好处。DLR 是所有动态操作发生和与 CLR 交互的地方，类型继承使同时处理这两个类型系统变得容易。在 C# 中，动态和静态编程之间并没有对立，这两种类型系统共同协作，以创造性的方式解决动态问题。
 
