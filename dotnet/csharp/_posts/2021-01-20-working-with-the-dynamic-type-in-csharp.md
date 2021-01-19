@@ -196,7 +196,7 @@ Console.WriteLine($"dynObj member names: {members}");
 
 ![dynamic type results](/assets/images/202101/dynamic-type-results.png)
 
-## 可能的单元测试
+## 单元测试
 
 对于单元测试，我将使用 xUnit 测试框架。 在 .NET Core 中，您可以使用 `dotnet new xunit` 命令添加一个测试项目。一个显而易见的问题是模拟和验证动态参数，例如，假设您想验证一个方法调用是否具有动态属性。
 
