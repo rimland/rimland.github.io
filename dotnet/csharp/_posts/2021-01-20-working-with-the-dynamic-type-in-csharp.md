@@ -7,9 +7,7 @@ published: true
 ---
 
 > 翻译自 Camilo Reyes 2018年10月15日的文章 [《Working with the Dynamic Type in C#》](https://www.red-gate.com/simple-talk/dotnet/c-programming/working-with-the-dynamic-type-in-c/)  
-
-<br />
-
+>  
 > .NET 4 中引入了动态类型。动态对象使您可以处理诸如 JSON 文档之类的结构，这些结构的组成可能要到运行时才能知道。在本文中，Camilo Reyes 解释了如何使用动态类型。
 
 .NET 4.0 中引入的 `dynamic` 关键字为 C# 编程带来了一个范式转变。对于 C# 程序员来说，强类型系统之上的动态行为可能会让人感到不适 —— 当您在编译过程中失去类型安全性时，这似乎是一种倒退。
