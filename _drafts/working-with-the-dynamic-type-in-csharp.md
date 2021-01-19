@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Working with the Dynamic Type in C#"
+title:  "C# 中的动态类型"
 date:   2020-08-10 00:10:00 +0800
 categories: dotnet csharp
 published: true
@@ -122,7 +122,7 @@ foreach (var exObjProp in exObj as IDictionary<string, object> ?? new Dictionary
 
 ## DynamicObject 动态类型
 
-`DynamicObject` 提供对动态类型的精确控制。您可以继承该类型并重写动态行为。例如，您可以定义如何设置和获取类型中的动态成员。`DynamicObject` 允许您通过重写选择实现哪些动态操作。这比实现 `IDynamicMetaObjectProvider` 的语言实现方式更容易访问。它是一个抽象类，需要继承它而不是实例化它。该类有 14 个虚方法，它们定义了类型的动态操作，每个虚方法都允许重写以指定动态行为。
+`DynamicObject` 提供对动态类型的精确控制。您可以继承该类型并重写动态行为。例如，您可以定义如何设置和获取类型中的动态成员。`DynamicObject` 允许您通过重写选择实现哪些动态操作。这比实现 `IDynamicMetaObjectProvider` 的语言实现方式更易访问。它是一个抽象类，需要继承它而不是实例化它。该类有 14 个虚方法，它们定义了类型的动态操作，每个虚方法都允许重写以指定动态行为。
 
 假设您想要精确控制动态 JSON 中的内容。尽管事先不知道其属性，您却可以使用 `DynamicObject` 来控制类型。
 
