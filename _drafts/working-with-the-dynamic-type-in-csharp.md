@@ -16,7 +16,7 @@ published: true
 
 动态编程可能使您面临运行时错误。声明一个在执行过程中会发生变化的动态变量是可怕的，当开发人员对数据做出错误的假设时，代码质量就会受到影响。
 
-对 C# 程序员来说，避免代码中的动态行为是合乎逻辑的。具有强类型的经典方法有很多好处。通过类型检查得到的数据类型的良好反馈对于正常运行的程序是至关重要的。一个好的类型系统可以更好地表达意图并减少代码中的歧义。
+对 C# 程序员来说，避免代码中的动态行为是合乎逻辑的，具有强类型的经典方法有很多好处。通过类型检查得到的数据类型的良好反馈对于正常运行的程序是至关重要的，一个好的类型系统可以更好地表达意图并减少代码中的歧义。
 
 随着动态语言运行时（Dynamic Language Runtime，DLR）的引入，这对 C# 意味着什么呢？ .NET 提供了丰富的类型系统，可用于编写企业级软件。让我们来仔细看看 `dynamic` 关键字，并探索一下它的功能。
 
@@ -26,7 +26,7 @@ published: true
 
 公共语言运行时（Common Language Runtime，CLR）中的每种类型都继承自 `System.Object`，现在，请重复阅读这句话，直到将其铭记于心。这意味着 `object` 类型是整个类型系统的公共父类。当我们研究更神奇的动态行为时，这一事实本身就能为我们提供帮助。这里的想法是开发这种“代码感”，以便于您了解如何驾驭 C# 中的动态类型。
 
-为了演示这一点，你可以编写以下程序：
+为了演示这一点，您可以编写以下程序：
 
 ```csharp
 Console.WriteLine("long inherits from ValueType: " + typeof(long).IsSubclassOf(typeof(ValueType)));
@@ -48,7 +48,7 @@ Console.WriteLine("ValueType inherits from System.Object: " + typeof(ValueType).
 
 它的运算结果为 `True`。这是一条可以追溯到 `System.Object` 的继承链。对于值类型，链中至少有两个父级。
 
-看一下从 `System.Object` 派生的另一种 C# 类型，例如：
+看一下从 `System.Object` 派生的另一个 C# 类型，例如：
 
 ```csharp
 Console.WriteLine("string inherits from System.Object: " + typeof(string).IsSubclassOf(typeof(Object)));
