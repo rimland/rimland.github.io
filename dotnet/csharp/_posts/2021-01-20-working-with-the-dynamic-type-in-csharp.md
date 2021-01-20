@@ -275,7 +275,7 @@ dynamic message = null;
 _messageBus.Setup(m => m.Send(It.IsAny<ExpandoObject>())).Callback<object>(o => message = o);
 ```
 
-请注意，`Callback` 方法将类型转换为 `System.Object`。因为所有类型都继承自 `object` 类型，所以可以将其赋值给 `dynamic` 类型。C# 可以把 lambda 表达式中的 `object` 拆箱成 `dynamic message`。
+请注意，`Callback` 方法将类型转换为 `System.Object`。因为所有类型都继承自 `object` 类型，所以可以将其赋值为 `dynamic` 类型。C# 可以把此 lambda 表达式中的 `object` 拆箱成 `dynamic message`。
 
 是时候为 `ExpandoObject` 类型编写一个漂亮的单元测试了。使用 xUnit 作为测试框架，您将看到带有 `Fact` 属性的方法。
 
