@@ -337,6 +337,13 @@ public void SendsWithDynamicObject()
 
 C# 动态类型或许看起来令人望而生畏，但它在强类型系统之上有很多好处。DLR 是所有动态操作发生和与 CLR 交互的地方，类型继承使同时处理这两个类型系统变得容易。在 C# 中，动态和静态编程之间并没有对立，这两种类型系统共同协作，以创造性的方式解决动态问题。
 
+---
+
+🤞 源码下载：
+
+- [WorkWithDynamicTypeTests](https://www.red-gate.com/simple-talk/wp-content/plugins/download-attachments/includes/download.php?id=81338) (2 KB)
+- [WorkWithDynamicType](https://www.red-gate.com/simple-talk/wp-content/plugins/download-attachments/includes/download.php?id=81339) (3 KB)
+
 <br />
 
 > 作者 ： Camilo Reyes  
