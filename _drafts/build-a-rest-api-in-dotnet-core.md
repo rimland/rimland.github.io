@@ -103,3 +103,101 @@ public class ProductContext : DbContext
 }
 ```
 
+<!-- This database context is the dependency injected in the controller to query or update data. To enable Dependency Injection in ASP.NET Core, crack open the `Startup` class and add this in `ConfigureServices`: -->
+
+该数据库上下文是注入到控制器中用于查询或更新数据的依赖项。要在 ASP.NET Core 中启用依赖注入，请打开 `Startup` 类并将其添加到 `ConfigureServices` 中：
+
+```csharp
+services.AddDbContext<ProductContext>(opt => opt.UseInMemoryDatabase("Products"));
+```
+
+<!-- This code completes the in-memory database. Be sure to add Microsoft.EntityFrameworkCore to both classes in a using statement. Because a blank back end is no fun, this needs seed data. -->
+
+这行代码完成了内存数据库。请确保将 `Microsoft.EntityFrameworkCore` 添加到两个类的 using 语句中。因为空白的后端是无趣的，所以我们需要填充一些种子数据。
+
+<!-- Create this extension method to help iterate through seed items. This can go in an `Extensions` namespace or folder: -->
+
+创建下面的扩展方法以帮助迭代生成种子数据，可以将它放在 `Extensions` 命名空间或文件夹中：
+
+```csharp
+public static class EnumerableExtensions
+{
+    public static IEnumerable<T> Times<T>(this int count, Func<int, T> func)
+    {
+        for (var i = 1; i <= count; i++) yield return func.Invoke(i);
+    }
+}
+```
+
+The initial seed goes in Models via a static class:
+
+在 `Models` 命名空间下添加一个静态类以初始化种子数据：
+
+```csharp
+public static class ProductSeed
+{
+    public static void InitData(ProductContext context)
+    {
+        var rnd = new Random();
+
+        var adjectives = new[] { "Small", "Ergonomic", "Rustic", "Smart", "Sleek" };
+        var materials = new[] { "Steel", "Wooden", "Concrete", "Plastic", "Granite", "Rubber" };
+        var names = new[] { "Chair", "Car", "Computer", "Pants", "Shoes" };
+        var departments = new[] { "Books", "Movies", "Music", "Games", "Electronics" };
+
+        context.Products.AddRange(900.Times(x =>
+        {
+            var adjective = adjectives[rnd.Next(0, 5)];
+            var material = materials[rnd.Next(0, 5)];
+            var name = names[rnd.Next(0, 5)];
+            var department = departments[rnd.Next(0, 5)];
+            var productId = $"{x,-3:000}";
+
+            return new Product
+            {
+                ProductNumber =
+                    $"{department.First()}{name.First()}{productId}",
+                Name = $"{adjective} {material} {name}",
+                Price = (double)rnd.Next(1000, 9000) / 100,
+                Department = department
+            };
+        }));
+
+        context.SaveChanges();
+    }
+}
+```
+
+<!-- This code loops through a list of 900 items to create this many products. The names are picked at random with a department and price. Each product gets a “smart” key as the primary key which comes from department, name, and product id. -->
+
+这段代码循环遍历一个 900 条项目的列表以生成这么多的产品，这些产品的部门、价格和名称都是随机挑选的。每个产品都有一个巧妙的 key 作为主键，该主键由部门、名称和产品 Id 组合而成。
+
+<!-- Once this seed runs, you may get products such as “Smart Wooden Pants” in the Electronics department for a nominal price. -->
+
+有了这些种子数据，您可以获得类似，一个带有标价的部门为 Electronics 的，名为 “Smart Wooden Pants” 的产品。
+
+<!-- As a preliminary step to start building endpoints, it is a good idea to set up versioning. This allows client apps to upgrade API functionality at their leisure without tight coupling. -->
+
+作为开始构建终端的第一步，设置 API 版本是一个好主意。这使得客户端应用可以随时升级 API 功能，而无需紧密耦合。
+
+<!-- API versioning comes in a NuGet package: -->
+
+API 版本控制来自一个 NuGet 包：
+
+```shell
+dotnet add package Microsoft.AspNetCore.Mvc.Versioning
+```
+
+<!-- Go back to the Startup class and add this to ConfigureServices: -->
+
+回到 `Startup` 类，并将其添加到 `ConfigureServices` 中：
+
+```csharp
+services.AddApiVersioning(opt => opt.ReportApiVersions = true);
+```
+
+<!-- I opted to include available versions in the API response, so clients know when upgrades are available. I recommend using [Semantic Versioning](https://semver.org/) to communicate breaking changes in the API. Letting clients know what to expect between upgrades helps everyone stay on the latest features. -->
+
+我选择在 API 响应中包括可用版本，以便客户端知道何时有可用的升级。我建议使用 [Semantic Versioning](https://semver.org/) [^Semantic]来传达 API 中的重大更改。让客户端知道升级之间会发生什么，可以帮助每个人保持最新功能。
+
+[^Semantic]: <https://semver.org/> Semantic Versioning
