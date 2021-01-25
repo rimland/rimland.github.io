@@ -39,6 +39,7 @@ permalink: /links/
   - [microsoft ericlippert](https://docs.microsoft.com/zh-cn/archive/blogs/ericlippert/)
 - John Demetriou
   - [devsanon.com](https://www.devsanon.com/whoami/)
+- [hakim.se](https://hakim.se/)
 
 ## Others
 
