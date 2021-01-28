@@ -369,3 +369,56 @@ api-supported-versions: 1.0
 ```
 
 ## 日志记录和 API 文档
+
+<!-- With the API taking shape, how can I communicate endpoints to other developers? It is beneficial for teams to know what the API exposes without having to bust open code. Swagger is the tool of choice here; by using reflection, it is capable of documenting what’s available. -->
+
+当 API 成形后，如何向其他开发人员传达终端呢？对于团队来说，在不破坏开放代码的情况下了解 API 公开的内容是益的。Swagger 是这里的首选工具，它能通过反射，生成可用内容的文档。
+
+What if I told you everything swagger needs is already set in this API? Go ahead, take a second look:
+
+如果我告诉您，Swagger 所需的一切都已经在此 API 中设置过了呢？来吧，再看一下：
+
+```csharp
+[Produces("application/json")]
+[ProducesResponseType(StatusCodes.Status200OK)]
+ActionResult<IQueryable<Product>> GetProducts([FromQuery] 
+               string department, [FromQuery] ProductRequest request)
+```
+
+<!-- ASP.NET attributes are useful for documenting endpoints. Swagger also picks up return types from controller methods to figure out what responses look like and picks up request parameters in each controller method via reflection. It produces “living documentation” because it sucks up everything from working code, which reduces mishaps. -->
+
+ASP.NET 属性对于端点文档非常有用。Swagger 通过反射，从控制器方法中获得返回类型，以推断响应该是什么样子，并获得每个控制器方法中的请求参数。因为它吸收了工作代码中的所有内容，所以它可以生成“活生生的文档”，从而减少故障的发生。
+
+<!-- The one dependency lacking is a NuGet: -->
+
+通过 NuGet 获取缺少的依赖项：
+
+```bash
+dotnet add package Swashbuckle.AspNetCore
+```
+
+并将其连接到 `ConfigureServices` 中：
+
+```csharp
+services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo
+{
+    Title = "Products",
+    Description = "The ultimate e-commerce store for all your needs",
+    Version = "v1"
+}));
+```
+
+<!-- Then, enable this in Configure: -->
+
+然后，在 `Configure` 中启动：
+
+```csharp
+app.UseSwagger();
+app.UseSwaggerUI(opt => opt.SwaggerEndpoint("/swagger/v1/swagger.json", "Products v1"));
+```
+
+Note `OpenApiInfo` comes from the `Microsoft.OpenApi.Models` namespace. With this, navigate to *http://localhost:5000/swagger* in the browser to check out the swagger doc.
+
+注意 `OpenApiInfo` 来自 `Microsoft.OpenApi.Models` 命名空间。有了这个，在浏览器中导航到 *http://localhost:5000/swagger* 查看 swagger 文档。
+
+
