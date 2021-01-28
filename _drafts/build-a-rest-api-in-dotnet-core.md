@@ -302,7 +302,7 @@ public class ProductRequest
 }
 ```
 
-Wire this request parameter to the GetProducts endpoint:
+<!-- Wire this request parameter to the GetProducts endpoint: -->
 
 将此请求参数连接到 GetProducts 端点：
 
@@ -353,3 +353,19 @@ public ActionResult<IQueryable<Product>> GetProducts([FromQuery]
 ```bash
 curl -i -X GET "http://localhost:5000/v1/products?offset=15&department=electronics" -H "accept: application/json"
 ```
+
+<!-- Be sure to check out HTTP headers which include total count and supported versions: -->
+
+检查确定包含总数和受支持版本的 HTTP 头：
+
+```
+HTTP/1.1 200 OK
+Date: Thu, 28 Jan 2021 11:19:09 GMT
+Content-Type: application/json; charset=utf-8
+Server: Kestrel
+Transfer-Encoding: chunked
+x-total-count: 155
+api-supported-versions: 1.0
+```
+
+## 日志记录和 API 文档
