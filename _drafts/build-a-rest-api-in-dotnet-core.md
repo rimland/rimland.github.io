@@ -201,3 +201,155 @@ services.AddApiVersioning(opt => opt.ReportApiVersions = true);
 我选择在 API 响应中包括可用版本，以便客户端知道何时有可用的升级。我建议使用 [Semantic Versioning](https://semver.org/) [^Semantic]来传达 API 中的重大更改。让客户端知道升级之间会发生什么，可以帮助每个人保持最新功能。
 
 [^Semantic]: <https://semver.org/> Semantic Versioning
+
+## Search endpoint in a REST API
+
+## REST API 中的搜索终端
+
+<!-- 要构建端点，请在ASP.NET中旋转Controllers文件夹中的Controller。
+
+To build an endpoint, spin up a Controller in ASP.NET which goes in the Controllers folder. -->
+
+要构建一个终端，请在 Controllers 文件夹中，定位到 ASP.NET 中的 Controller。
+
+<!-- Create a ProductsController with the following, making sure to add the namespace Microsoft.AspNetCore.Mvc with a using statement: -->
+
+使用下面的代码创建一个 `ProductsController`，请确保在 using 语句中添加 `Microsoft.AspNetCore.Mvc` 命名空间：
+
+```csharp
+[ApiController]
+[ApiVersion("1.0")]
+[Route("v{version:apiVersion}/[controller]")]
+[Produces("application/json")]
+public class ProductsController : ControllerBase
+{
+    private readonly ProductContext _context;
+
+    public ProductsController(ProductContext context)
+    {
+        _context = context;
+
+        if (_context.Products.Any()) return;
+
+        ProductSeed.InitData(context);
+    }
+}
+```
+
+<!-- Note `InitData` runs the initial seed when there aren’t any products in the database. I set a `Route` that uses versioning which is set via `ApiVersion`. The data context `ProductContext` gets injected in the constructor with Dependency Injection. The first endpoint is *GET* which returns a list of Products in the Controller: -->
+
+请注意，当数据库中没有任何产品时，`InitData` 将运行并初始化种子数据。我设置了一个带有版本控制的 `Route`，版本号通过 `ApiVersion` 设置。通过依赖注入将数据上下文 `ProductContext` 注入到构造函数中。在该 Controller 中，第一个终端是返回一个产品列表的 *GET* 终端：
+
+```csharp
+[HttpGet]
+[Route("")]
+[ProducesResponseType(StatusCodes.Status200OK)]
+public ActionResult<IQueryable<Product>> GetProducts()
+{
+    var result = _context.Products as IQueryable<Product>;
+
+    return Ok(result.OrderBy(p => p.ProductNumber));
+}
+```
+
+<!-- Be sure to add Microsoft.AspNetCore.Http in a using statement to set status codes in the response type. -->
+请确保在 using 语句中添加 `Microsoft.AspNetCore.Http`，以设置响应类型中的状态码。
+
+<!-- I opted to order products by product number to make it easier to show the results. In a production system, check this sort matches the clustered index, so the database doesn’t work as hard. Always review execution plans and statistics IO to confirm good performance. -->
+
+我选择按产品编号排序产品，以便更轻松地显示结果。在一个生产系统中，检查这种排序是否与聚集索引相匹配，以便减轻数据库的运行压力。经常检查执行计划和统计 IO，以确认性能良好。
+
+<!-- This project is ready to go for a test drive! Inside of a CLI type: -->
+
+此项目已经可以进行测试了！在命令行中运行以下命令：
+
+```bash
+dotnet watch run
+```
+
+<!-- Hit the endpoint with curl: -->
+
+使用 curl 测试接口：
+
+```bash
+curl -i -X GET "http://localhost:5000/v1/products" -H "accept: application/json"
+```
+
+<!-- I run both commands in separate consoles. One runs the file watcher that automatically refreshes when I make changes. The other terminal is where I keep curl results. Postman is also useful, but curl gets the job done and comes with Windows 10. -->
+
+我在两个独立的控制台窗口中运行这两条命令。一个以监视模式运行项目，当我更新代码文件时，会自动重新生成并刷新；另一个是我保持 curl 结果的地方，可以使用 Postman，但是伴随 Windows 10 而来的 curl 也可以完成该工作。
+
+结果如下：
+
+![curl results of GetProducts](/assets/images/202101/curl-results-get-products.png)
+
+<!-- This request returns all products in the database, but it’s not scalable. As the product list grows, clients will get slammed with unbound data, putting more pressure on SQL and network traffic. -->
+
+该请求返回数据库中的所有产品，但它不可扩展。随着产品列表的增加，客户端将受到未过滤数据的猛烈冲击，从而给 SQL 和网络流量带来更大的压力。
+
+<!-- A better approach is to introduce limit and offset request parameters in a model: -->
+
+更好的方法是在模型中引入 `limit` 和 `offset` 请求参数：
+
+```csharp
+public class ProductRequest
+{
+    [FromQuery(Name = "limit")]
+    public int Limit { get; set; } = 15;
+
+    [FromQuery(Name = "offset")]
+    public int Offset { get; set; }
+}
+```
+
+Wire this request parameter to the GetProducts endpoint:
+
+将此请求参数连接到 GetProducts 端点：
+
+```csharp
+public ActionResult<IQueryable<Product>> GetProducts([FromQuery] ProductRequest request)
+{
+    var result = _context.Products as IQueryable<Product>;
+
+    Response.Headers["x-total-count"] = result.Count().ToString();
+
+    return Ok(result
+        .OrderBy(p => p.ProductNumber)
+        .Skip(request.Offset)
+        .Take(request.Limit));
+}
+```
+
+<!-- Note I set an HTTP header x-total-count with the Count. This helps clients that may want to page through the entire result set. When requests parameters are not specified then the API defaults to the first 15 items.
+
+Next, add a search parameter to filter products by department: -->
+
+请注意我设置了一个值为 `Count` 的 HTTP header `x-total-count`，用于帮助想要分页浏览整个结果集的客户端。如果未指定请求参数，则该 API 默认返回前 15 项数据。
+
+接下来，添加一个搜索参数，按部门筛选产品：
+
+```csharp
+public ActionResult<IQueryable<Product>> GetProducts([FromQuery] 
+             string department, [FromQuery] ProductRequest request)
+{
+    // ...
+    if (!string.IsNullOrEmpty(department))
+    {
+        result = result.Where(p => p.Department.StartsWith(department, 
+                        StringComparison.InvariantCultureIgnoreCase));
+    }
+    // ..
+}
+```
+
+<!-- Search can go inside a conditional block that alters the query. Note I use `StartsWith` and `InvariantCultureIgnoreCase` to make it easier to filter products. In actual SQL, the LIKE operator is useful, and case insensitivity can be set via collation. -->
+
+可以通过修改 Query，让搜索进入条件块内。请注意我用了 `StartsWith` 和 `InvariantCultureIgnoreCase` 来简化产品过滤，在实际的 SQL 中，`LIKE` 运算符很有用，可以通过排序规则设置不区分大小写。
+
+<!-- To test out paging and this new filter in curl: -->
+
+要测试分页和此新过滤器，请使用 curl 执行以下命令：
+
+```bash
+curl -i -X GET "http://localhost:5000/v1/products?offset=15&department=electronics" -H "accept: application/json"
+```
