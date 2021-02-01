@@ -39,7 +39,7 @@ permalink: /links/
 - [codepen.io](https://codepen.io/)
 - [css-doodle.com](https://css-doodle.com/)
 
-## Favorite Blogs
+## Favorite blogs
 <!-- Most Valuable Pepoles -->
 - Eric Lippert
   - [ericlippert.com](https://ericlippert.com/)
