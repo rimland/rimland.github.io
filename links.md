@@ -32,6 +32,10 @@ permalink: /links/
 - [WinDbg](https://docs.microsoft.com/zh-cn/windows-hardware/drivers/debugger/debugger-download-tools)
 - [Online GUID / UUID Generator](https://guidgenerator.com/online-guid-generator.aspx)
 
+## Front end
+
+- <https://lottiefiles.com/>
+
 ## Favorite Blogs
 <!-- Most Valuable Pepoles -->
 - Eric Lippert
