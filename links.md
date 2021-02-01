@@ -32,14 +32,14 @@ permalink: /links/
 - [WinDbg](https://docs.microsoft.com/zh-cn/windows-hardware/drivers/debugger/debugger-download-tools)
 - [Online GUID / UUID Generator](https://guidgenerator.com/online-guid-generator.aspx)
 
-## Front end
+## Front End
 
 - [lottiefiles.com](https://lottiefiles.com/)
 - [cssbattle.dev](https://cssbattle.dev/)
 - [codepen.io](https://codepen.io/)
 - [css-doodle.com](https://css-doodle.com/)
 
-## Favorite blogs
+## Favorite Blogs
 <!-- Most Valuable Pepoles -->
 - Eric Lippert
   - [ericlippert.com](https://ericlippert.com/)
