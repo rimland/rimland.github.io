@@ -34,7 +34,10 @@ permalink: /links/
 
 ## Front end
 
-- <https://lottiefiles.com/>
+- [lottiefiles.com](https://lottiefiles.com/)
+- [cssbattle.dev](https://cssbattle.dev/)
+- [codepen.io](https://codepen.io/)
+- [css-doodle.com](https://css-doodle.com/)
 
 ## Favorite Blogs
 <!-- Most Valuable Pepoles -->
