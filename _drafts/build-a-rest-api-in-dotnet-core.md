@@ -281,7 +281,7 @@ curl -i -X GET "http://localhost:5000/v1/products" -H "accept: application/json"
 
 结果如下：
 
-![curl results of GetProducts](/assets/images/202101/curl-results-get-products.png)
+![curl results of GetProducts](/assets/images/202102/curl-results-get-products.png)
 
 <!-- This request returns all products in the database, but it’s not scalable. As the product list grows, clients will get slammed with unbound data, putting more pressure on SQL and network traffic. -->
 
@@ -417,8 +417,13 @@ app.UseSwagger();
 app.UseSwaggerUI(opt => opt.SwaggerEndpoint("/swagger/v1/swagger.json", "Products v1"));
 ```
 
-Note `OpenApiInfo` comes from the `Microsoft.OpenApi.Models` namespace. With this, navigate to *http://localhost:5000/swagger* in the browser to check out the swagger doc.
+<!-- Note `OpenApiInfo` comes from the `Microsoft.OpenApi.Models` namespace. With this, navigate to *http://localhost:5000/swagger* in the browser to check out the swagger doc. -->
 
-注意 `OpenApiInfo` 来自 `Microsoft.OpenApi.Models` 命名空间。有了这个，在浏览器中导航到 *http://localhost:5000/swagger* 查看 swagger 文档。
+注意 `OpenApiInfo` 来自 `Microsoft.OpenApi.Models` 命名空间。此时，在浏览器中导航到 *http://localhost:5000/swagger* 可以查看 swagger 文档。
 
+<!-- The page should look like this: -->
+
+页面大概如下显示：
+
+![swagger page]](/assets/images/202102/swagger-page)
 
