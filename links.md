@@ -21,6 +21,8 @@ permalink: /links/
 ## Tech
 
 - [kubernetes.io](https://kubernetes.io/)
+- [softether.org](https://www.softether.org/)
+- [JumpServer](https://www.jumpserver.org/)
 
 ## Tools
 
