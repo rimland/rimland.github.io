@@ -425,5 +425,112 @@ app.UseSwaggerUI(opt => opt.SwaggerEndpoint("/swagger/v1/swagger.json", "Product
 
 页面大概如下显示：
 
-![swagger page]](/assets/images/202102/swagger-page)
+![swagger page](/assets/images/202102/swagger-page.png)
 
+<!-- From the swagger doc, feel free to poke around and fire requests to the API from this tool. Fellow developers from across the organization might even buy you a cup of coffee for making their lives easier. -->
+
+在 swagger 文档中，您可以轻松浏览 API 接口并向接口发起请求，您所在组织的其他开发人员会因此受益而生活轻松，他们甚至可能会请您喝杯咖啡。
+
+<!-- Note how expanding GET /Products picks up C# data types from the method in the controller:
+注意扩展GET / Products如何从控制器中的方法中提取C＃数据类型： -->
+
+展开 GET `/Products` 查看从控制器中的方法中提取的 C# 数据类型：
+
+![swagger page](/assets/images/202102/get-products.png)
+
+<!-- The next stop is the logger. I will use NLog to store logs in the back end. This enables the API to save logs for further analysis. In a real environment, logs are useful for troubleshooting outages. They also aid in gathering telemetry to help understand how the API is utilized in the wild. -->
+
+下一站是日志记录。我将使用 `NLog` 在后端存储日志，使得 API 能够保存日志以供进一步分析。在实际环境中，日志对于故障排除非常有用；另外，它们还可以帮助收集遥测数据，以帮助了解 API 的使用情况。
+
+<!-- To set up the logger, I am going to need the following: -->
+
+要设置记录器，需要完成做以下操作：
+
+- 一个 NuGet 包
+- 一个 *nlog.config* 设置文件
+- 修改 `Program` 类
+- 微调 *appsettings.json*
+
+安装 NuGet 包：
+
+```bash
+dotnet add package NLog.Web.AspNetCore
+```
+
+*nlog.config* 文件可以如下：
+
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+<nlog xmlns="http://www.nlog-project.org/schemas/NLog.xsd"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      throwExceptions="false"
+      throwConfigExceptions="false"
+      autoReload="true"
+      internalLogLevel="Warn"
+      internalLogFile=
+           "C:\temp\BuildRestApiNetCore\RestApi-internal-nlog.txt">
+ 
+  <extensions>
+    <add assembly="NLog.Web.AspNetCore"/>
+  </extensions>
+ 
+  <targets async="true">
+    <target xsi:type="File"
+            name="ownFile-web"
+            fileName=
+              "C:\temp\BuildRestApiNetCore\RestApi-${shortdate}.log">
+ 
+      <layout xsi:type="JsonLayout">
+        <attribute name="Timestamp" layout="${longdate}" />
+        <attribute name="Level" layout="${uppercase:${level}}" />
+        <attribute name="Logger" layout="${logger}" />
+        <attribute name="Action" layout="${aspnet-mvc-action}" />
+        <attribute name="Message" layout="${message}" />
+        <attribute 
+           name="Exception" layout="${exception:format=tostring}" />
+      </layout>
+    </target>
+  </targets>
+ 
+  <rules>
+    <logger name="Microsoft.*" maxlevel="Info" final="true" /> 
+                
+    <logger name="*" minlevel="Info" writeTo="ownFile-web" />
+  </rules>
+</nlog>
+```
+<!--Pay attention to `Layout` because it sets the type of log file which is set to `JsonLayout`. This JSON format has the most flexibility when consuming log files in different analytical tools. Logger rules do not log errors from *Microsoft.** to keep chattiness down to a minimum. As a bonus, unhandled exceptions from the API get logged but do not rethrow because `throwExceptions` is false. Usage here may vary, but it is generally a good idea to handle all unhandled exceptions in the logger. -->
+
+请注意 `Layout`，因为它设置了日志文件的类型，这里将其设置为 `JsonLayout`。当在不同的分析工具中使用日志文件时，JSON 格式具有最大的灵活性。为了让冗余降到最小，记录器规则不记录来自 *Microsoft.** 的错误。另外，因为将 `throwExceptions` 设置为了 false，API 中未处理的异常会被记录，但不会被重新抛出。这里的用法可能会有所改变，但是通常最好在记录器中处理所有未处理的异常。
+
+<!-- Inside the Program class, enable NLog, remembering to include using NLog.Web: -->
+
+在 `Program` 类中，启用 NLog，记得添加 `using NLog.Web`：
+
+```csharp
+Host.CreateDefaultBuilder(args)
+  .ConfigureWebHostDefaults(webBuilder =>
+  {
+    webBuilder.UseStartup<Startup>();
+  })
+  .UseNLog();
+```
+
+<!-- Finally, make these tweaks to configure logging in appsettings.json: -->
+
+最后，在 *appsettings.json* 中进行以下微调来配置日志记录：
+
+```json
+"Logging": {
+  "LogLevel": {
+    "Default": "Information",
+    "Microsoft": "None",
+    "Microsoft.AspNetCore": "Error",
+    "Microsoft.Hosting.Lifetime": "Information"
+  }
+}
+```
+
+<!-- The basic idea is to cut the number of log entries which aren’t relevant to this API. Feel free to poke around with the settings, so it logs exactly what the API needs. -->
+
+其基本思想是减少与此 API 无关的日志条目的数量。您可以随意调整这些设置，以便精确地记录 API 所需要的日志内容。
