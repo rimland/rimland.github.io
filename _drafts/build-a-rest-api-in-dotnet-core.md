@@ -534,3 +534,83 @@ Host.CreateDefaultBuilder(args)
 <!-- The basic idea is to cut the number of log entries which aren’t relevant to this API. Feel free to poke around with the settings, so it logs exactly what the API needs. -->
 
 其基本思想是减少与此 API 无关的日志条目的数量。您可以随意调整这些设置，以便精确地记录 API 所需要的日志内容。
+
+<!-- It’s time to take this for a spin. In the Controller class, add using Microsoft.Extensions.Logging and inject a plain old ASP.NET logger: -->
+
+是时候言归正传了，在 `Controller` 类中，添加 `using Microsoft.Extensions.Logging` 并注入一个普通的旧 ASP.NET 记录器：
+
+```csharp
+private readonly ILogger<ProductsController> _logger;
+ 
+public ProductsController(ProductContext context, 
+            ILogger<ProductsController> logger)
+{
+  _logger = logger;
+  // ...
+}
+```
+
+<!-- Say now the team decides to grab telemetry around how often clients ask for 100 records or more. -->
+
+假设现在团队决定根据客户要求获取 100 条或更多记录的频率获取遥测数据。
+
+将下面代码放入 `GetProducts` 中：
+
+```csharp
+if (request.Limit >= 100)
+  _logger.LogInformation("Requesting more than 100 products.");
+```
+
+<!-- Be sure to have a temp folder handy to check the logs, for example, C:\temp\BuildRestApiNetCore\. -->
+
+请确保有一个方便的临时文件夹来检查日志，例如：`C:\temp\BuildRestApiNetCore\`。
+
+<!-- This is what an entry might look like: -->
+
+记录可能是这样的：
+
+```json
+{
+  "Timestamp": "2020-07-12 10:30:30.8960",
+  "Level": "INFO",
+  "Logger": "BuildRestApiNetCore.Controllers.ProductsController",
+  "Action": "GetProducts",
+  "Message": "Requesting more than 100 products."
+}
+```
+
+<!-- ## REST Endpoints with Verbs -->
+
+## 带动词的 REST 端点
+
+Take a deep breath in and breath out. This API is almost production-ready with minimal code. I will now quickly turn towards REST features such as `POST`, `PUT`, `PATCH`, and `DELETE`.
+
+深吸一口气，然后呼出。该 API 几乎可以投入生产环境了，只用了很少的代码。现在，我将快速转向 `POST`、`PUT`、`PATCH` 和 `DELETE` 等 REST 特性。
+
+<!-- The POST endpoint takes in a body with the new product and adds it to the list. This method is not idempotent because it creates new resources when invoked. -->
+
+`POST` 终端接收带有新产品的 body，并将其添加到列表当中。此方法是非幂等的，因为它在调用时创建了新的资源。
+
+将下面代码放入 `ProductsController` 中：
+
+```csharp
+[HttpPost]
+[ProducesResponseType(StatusCodes.Status201Created)]
+[ProducesResponseType(StatusCodes.Status400BadRequest)]
+public ActionResult<Product> PostProduct([FromBody] Product product)
+{
+  try
+  {
+    _context.Products.Add(product);
+    _context.SaveChanges();
+ 
+    return new CreatedResult($"/products/{product.ProductNumber.ToLower()}", product);
+  }
+  catch (Exception e)
+  {
+    _logger.LogWarning(e, "Unable to POST product.");
+ 
+    return ValidationProblem(e.Message);
+  }
+}
+```
