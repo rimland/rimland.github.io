@@ -614,3 +614,19 @@ public ActionResult<Product> PostProduct([FromBody] Product product)
   }
 }
 ```
+
+ASP.NET automatically handles exceptions via ValidationProblem. This validation returns an RFC 7807 spec compliant response with a message. In a real system, I recommend making sure this does not expose any internals about the API. Putting the exception message here helps clients troubleshoot their code, but security is also important. I opted to include the error message mostly for demonstration purposes. The exception is also logged as a warning, to avoid logging a bunch of errors. Monitoring tools might page out to whoever is on-call when there are too many exceptions. A best practice is to only log errors during catastrophic failures that might need human intervention.
+
+ASP.NET通过ValidationProblem自动处理异常。此验证返回一个符合RFC 7807规范的响应和一条消息。在实际系统中，我建议确保这不会暴露任何有关API的内部信息。将异常消息放在这里有助于客户机排除代码故障，但安全性也很重要。我选择包含错误消息主要是为了演示。异常也被记录为警告，以避免记录大量错误。当异常太多时，监控工具可能会向任何待命人员发送页面。最佳实践是只记录可能需要人工干预的灾难性故障期间的错误。
+
+ASP。
+NET通过ValidationProblem自动处理异常。
+该验证返回一个符合RFC 7807规范的响应，并带有一条消息。
+在实际的系统中，我建议确保这不会暴露API的任何内部内容。
+将异常消息放在这里可以帮助客户对其代码进行故障排除，但安全性也很重要。
+我选择包含错误消息主要是出于演示目的。
+异常也被记录为警告，以避免记录大量错误。
+当有太多的例外情况时，监控工具可能会转到值班人员身上。
+最佳实践是仅在可能需要人工干预的灾难性故障期间记录错误。
+
+ASP.NET通过ValidationProblem自动处理异常。 该验证将返回一条符合RFC 7807规范的响应，并带有一条消息。 在真实系统中，我建议确保不要暴露任何有关API的内部信息。 将异常消息放在此处可帮助客户端对代码进行故障排除，但是安全性也很重要。 我选择包含错误消息主要是出于演示目的。 还会将异常记录为警告，以避免记录大量错误。 异常太多时，监视工具可能会将呼叫者呼叫出去。 最佳做法是仅在可能需要人工干预的灾难性故障期间记录错误。
