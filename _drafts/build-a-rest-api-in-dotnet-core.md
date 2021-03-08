@@ -630,3 +630,29 @@ NET通过ValidationProblem自动处理异常。
 最佳实践是仅在可能需要人工干预的灾难性故障期间记录错误。
 
 ASP.NET通过ValidationProblem自动处理异常。 该验证将返回一条符合RFC 7807规范的响应，并带有一条消息。 在真实系统中，我建议确保不要暴露任何有关API的内部信息。 将异常消息放在此处可帮助客户端对代码进行故障排除，但是安全性也很重要。 我选择包含错误消息主要是出于演示目的。 还会将异常记录为警告，以避免记录大量错误。 异常太多时，监视工具可能会将呼叫者呼叫出去。 最佳做法是仅在可能需要人工干预的灾难性故障期间记录错误。
+
+<!-- Using the swagger tool, the curl command is: -->
+
+使用 swagger 工具，curl 命令为：
+
+```bash
+curl -i -X POST http://localhost:5000/v1/products
+  -H "accept: application/json"
+  -H "Content-Type: application/json"
+  -d "{\"productNumber\":\"string\",\"name\":\"string\",\"price\":10,\"department\":\"string\"}"
+```
+
+<!-- When there are problems with the request, the API responds with: -->
+
+当请求出现问题时，API 会响应：
+
+```json
+{
+  "errors": {},
+  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+  "title":"One or more validation errors occurred.",
+  "status": 400,
+  "detail": "An item with the same key has already been added. Key: string",
+  "traceId":"|c445a403-43564e0626f9af50."
+}
+```
