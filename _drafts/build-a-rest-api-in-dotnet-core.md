@@ -617,7 +617,7 @@ public ActionResult<Product> PostProduct([FromBody] Product product)
 
 <!-- ASP.NET automatically handles exceptions via ValidationProblem. This validation returns an RFC 7807 spec compliant response with a message. In a real system, I recommend making sure this does not expose any internals about the API. Putting the exception message here helps clients troubleshoot their code, but security is also important. I opted to include the error message mostly for demonstration purposes. The exception is also logged as a warning, to avoid logging a bunch of errors. Monitoring tools might page out to whoever is on-call when there are too many exceptions. A best practice is to only log errors during catastrophic failures that might need human intervention. -->
 
-ASP.NET 通过 `ValidationProblem` 自动处理异常。该验证将返回一条符合 RFC 7807 规范的响应，并带有一条消息。在实际的系统中，我建议确保不要暴露任何有关API的内部信息。将异常消息放在此处可帮助客户端对代码进行故障排除，但是安全性也很重要。我选择包含错误消息主要是出于演示目的。还会将异常记录为警告，以避免记录大量错误。当异常太多时，监控工具可能会呼叫值班人员。最佳实践是仅在可能需要人工干预的灾难性故障期间记录错误。
+ASP.NET 通过 `ValidationProblem` 自动处理异常。该验证将返回一条符合 [RFC 7807 规范](https://tools.ietf.org/html/rfc7807)的响应，并带有一条消息。在实际的系统中，我建议确保不要暴露任何有关API的内部信息。将异常消息放在此处可帮助客户端对代码进行故障排除，但是安全性也很重要。我选择包含错误消息主要是出于演示目的。还会将异常记录为警告，以避免记录大量错误。当异常太多时，监控工具可能会呼叫值班人员。最佳实践是仅在可能需要人工干预的灾难性故障期间记录错误。
 
 <!-- 
 ASP.NET通过ValidationProblem自动处理异常。此验证返回一个符合RFC 7807规范的响应和一条消息。在实际系统中，我建议确保这不会暴露任何有关API的内部信息。将异常消息放在这里有助于客户机排除代码故障，但安全性也很重要。我选择包含错误消息主要是为了演示。异常也被记录为警告，以避免记录大量错误。当异常太多时，监控工具可能会向任何待命人员发送页面。最佳实践是只记录可能需要人工干预的灾难性故障期间的错误。
@@ -658,4 +658,22 @@ curl -i -X POST http://localhost:5000/v1/products
   "detail": "An item with the same key has already been added. Key: string",
   "traceId":"|c445a403-43564e0626f9af50."
 }
+```
+
+<!-- A 400 (*Bad Request*) response indicates a user error in the request. Because users can’t be trusted to send valid data, the API logs a warning. -->
+
+400 (*Bad Request*) 响应表示请求中的用户错误。因为无法信任用户发送有效数据，所以 API 会记录一个警告。
+
+<!-- Note that on success POST returns a 201 with Location: -->
+
+请注意，如果成功，POST 将返回带有 *Location* 的 201：
+
+```json
+HTTP/1.1 201 Created
+Date: Mon, 13 Jul 2020 22:52:46 GMT
+Content-Type: application/json; charset=utf-8
+Server: Kestrel
+Content-Length: 76
+Location: /products/bc916
+api-supported-versions: 1.0
 ```
