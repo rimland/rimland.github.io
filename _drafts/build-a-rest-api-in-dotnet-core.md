@@ -884,4 +884,13 @@ Server: Kestrel
 api-supported-versions: 1.0
 ```
 
-This status signals to clients that the resource is no longer available because the response body is empty. The response can also be 204 (Accepted) if this needs an async background process to clean up the data. In a real system, soft deletes are sometimes preferable to allow rollback during auditing. When deleting data, be sure to comply with GPDR or any policy that applies to the data.
+<!-- This status signals to clients that the resource is no longer available because the response body is empty. The response can also be 204 (Accepted) if this needs an async background process to clean up the data. In a real system, soft deletes are sometimes preferable to allow rollback during auditing. When deleting data, be sure to comply with GPDR or any policy that applies to the data. -->
+
+此状态向客户端发出信号，表示资源不再可用，因为响应主体为空。如果需要异步后台进程来清理数据，则响应也可以为 *204 (Accepted)*。在实际系统中，有时最好使用软删除，以允许在审核期间进行回滚。删除数据时，请确保遵守 GPDR 或适用于该数据的任一策略。
+
+<!-- ## Conclusion -->
+## 总结
+
+<!-- .NET Core adds many useful features to your toolbelt to make working with REST APIs easier. Complex use cases such as documentation, validation, logging, and PATCH requests are simpler to think about. -->
+
+.NET Core 为您的工具带中添加许多有用的特性，从而让使用 REST API 变得更加容易。将诸如文档、验证、日志记录和 `PATCH` 请求等复杂的用例变得更易于实现。
