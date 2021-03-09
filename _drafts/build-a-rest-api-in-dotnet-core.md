@@ -677,3 +677,149 @@ Content-Length: 76
 Location: /products/bc916
 api-supported-versions: 1.0
 ```
+
+<!-- This points the client towards the new resource. So, it is a good idea to spin up this GET endpoint: -->
+
+这将引导客户端转向新资源。因此，转向 `GET` 端点是个好主意：
+
+```csharp
+[HttpGet]
+[Route("{productNumber}")]
+[ProducesResponseType(StatusCodes.Status200OK)]
+[ProducesResponseType(StatusCodes.Status404NotFound)]
+public ActionResult<Product> GetProductByProductNumber([FromRoute] 
+            string productNumber)
+{
+  var productDb = _context.Products
+    .FirstOrDefault(p => p.ProductNumber.Equals(productNumber, 
+              StringComparison.InvariantCultureIgnoreCase));
+ 
+  if (productDb == null) return NotFound();
+ 
+  return Ok(productDb);
+}
+```
+
+<!-- A 404 response indicates the resource does not exist in the API yet but might become available at some point in the future. -->
+
+404 响应表示该资源在 API 中尚不存在，但可能会在将来的某个时候变得可用。
+
+<!-- `PUT` is similar: -->
+
+`PUT` 是类似的：
+
+```csharp
+[HttpPut]
+[ProducesResponseType(StatusCodes.Status200OK)]
+[ProducesResponseType(StatusCodes.Status404NotFound)]
+[ProducesResponseType(StatusCodes.Status400BadRequest)]
+public ActionResult<Product> PutProduct([FromBody] Product product)
+{
+  try
+  {
+    var productDb = _context.Products
+      .FirstOrDefault(p => p.ProductNumber.Equals(product.ProductNumber, 
+           StringComparison.InvariantCultureIgnoreCase));
+ 
+    if (productDb == null) return NotFound();
+ 
+    productDb.Name = product.Name;
+    productDb.Price = product.Price;
+    productDb.Department = product.Department;
+    _context.SaveChanges();
+ 
+    return Ok(product);
+  }
+  catch (Exception e)
+  {
+    _logger.LogWarning(e, "Unable to PUT product.");
+ 
+    return ValidationProblem(e.Message);
+  }
+}
+```
+
+<!-- In REST design, a PUT allows updates to an entire resource. It is idempotent because multiple identical requests do not alter the number of resources. -->
+
+在 REST 设计中，PUT 允许对整个资源进行更新。它是幂等的，因为多个相同的请求不会改变资源的数量。
+
+<!-- Like a GET 404 response, the resource is unavailable for updates, but this might change later. As a bonus, ASP.NET provides model binding validation out of the box. Go ahead, try to update an existing resource with bad data. -->
+
+就像 *GET 404* 响应一样，表示该资源不可用于更新，但这可能在稍后发生变化。作为奖励，ASP.NET 提供现成的模型绑定验证。接下来，尝试使用错误的数据更新现有资源。
+
+This JSON is the *Bad Request* response you might see:
+
+下面的 JSON 是您可能看到的 *错误请求* 的响应：
+
+```json
+{
+  "errors": {
+    "Price": ["The price field is required."]
+  },
+  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+  "title": "One or more validation errors occurred.",
+  "status": 400,
+  "traceId": "|c445a409-43564e0626f9af50."
+}
+```
+
+<!-- `PATCH` is the most complex of all verbs because it only updates a part of the resource via a JSON Patch document. -->
+
+`PATCH` 是所有谓词中最复杂的，因为它通过 [JSON Patch 文档](https://tools.ietf.org/html/rfc6902)仅更新资源的一部分。
+
+The good news is .NET Core helps with a NuGet package:
+
+好消息是 .NET Core 提供了一个 NuGet 包：
+
+```bash
+dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson
+```
+
+<!-- Then, enable this in ConfigureServices: -->
+
+然后，在 `ConfigureServices` 中启用它：
+
+```csharp
+services.AddControllers().AddNewtonsoftJson();
+```
+
+<!-- This is the PATCH endpoint. Remember using Microsoft.AspNetCore.JsonPatch: -->
+
+下面是 `PATCH` 端点，记得添加 `using Microsoft.AspNetCore.JsonPatch`：
+
+```csharp
+[HttpPatch]
+[Route("{productNumber}")]
+[ProducesResponseType(StatusCodes.Status200OK)]
+[ProducesResponseType(StatusCodes.Status404NotFound)]
+[ProducesResponseType(StatusCodes.Status400BadRequest)]
+public ActionResult<Product> PatchProduct([FromRoute] 
+      string productNumber, [FromBody] JsonPatchDocument<Product> patch)
+{
+  try
+  {
+    var productDb = _context.Products
+      .FirstOrDefault(p => p.ProductNumber.Equals(productNumber, 
+           StringComparison.InvariantCultureIgnoreCase));
+ 
+    if (productDb == null) return NotFound();
+ 
+    patch.ApplyTo(productDb, ModelState);
+ 
+    if (!ModelState.IsValid || !TryValidateModel(productDb)) 
+             return ValidationProblem(ModelState);
+ 
+    _context.SaveChanges();
+ 
+    return Ok(productDb);
+  }
+  catch (Exception e)
+  {
+    _logger.LogWarning(e, "Unable to PATCH product.");
+ 
+    return ValidationProblem(e.Message);
+  }
+}
+```
+
+I hope you see a pattern start to emerge with the different status code response types. A 200 OK means success and a 400 Bad Request means user error. Once a patch gets applied it appends any validation errors in ModelState. Take a closer look at JsonPatchDocument, which does model binding, and ApplyTo, which applies changes. This is how a JSON Patch document gets applied to an existing product in the database. Exceptions get logged and included in the response like all the other endpoints. A 404 (Not Found) response indicates the same situation as all the other verbs. This consistency in response status codes helps clients deal with all possible scenarios.
