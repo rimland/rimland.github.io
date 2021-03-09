@@ -767,7 +767,7 @@ This JSON is the *Bad Request* response you might see:
 
 `PATCH` 是所有谓词中最复杂的，因为它通过 [JSON Patch 文档](https://tools.ietf.org/html/rfc6902)仅更新资源的一部分。
 
-The good news is .NET Core helps with a NuGet package:
+<!-- The good news is .NET Core helps with a NuGet package: -->
 
 好消息是 .NET Core 提供了一个 NuGet 包：
 
@@ -822,4 +822,66 @@ public ActionResult<Product> PatchProduct([FromRoute]
 }
 ```
 
-I hope you see a pattern start to emerge with the different status code response types. A 200 OK means success and a 400 Bad Request means user error. Once a patch gets applied it appends any validation errors in ModelState. Take a closer look at JsonPatchDocument, which does model binding, and ApplyTo, which applies changes. This is how a JSON Patch document gets applied to an existing product in the database. Exceptions get logged and included in the response like all the other endpoints. A 404 (Not Found) response indicates the same situation as all the other verbs. This consistency in response status codes helps clients deal with all possible scenarios.
+<!-- I hope you see a pattern start to emerge with the different status code response types. A 200 OK means success and a 400 Bad Request means user error. Once a patch gets applied it appends any validation errors in ModelState. Take a closer look at JsonPatchDocument, which does model binding, and ApplyTo, which applies changes. This is how a JSON Patch document gets applied to an existing product in the database. Exceptions get logged and included in the response like all the other endpoints. A 404 (Not Found) response indicates the same situation as all the other verbs. This consistency in response status codes helps clients deal with all possible scenarios. -->
+
+我希望您看到一种含有不同状态码响应类型的模式开始显现。*200 OK* 表示成功，*400 Bad Request* 表示用户错误。当应用补丁后，将会在 `ModelState` 中附加所有的验证错误。仔细研究进行模型绑定的 `JsonPatchDocument` 和 应用更改的 `ApplyTo`。这就是将 JSON Patch 文档应用到数据库中现有产品的方式。像所有其它端点一样，异常会被记录并包含在响应中。与其它谓词一样，*404 (Not Found)* 响应表示相同的情形。响应状态码的一致性有助于客户端处理所有可能的场景。
+
+<!-- A JSON patch request body looks like the following: -->
+
+一个 JSON patch 请求的主体大概如下所示：
+
+```json
+[{
+  "op": "replace",
+  "path": "price",
+  "value": 13.67
+}]
+```
+
+<!-- Model binding validation rules still apply to the patch operation to preserve data integrity. Note the patch gets wrapped around an array, so it supports an arbitrary list of operations. -->
+
+模型绑定验证规则仍然适用于 patch 操作，以保持数据的完整性。请注意，patch 操作被包装在一个数组中，因此它支持任意的操作列表。
+
+<!-- This is PATCH in curl: -->
+
+这是 curl 中的 `PATCH`：
+
+![PATCH in curl](/assets/images/202102/patch-in-curl.png)
+
+<!-- Last stop, a DELETE method: -->
+
+最后一项，`DELETE` 方法：
+
+```csharp
+[HttpDelete]
+[Route("{productNumber}")]
+[ProducesResponseType(StatusCodes.Status200OK)]
+[ProducesResponseType(StatusCodes.Status404NotFound)]
+public ActionResult<Product> DeleteProduct([FromRoute] 
+        string productNumber)
+{
+  var productDb = _context.Products
+    .FirstOrDefault(p => p.ProductNumber.Equals(productNumber, 
+           StringComparison.InvariantCultureIgnoreCase));
+ 
+  if (productDb == null) return NotFound();
+ 
+  _context.Products.Remove(productDb);
+  _context.SaveChanges();
+ 
+  return NoContent();
+}
+```
+
+<!-- The status code response is No Content: -->
+
+它的状态码响应是 *No Content*：
+
+```json
+HTTP/1.1 204 No Content
+Date: Tue, 14 Jul 2020 22:59:20 GMT
+Server: Kestrel
+api-supported-versions: 1.0
+```
+
+This status signals to clients that the resource is no longer available because the response body is empty. The response can also be 204 (Accepted) if this needs an async background process to clean up the data. In a real system, soft deletes are sometimes preferable to allow rollback during auditing. When deleting data, be sure to comply with GPDR or any policy that applies to the data.
