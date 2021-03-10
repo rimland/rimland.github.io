@@ -14,7 +14,7 @@ published: true
 
 <!-- One way to scale large complex solutions is to break them out into REST microservices. Microservices unlock testability and reusability of business logic that sits behind an API boundary. This allows organizations to share software modules because REST APIs can be reused by multiple clients. Clients can then call as many APIs from mobile, web, or even static assets via a single-page app. -->
 
-扩展大型复杂解决方案的一种方法是将它们分解为 REST 微服务。微服务开启了 API 边界后的业务逻辑的可测试性和可重用性。因为 REST API 可以被多个客户端重用，使得组织可以共享软件模块。客户端或许是移动端、网页端，甚至单面应用的静态资源端，它们可以调用任意多的 API。
+扩展大型复杂解决方案的一种方法是将它们分解为 REST 微服务。微服务开启了 API 背后的业务逻辑的可测试性和可重用性。因为 REST API 可以被多个客户端重用，使得组织可以共享软件模块。客户端或许是移动端、网页端，甚至单页应用的静态资源端，它们可以调用任意多的 API。
 
 <!-- In this take, I will show you what it takes to build a REST API in .NET Core. I will hit this with real-world demands such as versioning, search, and logging, to name a few. REST is often employed with verbs like POST, PUT, or PATCH, so I plan to cover them all. What I hope you see is a nice, effective way to deliver value with the tools available. -->
 
