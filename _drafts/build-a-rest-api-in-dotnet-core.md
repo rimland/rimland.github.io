@@ -18,7 +18,7 @@ published: true
 
 <!-- In this take, I will show you what it takes to build a REST API in .NET Core. I will hit this with real-world demands such as versioning, search, and logging, to name a few. REST is often employed with verbs like POST, PUT, or PATCH, so I plan to cover them all. What I hope you see is a nice, effective way to deliver value with the tools available. -->
 
-在本文中，我将向您展示在 .NET Core 中构建 REST API 的全过程。我将用现实工作中的需求来解释这个过程，比如版本控制、搜索、日志记录等等。REST 通常与诸如 POST、PUT 或 PATCH 的谓词一起使用，因此我打算将它们全部覆盖。我希望您看到的是，使用现有工具交付价值的一个好的有效的方式。
+在本文中，我将向您展示在 .NET Core 中构建 REST API 的全过程。我将用现实工作中的需求来解释这个过程，比如版本控制、搜索、日志记录等等。REST 通常与诸如 `POST`、`PUT` 或 `PATCH` 的谓词一起使用，因此我打算将它们全部覆盖。我希望您看到的是，使用现有工具交付价值的一个好的有效的方式。
 
 <!-- This article assumes a working grasp of ASP.NET, C#, and REST APIs so I will not cover any basics. I recommend the latest .NET Core LTS release at the time of this writing to follow along. If you would like to start with working code, the sample code can be downloaded from GitHub. -->
 
@@ -27,15 +27,16 @@ published: true
 [^dotnet]: <https://dotnet.microsoft.com/download/dotnet-core> Download .NET Core  
 [^GitHub]: <https://github.com/beautifulcoder/BuildRestApiNetCore> 示例代码
 
-You can begin by creating a new folder like BuildRestApiNetCore and firing this up in a shell:
+<!-- You can begin by creating a new folder like BuildRestApiNetCore and firing this up in a shell: -->
 
-你可以先新建一个文件夹，比如 BuildRestApiNetCore，然后在 shell 中启用它：
+你可以先新建一个文件夹，比如 *BuildRestApiNetCore*，然后在 shell 中打开它：
 
 ```shell
 dotnet new sln
 dotnet new webapi --no-https
 dotnet sln add .
 ```
+
 <!-- 
 This project is based on a Web API template with HTTPS disabled to make it easier for local development. Double-clicking the solution file brings it up in Visual Studio if you have it installed. For .NET Core 3.1 support, be sure to have the 2019 version of the IDE. -->
 
@@ -43,7 +44,7 @@ This project is based on a Web API template with HTTPS disabled to make it easie
 
 <!-- APIs put a layer of separation between clients and the database, so the data is an excellent place to start. To keep data access trivial, Entity Framework has an in-memory alternative so that I can focus on the API itself. -->
 
-由于 API 在客户端和数据库之间建立了一层隔离，因此数据是一个很好的起点。为了简化数据访问，Entity Framework 提供了一个内存中的替代方案，这样我就可以专注于 API 本身。
+由于 API 在客户端和数据库之间建立了一层分离，因此准备数据是一个很好的开始。为了简化数据访问，Entity Framework 提供了一个内存中的替代方案，这样我就可以只关注 API 本身。
 
 <!-- An in-memory database provider comes via NuGet: -->
 
@@ -55,7 +56,7 @@ dotnet add package Microsoft.EntityFrameworkCore.InMemory
 
 <!-- Then, create the following data model. I put this in the Models folder to indicate this namespace houses raw data. To use the data annotations, add System.ComponentModel.DataAnnotations in a using statement. -->
 
-然后，创建以下数据模型。我将其放在 Models 文件夹中，以指示此命名空间存放原始数据。若要使用数据标注，请在 using 语句中添加 `System.ComponentModel.DataAnnotations`。
+然后，创建以下数据模型。我将其放在 Models 文件夹中，以表示此命名空间存放原始数据。若要使用数据标注，请在 using 语句中添加 `System.ComponentModel.DataAnnotations`。
 
 ```csharp
 public class Product
@@ -82,11 +83,11 @@ public class Product
 
 <!-- In a real solution, this may go in a separate project depending on the team’s needs. Pay attention to the attributes assigned to this model like Required, Display, and Range. These are data annotations in ASP.NET to validate the Product during model binding. Because I use an in-memory database, Entity Framework requires a unique Key. These attributes assign validation rules like price range or whether the property is required. -->
 
-在实际的解决方案中，这可能要根据团队的需要将其放在单独的项目中。注意分配给该模型的属性，例如 `Required`、`Display` 和 `Range`，这些是 ASP.NET 中的数据标注，用于在模型绑定时验证 `Product`。因为我使用的是内存数据库，所以 Entity Framework 需要一个唯一的 Key。这些属性指定了验证规则，例如：价格区间或者属性是否是必须的。
+在实际的解决方案中，这可能要根据团队的需要将其放在单独的项目中。请注意分配给该模型的属性，例如 `Required`、`Display` 和 `Range`，这些是 ASP.NET 中的数据标注，用于在模型绑定时验证 `Product`。因为我使用的是内存数据库，所以 Entity Framework 需要一个唯一的 *Key*。这些属性指定了验证规则，例如：价格区间或者该属性是否是必须的。
 
 <!-- From a business perspective, this is an e-commerce site with a product number, name, and price. Each product is also assigned a department to make searches by department easier. -->
 
-从业务的角度来看，这是一个包含产品编号、名称和价格的电子商务站点。每个产品还指定了一个部门，以便按部门进行搜索。
+从业务的视角来看，这是一个包含产品编号、名称和价格的电子商务站点。每个产品还指定了一个部门，以便按部门进行搜索。
 
 <!-- Next, set the Entity Framework DbContext in the Models namespace: -->
 
@@ -117,7 +118,7 @@ services.AddDbContext<ProductContext>(opt => opt.UseInMemoryDatabase("Products")
 
 <!-- Create this extension method to help iterate through seed items. This can go in an `Extensions` namespace or folder: -->
 
-创建下面的扩展方法以帮助迭代生成种子数据，可以将它放在 `Extensions` 命名空间或文件夹中：
+创建下面的扩展方法以帮助迭代生成种子数据，可以将它放在 *Extensions* 命名空间或文件夹中：
 
 ```csharp
 public static class EnumerableExtensions
@@ -129,9 +130,9 @@ public static class EnumerableExtensions
 }
 ```
 
-The initial seed goes in Models via a static class:
+<!-- The initial seed goes in Models via a static class: -->
 
-在 `Models` 命名空间下添加一个静态类以初始化种子数据：
+在 *Models* 命名空间下添加一个静态类以初始化种子数据：
 
 ```csharp
 public static class ProductSeed
@@ -170,11 +171,11 @@ public static class ProductSeed
 
 <!-- This code loops through a list of 900 items to create this many products. The names are picked at random with a department and price. Each product gets a “smart” key as the primary key which comes from department, name, and product id. -->
 
-这段代码循环遍历一个 900 条项目的列表以生成这么多的产品，这些产品的部门、价格和名称都是随机挑选的。每个产品都有一个巧妙的 key 作为主键，该主键由部门、名称和产品 Id 组合而成。
+这段代码循环遍历一个 900 条项目的列表以生成大量的产品，这些产品的部门、价格和名称都是随机挑选的。每个产品都有一个“巧妙”的 key 作为主键，该主键由部门、名称和产品 Id 组合而成。
 
 <!-- Once this seed runs, you may get products such as “Smart Wooden Pants” in the Electronics department for a nominal price. -->
 
-有了这些种子数据，您可以获得类似，一个带有标价的部门为 Electronics 的，名为 “Smart Wooden Pants” 的产品。
+有了这些种子数据，您就可以得到诸如在 Electronics 部门带有标价的名为 “Smart Wooden Pants” 的产品。
 
 <!-- As a preliminary step to start building endpoints, it is a good idea to set up versioning. This allows client apps to upgrade API functionality at their leisure without tight coupling. -->
 
@@ -198,11 +199,11 @@ services.AddApiVersioning(opt => opt.ReportApiVersions = true);
 
 <!-- I opted to include available versions in the API response, so clients know when upgrades are available. I recommend using [Semantic Versioning](https://semver.org/) to communicate breaking changes in the API. Letting clients know what to expect between upgrades helps everyone stay on the latest features. -->
 
-我选择在 API 响应中包括可用版本，以便客户端知道何时有可用的升级。我建议使用 [Semantic Versioning](https://semver.org/) [^Semantic]来传达 API 中的重大更改。让客户端知道升级之间会发生什么，可以帮助每个人保持最新功能。
+我选择在 API 响应中包括可用版本，以便客户端知道何时有可用的升级。我建议使用 [语义化的版本控制](https://semver.org/) [^Semantic]来传达 API 中的重大更改。让客户端知道每次升级都修改了什么，有助于每个客户端保持最新的功能。
 
 [^Semantic]: <https://semver.org/> Semantic Versioning
 
-## Search endpoint in a REST API
+<!-- ## Search endpoint in a REST API -->
 
 ## REST API 中的搜索终端
 
@@ -210,7 +211,7 @@ services.AddApiVersioning(opt => opt.ReportApiVersions = true);
 
 To build an endpoint, spin up a Controller in ASP.NET which goes in the Controllers folder. -->
 
-要构建一个终端，请在 Controllers 文件夹中，定位到 ASP.NET 中的 Controller。
+要构建一个终端，请在 *Controllers* 文件夹中转到 ASP.NET 中的 Controller。
 
 <!-- Create a ProductsController with the following, making sure to add the namespace Microsoft.AspNetCore.Mvc with a using statement: -->
 
@@ -238,7 +239,7 @@ public class ProductsController : ControllerBase
 
 <!-- Note `InitData` runs the initial seed when there aren’t any products in the database. I set a `Route` that uses versioning which is set via `ApiVersion`. The data context `ProductContext` gets injected in the constructor with Dependency Injection. The first endpoint is *GET* which returns a list of Products in the Controller: -->
 
-请注意，当数据库中没有任何产品时，`InitData` 将运行并初始化种子数据。我设置了一个带有版本控制的 `Route`，版本号通过 `ApiVersion` 设置。通过依赖注入将数据上下文 `ProductContext` 注入到构造函数中。在该 Controller 中，第一个终端是返回一个产品列表的 *GET* 终端：
+请注意，当数据库中没有任何产品时，将运行 `InitData` 初始化种子数据。我设置了一个带有版本控制的 `Route`，版本号通过 `ApiVersion` 设置。通过依赖注入将数据上下文 `ProductContext` 注入到构造函数中。在该 Controller 中，第一个终端是返回一个产品列表的 *GET* 终端：
 
 ```csharp
 [HttpGet]
@@ -257,7 +258,7 @@ public ActionResult<IQueryable<Product>> GetProducts()
 
 <!-- I opted to order products by product number to make it easier to show the results. In a production system, check this sort matches the clustered index, so the database doesn’t work as hard. Always review execution plans and statistics IO to confirm good performance. -->
 
-我选择按产品编号排序产品，以便更轻松地显示结果。在一个生产系统中，检查这种排序是否与聚集索引相匹配，以便减轻数据库的运行压力。经常检查执行计划和统计 IO，以确认性能良好。
+我选择按产品编号排序产品，以便更轻松地显示结果。在生产系统中，可以检查这种排序是否与聚集索引相匹配，以便减轻数据库的运行压力。经常检查执行计划和统计 IO，以确认有良好的性能。
 
 <!-- This project is ready to go for a test drive! Inside of a CLI type: -->
 
@@ -277,7 +278,7 @@ curl -i -X GET "http://localhost:5000/v1/products" -H "accept: application/json"
 
 <!-- I run both commands in separate consoles. One runs the file watcher that automatically refreshes when I make changes. The other terminal is where I keep curl results. Postman is also useful, but curl gets the job done and comes with Windows 10. -->
 
-我在两个独立的控制台窗口中运行这两条命令。一个以监视模式运行项目，当我更新代码文件时，会自动重新生成并刷新；另一个是我保持 curl 结果的地方，可以使用 Postman，但是伴随 Windows 10 而来的 curl 也可以完成该工作。
+我在两个独立的控制台窗口中运行这两条命令。一个以监视模式运行项目，当我更改代码文件时，会自动重新生成并刷新；另一个是我保持 curl 结果的地方，可以使用 Postman，但是伴随 Windows 10 而来的 curl 也可以完成该工作。
 
 结果如下：
 
@@ -289,7 +290,7 @@ curl -i -X GET "http://localhost:5000/v1/products" -H "accept: application/json"
 
 <!-- A better approach is to introduce limit and offset request parameters in a model: -->
 
-更好的方法是在模型中引入 `limit` 和 `offset` 请求参数：
+更好的方法是在一个模型中引入 `limit` 和 `offset` 请求参数：
 
 ```csharp
 public class ProductRequest
@@ -304,7 +305,7 @@ public class ProductRequest
 
 <!-- Wire this request parameter to the GetProducts endpoint: -->
 
-将此请求参数连接到 GetProducts 端点：
+将此请求参数关联到 GetProducts 端点：
 
 ```csharp
 public ActionResult<IQueryable<Product>> GetProducts([FromQuery] ProductRequest request)
@@ -358,7 +359,7 @@ curl -i -X GET "http://localhost:5000/v1/products?offset=15&department=electroni
 
 检查确定包含总数和受支持版本的 HTTP 头：
 
-```
+```json
 HTTP/1.1 200 OK
 Date: Thu, 28 Jan 2021 11:19:09 GMT
 Content-Type: application/json; charset=utf-8
@@ -372,11 +373,11 @@ api-supported-versions: 1.0
 
 <!-- With the API taking shape, how can I communicate endpoints to other developers? It is beneficial for teams to know what the API exposes without having to bust open code. Swagger is the tool of choice here; by using reflection, it is capable of documenting what’s available. -->
 
-当 API 成形后，如何向其他开发人员传达终端呢？对于团队来说，在不破坏开放代码的情况下了解 API 公开的内容是益的。Swagger 是这里的首选工具，它能通过反射，生成可用内容的文档。
+当 API 成形后，如何向其他开发人员传达终端呢？对于团队来说，在不破坏开放代码的情况下了解 API 公开的内容是有益的。Swagger 是这里的首选工具，它能通过反射，生成可用内容的文档。
 
-What if I told you everything swagger needs is already set in this API? Go ahead, take a second look:
+<!-- What if I told you everything swagger needs is already set in this API? Go ahead, take a second look: -->
 
-如果我告诉您，Swagger 所需的一切都已经在此 API 中设置过了呢？来吧，再看一下：
+如果我告诉您，Swagger 所需的一切都已经在此 API 中设置过了呢？来吧，再看一眼：
 
 ```csharp
 [Produces("application/json")]
@@ -387,7 +388,7 @@ ActionResult<IQueryable<Product>> GetProducts([FromQuery]
 
 <!-- ASP.NET attributes are useful for documenting endpoints. Swagger also picks up return types from controller methods to figure out what responses look like and picks up request parameters in each controller method via reflection. It produces “living documentation” because it sucks up everything from working code, which reduces mishaps. -->
 
-ASP.NET 属性对于端点文档非常有用。Swagger 通过反射，从控制器方法中获得返回类型，以推断响应该是什么样子，并获得每个控制器方法中的请求参数。因为它吸收了工作代码中的所有内容，所以它可以生成“活生生的文档”，从而减少故障的发生。
+ASP.NET 属性对于端点自文档化非常有用。Swagger 通过反射，从控制器方法中获得返回类型，以推断响应该是什么样子，并获得每个控制器方法中的请求参数。因为它收集了工作代码中的所有内容，所以可以生成“活文档”，从而减少了故障的发生。
 
 <!-- The one dependency lacking is a NuGet: -->
 
@@ -397,7 +398,7 @@ ASP.NET 属性对于端点文档非常有用。Swagger 通过反射，从控制�
 dotnet add package Swashbuckle.AspNetCore
 ```
 
-并将其连接到 `ConfigureServices` 中：
+并在 `ConfigureServices` 中将其关联进来：
 
 ```csharp
 services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo
@@ -410,7 +411,7 @@ services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo
 
 <!-- Then, enable this in Configure: -->
 
-然后，在 `Configure` 中启动：
+然后，在 `Configure` 中启用它：
 
 ```csharp
 app.UseSwagger();
@@ -419,7 +420,7 @@ app.UseSwaggerUI(opt => opt.SwaggerEndpoint("/swagger/v1/swagger.json", "Product
 
 <!-- Note `OpenApiInfo` comes from the `Microsoft.OpenApi.Models` namespace. With this, navigate to *http://localhost:5000/swagger* in the browser to check out the swagger doc. -->
 
-注意 `OpenApiInfo` 来自 `Microsoft.OpenApi.Models` 命名空间。此时，在浏览器中导航到 *http://localhost:5000/swagger* 可以查看 swagger 文档。
+注意 `OpenApiInfo` 来自 `Microsoft.OpenApi.Models` 命名空间。此时，在浏览器中导航到 *http://localhost:5000/swagger* 就可以查看 swagger 文档了。
 
 <!-- The page should look like this: -->
 
@@ -429,7 +430,7 @@ app.UseSwaggerUI(opt => opt.SwaggerEndpoint("/swagger/v1/swagger.json", "Product
 
 <!-- From the swagger doc, feel free to poke around and fire requests to the API from this tool. Fellow developers from across the organization might even buy you a cup of coffee for making their lives easier. -->
 
-在 swagger 文档中，您可以轻松浏览 API 接口并向接口发起请求，您所在组织的其他开发人员会因此受益而生活轻松，他们甚至可能会请您喝杯咖啡。
+在 swagger 文档中，您可以轻松浏览 API 并通过这个工具向 API 发起请求，您所在组织的其他开发人员会因此受益而生活轻松，他们甚至可能会请您喝杯咖啡。
 
 <!-- Note how expanding GET /Products picks up C# data types from the method in the controller:
 注意扩展GET / Products如何从控制器中的方法中提取C＃数据类型： -->
@@ -444,7 +445,7 @@ app.UseSwaggerUI(opt => opt.SwaggerEndpoint("/swagger/v1/swagger.json", "Product
 
 <!-- To set up the logger, I am going to need the following: -->
 
-要设置记录器，需要完成做以下操作：
+要设置日志记录器，需要完成做以下操作：
 
 - 一个 NuGet 包
 - 一个 *nlog.config* 设置文件
@@ -501,11 +502,11 @@ dotnet add package NLog.Web.AspNetCore
 ```
 <!--Pay attention to `Layout` because it sets the type of log file which is set to `JsonLayout`. This JSON format has the most flexibility when consuming log files in different analytical tools. Logger rules do not log errors from *Microsoft.** to keep chattiness down to a minimum. As a bonus, unhandled exceptions from the API get logged but do not rethrow because `throwExceptions` is false. Usage here may vary, but it is generally a good idea to handle all unhandled exceptions in the logger. -->
 
-请注意 `Layout`，因为它设置了日志文件的类型，这里将其设置为 `JsonLayout`。当在不同的分析工具中使用日志文件时，JSON 格式具有最大的灵活性。为了让冗余降到最小，记录器规则不记录来自 *Microsoft.** 的错误。另外，因为将 `throwExceptions` 设置为了 false，API 中未处理的异常会被记录，但不会被重新抛出。这里的用法可能会有所改变，但是通常最好在记录器中处理所有未处理的异常。
+请注意 `Layout`，因为它设置了日志文件的类型，这里将其设置为 `JsonLayout`。当在不同的分析工具中使用日志文件时，JSON 格式具有最大的灵活性。为了让冗余降到最小，记录器规则不记录来自 *Microsoft.** 的错误。另外，因为将 `throwExceptions` 设置为了 false，API 中未处理的异常会被记录，但不会被重新抛出。这里的用法可能是多变的，但是通常最好是在 logger 中处理所有未处理的异常。
 
 <!-- Inside the Program class, enable NLog, remembering to include using NLog.Web: -->
 
-在 `Program` 类中，启用 NLog，记得添加 `using NLog.Web`：
+在 `Program` 类中，启用 `NLog`，记得添加 `using NLog.Web`：
 
 ```csharp
 Host.CreateDefaultBuilder(args)
@@ -533,7 +534,7 @@ Host.CreateDefaultBuilder(args)
 
 <!-- The basic idea is to cut the number of log entries which aren’t relevant to this API. Feel free to poke around with the settings, so it logs exactly what the API needs. -->
 
-其基本思想是减少与此 API 无关的日志条目的数量。您可以随意调整这些设置，以便精确地记录 API 所需要的日志内容。
+其基本思想是减少与此 API 无关的日志条目的数量。您可以随意调整这些设置，以便恰当地记录 API 所需要的日志内容。
 
 <!-- It’s time to take this for a spin. In the Controller class, add using Microsoft.Extensions.Logging and inject a plain old ASP.NET logger: -->
 
@@ -552,7 +553,7 @@ public ProductsController(ProductContext context,
 
 <!-- Say now the team decides to grab telemetry around how often clients ask for 100 records or more. -->
 
-假设现在团队决定根据客户要求获取 100 条或更多记录的频率获取遥测数据。
+假设，现在团队决定要抓取客户端请求获取 100 条或更多条记录的频率相关的遥测数据。
 
 将下面代码放入 `GetProducts` 中：
 
@@ -563,7 +564,7 @@ if (request.Limit >= 100)
 
 <!-- Be sure to have a temp folder handy to check the logs, for example, C:\temp\BuildRestApiNetCore\. -->
 
-请确保有一个方便的临时文件夹来检查日志，例如：`C:\temp\BuildRestApiNetCore\`。
+请确保有一个已存在的临时文件夹来查看日志，例如：`C:\temp\BuildRestApiNetCore\`。
 
 <!-- This is what an entry might look like: -->
 
@@ -578,6 +579,8 @@ if (request.Limit >= 100)
   "Message": "Requesting more than 100 products."
 }
 ```
+
+---
 
 <!-- ## REST Endpoints with Verbs -->
 
