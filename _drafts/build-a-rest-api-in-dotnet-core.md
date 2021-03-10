@@ -618,8 +618,9 @@ public ActionResult<Product> PostProduct([FromBody] Product product)
 
 <!-- ASP.NET automatically handles exceptions via ValidationProblem. This validation returns an RFC 7807 spec compliant response with a message. In a real system, I recommend making sure this does not expose any internals about the API. Putting the exception message here helps clients troubleshoot their code, but security is also important. I opted to include the error message mostly for demonstration purposes. The exception is also logged as a warning, to avoid logging a bunch of errors. Monitoring tools might page out to whoever is on-call when there are too many exceptions. A best practice is to only log errors during catastrophic failures that might need human intervention. -->
 
-ASP.NET 通过 `ValidationProblem` 自动处理异常。该验证将返回一条符合 [RFC 7807 规范](https://tools.ietf.org/html/rfc7807)的响应，并带有一条消息。在实际的系统中，我建议确保不要暴露任何有关 API 的内部信息。将异常信息放在此处可帮助客户端对代码进行故障排除，但是安全性也很重要。我选择包含错误信息主要是出于演示目的。这里还会将异常记录为警告，以避免记录大量错误。当异常太多时，监控工具可能会呼叫值班人员。最佳实践是仅在可能需要人工干预的灾难性故障期间记录错误。
+ASP.NET 通过 `ValidationProblem` 自动处理异常。该验证将返回一条符合 [RFC 7807 规范](https://tools.ietf.org/html/rfc7807)[^RFC]的响应，并带有一条消息。在实际的系统中，我建议确保不要暴露任何有关 API 的内部信息。将异常信息放在此处可帮助客户端对代码进行故障排除，但是安全性也很重要。我选择包含错误信息主要是出于演示目的。这里还会将异常记录为警告，以避免记录大量错误。当异常太多时，监控工具可能会呼叫值班人员。最佳实践是仅在可能需要人工干预的灾难性故障期间记录错误。
 
+[^RFC]: <https://tools.ietf.org/html/rfc7807> RFC 7807 规范
 <!-- Using the swagger tool, the curl command is: -->
 
 使用 swagger 工具，curl 命令为：
@@ -648,7 +649,7 @@ curl -i -X POST http://localhost:5000/v1/products
 
 <!-- A 400 (*Bad Request*) response indicates a user error in the request. Because users can’t be trusted to send valid data, the API logs a warning. -->
 
-400 (*Bad Request*) 响应表示请求中的用户错误。因为无法信任用户发送有效数据，所以 API 会记录一个警告。
+*400 (Bad Request)* 响应表示请求中的用户错误。因为无法信任用户发送有效数据，所以 API 会记录一个警告。
 
 <!-- Note that on success POST returns a 201 with Location: -->
 
@@ -727,13 +728,13 @@ public ActionResult<Product> PutProduct([FromBody] Product product)
 
 <!-- In REST design, a PUT allows updates to an entire resource. It is idempotent because multiple identical requests do not alter the number of resources. -->
 
-在 REST 设计中，PUT 允许对整个资源进行更新。它是幂等的，因为多个相同的请求不会改变资源的数量。
+在 REST 设计中，`PUT` 允许对整个资源进行更新。它是幂等的，因为多次相同的请求不会改变资源的数量。
 
 <!-- Like a GET 404 response, the resource is unavailable for updates, but this might change later. As a bonus, ASP.NET provides model binding validation out of the box. Go ahead, try to update an existing resource with bad data. -->
 
-就像 *GET 404* 响应一样，表示该资源不可用于更新，但这可能在稍后发生变化。作为奖励，ASP.NET 提供现成的模型绑定验证。接下来，尝试使用错误的数据更新现有资源。
+就像 *GET 404* 响应一样，表示该资源不可用于更新，但这可能在稍后发生变化。另外，ASP.NET 提供现成的模型绑定验证。接下来，尝试一下使用错误的数据更新现有资源。
 
-This JSON is the *Bad Request* response you might see:
+<!-- This JSON is the *Bad Request* response you might see: -->
 
 下面的 JSON 是您可能看到的 *错误请求* 的响应：
 
@@ -751,7 +752,9 @@ This JSON is the *Bad Request* response you might see:
 
 <!-- `PATCH` is the most complex of all verbs because it only updates a part of the resource via a JSON Patch document. -->
 
-`PATCH` 是所有谓词中最复杂的，因为它通过 [JSON Patch 文档](https://tools.ietf.org/html/rfc6902)仅更新资源的一部分。
+`PATCH` 是所有谓词中最复杂的，因为它通过 [JSON Patch 文档](https://tools.ietf.org/html/rfc6902)[^rfc6902]仅更新资源的一部分。
+
+[^rfc6902]: <https://tools.ietf.org/html/rfc6902> JSON Patch 文档
 
 <!-- The good news is .NET Core helps with a NuGet package: -->
 
@@ -810,11 +813,11 @@ public ActionResult<Product> PatchProduct([FromRoute]
 
 <!-- I hope you see a pattern start to emerge with the different status code response types. A 200 OK means success and a 400 Bad Request means user error. Once a patch gets applied it appends any validation errors in ModelState. Take a closer look at JsonPatchDocument, which does model binding, and ApplyTo, which applies changes. This is how a JSON Patch document gets applied to an existing product in the database. Exceptions get logged and included in the response like all the other endpoints. A 404 (Not Found) response indicates the same situation as all the other verbs. This consistency in response status codes helps clients deal with all possible scenarios. -->
 
-我希望您看到一种含有不同状态码响应类型的模式开始显现。*200 OK* 表示成功，*400 Bad Request* 表示用户错误。当应用补丁后，将会在 `ModelState` 中附加所有的验证错误。仔细研究进行模型绑定的 `JsonPatchDocument` 和 应用更改的 `ApplyTo`。这就是将 JSON Patch 文档应用到数据库中现有产品的方式。像所有其它端点一样，异常会被记录并包含在响应中。与其它谓词一样，*404 (Not Found)* 响应表示相同的情形。响应状态码的一致性有助于客户端处理所有可能的场景。
+我希望您看到一种含有不同状态码响应类型的模式开始显现。*200 OK* 表示成功，*400 Bad Request* 表示用户错误。当 patch 被应用后，将会在 `ModelState` 中附加所有的验证错误。仔细研究进行模型绑定的 `JsonPatchDocument` 和 应用更改的 `ApplyTo`。这就是将 JSON Patch 文档应用到数据库中现有产品的方式。像所有其它端点一样，异常会被记录并包含在响应中。与其它谓词端点一样，*404 (Not Found)* 响应表示相同的情形。响应状态码的一致性有助于客户端处理所有可能的场景。
 
 <!-- A JSON patch request body looks like the following: -->
 
-一个 JSON patch 请求的主体大概如下所示：
+一个 JSON patch 请求的 body 大概如下所示：
 
 ```json
 [{
@@ -826,17 +829,17 @@ public ActionResult<Product> PatchProduct([FromRoute]
 
 <!-- Model binding validation rules still apply to the patch operation to preserve data integrity. Note the patch gets wrapped around an array, so it supports an arbitrary list of operations. -->
 
-模型绑定验证规则仍然适用于 patch 操作，以保持数据的完整性。请注意，patch 操作被包装在一个数组中，因此它支持任意的操作列表。
+模型绑定验证规则依然适用于 patch 操作，以保持数据的完整性。请注意，patch 操作被包装在一个数组中，因此它支持任意的操作列表。
 
 <!-- This is PATCH in curl: -->
 
-这是 curl 中的 `PATCH`：
+下图是 curl 中的 `PATCH`：
 
 ![PATCH in curl](/assets/images/202102/patch-in-curl.png)
 
 <!-- Last stop, a DELETE method: -->
 
-最后一项，`DELETE` 方法：
+最后一站，`DELETE` 方法：
 
 ```csharp
 [HttpDelete]
@@ -879,4 +882,4 @@ api-supported-versions: 1.0
 
 <!-- .NET Core adds many useful features to your toolbelt to make working with REST APIs easier. Complex use cases such as documentation, validation, logging, and PATCH requests are simpler to think about. -->
 
-.NET Core 为您的工具带中添加许多有用的特性，从而让使用 REST API 变得更加容易。将诸如文档、验证、日志记录和 `PATCH` 请求等复杂的用例变得更易于实现。
+.NET Core 在您的工具袋中添加许多有用的特性，从而让使用 REST API 变得更加轻松，将诸如文档、验证、日志记录和 `PATCH` 请求等复杂的用例变得更易于实现。
