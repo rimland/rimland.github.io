@@ -14,7 +14,7 @@ published: true
 
 <!-- One way to scale large complex solutions is to break them out into REST microservices. Microservices unlock testability and reusability of business logic that sits behind an API boundary. This allows organizations to share software modules because REST APIs can be reused by multiple clients. Clients can then call as many APIs from mobile, web, or even static assets via a single-page app. -->
 
-扩展大型复杂解决方案的一种方法是将它们分解为 REST 微服务。微服务开启了 API 背后的业务逻辑的可测试性和可重用性。因为 REST API 可以被多个客户端重用，使得组织可以共享软件模块。客户端或许是移动端、网页端，甚至单页应用的静态资源端，它们可以调用任意多的 API。
+扩展大型复杂解决方案的一种方法是将它们分解为 REST 微服务。微服务开启了 API 背后的业务逻辑的可测试性和可重用性。因为 REST API 可以被多个客户端重用，使得组织可以共享软件模块。客户端或许是移动端、网页端，甚至单页应用中的静态资源端，它们可以调用任意多的 API。
 
 <!-- In this take, I will show you what it takes to build a REST API in .NET Core. I will hit this with real-world demands such as versioning, search, and logging, to name a few. REST is often employed with verbs like POST, PUT, or PATCH, so I plan to cover them all. What I hope you see is a nice, effective way to deliver value with the tools available. -->
 
@@ -106,7 +106,7 @@ public class ProductContext : DbContext
 
 <!-- This database context is the dependency injected in the controller to query or update data. To enable Dependency Injection in ASP.NET Core, crack open the `Startup` class and add this in `ConfigureServices`: -->
 
-该数据库上下文是注入到控制器中用于查询或更新数据的依赖项。要在 ASP.NET Core 中启用依赖注入，请打开 `Startup` 类并将其添加到 `ConfigureServices` 中：
+该数据库上下文被依赖注入到控制器中，用于查询或更新数据。要在 ASP.NET Core 中启用依赖注入，请打开 `Startup` 类并将其添加到 `ConfigureServices` 中：
 
 ```csharp
 services.AddDbContext<ProductContext>(opt => opt.UseInMemoryDatabase("Products"));
@@ -114,7 +114,7 @@ services.AddDbContext<ProductContext>(opt => opt.UseInMemoryDatabase("Products")
 
 <!-- This code completes the in-memory database. Be sure to add Microsoft.EntityFrameworkCore to both classes in a using statement. Because a blank back end is no fun, this needs seed data. -->
 
-这行代码完成了内存数据库。请确保将 `Microsoft.EntityFrameworkCore` 添加到两个类的 using 语句中。因为空白的后端是无趣的，所以我们需要填充一些种子数据。
+这行代码完成了内存数据库。请确保在两个类的 using 语句中添加 `Microsoft.EntityFrameworkCore`。一个空白的后端是无趣的，因此我们来填充一些种子数据。
 
 <!-- Create this extension method to help iterate through seed items. This can go in an `Extensions` namespace or folder: -->
 
@@ -170,11 +170,11 @@ public static class ProductSeed
 
 <!-- This code loops through a list of 900 items to create this many products. The names are picked at random with a department and price. Each product gets a “smart” key as the primary key which comes from department, name, and product id. -->
 
-这段代码循环遍历一个 900 条项目的列表以生成大量的产品，这些产品的部门、价格和名称都是随机挑选的。每个产品都有一个“巧妙”的 key 作为主键，该主键由部门、名称和产品 Id 组合而成。
+这段代码循环遍历一个 900 条数据的列表以生成大量的产品，这些产品的部门、价格和名称都是随机捡选的。每个产品都有一个“巧妙”的 key 作为主键，该主键由部门、名称和产品 Id 组合而成。
 
 <!-- Once this seed runs, you may get products such as “Smart Wooden Pants” in the Electronics department for a nominal price. -->
 
-有了这些种子数据，您就可以得到诸如在 Electronics 部门带有标价的名为 “Smart Wooden Pants” 的产品。
+有了这些种子数据，您就可以得到诸如在 Electronics 部门带有标价的名为 “Smart Wooden Pants” 的产品了。
 
 <!-- As a preliminary step to start building endpoints, it is a good idea to set up versioning. This allows client apps to upgrade API functionality at their leisure without tight coupling. -->
 
