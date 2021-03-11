@@ -178,7 +178,12 @@ public static class ProductSeed
 
 <!-- As a preliminary step to start building endpoints, it is a good idea to set up versioning. This allows client apps to upgrade API functionality at their leisure without tight coupling. -->
 
-作为开始构建终端的第一步，设置 API 版本是一个好主意。这使得客户端应用可以随时升级 API 功能，而无需紧密耦合。
+作为开始构建 Endpoints 的第一步，设置 API 版本是一个好主意。这使得客户端应用可以随时升级 API 功能，而无需紧密耦合。
+
+[^endpoints]: <https://smartbear.com/learn/performance-monitoring/api-endpoints/> API Endpoints
+
+<!-- https://smartbear.com/learn/performance-monitoring/api-endpoints/ -->
+<!-- https://rapidapi.com/blog/api-glossary/endpoint/ -->
 
 <!-- API versioning comes in a NuGet package: -->
 
@@ -198,19 +203,19 @@ services.AddApiVersioning(opt => opt.ReportApiVersions = true);
 
 <!-- I opted to include available versions in the API response, so clients know when upgrades are available. I recommend using [Semantic Versioning](https://semver.org/) to communicate breaking changes in the API. Letting clients know what to expect between upgrades helps everyone stay on the latest features. -->
 
-我选择在 API 响应中包括可用版本，以便客户端知道何时有可用的升级。我建议使用 [语义化的版本控制](https://semver.org/) [^Semantic]来传达 API 中的重大更改。让客户端知道每次升级都修改了什么，有助于每个客户端保持最新的功能。
+我选择在 API 响应中包含可用的版本号，以便客户端知道何时有升级可用。我推荐使用 [语义化的版本控制](https://semver.org/) [^Semantic]来传达 API 中的重大更改。让客户端知道每次升级都修改了什么，这样有助于每个客户端保持最新的功能。
 
 [^Semantic]: <https://semver.org/> Semantic Versioning
 
 <!-- ## Search endpoint in a REST API -->
 
-## REST API 中的搜索终端
+## REST API 中的搜索 Endpoint
 
 <!-- 要构建端点，请在ASP.NET中旋转Controllers文件夹中的Controller。
 
 To build an endpoint, spin up a Controller in ASP.NET which goes in the Controllers folder. -->
 
-要构建一个终端，请在 *Controllers* 文件夹中转到 ASP.NET 中的 Controller。
+要构建一个 Endpoint，请在 *Controllers* 文件夹中转到 ASP.NET 中的 Controller。
 
 <!-- Create a ProductsController with the following, making sure to add the namespace Microsoft.AspNetCore.Mvc with a using statement: -->
 
