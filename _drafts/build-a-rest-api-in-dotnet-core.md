@@ -180,7 +180,7 @@ public static class ProductSeed
 
 作为开始构建 Endpoints 的第一步，设置 API 版本是一个好主意。这使得客户端应用可以随时升级 API 功能，而无需紧密耦合。
 
-[^endpoints]: <https://smartbear.com/learn/performance-monitoring/api-endpoints/> API Endpoints
+[^endpoints]: <https://rapidapi.com/blog/api-glossary/endpoint/> API Endpoints
 
 <!-- https://smartbear.com/learn/performance-monitoring/api-endpoints/ -->
 <!-- https://rapidapi.com/blog/api-glossary/endpoint/ -->
