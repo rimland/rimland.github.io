@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "在 .NET Core 中构建 REST API"
-date:   2021-01-20 00:10:00 +0800
+date:   2021-03-11 00:10:00 +0800
 categories: dotnet csharp
 published: true
 ---
@@ -156,8 +156,7 @@ public static class ProductSeed
 
             return new Product
             {
-                ProductNumber =
-                    $"{department.First()}{name.First()}{productId}",
+                ProductNumber = $"{department.First()}{name.First()}{productId}",
                 Name = $"{adjective} {material} {name}",
                 Price = (double)rnd.Next(1000, 9000) / 100,
                 Department = department
@@ -305,7 +304,7 @@ public class ProductRequest
 
 <!-- Wire this request parameter to the GetProducts endpoint: -->
 
-将此请求参数关联到 GetProducts 端点：
+将此请求参数关联到 **GetProducts** 端点：
 
 ```csharp
 public ActionResult<IQueryable<Product>> GetProducts([FromQuery] ProductRequest request)
@@ -653,7 +652,7 @@ curl -i -X POST http://localhost:5000/v1/products
 
 <!-- Note that on success POST returns a 201 with Location: -->
 
-请注意，如果成功，POST 将返回带有 *Location* 的 201：
+请注意，如果成功，`POST` 将返回带有 *Location* 的 201：
 
 ```json
 HTTP/1.1 201 Created
@@ -813,7 +812,7 @@ public ActionResult<Product> PatchProduct([FromRoute]
 
 <!-- I hope you see a pattern start to emerge with the different status code response types. A 200 OK means success and a 400 Bad Request means user error. Once a patch gets applied it appends any validation errors in ModelState. Take a closer look at JsonPatchDocument, which does model binding, and ApplyTo, which applies changes. This is how a JSON Patch document gets applied to an existing product in the database. Exceptions get logged and included in the response like all the other endpoints. A 404 (Not Found) response indicates the same situation as all the other verbs. This consistency in response status codes helps clients deal with all possible scenarios. -->
 
-我希望您看到一种含有不同状态码响应类型的模式开始显现。*200 OK* 表示成功，*400 Bad Request* 表示用户错误。当 patch 被应用后，将会在 `ModelState` 中附加所有的验证错误。仔细研究进行模型绑定的 `JsonPatchDocument` 和 应用更改的 `ApplyTo`。这就是将 JSON Patch 文档应用到数据库中现有产品的方式。像所有其它端点一样，异常会被记录并包含在响应中。与其它谓词端点一样，*404 (Not Found)* 响应表示相同的情形。响应状态码的一致性有助于客户端处理所有可能的场景。
+我希望您看到一种含有不同状态码响应类型的模式开始浮现。*200 OK* 表示成功，*400 Bad Request* 表示用户错误。当 patch 被应用后，将会在 `ModelState` 中附加所有的验证错误。仔细研究进行模型绑定的 `JsonPatchDocument` 和 应用更改的 `ApplyTo`。这就是将 JSON Patch 文档应用到数据库中现有产品的方式。像所有其它端点一样，异常会被记录并包含在响应中。与其它谓词端点一样，*404 (Not Found)* 响应表示相同的情形。响应状态码的一致性有助于客户端处理所有可能的场景。
 
 <!-- A JSON patch request body looks like the following: -->
 
