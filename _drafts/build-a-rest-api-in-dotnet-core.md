@@ -178,7 +178,7 @@ public static class ProductSeed
 
 <!-- As a preliminary step to start building endpoints, it is a good idea to set up versioning. This allows client apps to upgrade API functionality at their leisure without tight coupling. -->
 
-作为开始构建 Endpoints 的第一步，设置 API 版本是一个好主意。这使得客户端应用可以随时升级 API 功能，而无需紧密耦合。
+作为开始构建 Endpoints[^endpoints]的第一步，设置 API 版本是一个好主意。这使得客户端应用可以随时升级 API 功能，而无需紧密耦合。
 
 [^endpoints]: <https://rapidapi.com/blog/api-glossary/endpoint/> API Endpoints
 
@@ -243,7 +243,7 @@ public class ProductsController : ControllerBase
 
 <!-- Note `InitData` runs the initial seed when there aren’t any products in the database. I set a `Route` that uses versioning which is set via `ApiVersion`. The data context `ProductContext` gets injected in the constructor with Dependency Injection. The first endpoint is *GET* which returns a list of Products in the Controller: -->
 
-请注意，当数据库中没有任何产品时，将运行 `InitData` 初始化种子数据。我设置了一个带有版本控制的 `Route`，版本号通过 `ApiVersion` 设置。通过依赖注入将数据上下文 `ProductContext` 注入到构造函数中。在该 Controller 中，第一个终端是返回一个产品列表的 *GET* 终端：
+请注意，当数据库中没有任何产品时，将运行 `InitData` 初始化种子数据。我设置了一个带有版本控制的 `Route`，版本号通过 `ApiVersion` 设置。通过依赖注入将数据上下文 `ProductContext` 注入到构造函数中。在该 Controller 中，第一个 Endpoint 是返回一个产品列表的 *GET*：
 
 ```csharp
 [HttpGet]
@@ -262,7 +262,7 @@ public ActionResult<IQueryable<Product>> GetProducts()
 
 <!-- I opted to order products by product number to make it easier to show the results. In a production system, check this sort matches the clustered index, so the database doesn’t work as hard. Always review execution plans and statistics IO to confirm good performance. -->
 
-我选择按产品编号排序产品，以便更轻松地显示结果。在生产系统中，可以检查这种排序是否与聚集索引相匹配，以便减轻数据库的运行压力。经常检查执行计划和统计 IO，以确认有良好的性能。
+我选择按照产品编号排序产品，以便更简单地显示结果。在生产系统中，可以检查这种排序是否与聚集索引相匹配，以便减轻数据库的运行压力。经常检查执行计划和统计 IO，以确认有良好的性能。
 
 <!-- This project is ready to go for a test drive! Inside of a CLI type: -->
 
@@ -274,7 +274,7 @@ dotnet watch run
 
 <!-- Hit the endpoint with curl: -->
 
-使用 curl 测试接口：
+使用 curl 测试该 Endpoint：
 
 ```bash
 curl -i -X GET "http://localhost:5000/v1/products" -H "accept: application/json"
@@ -282,7 +282,7 @@ curl -i -X GET "http://localhost:5000/v1/products" -H "accept: application/json"
 
 <!-- I run both commands in separate consoles. One runs the file watcher that automatically refreshes when I make changes. The other terminal is where I keep curl results. Postman is also useful, but curl gets the job done and comes with Windows 10. -->
 
-我在两个独立的控制台窗口中运行这两条命令。一个以监视模式运行项目，当我更改代码文件时，会自动重新生成并刷新；另一个是我保持 curl 结果的地方，可以使用 Postman，但是伴随 Windows 10 而来的 curl 也可以完成该工作。
+我在两个独立的控制台窗口中运行上面这两条命令。一个以监视模式运行项目，当我更改代码文件时，会自动重新生成并刷新；另一个是我保持 curl 结果的地方。您可以使用 Postman，但是伴随 Windows 10 而来的 curl 也可以完成该工作。
 
 结果如下：
 
@@ -309,7 +309,7 @@ public class ProductRequest
 
 <!-- Wire this request parameter to the GetProducts endpoint: -->
 
-将此请求参数关联到 **GetProducts** 端点：
+将此请求参数关联到 **GetProducts** Endpoint：
 
 ```csharp
 public ActionResult<IQueryable<Product>> GetProducts([FromQuery] ProductRequest request)
@@ -349,7 +349,7 @@ public ActionResult<IQueryable<Product>> GetProducts([FromQuery]
 
 <!-- Search can go inside a conditional block that alters the query. Note I use `StartsWith` and `InvariantCultureIgnoreCase` to make it easier to filter products. In actual SQL, the LIKE operator is useful, and case insensitivity can be set via collation. -->
 
-可以通过修改 Query，让搜索进入条件块内。请注意我用了 `StartsWith` 和 `InvariantCultureIgnoreCase` 来简化产品过滤，在实际的 SQL 中，`LIKE` 运算符很有用，可以通过排序规则设置不区分大小写。
+可以通过修改 Query，让搜索进入条件块内。请注意我用了 `StartsWith` 和 `InvariantCultureIgnoreCase` 来简化产品过滤，在实际的 SQL 中，可以使用 `LIKE` 运算符，还可以通过排序规则设置不区分大小写。
 
 <!-- To test out paging and this new filter in curl: -->
 
@@ -361,7 +361,7 @@ curl -i -X GET "http://localhost:5000/v1/products?offset=15&department=electroni
 
 <!-- Be sure to check out HTTP headers which include total count and supported versions: -->
 
-检查确定包含总数和受支持版本的 HTTP 头：
+检查确定包含总数和受支持版本号的 HTTP 头：
 
 ```json
 HTTP/1.1 200 OK
@@ -377,7 +377,7 @@ api-supported-versions: 1.0
 
 <!-- With the API taking shape, how can I communicate endpoints to other developers? It is beneficial for teams to know what the API exposes without having to bust open code. Swagger is the tool of choice here; by using reflection, it is capable of documenting what’s available. -->
 
-当 API 成形后，如何向其他开发人员传达终端呢？对于团队来说，在不破坏开放代码的情况下了解 API 公开的内容是有益的。Swagger 是这里的首选工具，它能通过反射，生成可用内容的文档。
+当 API 成形后，如何向其他开发人员传达 Endpoints 呢？对于团队来说，在不破坏开放代码的情况下了解 API 公开的内容是有好处的。Swagger 是这里的首选工具，它能通过反射，自动生成可用的文档。
 
 <!-- What if I told you everything swagger needs is already set in this API? Go ahead, take a second look: -->
 
@@ -392,7 +392,7 @@ ActionResult<IQueryable<Product>> GetProducts([FromQuery]
 
 <!-- ASP.NET attributes are useful for documenting endpoints. Swagger also picks up return types from controller methods to figure out what responses look like and picks up request parameters in each controller method via reflection. It produces “living documentation” because it sucks up everything from working code, which reduces mishaps. -->
 
-ASP.NET 属性对于端点自文档化非常有用。Swagger 通过反射，从控制器方法中获得返回类型，以推断响应该是什么样子，并获得每个控制器方法中的请求参数。因为它收集了工作代码中的所有内容，所以可以生成“活文档”，从而减少了故障的发生。
+ASP.NET 属性对于 Endpoints 的自文档化非常有用。Swagger 通过反射，从控制器方法中获得返回类型，进而推断响应该是什么样子，并获得每个控制器方法的请求参数。因为它收集了工作代码中的所有内容，所以可以生成“活文档”，从而减少了故障的发生。
 
 <!-- The one dependency lacking is a NuGet: -->
 
@@ -424,7 +424,9 @@ app.UseSwaggerUI(opt => opt.SwaggerEndpoint("/swagger/v1/swagger.json", "Product
 
 <!-- Note `OpenApiInfo` comes from the `Microsoft.OpenApi.Models` namespace. With this, navigate to *http://localhost:5000/swagger* in the browser to check out the swagger doc. -->
 
-注意 `OpenApiInfo` 来自 `Microsoft.OpenApi.Models` 命名空间。此时，在浏览器中导航到 *http://localhost:5000/swagger* 就可以查看 swagger 文档了。
+注意 `OpenApiInfo` 来自 `Microsoft.OpenApi.Models` 命名空间。
+
+此时，在浏览器中导航到 *http://localhost:5000/swagger* 就可以查看 swagger 文档了。
 
 <!-- The page should look like this: -->
 
@@ -434,18 +436,17 @@ app.UseSwaggerUI(opt => opt.SwaggerEndpoint("/swagger/v1/swagger.json", "Product
 
 <!-- From the swagger doc, feel free to poke around and fire requests to the API from this tool. Fellow developers from across the organization might even buy you a cup of coffee for making their lives easier. -->
 
-在 swagger 文档中，您可以轻松浏览 API 并通过这个工具向 API 发起请求，您所在组织的其他开发人员会因此受益而生活轻松，他们甚至可能会请您喝杯咖啡。
+在 swagger 文档中，您可以轻松浏览 API 并通过这个工具向 API 发起请求，您所在组织的其他开发人员会因此受益而轻松愉快，他们甚至可能会请您喝杯咖啡。
 
-<!-- Note how expanding GET /Products picks up C# data types from the method in the controller:
-注意扩展GET / Products如何从控制器中的方法中提取C＃数据类型： -->
+<!-- Note how expanding GET /Products picks up C# data types from the method in the controller: -->
 
-展开 GET `/Products` 查看从控制器中的方法中提取的 C# 数据类型：
+展开 GET `/Products` 查看从控制器方法中提取的 C# 数据类型：
 
 ![swagger page](/assets/images/202102/get-products.png)
 
 <!-- The next stop is the logger. I will use NLog to store logs in the back end. This enables the API to save logs for further analysis. In a real environment, logs are useful for troubleshooting outages. They also aid in gathering telemetry to help understand how the API is utilized in the wild. -->
 
-下一站是日志记录。我将使用 `NLog` 在后端存储日志，使得 API 能够保存日志以供进一步分析。在实际环境中，日志对于故障排除非常有用；另外，它们还可以帮助收集遥测数据，以帮助了解 API 的使用情况。
+下一站是日志记录。我将使用 `NLog` 在后端存储日志，使得 API 能够保存日志以供进一步分析。在实际环境中，日志对于故障排除非常有用；另外，它们还可以帮助收集遥测数据，以帮助了解 API 在未知状态下的使用情况。
 
 <!-- To set up the logger, I am going to need the following: -->
 
@@ -462,7 +463,7 @@ app.UseSwaggerUI(opt => opt.SwaggerEndpoint("/swagger/v1/swagger.json", "Product
 dotnet add package NLog.Web.AspNetCore
 ```
 
-*nlog.config* 文件可以如下：
+设置的 *nlog.config* 文件可以如下：
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
@@ -506,7 +507,7 @@ dotnet add package NLog.Web.AspNetCore
 ```
 <!--Pay attention to `Layout` because it sets the type of log file which is set to `JsonLayout`. This JSON format has the most flexibility when consuming log files in different analytical tools. Logger rules do not log errors from *Microsoft.** to keep chattiness down to a minimum. As a bonus, unhandled exceptions from the API get logged but do not rethrow because `throwExceptions` is false. Usage here may vary, but it is generally a good idea to handle all unhandled exceptions in the logger. -->
 
-请注意 `Layout`，因为它设置了日志文件的类型，这里将其设置为 `JsonLayout`。当在不同的分析工具中使用日志文件时，JSON 格式具有最大的灵活性。为了让冗余降到最小，记录器规则不记录来自 *Microsoft.** 的错误。另外，因为将 `throwExceptions` 设置为了 false，API 中未处理的异常会被记录，但不会被重新抛出。这里的用法可能是多变的，但是通常最好是在 logger 中处理所有未处理的异常。
+请注意 `Layout`，因为它设置了日志文件的类型，这里将其设置为 `JsonLayout`。当在不同的分析工具中使用日志文件时，JSON 格式具有最大的灵活性。为了让冗余降到最小，记录器规则不记录来自 *Microsoft.** 的错误。另外，因为将 `throwExceptions` 设置为了 false，API 中未处理的异常会被记录，但不会被重新抛出。这里的用法可能是多变的，但通常最好是在 logger 中处理所有未处理的异常。
 
 <!-- Inside the Program class, enable NLog, remembering to include using NLog.Web: -->
 
@@ -538,11 +539,11 @@ Host.CreateDefaultBuilder(args)
 
 <!-- The basic idea is to cut the number of log entries which aren’t relevant to this API. Feel free to poke around with the settings, so it logs exactly what the API needs. -->
 
-其基本思想是减少与此 API 无关的日志条目的数量。您可以随意调整这些设置，以便恰当地记录 API 所需要的日志内容。
+这里的基本思想是减少与此 API 无关的日志条目的数量。您可以随意调整这些设置，以便恰当地记录 API 所需要的日志内容。
 
 <!-- It’s time to take this for a spin. In the Controller class, add using Microsoft.Extensions.Logging and inject a plain old ASP.NET logger: -->
 
-是时候言归正传了，在 `Controller` 类中，添加 `using Microsoft.Extensions.Logging` 并注入一个普通的旧 ASP.NET 记录器：
+是时候言归正传了，在 `Controller` 类中，添加 `using Microsoft.Extensions.Logging` 并注入一个普通的旧式 ASP.NET logger：
 
 ```csharp
 private readonly ILogger<ProductsController> _logger;
@@ -557,9 +558,9 @@ public ProductsController(ProductContext context,
 
 <!-- Say now the team decides to grab telemetry around how often clients ask for 100 records or more. -->
 
-假设，现在团队决定要抓取客户端请求获取 100 条或更多条记录的频率相关的遥测数据。
+假设，现在您的团队决定要抓取客户端请求获取 100 条或更多条记录的频率相关的遥测数据。
 
-将下面代码放入 `GetProducts` 中：
+将下面的代码放入 `GetProducts` 中：
 
 ```csharp
 if (request.Limit >= 100)
@@ -568,11 +569,11 @@ if (request.Limit >= 100)
 
 <!-- Be sure to have a temp folder handy to check the logs, for example, C:\temp\BuildRestApiNetCore\. -->
 
-请确保有一个已存在的临时文件夹来查看日志，例如：`C:\temp\BuildRestApiNetCore\`。
+请确保有一个已存在的临时文件夹来核查日志，例如：`C:\temp\BuildRestApiNetCore\`。
 
 <!-- This is what an entry might look like: -->
 
-记录可能是这样的：
+一条日志记录看起来可能是这样的：
 
 ```json
 {
@@ -586,7 +587,7 @@ if (request.Limit >= 100)
 
 <!-- ## REST Endpoints with Verbs -->
 
-## 带谓词的 REST 端点
+## 带谓词的 REST Endpoints
 
 <!-- Take a deep breath in and breath out. This API is almost production-ready with minimal code. I will now quickly turn towards REST features such as `POST`, `PUT`, `PATCH`, and `DELETE`. -->
 
@@ -594,9 +595,9 @@ if (request.Limit >= 100)
 
 <!-- The POST endpoint takes in a body with the new product and adds it to the list. This method is not idempotent because it creates new resources when invoked. -->
 
-`POST` 终端接收带有新产品的 body，并将其添加到列表当中。此方法是非幂等的，因为它在调用时创建了新的资源。
+`POST` Endpoint 接收带有新产品的 body，并将其添加到列表当中。此方法是非幂等的，因为它在调用时会创建新的资源。
 
-将下面代码放入 `ProductsController` 中：
+将下面的代码放入 `ProductsController` 中：
 
 ```csharp
 [HttpPost]
@@ -622,7 +623,7 @@ public ActionResult<Product> PostProduct([FromBody] Product product)
 
 <!-- ASP.NET automatically handles exceptions via ValidationProblem. This validation returns an RFC 7807 spec compliant response with a message. In a real system, I recommend making sure this does not expose any internals about the API. Putting the exception message here helps clients troubleshoot their code, but security is also important. I opted to include the error message mostly for demonstration purposes. The exception is also logged as a warning, to avoid logging a bunch of errors. Monitoring tools might page out to whoever is on-call when there are too many exceptions. A best practice is to only log errors during catastrophic failures that might need human intervention. -->
 
-ASP.NET 通过 `ValidationProblem` 自动处理异常。该验证将返回一条符合 [RFC 7807 规范](https://tools.ietf.org/html/rfc7807)[^RFC]的响应，并带有一条消息。在实际的系统中，我建议确保不要暴露任何有关 API 的内部信息。将异常信息放在此处可帮助客户端对代码进行故障排除，但是安全性也很重要。我选择包含错误信息主要是出于演示目的。这里还会将异常记录为警告，以避免记录大量错误。当异常太多时，监控工具可能会呼叫值班人员。最佳实践是仅在可能需要人工干预的灾难性故障期间记录错误。
+ASP.NET 通过 `ValidationProblem` 自动处理异常。该验证将返回一条符合 [RFC 7807 规范](https://tools.ietf.org/html/rfc7807)[^RFC]的响应，并带有一条消息。在实际的系统中，我建议确保不要暴露任何关于 API 的内部信息。将异常信息放在此处有助于客户端对代码进行故障排除，但安全性也很重要。我在这里选择包含错误信息主要是为了演示目的。此处还会将异常记录为警告，以避免记录大量的错误。当异常太多时，监控工具可能会呼叫值班人员。最佳实践是仅在可能需要人工干预的灾难性故障期间记录错误。
 
 [^RFC]: <https://tools.ietf.org/html/rfc7807> RFC 7807 规范
 <!-- Using the swagger tool, the curl command is: -->
@@ -638,7 +639,7 @@ curl -i -X POST http://localhost:5000/v1/products
 
 <!-- When there are problems with the request, the API responds with: -->
 
-当请求出现问题时，API 会响应：
+当请求有问题时，API 会如下响应：
 
 ```json
 {
@@ -671,7 +672,7 @@ api-supported-versions: 1.0
 
 <!-- This points the client towards the new resource. So, it is a good idea to spin up this GET endpoint: -->
 
-这将引导客户端转向新资源。因此，转向 `GET` 端点是个好主意：
+这将引导客户端转向新资源。此处，转向 `GET` Endpoint 是个好主意：
 
 ```csharp
 [HttpGet]
@@ -736,11 +737,11 @@ public ActionResult<Product> PutProduct([FromBody] Product product)
 
 <!-- Like a GET 404 response, the resource is unavailable for updates, but this might change later. As a bonus, ASP.NET provides model binding validation out of the box. Go ahead, try to update an existing resource with bad data. -->
 
-就像 *GET 404* 响应一样，表示该资源不可用于更新，但这可能在稍后发生变化。另外，ASP.NET 提供现成的模型绑定验证。接下来，尝试一下使用错误的数据更新现有资源。
+就像 *GET 404* 响应一样，表示该资源不可用于更新，但这可能在稍后发生改变。另外，ASP.NET 提供现成的模型绑定验证。接下来，尝试一下使用错误的数据更新现有资源。
 
 <!-- This JSON is the *Bad Request* response you might see: -->
 
-下面的 JSON 是您可能看到的 *错误请求* 的响应：
+下面的 JSON 是您可能看到的 *Bad Request* 的响应：
 
 ```json
 {
@@ -778,7 +779,7 @@ services.AddControllers().AddNewtonsoftJson();
 
 <!-- This is the PATCH endpoint. Remember using Microsoft.AspNetCore.JsonPatch: -->
 
-下面是 `PATCH` 端点，记得添加 `using Microsoft.AspNetCore.JsonPatch`：
+下面是 `PATCH` Endpoint，记得添加 `using Microsoft.AspNetCore.JsonPatch`：
 
 ```csharp
 [HttpPatch]
@@ -817,7 +818,7 @@ public ActionResult<Product> PatchProduct([FromRoute]
 
 <!-- I hope you see a pattern start to emerge with the different status code response types. A 200 OK means success and a 400 Bad Request means user error. Once a patch gets applied it appends any validation errors in ModelState. Take a closer look at JsonPatchDocument, which does model binding, and ApplyTo, which applies changes. This is how a JSON Patch document gets applied to an existing product in the database. Exceptions get logged and included in the response like all the other endpoints. A 404 (Not Found) response indicates the same situation as all the other verbs. This consistency in response status codes helps clients deal with all possible scenarios. -->
 
-我希望您看到一种含有不同状态码响应类型的模式开始浮现。*200 OK* 表示成功，*400 Bad Request* 表示用户错误。当 patch 被应用后，将会在 `ModelState` 中附加所有的验证错误。仔细研究进行模型绑定的 `JsonPatchDocument` 和 应用更改的 `ApplyTo`。这就是将 JSON Patch 文档应用到数据库中现有产品的方式。像所有其它端点一样，异常会被记录并包含在响应中。与其它谓词端点一样，*404 (Not Found)* 响应表示相同的情形。响应状态码的一致性有助于客户端处理所有可能的场景。
+我希望您看到一种含有不同状态码响应类型的模式开始浮现。*200 OK* 表示成功，*400 Bad Request* 表示用户错误。当 patch 被应用后，将会在 `ModelState` 中追加所有的验证错误。仔细看一下进行模型绑定的 `JsonPatchDocument` 和 应用更改的 `ApplyTo`。这就是将 JSON Patch 文档应用到数据库中现有产品的方式。像所有其它 Endpoints 一样，异常会被记录并包含在响应中。与其它谓词一样，*404 (Not Found)* 响应表示相同的情形。响应状态码的一致性有助于客户端处理所有可能的场景。
 
 <!-- A JSON patch request body looks like the following: -->
 
