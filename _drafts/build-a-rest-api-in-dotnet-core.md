@@ -8,13 +8,15 @@ published: true
 
 > 翻译自 Camilo Reyes 2020年8月26日的文章 [《Build a REST API in .NET Core》](https://www.red-gate.com/simple-talk/dotnet/c-programming/build-a-rest-api-in-net-core/) [^1]  
 >  
-> REST API 可以使用简单的谓词（如 POST、PUT、PATCH 等）将大型解决方案背后的复杂性隐藏起来。在本文中，Camilo Reyes 解释了如何在 .NET Core 中创建 REST API。
+> REST API 可以使用简单的动词（如 POST、PUT、PATCH 等）将大型解决方案背后的复杂性隐藏起来。在本文中，Camilo Reyes 解释了如何在 .NET Core 中创建 REST API。
 
 [^1]: <https://www.red-gate.com/simple-talk/dotnet/c-programming/build-a-rest-api-in-net-core/> Build a REST API in .NET Core
 
 扩展大型复杂解决方案的一种方法是将它们分解为 REST 微服务。微服务开启了 API 背后的业务逻辑的可测试性和可重用性。因为 REST API 可以被多个客户端重用，使得组织可以共享软件模块。客户端或许是移动端、网页端，甚至单页应用中的静态资源端，它们可以调用任意多的 API。
 
-在本文中，我将向您展示在 .NET Core 中构建 REST API 的全过程。我将用现实工作中的需求来解释这个过程，比如版本控制、搜索、日志记录等等。REST 通常与诸如 `POST`、`PUT` 或 `PATCH` 的谓词一起使用，因此我打算将它们全部覆盖。我希望您看到的是，使用现有工具交付价值的一个好的有效的方式。
+在本文中，我将向您展示在 .NET Core 中构建 REST API 的全过程。我将用现实工作中的需求来解释这个过程，比如版本控制、搜索、日志记录等等。REST 通常与诸如 `POST`、`PUT` 或 `PATCH` 的动词一起使用，因此我打算将它们全部覆盖。我希望您看到的是，使用现有工具交付价值的一个好的有效的方式。
+
+## 入门介绍
 
 本文假定您已掌握了 ASP.NET、C# 和 REST API，因此我不会涉及任何基础知识。我建议在学习本文时使用[最新的 .NET Core 版本](https://dotnet.microsoft.com/download/dotnet-core)[^dotnet]。如果您想从工作代码开始学习，可以[从 GitHub 下载](https://github.com/beautifulcoder/BuildRestApiNetCore)[^GitHub]示例代码。
 
@@ -224,7 +226,7 @@ curl -i -X GET "http://localhost:5000/v1/products" -H "accept: application/json"
 
 结果如下：
 
-![curl results of GetProducts](/assets/images/202102/curl-results-get-products.png)
+![curl results of GetProducts](/assets/images/202103/curl-results-get-products.png)
 
 该请求返回数据库中的所有产品，但它不可扩展。随着产品列表的增加，客户端将受到未过滤数据的猛烈冲击，从而给 SQL 和网络流量带来更大的压力。
 
@@ -340,13 +342,13 @@ app.UseSwaggerUI(opt => opt.SwaggerEndpoint("/swagger/v1/swagger.json", "Product
 
 页面大概如下显示：
 
-![swagger page](/assets/images/202102/swagger-page.png)
+![swagger page](/assets/images/202103/swagger-page.png)
 
 在 swagger 文档中，您可以轻松浏览 API 并通过这个工具向 API 发起请求，您所在组织的其他开发人员会因此受益而轻松愉快，他们甚至可能会请您喝杯咖啡。
 
 展开 GET `/Products` 查看从控制器方法中提取的 C# 数据类型：
 
-![swagger page](/assets/images/202102/get-products.png)
+![swagger page](/assets/images/202103/get-products.png)
 
 下一站是日志记录。我将使用 `NLog` 在后端存储日志，使得 API 能够保存日志以供进一步分析。在实际环境中，日志对于故障排除非常有用；另外，它们还可以帮助收集遥测数据，以帮助了解 API 在未知状态下的使用情况。
 
@@ -470,9 +472,9 @@ if (request.Limit >= 100)
 }
 ```
 
-## 带谓词的 REST Endpoints
+## 带动词的 REST Endpoints
 
-深吸一口气，然后呼出。该 API 几乎可以投入生产环境了，而且只用了很少的代码。现在，我将快速转向 `POST`、`PUT`、`PATCH` 和 `DELETE` 等 REST 特性的介绍。
+深吸一口气，然后畅快地呼出。该 API 差不多可以投入生产环境了，而且只用了很少的代码。现在，我将快速转向 `POST`、`PUT`、`PATCH` 和 `DELETE` 等 REST 特性的介绍。
 
 `POST` Endpoint 接收带有新产品的 body，并将其添加到列表当中。此方法是非幂等的，因为它在调用时会创建新的资源。
 
@@ -613,11 +615,11 @@ public ActionResult<Product> PutProduct([FromBody] Product product)
 }
 ```
 
-`PATCH` 是所有谓词中最复杂的，因为它通过 [JSON Patch 文档](https://tools.ietf.org/html/rfc6902)[^rfc6902]仅更新资源的一部分。
+`PATCH` 是所有动词中最复杂的，因为它通过 [JSON Patch 文档](https://tools.ietf.org/html/rfc6902)[^rfc6902]仅更新资源的一部分。
 
 [^rfc6902]: <https://tools.ietf.org/html/rfc6902> JSON Patch 文档
 
-好消息是 .NET Core 提供了一个 NuGet 包：
+庆幸的是 .NET Core 提供了一个 NuGet 包：
 
 ```bash
 dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson
@@ -666,7 +668,7 @@ public ActionResult<Product> PatchProduct([FromRoute]
 }
 ```
 
-我希望您看到一种含有不同状态码响应类型的模式开始浮现。*200 OK* 表示成功，*400 Bad Request* 表示用户错误。当 patch 被应用后，将会在 `ModelState` 中追加所有的验证错误。仔细看一下进行模型绑定的 `JsonPatchDocument` 和 应用更改的 `ApplyTo`。这就是将 JSON Patch 文档应用到数据库中现有产品的方式。像所有其它 Endpoints 一样，异常会被记录并包含在响应中。与其它谓词一样，*404 (Not Found)* 响应表示相同的情形。响应状态码的一致性有助于客户端处理所有可能的场景。
+我希望您看到一种含有不同状态码响应类型的模式开始浮现。*200 OK* 表示成功，*400 Bad Request* 表示用户错误。当 patch 被应用后，将会在 `ModelState` 中追加所有的验证错误。仔细看一下进行模型绑定的 `JsonPatchDocument` 和 应用更改的 `ApplyTo`。这就是将 JSON Patch 文档应用到数据库中现有产品的方式。像所有其它 Endpoints 一样，异常会被记录并包含在响应中。与其它动词一样，*404 (Not Found)* 响应表示相同的情形。响应状态码的一致性有助于客户端处理所有可能的场景。
 
 一个 JSON patch 请求的 body 大概如下所示：
 
@@ -680,9 +682,9 @@ public ActionResult<Product> PatchProduct([FromRoute]
 
 模型绑定验证规则依然适用于 patch 操作，以保持数据的完整性。请注意，patch 操作被包装在一个数组中，因此它支持任意的操作列表。
 
-下图是 curl 中的 `PATCH`：
+下图是 curl 中请求 `PATCH` 的结果：
 
-![PATCH in curl](/assets/images/202102/patch-in-curl.png)
+![PATCH in curl](/assets/images/202103/patch-in-curl.png)
 
 最后一站，`DELETE` 方法：
 
