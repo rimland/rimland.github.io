@@ -259,7 +259,7 @@ public ActionResult<IQueryable<Product>> GetProducts([FromQuery] ProductRequest 
 }
 ```
 
-请注意我设置了一个值为 `Count` 的 HTTP header `x-total-count`，用于帮助想要分页浏览整个结果集的客户端。如果未指定请求参数，则该 API 默认返回前 15 项数据。
+请注意我设置了一个值为 `Count` 的 HTTP header `x-total-count`，用于帮助想要分页浏览整个结果集的客户端。如果未指定请求参数，则该 API 默认返回前 15 条数据。
 
 接下来，添加一个搜索参数，按部门筛选产品：
 
@@ -723,3 +723,10 @@ api-supported-versions: 1.0
 ## 总结
 
 .NET Core 在您的工具袋中添加许多有用的特性，从而让使用 REST API 变得更加轻松，将诸如文档、验证、日志记录和 `PATCH` 请求等复杂的用例变得更易于实现。
+
+<br />
+
+> 作者 ： Camilo Reyes  
+> 译者 ： 技术译民  
+> 出品 ： [技术译站](https://ittranslator.cn/)  
+> 链接 ： [英文原文](https://www.red-gate.com/simple-talk/dotnet/c-programming/build-a-rest-api-in-net-core/)
