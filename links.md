@@ -23,6 +23,7 @@ permalink: /links/
 - [kubernetes.io](https://kubernetes.io/)
 - [softether.org](https://www.softether.org/)
 - [JumpServer](https://www.jumpserver.org/)
+- [OAuth 2.0](https://oauth.net/2/)
 
 ## Tools
 
