@@ -212,14 +212,136 @@ public class CreateReactAppViewModel
 
 <!-- I’ve highlighted the head and body tags the consuming ASP.NET app needs to parse. Once it has this raw HTML, the rest is somewhat easy peasy. -->
 
+我已经高亮显示了消费 ASP.NET 应用需要解析的 `head` 和 `body` 标签。有了这些原始的 HTML，剩下的就简单多了。
+
+<!-- 我突出了头部和身体的标签ASP.NET应用程序需要解析。一旦有了这个原始的HTML，剩下的就有点简单了。
+
+我已经强调了消费型ASP.NET应用程序需要解析的head和body标签。 一旦有了这个原始的HTML，剩下的就容易了。 -->
+
+<!-- With the view model in place, time to tackle the home controller that will override the index.html file from React. -->
+
+视图模型就绪后，该花点时间处理 home 控制器了，它将覆盖来自 React 的 *index.html*。
 
 
+Open the HomeController and add this:
 
+打开 `HomeController` 并添加下面的代码：
 
+```csharp
+public class HomeController : Controller
+{
+    public IActionResult Index()
+    {
+        var vm = new CreateReactAppViewModel(HttpContext);
 
+        return View(vm);
+    }
+}
+```
 
+<!-- In ASP.NET, this controller will be the default route that overrides Create React App with server-side rendering support. This is what unlocks the integration, so you get the best of both worlds. -->
 
+在 ASP.NET 中，该控制器是默认路由，它会在服务端渲染支持下覆盖 Create React App。这就是开启集成的方法，因此您可以两全其美。
 
+<!-- Then, put this Razor code in Home/Index.cshtml: -->
+
+然后把下面的 Razor 代码放入 `Home/Index.cshtml` 中：
+
+```html
+@model integrate_dotnet_core_create_react_app.CreateReactAppViewModel
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  @Html.Raw(Model.HeadContent)
+</head>
+<body>
+  @Html.Raw(Model.BodyContent)
+ 
+  <div class="container ">
+    <h2>Server-side rendering</h2>
+  </div>
+</body>
+</html>
+```
+
+<!-- The React app uses react-router to define two client-side routes. If the page gets refreshed while the browser is on a route other than home, it will revert to the static index.html. -->
+
+React 应用使用 `react-router` 来定义客户端的路由。如果在浏览器处于非 home 路由时刷新页面，它将恢复为静态的 *index.html*。
+
+<!-- To address this inconsistency, define these server-side routes in Startup. Routes are defined inside UseEndpoints: -->
+
+要解决这种不一致性，请在 `Startup` 中定义下面这些服务端路由，路由是在 `UseEndpoints` 中定义的：
+
+```csharp
+endpoints.MapControllerRoute(
+  "default",
+  "{controller=Home}/{action=Index}");
+endpoints.MapControllerRoute(
+  "counter",
+  "/counter",
+  new { controller = "Home", action = "Index"});
+endpoints.MapControllerRoute(
+  "fetch-data",
+  "/fetch-data",
+  new { controller = "Home", action = "Index"});
+```
+
+<!-- With this, take a look at the browser which will now show this server-side “component” via an h3 tag. This may seem silly because it’s just some simple HTML rendered on the page, but the possibilities are endless. The ASP.NET Razor page can have a full app shell with menus, branding, and navigation that can be shared across many React apps. If there are any legacy MVC Razor pages, this shiny new React app will integrate seamlessly. -->
+
+此时，看一下浏览器，现在它将通过 **h2** 显示这个服务端“组件”。这看起来似乎有点愚蠢，因为它只是在页面上呈现的一些简单 HTML，但其潜力是无穷的。ASP.NET Razor 页面可以具有完整的应用程序外壳，其中包含菜单、品牌、和导航，它们可以在多个 React 应用之间共享。如果有任何旧版 MVC Razor 页面，这个闪亮的新 React 应用将无缝集成。
+
+<!-- ## Server-Side App Configuration -->
+
+## 服务器端应用程序配置
+
+<!-- Next, say I want to show server-side configuration on this app from ASP.NET, such as the HTTP protocol, hostname, and the base URL. I chose these mostly to keep it simple, but these config values can come from anywhere. They can be *appsettings.json* settings or even values from a configuration database. -->
+
+接下来，假如我想显示此应用上来自 ASP.NET 的服务端配置，比如 HTTP 协议、主机名和 base URL。我选择这些主要是为了保持简单，不过这些配置值可以来自任何地方。它们可以是 *appsettings.json* 设置，或者甚至可以是来自配置数据库中的值。
+
+<!-- To make server-side settings accessible to the React client, put this in *Index.cshtml*: -->
+
+要使服务端设置可以被 React 客户端访问，请将其放在 *Index.cshtml* 中：
+
+```html
+<script>
+  window.SERVER_PROTOCOL = '@Context.Request.Protocol';
+  window.SERVER_SCHEME = '@Context.Request.Scheme';
+  window.SERVER_HOST = '@Context.Request.Host';
+  window.SERVER_PATH_BASE = '@Context.Request.PathBase';
+</script>
+ 
+<p>
+  @Context.Request.Protocol
+  @Context.Request.Scheme://@Context.Request.Host@Context.Request.PathBase
+</p>
+```
+
+<!-- This sets any config values that come from the server in the global `window` browser object. The React app can retrieve these values with little effort. I opted to render these same values in Razor, mostly to show they are the same values that the client app will see. -->
+
+这里在全局 `window` 浏览器对象中设置来自服务器的任意配置值。React 应用可以轻而易举地获取这些值。我选择在 Razor 中渲染这些相同的值，主要是为了演示它们与客户端应用将看到的是相同的值。
+
+<!-- In React, crack open components\NavMenu.js and add this snippet; most of this will go inside the Navbar: -->
+
+在 React 中，打开 *components\NavMenu.js* 并添加下面的代码段; 其中大部分将放在导航栏中：
+
+```js
+import { NavbarText } from 'reactstrap';
+ 
+<NavbarText>
+  {window.SERVER_PROTOCOL}
+   {window.SERVER_SCHEME}://{window.SERVER_HOST}{window.SERVER_PATH_BASE}
+</NavbarText>
+```
+
+The client app will now reflect the server configuration that is set via the global window object. There is no need to fire an Ajax request to load this data or somehow make it available to the index.html static asset.
+
+这个客户端应用现在将反映通过全局 `window` 对象设置的服务器配置。它不需要触发 Ajax 请求来加载此数据，也不需要以某种方式让 `index.html` 静态资产可以使用它。
+
+客户端应用现在将反映通过全局窗口对象设置的服务器配置。 无需触发Ajax请求来加载此数据，也无需以某种方式使它可用于index.html静态资产。
+
+客户端应用程序现在将反映通过全局窗口对象设置的服务器配置。
+不需要触发Ajax请求来加载这个数据，也不需要以某种方式让index.html静态资产可以使用它。
 
 
 
