@@ -334,14 +334,53 @@ import { NavbarText } from 'reactstrap';
 </NavbarText>
 ```
 
-The client app will now reflect the server configuration that is set via the global window object. There is no need to fire an Ajax request to load this data or somehow make it available to the index.html static asset.
+<!-- The client app will now reflect the server configuration that is set via the global window object. There is no need to fire an Ajax request to load this data or somehow make it available to the index.html static asset. -->
 
 这个客户端应用现在将反映通过全局 `window` 对象设置的服务器配置。它不需要触发 Ajax 请求来加载此数据，也不需要以某种方式让 `index.html` 静态资产可以使用它。
 
-客户端应用现在将反映通过全局窗口对象设置的服务器配置。 无需触发Ajax请求来加载此数据，也无需以某种方式使它可用于index.html静态资产。
+<!-- If you’re using Redux, for example, this is even easier because this can be set when the app initializes the store. Initial state values can be passed into the store before anything renders on the client. -->
 
-客户端应用程序现在将反映通过全局窗口对象设置的服务器配置。
-不需要触发Ajax请求来加载这个数据，也不需要以某种方式让index.html静态资产可以使用它。
+如果您使用了 Redux，这会变得更加容易，因为可以在应用程序初始化 store 时进行设置。初始化状态值可以在客户端渲染任何内容之前传递到 store 中。
+
+例如：
+
+```js
+const preloadedState = {
+  config: {
+    protocol: window.SERVER_PROTOCOL,
+    scheme: window.SERVER_SCHEME,
+    host: window.SERVER_HOST,
+    pathBase: window.SERVER_PATH_BASE
+  }
+};
+ 
+const store = createStore(reducers, preloadedState, 
+    applyMiddleware(...middleware));
+```
+
+<!-- I chose to opt-out of putting in place a Redux store for the sake of brevity, but this is a rough idea of how it can be done via the `window` object. What’s nice with this approach is that the entire app can remain unit-testable without polluting it with browser dependencies like this `window` object. -->
+
+为了简洁起见，我选择不使用 Redux store，但这是如何通过 `window` 对象实现的一个粗略想法。这种方法的好处是，整个应用都可以保持单元可测试的状态，而不会受到诸如 `window` 对象之类的浏览器依赖项的污染。
+
+<!-- ## .NET Core user session integration -->
+
+## .NET Core 用户会话（session）集成
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
