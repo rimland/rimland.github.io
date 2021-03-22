@@ -366,19 +366,127 @@ const store = createStore(reducers, preloadedState,
 
 ## .NET Core 用户会话（session）集成
 
+<!-- Lastly, as the pièce de résistance, I will now integrate this React app with the ASP.NET user session. I will lock down the back-end API where it gets weather data and only show this information with a valid session. This means that when the browser fires an Ajax request, it must contain an ASP.NET session cookie. Otherwise, the request gets rejected with a redirect which indicates to the browser it must first login. -->
 
+最后，作为主菜，我现在将这个 React 应用与 ASP.NET 用户 session 集成在一起。我将锁定获取天气数据的后端 API，并仅在使用有效会话时显示此信息。这意味着当浏览器触发 Ajax 请求时，它必须包含一个 ASP.NET session cookie。否则，该请求将被拒绝，并重定向浏览器指示其必须先登录。
 
+To enable user session support in ASP.NET, open the Startup file and add this:
 
+要在 ASP.NET 中启用用户会话支持，请打开 *Startup* 文件并添加：
 
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services
+        .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+        .AddCookie(options =>
+        {
+            options.Cookie.HttpOnly = true;
+        });
+}
 
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+    // 将下面代码放在 UseRouting 和 UseEndpoints 之间
+    app.UseAuthentication();
+    app.UseAuthorization();
+}
+```
 
+<!-- Be sure to leave the rest of the scaffold code in there and only add this snippet in the correct methods. With authentication/authorization now enabled, go to the `WeatherForecastController` and slap an `Authorize` attribute to the controller. This will effectively lock it down to where it needs an ASP.NET user session via a cookie to get to the data. -->
 
+请务必保留其余的脚手架代码，只是在恰当的方法中添加上面的代码段。启用了身份验证和授权后，转到 `WeatherForecastController` 并给该控制器添加一个 `Authorize` 属性。这将有效地将其锁定，从而需要通过 cookie 实现的 ASP.NET 用户会话来获取数据。
 
+<!-- The `Authorize` attribute assumes the user can login into the app. Go back to the `HomeController` and add the login/logout methods. Remember to be using `Microsoft.AspNetCore.Authentication`, `Microsoft.AspNetCore.Authentication.Cookies`, and `Microsft.AspNetCore.Mvc`. -->
 
+`Authorize` 属性假定用户可以登录到应用。回到 `HomeController` 并添加 Login 和 Logout 方法，记得添加 using `Microsoft.AspNetCore.Authentication`、`Microsoft.AspNetCore.Authentication.Cookies` 和 `Microsft.AspNetCore.Mvc`。
 
+```csharp
+public async Task<ActionResult> Login()
+{
+    var userId = Guid.NewGuid().ToString();
+    var claims = new List<Claim>
+    {
+        new(ClaimTypes.Name, userId)
+    };
 
+    var claimsIdentity = new ClaimsIdentity(claims,
+            CookieAuthenticationDefaults.AuthenticationScheme);
+    var authProperties = new AuthenticationProperties();
 
+    await HttpContext.SignInAsync(
+        CookieAuthenticationDefaults.AuthenticationScheme,
+        new ClaimsPrincipal(claimsIdentity),
+        authProperties);
 
+    return RedirectToAction("Index");
+}
+
+public async Task<ActionResult> Logout()
+{
+    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+    return RedirectToAction("Index");
+}
+```
+
+<!-- Note that the user session is typically established with a redirect and an ASP.NET session cookie. I added a `ClaimsPrincipal` with a user-id set to a random **Guid** to make this seem more real. In a real app, these claims can come from a database or a JWT. -->
+
+请注意，通常使用重定向和 ASP.NET session cookie 来建立用户会话。我添加了一个 `ClaimsPrincipal`，它带有一个设置为随机 **Guid** 的用户 ID，使其看起来更加真实。在实际应用中，这些 Claims 可能来自数据库或者 JWT。
+
+<!-- To expose this functionality to the client, open *components\NavMenu.js* and add these links to the `Navbar`: -->
+
+要将些功能公开给客户端，请打开 *components\NavMenu.js* 并将下面的链接添加到 `Navbar`：
+
+```xml
+<NavItem>
+  <a class="text-dark nav-link" href="/home/login">Log In</a>
+</NavItem>
+<NavItem>
+  <a class="text-dark nav-link" href="/home/logout">Log Out</a>
+</NavItem>
+```
+
+<!-- Lastly, I want the client app to handle request failures and give some indication to the end user that something went wrong. Bust open *components\FetchData.js* and replace `populateWeatherData` with this code snippet: -->
+
+最后，我希望客户端应用处理请求失败的情况，并向最终用户提供一些提示，指出出了点问题。打开 *components\FetchData.js* 并用下面的代码段替换 `populateWeatherData`：
+
+```js
+async populateWeatherData() {
+    try {
+        const response = await fetch(
+            'weatherforecast',
+            { redirect: 'error' });
+        const data = await response.json();
+        this.setState({ forecasts: data, loading: false });
+    } catch {
+        this.setState({
+            forecasts: [{ date: 'Unable to get weather forecast' }],
+            loading: false
+        });
+    }
+}
+```
+
+<!-- I tweaked the `fetch` so it does not follow failed requests on a redirect, which is an error response. The ASP.NET middleware responds with a redirect to the login page when an Ajax request fails to get the data. In a real app, I recommend customizing this to a 401 (Unauthorized) status code so the client can deal with this more gracefully. Or, set up some way to poll the back end and check for an active session and redirect accordingly via `window.location`. -->
+
+我调整了一下 `fetch`，以使它不会用重定向跟踪失败的请求，而是返回一个错误响应。当 Ajax 请求获取数据失败时，ASP.NET 中间件将以重定向到登录页面的方式响应。在实际的应用中，我建议将其自定义为 401 (Unauthorized) 状态码，以便客户端可以更优雅地处理此问题；或者，设置某种方式来轮询后端并检查活动会话，然后通过 `window.location` 进行相应地重定向。
+
+<!-- Done, the dotnet watcher should keep track of changes on both ends while refreshing the browser. To take this out for a test spin, I will first visit the Fetch Data page, note that the request fails, login, and try again to get weather data with a valid session. I will open the network tab to show Ajax requests in the browser. -->
+
+完成后，dotnet 监视程序应该会在刷新浏览器时跟踪两端的更改。为了进行测试，我将首先访问 Fetch Data 页，请注意会请求失败，然后登录，并使用有效的会话再次尝试获取天气数据。我将打开的 “Network” 选项卡，以在浏览器中显示 Ajax 请求。
+
+![ajax request with valid session](/assets/images/202103/ajax-request-with-valid-session.png)
+
+<!-- Note the 302 redirect when I first get the weather data, and it fails. Then, the subsequent redirect from login establishes a session. Peeking at the browser cookies shows this cookie name `AspNetCore.Cookies`, which is a session cookie that allows a subsequent Ajax request to work properly. -->
+
+请注意当我第一次获取天气数据时的 302 重定向，它失败了。然后，随后的重定向从登录页建立一个会话。查看一下浏览器的 cookies，会显示这个名为 `AspNetCore.Cookies` 的 cookie，它是一个 session cookie，正是它让后续的 Ajax 请求正常工作了。
+
+## 结论
+
+<!-- .NET Core 5 and React do not have to live in separate silos. With an excellent integration, it is possible to unlock server-side rendering, server config data, and the ASP.NET user session in React. -->
+
+.NET Core 5 和 React 不必独立存在。通过出色的集成，便可以在 React 中解锁服务端渲染、服务端配置数据和 ASP.NET 用户会话。
 
 
 
