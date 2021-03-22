@@ -127,7 +127,7 @@ it does not integrate with an ASP.NET user session via a session cookie -->
 
 现在，创建以下对此集成很有用的文件夹和文件。我建议使用 Visual Studio 右键单击创建控制器 、类或 View：
 
-- **/Controllers/HomeController.cs**：服务端主页，它将覆盖 Create React App 的 **index.html** 入口页面
+- **/Controllers/HomeController.cs**：服务端主页，它将覆盖 Create React App 的 **index.html** 入口页
 - **/Views/Home/Index.cshtml**：Razor 视图，它渲染服务端组件和来自 React 项目的解析过的 **index.html**
 - **/CreateReactAppViewModel.cs**：主要的集成视图模型，它将抓取 **index.html** 静态资产并将其解析出来以供 MVC 使用
 
