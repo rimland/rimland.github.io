@@ -18,6 +18,7 @@ permalink: /links/
 - [C# 语言版本控制](https://docs.microsoft.com/zh-cn/dotnet/csharp/language-reference/configure-language-version)
 - [Target frameworks](https://docs.microsoft.com/en-us/dotnet/standard/frameworks)
 - [IdentityServer4](https://docs.identityserver.io/)
+- [IdentityServer](https://duendesoftware.com/)
 
 ## Tech
 
