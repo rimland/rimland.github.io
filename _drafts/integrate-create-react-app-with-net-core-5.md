@@ -213,10 +213,6 @@ public class CreateReactAppViewModel
 
 我高亮显示了消费方 ASP.NET 应用需要解析的 `head` 和 `body` 标签。有了这些原始的 HTML，剩下的就简单多了。
 
-<!-- 我突出了头部和身体的标签ASP.NET应用程序需要解析。一旦有了这个原始的HTML，剩下的就有点简单了。
-
-我已经强调了消费型ASP.NET应用程序需要解析的head和body标签。 一旦有了这个原始的HTML，剩下的就容易了。 -->
-
 <!-- With the view model in place, time to tackle the home controller that will override the index.html file from React. -->
 
 视图模型就绪后，就该花点时间处理 home 控制器了，它将覆盖来自 React 的 *index.html*。
@@ -243,7 +239,7 @@ public class HomeController : Controller
 
 <!-- Then, put this Razor code in Home/Index.cshtml: -->
 
-接着，把下面的 Razor 代码放入 `Home/Index.cshtml` 中：
+接着，把下面的 Razor 代码放入 *Home/Index.cshtml* 中：
 
 ```html
 @model integrate_dotnet_core_create_react_app.CreateReactAppViewModel
@@ -287,7 +283,7 @@ endpoints.MapControllerRoute(
 
 <!-- With this, take a look at the browser which will now show this server-side “component” via an h3 tag. This may seem silly because it’s just some simple HTML rendered on the page, but the possibilities are endless. The ASP.NET Razor page can have a full app shell with menus, branding, and navigation that can be shared across many React apps. If there are any legacy MVC Razor pages, this shiny new React app will integrate seamlessly. -->
 
-此时，看一下浏览器，现在它将通过 **h2** 显示这个服务端“组件”。这看起来似乎有点愚蠢，因为它只是在页面上渲染的一些简单 HTML，但其潜力是无穷的。ASP.NET Razor 页面可以具有完整的应用程序外壳，其中包含菜单、品牌和导航，它可以在多个 React 应用之间共享。如果有任何旧版 MVC Razor 页面，这个闪亮的新 React 应用将无缝集成。
+此时，看一下浏览器，现在它将通过 **h2** 显示这个服务端“组件”。这看起来似乎有点愚蠢，因为它只是在页面上渲染的一些简单 HTML，但其潜力是无穷的。ASP.NET Razor 页面可以具有完整的应用程序外壳，其中包含菜单、品牌和导航，它可以在多个 React 应用之间共享。如果有任何旧版 MVC Razor 页面，这个闪亮的新 React 应用能够无缝集成。
 
 <!-- ## Server-Side App Configuration -->
 
@@ -362,11 +358,11 @@ const store = createStore(reducers, preloadedState,
 
 <!-- ## .NET Core user session integration -->
 
-## .NET Core 用户会话（Session）集成
+## .NET Core 用户会话(Session)集成
 
 <!-- Lastly, as the pièce de résistance, I will now integrate this React app with the ASP.NET user session. I will lock down the back-end API where it gets weather data and only show this information with a valid session. This means that when the browser fires an Ajax request, it must contain an ASP.NET session cookie. Otherwise, the request gets rejected with a redirect which indicates to the browser it must first login. -->
 
-最后，作为主菜，我现在将这个 React 应用与 ASP.NET 用户会话集成在一起。我将锁定获取天气数据的后端 API，并仅在使用有效会话时显示此信息。这意味着当浏览器触发 Ajax 请求时，它必须包含一个 ASP.NET session cookie。否则，该请求将被拒绝，并重定向以指示浏览器必须先登录。
+最后，作为主菜，现在我将这个 React 应用与 ASP.NET 用户会话集成在一起。我将锁定获取天气数据的后端 API，并仅在使用有效会话时显示此信息。这意味着当浏览器触发 Ajax 请求时，它必须包含一个 ASP.NET session cookie。否则，该请求将被拒绝，并重定向以指示浏览器必须先登录。
 
 <!-- To enable user session support in ASP.NET, open the Startup file and add this: -->
 
@@ -398,6 +394,10 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 <!-- The `Authorize` attribute assumes the user can login into the app. Go back to the `HomeController` and add the login/logout methods. Remember to be using `Microsoft.AspNetCore.Authentication`, `Microsoft.AspNetCore.Authentication.Cookies`, and `Microsft.AspNetCore.Mvc`. -->
 
 `Authorize` 属性假定用户可以登录到该应用。回到 `HomeController` 并添加 Login 和 Logout 方法，记得添加 using `Microsoft.AspNetCore.Authentication`、`Microsoft.AspNetCore.Authentication.Cookies` 和 `Microsft.AspNetCore.Mvc`。
+
+<!-- This is one way to establish and then kill the user session: -->
+
+这是建立然后终止用户会话的一种方法：
 
 ```csharp
 public async Task<ActionResult> Login()
@@ -474,13 +474,13 @@ async populateWeatherData() {
 
 <!-- Done, the dotnet watcher should keep track of changes on both ends while refreshing the browser. To take this out for a test spin, I will first visit the Fetch Data page, note that the request fails, login, and try again to get weather data with a valid session. I will open the network tab to show Ajax requests in the browser. -->
 
-完成后，dotnet 监视程序应该会在刷新浏览器时跟踪两端的更改。为了进行测试，我将首先访问 Fetch Data 页，请注意会请求失败，然后登录，并使用有效的会话再次尝试获取天气数据。我将打开的 “Network” 选项卡，以在浏览器中显示 Ajax 请求。
+完成后，dotnet 监视程序应该会在刷新浏览器时跟踪前后两端的更改。为了进行测试，我将首先访问 Fetch Data 页，请注意会请求失败，然后登录，并使用有效的会话再次尝试获取天气数据。我将打开“Network”选项卡，以在浏览器中显示 Ajax 请求。
 
 ![ajax request with valid session](/assets/images/202103/ajax-request-with-valid-session.png)
 
 <!-- Note the 302 redirect when I first get the weather data, and it fails. Then, the subsequent redirect from login establishes a session. Peeking at the browser cookies shows this cookie name `AspNetCore.Cookies`, which is a session cookie that allows a subsequent Ajax request to work properly. -->
 
-请注意当我第一次获取天气数据时的 302 重定向，它失败了。接着，随后的重定向从登录页建立了一个会话。查看一下浏览器的 cookies，会显示这个名为 `AspNetCore.Cookies` 的 cookie，它是一个 session cookie，正是它让后续的 Ajax 请求工作正常了。
+请注意当我第一次获取天气数据时的 302 重定向，它失败了。接着，来自登录页的后续重定向建立了一个会话。查看一下浏览器的 cookies，会显示这个名为 `AspNetCore.Cookies` 的 cookie，它是一个 session cookie，正是它让后面的 Ajax 请求工作正常了。
 
 ## 结论
 
