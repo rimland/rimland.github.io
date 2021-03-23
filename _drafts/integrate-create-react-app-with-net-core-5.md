@@ -432,7 +432,7 @@ public async Task<ActionResult> Logout()
 
 请注意，通常使用重定向和 ASP.NET session cookie 来建立用户会话。我添加了一个 `ClaimsPrincipal`，它带有一个设置为随机 **Guid** 的用户 ID，使其看起来更加真实。[^Claims] 在实际应用中，这些 Claims 可能来自数据库或者 JWT。
 
-[^Claims]: 这里用 Cookie 代表一个通过验证的主体，它包含 Claims, ClaimsIdentity, ClaimsPrincipal 三部分信息，其中 ClaimsPrincipal 相当于持有证件的人，ClaimsIdentity 就是证件，Claims 就是证件中的信息。
+[^Claims]: 用 Cookie 代表一个通过验证的主体，它包含 Claims, ClaimsIdentity, ClaimsPrincipal 三部分信息，其中 ClaimsPrincipal 相当于持有证件的人，ClaimsIdentity 就是证件，Claims 就是证件中的信息。
 
 <!-- To expose this functionality to the client, open *components\NavMenu.js* and add these links to the `Navbar`: -->
 
