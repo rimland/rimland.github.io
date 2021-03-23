@@ -70,7 +70,7 @@ dotnet sln add integrate-dotnet-core-create-react-app.csproj
 
 <!-- If you run into any issues with React, simply change directory into ClientApp and run npm install to get Create React App up and running. The entire app renders on the client without server-side rendering. It has a react-router with three different pages: a counter, one that fetches weather data, and a home page. If you look at the controllers, it has a WeatherForecastController with an API endpoint to get weather data. -->
 
-如果您在使用 React 时遇到任何问题，只需将目录更改为 `ClientApp` 并运行 `npm install`，即可启动并运行 Create React App。整个应用程序在客户端渲染，而不需要服务器渲染。它有一个具有三个不同页面的 `react-router`：一个计数器、一个获取天气数据的页面和一个主页。如果您看一下控制器，会发现 `WeatherForecastController` 有一个 API Endpoint 来获取天气数据。
+如果您在使用 React 时遇到任何问题，只需将目录更改为 `ClientApp` 并运行 `npm install`，即可启动并运行 Create React App。整个 React 应用程序在客户端渲染，而不需要服务器渲染。它有一个具有三个不同页面的 `react-router`：一个计数器、一个获取天气数据的页面和一个主页。如果您看一下控制器，会发现 `WeatherForecastController` 有一个 API Endpoint 来获取天气数据。
 
 <!-- This scaffold already includes a Create React App project. To prove this, open the package.json file in the ClientApp folder to inspect it. -->
 
@@ -109,15 +109,15 @@ dotnet sln add integrate-dotnet-core-create-react-app.csproj
 ASP.NET server configuration data is hard to access from the React client
 it does not integrate with an ASP.NET user session via a session cookie -->
 
-此 React 应用程序有很多优点，但是缺少一些重要的 ASP.NET 功能：
+该 React 应用程序有很多优点，但是缺少一些重要的 ASP.NET 功能：
 
 - 没有通过 Razor 进行的服务端渲染，使任何其他 MVC 页面像一个单独的应用程序一样工作
 - 很难从 React 客户端访问 ASP.NET 服务端配置数据
-- 它不会集成通过 session cookie 实现的 ASP.NET 用户会话
+- 它不会集成由 session cookie 实现的 ASP.NET 用户会话
 
 <!-- I will tackle each one of these concerns as I progress through the integration. What’s nice is these desirable features are attainable with the Create React App and ASP.NET. -->
 
-随着集成的推进，我将解决这些问题中的每一个。好在这些理想的功能是可以使用 Create React App 和 ASP.NET 实现的。
+随着集成的推进，我将逐一解决这些问题。好在这些理想的功能是可以使用 Create React App 和 ASP.NET 实现的。
 
 <!-- To keep track of integration changes, I will now use Git to commit the initial scaffold. Assuming Git is installed, do a git init, git add, and git commit to commit this initial project. Looking at the commit history is an excellent way to track what changes are necessary to do the integration. -->
 
@@ -137,7 +137,7 @@ it does not integrate with an ASP.NET user session via a session cookie -->
 
 <!-- The rest of the necessary changes will go in existing files that were put in place by the scaffold. This is great because it minimizes code tweaks necessary to flesh out this integration. -->
 
-其余的必要更改将放入脚手架现有的文件中。这样很好，因为可以最大限度地减少必要的代码调整来充实这个集成。
+其余的必要更改将放入脚手架现有的文件中。这好极了，因为可以最大限度地减少必要的代码调整来充实这个集成。
 
 <!-- Time to roll up your sleeves, take a deep breath, and tackle the main part of this integration. -->
 
@@ -145,9 +145,9 @@ it does not integrate with an ASP.NET user session via a session cookie -->
 
 ## CreateReactAppViewModel 集成
 
-I will begin by creating a view model that does most of the integration. Crack open CreateReactAppViewModel and put this in place:
+<!-- I will begin by creating a view model that does most of the integration. Crack open CreateReactAppViewModel and put this in place: -->
 
-我将从创建一个执行大部分集成的视图模型开始。打开 `CreateReactAppViewModel` 并放入以下代码：
+我将从创建一个执行大部分集成工作的视图模型开始。打开 `CreateReactAppViewModel` 并放入以下代码：
 
 ```csharp
 public class CreateReactAppViewModel
@@ -193,11 +193,11 @@ public class CreateReactAppViewModel
 
 <!-- This code may seem scary at first but only does two things: gets the output index.html file from the dev server and parses out the head and body tags. This allows the consuming app in ASP.NET to access the HTML that links to the static assets that come from Create React App. The assets will be the static files that contain the code bundles with JavaScript and CSS in it. For example, js\main.3549aedc.chunk.js for JavaScript or css\2.ed890e5e.chunk.css for CSS. This is how webpack takes in the React code that is written and presents it to the browser. -->
 
-这段代码乍一看可能有点吓人，但它只做了两件事：从开发服务器获取输出的 **index.html** 文件，并解析到 `head` 和 `body` 标签。这允许 ASP.NET 中的使用方应用程序访问 HTML，该 HTML 链接到来自 Create React App 的静态资产。这些资产将是静态文件，其中包含带有 JavaScript 和 CSS 的代码包。例如，JavaScript 的 *js\main.3549aedc.chunk.js* 或 CSS 的 *css\2.ed890e5e.chunk.css*。这其实就是 webpack 接收所编写的 React 代码并将其渲染到浏览器的方式。
+这段代码乍一看可能有点吓人，但它只做了两件事：从开发服务器获取输出的 **index.html** 文件，并解析出 `head` 和 `body` 标签。这使得 ASP.NET 中的消费方应用程序可以访问 HTML，该 HTML 链接到来自 Create React App 的静态资产。这些资产是静态文件，其中包含带有 JavaScript 和 CSS 的代码包。例如，JavaScript 的 *js\main.3549aedc.chunk.js* 或 CSS 的 *css\2.ed890e5e.chunk.css*。这其实就是 webpack 接收所编写的 React 代码并将其渲染到浏览器的方式。
 
 <!-- I opted to fire a `WebRequest` to the dev server directly because Create React App does not materialize any actual files accessible to ASP.NET while in developing mode. This is sufficient for local development because it works well with the webpack dev server. Any changes on the client-side will automatically update the browser. Any back-end changes while in watch mode will also refresh the browser. So, you get the best of both worlds here for optimum productivity. -->
 
-我选择直接向开发服务器发起一个 `WebRequest`，是因为在开发模式下，Create React App 不会生成 ASP.NET 可访问的任何实际文件。这对于本地开发来说足够了，因为它可以与 webpack 开发服务器配合得很好。客户端上的任何更改都将自动更新浏览器。在监视模式下进行的任何后端更改也会刷新浏览器。因此，您可以在两全其美的环境中获得最佳的生产力。
+我选择直接向开发服务器发起一个 `WebRequest`，是因为在开发模式下，Create React App 不会生成 ASP.NET 可访问的任何实际文件。这对于本地开发来说足够了，因为它可以与 webpack 开发服务器配合得很好。客户端上的任何更改都将自动更新到浏览器。在监视模式下进行的任何后端更改也会刷新到浏览器。因此，您可以在两全其美的环境中获得最佳的生产力。
 
 <!-- In prod, this will create static assets via npm run build. I recommend doing file IO and reading the index file off its actual location in ClientApp/build. Also, while in prod mode, it is a good idea to cache the contents of this file after the static assets have been deployed to the hosting server. -->
 
@@ -211,7 +211,7 @@ public class CreateReactAppViewModel
 
 <!-- I’ve highlighted the head and body tags the consuming ASP.NET app needs to parse. Once it has this raw HTML, the rest is somewhat easy peasy. -->
 
-我已经高亮显示了消费 ASP.NET 应用需要解析的 `head` 和 `body` 标签。有了这些原始的 HTML，剩下的就简单多了。
+我高亮显示了消费方 ASP.NET 应用需要解析的 `head` 和 `body` 标签。有了这些原始的 HTML，剩下的就简单多了。
 
 <!-- 我突出了头部和身体的标签ASP.NET应用程序需要解析。一旦有了这个原始的HTML，剩下的就有点简单了。
 
@@ -219,12 +219,11 @@ public class CreateReactAppViewModel
 
 <!-- With the view model in place, time to tackle the home controller that will override the index.html file from React. -->
 
-视图模型就绪后，该花点时间处理 home 控制器了，它将覆盖来自 React 的 *index.html*。
+视图模型就绪后，就该花点时间处理 home 控制器了，它将覆盖来自 React 的 *index.html*。
 
+<!-- Open the HomeController and add this: -->
 
-Open the HomeController and add this:
-
-打开 `HomeController` 并添加下面的代码：
+打开 `HomeController` 并添加以下代码：
 
 ```csharp
 public class HomeController : Controller
@@ -240,11 +239,11 @@ public class HomeController : Controller
 
 <!-- In ASP.NET, this controller will be the default route that overrides Create React App with server-side rendering support. This is what unlocks the integration, so you get the best of both worlds. -->
 
-在 ASP.NET 中，该控制器是默认路由，它会在服务端渲染支持下覆盖 Create React App。这就是开启集成的方法，因此您可以两全其美。
+在 ASP.NET 中，该控制器是默认路由，它会在服务端渲染的支持下覆盖 Create React App。这就是解锁集成的诀窍，从而可以两全其美。
 
 <!-- Then, put this Razor code in Home/Index.cshtml: -->
 
-然后把下面的 Razor 代码放入 `Home/Index.cshtml` 中：
+接着，把下面的 Razor 代码放入 `Home/Index.cshtml` 中：
 
 ```html
 @model integrate_dotnet_core_create_react_app.CreateReactAppViewModel
@@ -266,11 +265,11 @@ public class HomeController : Controller
 
 <!-- The React app uses react-router to define two client-side routes. If the page gets refreshed while the browser is on a route other than home, it will revert to the static index.html. -->
 
-React 应用使用 `react-router` 来定义客户端的路由。如果在浏览器处于非 home 路由时刷新页面，它将恢复为静态的 *index.html*。
+React 应用程序使用 `react-router` 来定义客户端的路由。如果在浏览器处于非 home 路由时刷新页面，它将恢复为静态的 *index.html*。
 
 <!-- To address this inconsistency, define these server-side routes in Startup. Routes are defined inside UseEndpoints: -->
 
-要解决这种不一致性，请在 `Startup` 中定义下面这些服务端路由，路由是在 `UseEndpoints` 中定义的：
+要解决这种不一致性，请在 `Startup` 中定义下面的服务端路由，路由是在 `UseEndpoints` 中定义的：
 
 ```csharp
 endpoints.MapControllerRoute(
@@ -288,7 +287,7 @@ endpoints.MapControllerRoute(
 
 <!-- With this, take a look at the browser which will now show this server-side “component” via an h3 tag. This may seem silly because it’s just some simple HTML rendered on the page, but the possibilities are endless. The ASP.NET Razor page can have a full app shell with menus, branding, and navigation that can be shared across many React apps. If there are any legacy MVC Razor pages, this shiny new React app will integrate seamlessly. -->
 
-此时，看一下浏览器，现在它将通过 **h2** 显示这个服务端“组件”。这看起来似乎有点愚蠢，因为它只是在页面上呈现的一些简单 HTML，但其潜力是无穷的。ASP.NET Razor 页面可以具有完整的应用程序外壳，其中包含菜单、品牌、和导航，它们可以在多个 React 应用之间共享。如果有任何旧版 MVC Razor 页面，这个闪亮的新 React 应用将无缝集成。
+此时，看一下浏览器，现在它将通过 **h2** 显示这个服务端“组件”。这看起来似乎有点愚蠢，因为它只是在页面上渲染的一些简单 HTML，但其潜力是无穷的。ASP.NET Razor 页面可以具有完整的应用程序外壳，其中包含菜单、品牌和导航，它可以在多个 React 应用之间共享。如果有任何旧版 MVC Razor 页面，这个闪亮的新 React 应用将无缝集成。
 
 <!-- ## Server-Side App Configuration -->
 
@@ -296,7 +295,7 @@ endpoints.MapControllerRoute(
 
 <!-- Next, say I want to show server-side configuration on this app from ASP.NET, such as the HTTP protocol, hostname, and the base URL. I chose these mostly to keep it simple, but these config values can come from anywhere. They can be *appsettings.json* settings or even values from a configuration database. -->
 
-接下来，假如我想显示此应用上来自 ASP.NET 的服务端配置，比如 HTTP 协议、主机名和 base URL。我选择这些主要是为了保持简单，不过这些配置值可以来自任何地方。它们可以是 *appsettings.json* 设置，或者甚至可以是来自配置数据库中的值。
+接下来，假如我想显示此应用上来自 ASP.NET 的服务端配置，比如 HTTP 协议、主机名和 base URL。我选择这些主要是为了保持简单，不过这些配置值可以来自任何地方，它们可以是 *appsettings.json* 设置，或者甚至可以是来自配置数据库中的值。
 
 <!-- To make server-side settings accessible to the React client, put this in *Index.cshtml*: -->
 
@@ -318,11 +317,11 @@ endpoints.MapControllerRoute(
 
 <!-- This sets any config values that come from the server in the global `window` browser object. The React app can retrieve these values with little effort. I opted to render these same values in Razor, mostly to show they are the same values that the client app will see. -->
 
-这里在全局 `window` 浏览器对象中设置来自服务器的任意配置值。React 应用可以轻而易举地获取这些值。我选择在 Razor 中渲染这些相同的值，主要是为了演示它们与客户端应用将看到的是相同的值。
+这里在全局 `window` 浏览器对象中设置来自服务器的任意配置值。React 应用可以轻而易举地检索这些值。我选择在 Razor 中渲染这些相同的值，主要是为了演示它们与客户端应用将看到的是相同的值。
 
 <!-- In React, crack open components\NavMenu.js and add this snippet；most of this will go inside the Navbar: -->
 
-在 React 中，打开 *components\NavMenu.js* 并添加下面的代码段；其中大部分将放在导航栏中：
+在 React 中，打开 *components\NavMenu.js* 并添加下面的代码段；其中大部分将放在 `Navbar` 中：
 
 ```js
 import { NavbarText } from 'reactstrap';
@@ -335,11 +334,11 @@ import { NavbarText } from 'reactstrap';
 
 <!-- The client app will now reflect the server configuration that is set via the global window object. There is no need to fire an Ajax request to load this data or somehow make it available to the index.html static asset. -->
 
-这个客户端应用现在将反映通过全局 `window` 对象设置的服务器配置。它不需要触发 Ajax 请求来加载此数据，也不需要以某种方式让 `index.html` 静态资产可以使用它。
+这个客户端应用现在将显示通过全局 `window` 对象设置的服务器端配置。它不需要触发 Ajax 请求来加载这些数据，也不需要以某种方式让 `index.html` 静态资产可以访问它。
 
 <!-- If you’re using Redux, for example, this is even easier because this can be set when the app initializes the store. Initial state values can be passed into the store before anything renders on the client. -->
 
-如果您使用了 Redux，这会变得更加容易，因为可以在应用程序初始化 store 时进行设置。初始化状态值可以在客户端渲染任何内容之前传递到 store 中。
+假如您使用了 Redux，这会变得更加容易，因为可以在应用程序初始化 store 时进行设置。初始化状态值可以在客户端渲染任何内容之前传递到 store 中。
 
 例如：
 
@@ -359,17 +358,17 @@ const store = createStore(reducers, preloadedState,
 
 <!-- I chose to opt-out of putting in place a Redux store for the sake of brevity, but this is a rough idea of how it can be done via the `window` object. What’s nice with this approach is that the entire app can remain unit-testable without polluting it with browser dependencies like this `window` object. -->
 
-为了简洁起见，我选择不使用 Redux store，但这是如何通过 `window` 对象实现的一个粗略想法。这种方法的好处是，整个应用都可以保持单元可测试的状态，而不会受到诸如 `window` 对象之类的浏览器依赖项的污染。
+为了简洁起见，我选择不使用 Redux store，而是通过 `window` 对象的方式实现，这只是一个粗略的想法。这种方法的好处是，整个应用都可以保持单元可测试的状态，而不会受到类似 `window` 对象的浏览器依赖项的污染。
 
 <!-- ## .NET Core user session integration -->
 
-## .NET Core 用户会话（session）集成
+## .NET Core 用户会话（Session）集成
 
 <!-- Lastly, as the pièce de résistance, I will now integrate this React app with the ASP.NET user session. I will lock down the back-end API where it gets weather data and only show this information with a valid session. This means that when the browser fires an Ajax request, it must contain an ASP.NET session cookie. Otherwise, the request gets rejected with a redirect which indicates to the browser it must first login. -->
 
-最后，作为主菜，我现在将这个 React 应用与 ASP.NET 用户 session 集成在一起。我将锁定获取天气数据的后端 API，并仅在使用有效会话时显示此信息。这意味着当浏览器触发 Ajax 请求时，它必须包含一个 ASP.NET session cookie。否则，该请求将被拒绝，并重定向浏览器指示其必须先登录。
+最后，作为主菜，我现在将这个 React 应用与 ASP.NET 用户会话集成在一起。我将锁定获取天气数据的后端 API，并仅在使用有效会话时显示此信息。这意味着当浏览器触发 Ajax 请求时，它必须包含一个 ASP.NET session cookie。否则，该请求将被拒绝，并重定向以指示浏览器必须先登录。
 
-To enable user session support in ASP.NET, open the Startup file and add this:
+<!-- To enable user session support in ASP.NET, open the Startup file and add this: -->
 
 要在 ASP.NET 中启用用户会话支持，请打开 *Startup* 文件并添加：
 
@@ -394,11 +393,11 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 
 <!-- Be sure to leave the rest of the scaffold code in there and only add this snippet in the correct methods. With authentication/authorization now enabled, go to the `WeatherForecastController` and slap an `Authorize` attribute to the controller. This will effectively lock it down to where it needs an ASP.NET user session via a cookie to get to the data. -->
 
-请务必保留其余的脚手架代码，只是在恰当的方法中添加上面的代码段。启用了身份验证和授权后，转到 `WeatherForecastController` 并给该控制器添加一个 `Authorize` 属性。这将有效地将其锁定，从而需要通过 cookie 实现的 ASP.NET 用户会话来获取数据。
+请务必保留其余的脚手架代码，只是在恰当的方法中添加上面的代码段。启用了身份验证和授权后，转到 `WeatherForecastController` 并给该控制器添加一个 `Authorize` 属性。这将有效地将其锁定，从而需要由 cookie 实现的 ASP.NET 用户会话来获取数据。
 
 <!-- The `Authorize` attribute assumes the user can login into the app. Go back to the `HomeController` and add the login/logout methods. Remember to be using `Microsoft.AspNetCore.Authentication`, `Microsoft.AspNetCore.Authentication.Cookies`, and `Microsft.AspNetCore.Mvc`. -->
 
-`Authorize` 属性假定用户可以登录到应用。回到 `HomeController` 并添加 Login 和 Logout 方法，记得添加 using `Microsoft.AspNetCore.Authentication`、`Microsoft.AspNetCore.Authentication.Cookies` 和 `Microsft.AspNetCore.Mvc`。
+`Authorize` 属性假定用户可以登录到该应用。回到 `HomeController` 并添加 Login 和 Logout 方法，记得添加 using `Microsoft.AspNetCore.Authentication`、`Microsoft.AspNetCore.Authentication.Cookies` 和 `Microsft.AspNetCore.Mvc`。
 
 ```csharp
 public async Task<ActionResult> Login()
@@ -431,11 +430,13 @@ public async Task<ActionResult> Logout()
 
 <!-- Note that the user session is typically established with a redirect and an ASP.NET session cookie. I added a `ClaimsPrincipal` with a user-id set to a random **Guid** to make this seem more real. In a real app, these claims can come from a database or a JWT. -->
 
-请注意，通常使用重定向和 ASP.NET session cookie 来建立用户会话。我添加了一个 `ClaimsPrincipal`，它带有一个设置为随机 **Guid** 的用户 ID，使其看起来更加真实。在实际应用中，这些 Claims 可能来自数据库或者 JWT。
+请注意，通常使用重定向和 ASP.NET session cookie 来建立用户会话。我添加了一个 `ClaimsPrincipal`，它带有一个设置为随机 **Guid** 的用户 ID，使其看起来更加真实。[^Claims] 在实际应用中，这些 Claims 可能来自数据库或者 JWT。
+
+[^Claims]: 这里用 Cookie 代表一个通过验证的主体，它包含 Claims, ClaimsIdentity, ClaimsPrincipal 三部分信息，其中 ClaimsPrincipal 相当于持有证件的人，ClaimsIdentity 就是证件，Claims 就是证件中的信息。
 
 <!-- To expose this functionality to the client, open *components\NavMenu.js* and add these links to the `Navbar`: -->
 
-要将些功能公开给客户端，请打开 *components\NavMenu.js* 并将下面的链接添加到 `Navbar`：
+要将此功能公开给客户端，请打开 *components\NavMenu.js* 并将下面的链接添加到 `Navbar`：
 
 ```xml
 <NavItem>
@@ -448,7 +449,7 @@ public async Task<ActionResult> Logout()
 
 <!-- Lastly, I want the client app to handle request failures and give some indication to the end user that something went wrong. Bust open *components\FetchData.js* and replace `populateWeatherData` with this code snippet: -->
 
-最后，我希望客户端应用处理请求失败的情况，并向最终用户提供一些提示，指出出了点问题。打开 *components\FetchData.js* 并用下面的代码段替换 `populateWeatherData`：
+最后，我希望客户端应用处理请求失败的情况，并给最终用户提供一些提示，指出出了点问题。打开 *components\FetchData.js* 并用下面的代码段替换 `populateWeatherData`：
 
 ```js
 async populateWeatherData() {
@@ -469,7 +470,7 @@ async populateWeatherData() {
 
 <!-- I tweaked the `fetch` so it does not follow failed requests on a redirect, which is an error response. The ASP.NET middleware responds with a redirect to the login page when an Ajax request fails to get the data. In a real app, I recommend customizing this to a 401 (Unauthorized) status code so the client can deal with this more gracefully. Or, set up some way to poll the back end and check for an active session and redirect accordingly via `window.location`. -->
 
-我调整了一下 `fetch`，以使它不会用重定向跟踪失败的请求，而是返回一个错误响应。当 Ajax 请求获取数据失败时，ASP.NET 中间件将以重定向到登录页面的方式响应。在实际的应用中，我建议将其自定义为 401 (Unauthorized) 状态码，以便客户端可以更优雅地处理此问题；或者，设置某种方式来轮询后端并检查活动会话，然后通过 `window.location` 进行相应地重定向。
+我调整了一下 `fetch`，以使它不会用重定向跟踪失败的请求，而是返回一个错误响应。当 Ajax 请求获取数据失败时，ASP.NET 中间件将以重定向到登录页的方式响应。在实际的应用中，我建议将其自定义为 401 (Unauthorized) 状态码，以便客户端可以更优雅地处理此问题；或者，设置某种方式来轮询后端并检查活动会话，然后通过 `window.location` 进行相应地重定向。
 
 <!-- Done, the dotnet watcher should keep track of changes on both ends while refreshing the browser. To take this out for a test spin, I will first visit the Fetch Data page, note that the request fails, login, and try again to get weather data with a valid session. I will open the network tab to show Ajax requests in the browser. -->
 
@@ -479,26 +480,13 @@ async populateWeatherData() {
 
 <!-- Note the 302 redirect when I first get the weather data, and it fails. Then, the subsequent redirect from login establishes a session. Peeking at the browser cookies shows this cookie name `AspNetCore.Cookies`, which is a session cookie that allows a subsequent Ajax request to work properly. -->
 
-请注意当我第一次获取天气数据时的 302 重定向，它失败了。然后，随后的重定向从登录页建立一个会话。查看一下浏览器的 cookies，会显示这个名为 `AspNetCore.Cookies` 的 cookie，它是一个 session cookie，正是它让后续的 Ajax 请求正常工作了。
+请注意当我第一次获取天气数据时的 302 重定向，它失败了。接着，随后的重定向从登录页建立了一个会话。查看一下浏览器的 cookies，会显示这个名为 `AspNetCore.Cookies` 的 cookie，它是一个 session cookie，正是它让后续的 Ajax 请求工作正常了。
 
 ## 结论
 
 <!-- .NET Core 5 and React do not have to live in separate silos. With an excellent integration, it is possible to unlock server-side rendering, server config data, and the ASP.NET user session in React. -->
 
 .NET Core 5 和 React 不必独立存在。通过出色的集成，便可以在 React 中解锁服务端渲染、服务端配置数据和 ASP.NET 用户会话。
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <br />
 
