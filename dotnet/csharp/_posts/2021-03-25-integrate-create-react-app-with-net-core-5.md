@@ -197,7 +197,7 @@ public class CreateReactAppViewModel
 
 <!-- I opted to fire a `WebRequest` to the dev server directly because Create React App does not materialize any actual files accessible to ASP.NET while in developing mode. This is sufficient for local development because it works well with the webpack dev server. Any changes on the client-side will automatically update the browser. Any back-end changes while in watch mode will also refresh the browser. So, you get the best of both worlds here for optimum productivity. -->
 
-我选择直接向开发服务器发起一个 `WebRequest`，是因为在开发模式下，Create React App 不会生成 ASP.NET 可访问的任何实际文件。这对于本地开发来说足够了，因为它可以与 webpack 开发服务器配合得很好。客户端上的任何更改都将自动更新到浏览器。在监视模式下进行的任何后端更改也会刷新到浏览器。因此，您可以在两全其美的环境中获得最佳的生产力。
+我选择直接向开发服务器发起一个 `WebRequest`，是因为在开发模式下，Create React App 不会生成 ASP.NET 可访问的任何实际文件。这对于本地开发来说足够了，因为它可以与 webpack 开发服务器很好地配合。客户端上的任何更改都将自动更新到浏览器。在监视模式下进行的任何后端更改也会刷新到浏览器。因此，您可以在两全其美的环境中获得最佳的生产力。
 
 <!-- In prod, this will create static assets via npm run build. I recommend doing file IO and reading the index file off its actual location in ClientApp/build. Also, while in prod mode, it is a good idea to cache the contents of this file after the static assets have been deployed to the hosting server. -->
 
