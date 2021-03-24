@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "在 .NET Core 5 中集成 Create React app"
-date:   2021-03-22 00:10:09 +0800
+date:   2021-03-25 00:10:09 +0800
 categories: dotnet csharp
 published: true
 ---
@@ -28,7 +28,7 @@ published: true
 
 <!-- The general solution involves two major pieces, the front and the back ends. The back end is a typical ASP.NET MVC app anyone can spin up in .NET Core 5. Just make sure that you have .NET Core 5 installed and that your project is targeting .NET Core 5 when you do this to unlock C# 9 features. I will incrementally add more pieces as the integration progresses. The front end will have the React project, with an NPM build that outputs static assets like index.html. I will assume a working knowledge of .NET and React, so I don’t have to delve into basics such as setting up .NET Core or Node on a dev machine. That said, note some of the useful using statements here for later use: -->
 
-一般的解决方案涉及两个主要部分——前端和后端。后端是一个典型的 ASP.NET MVC 应用，任何人都可以在 .NET Core 5 中启动。请确保您已安装 .NET Core 5，并将项目的目标设置为 .NET Core 5，只要执行了此操作便解锁了 C# 9 特性。随着集成的进行，我还将添加更多的部分。前端会有 React 项目和输出像 *index.html* 之类静态资产的 NPM 工具。我将假定您具有 .NET 和 React 的工作知识，因此我不会深究诸如在开发机上设置 .NET Core 或 Node 的基础。也就是说，请注意下面一些有用的 using 语句，以便后面使用：
+一般的解决方案涉及两个主要部分——前端和后端。后端是一个典型的 ASP.NET MVC 应用，任何人都可以在 .NET Core 5 中启动。请确保您已安装 .NET Core 5，并将项目的目标设置为 .NET Core 5，只要执行了此操作也便开启了 C# 9 特性。随着集成的进行，我还将添加更多的部分。前端会有 React 项目和输出像 *index.html* 之类静态资产的 NPM 工具。我将假定您具有 .NET 和 React 的工作知识，因此我不会深究诸如在开发机上设置 .NET Core 或 Node 的基础。也就是说，请注意下面一些有用的 using 语句，以便后面使用：
 
 ```csharp
 using Microsoft.AspNetCore.Http;
@@ -44,7 +44,7 @@ using System.Text.RegularExpressions;
 
 <!-- The good news is that Microsoft provides a basic scaffold template that will spin up a new ASP.NET project with React on the front end. This ASP.NET React project has the client app, which outputs static assets that can be hosted anywhere, and the ASP.NET back end that gets called via API endpoints to get JSON data. The one advantage here is that the entire solution can be deployed at the same time as one monolith without splitting both ends into separate deployment pipelines. -->
 
-好消息是，微软提供了一个基础的脚手架模板，用于启动新的带有 React 前端的 ASP.NET 项目。该 ASP.NET React 项目具有一个客户端应用，它输出可以托管在任何地方的静态资产；以及一个 ASP.NET 后端应用，它可以通过调用 API Endpoints 获取 JSOM 数据。这里的一个优点是，整个解决方案可以作为一个整体同时部署，而无需将前后两端拆分成单独的部署管道。
+好消息是，微软提供了一个基础的脚手架模板，用于启动新的带有 React 前端的 ASP.NET 项目。该 ASP.NET React 项目具有一个客户端应用，它输出可以托管在任何地方的静态资产；以及一个 ASP.NET 后端应用，它可以通过调用 API Endpoints 获取 JSON 数据。这里的一个优点是，整个解决方案可以作为一个整体同时部署，而无需将前后两端拆分成单独的部署管道。
 
 <!-- To get the basic scaffold in place: -->
 
@@ -91,7 +91,7 @@ dotnet sln add integrate-dotnet-core-create-react-app.csproj
 
 <!-- Look for react-scripts；this is the single dependency that encapsulates all other React dependencies like webpack . To upgrade React and its dependencies in the future, all you need to do is upgrade this one dependency. This is the React App’s real power because it abstracts away an otherwise potentially hazardous upgrade to stay on the latest bits. -->
 
-找到 *react-scripts*，这是像 webpack 一样封装所有其他 React 依赖项的单一依赖项。若要在将来升级 React 和它的依赖项，您只需升级这一依赖项。因为它抽象化了可能有潜在危险的升级以保持最新状态，所以这才是 React App 的真正魔力。
+找到 *react-scripts*，这是像 webpack 一样封装所有其他 React 依赖项的单一依赖项。若要在将来升级 React 和它的依赖项，您只需升级这一依赖项。它抽象化了可能有潜在危险的升级以保持最新状态，因此这才是 React App 的真正魔力。
 
 <!-- The overall folder structure follows a conventional Create React App project in ClientApp with an ASP.NET project wrapped around it. -->
 
@@ -109,7 +109,7 @@ dotnet sln add integrate-dotnet-core-create-react-app.csproj
 ASP.NET server configuration data is hard to access from the React client
 it does not integrate with an ASP.NET user session via a session cookie -->
 
-该 React 应用程序有很多优点，但是缺少一些重要的 ASP.NET 功能：
+该 React 应用程序有很多优点，但是它缺少一些重要的 ASP.NET 功能：
 
 - 没有通过 Razor 进行的服务端渲染，使任何其他 MVC 页面像一个单独的应用程序一样工作
 - 很难从 React 客户端访问 ASP.NET 服务端配置数据
@@ -193,7 +193,7 @@ public class CreateReactAppViewModel
 
 <!-- This code may seem scary at first but only does two things: gets the output index.html file from the dev server and parses out the head and body tags. This allows the consuming app in ASP.NET to access the HTML that links to the static assets that come from Create React App. The assets will be the static files that contain the code bundles with JavaScript and CSS in it. For example, js\main.3549aedc.chunk.js for JavaScript or css\2.ed890e5e.chunk.css for CSS. This is how webpack takes in the React code that is written and presents it to the browser. -->
 
-这段代码乍一看可能有点吓人，但它只做了两件事：从开发服务器获取输出的 **index.html** 文件，并解析出 `head` 和 `body` 标签。这使得 ASP.NET 中的消费方应用程序可以访问 HTML，该 HTML 链接到来自 Create React App 的静态资产。这些资产是静态文件，其中包含带有 JavaScript 和 CSS 的代码包。例如，JavaScript 的 *js\main.3549aedc.chunk.js* 或 CSS 的 *css\2.ed890e5e.chunk.css*。这其实就是 webpack 接收所编写的 React 代码并将其渲染到浏览器的方式。
+这段代码乍一看可能有点吓人，但它只做了两件事：从开发服务器获取输出的 **index.html** 文件，并解析出 `head` 和 `body` 标签。这使得 ASP.NET 中的消费方应用程序可以访问 HTML，该 HTML 链接到来自 Create React App 的静态资产。这些资产是静态文件，其中包含带有 JavaScript 和 CSS 的代码包。例如，JavaScript 包 *js\main.3549aedc.chunk.js* 或 CSS 包 *css\2.ed890e5e.chunk.css*。这就是在 React 中 webpack 接收所编写的代码并将其呈现到浏览器的方式。
 
 <!-- I opted to fire a `WebRequest` to the dev server directly because Create React App does not materialize any actual files accessible to ASP.NET while in developing mode. This is sufficient for local development because it works well with the webpack dev server. Any changes on the client-side will automatically update the browser. Any back-end changes while in watch mode will also refresh the browser. So, you get the best of both worlds here for optimum productivity. -->
 
