@@ -362,7 +362,7 @@ const store = createStore(reducers, preloadedState,
 
 <!-- Lastly, as the pièce de résistance, I will now integrate this React app with the ASP.NET user session. I will lock down the back-end API where it gets weather data and only show this information with a valid session. This means that when the browser fires an Ajax request, it must contain an ASP.NET session cookie. Otherwise, the request gets rejected with a redirect which indicates to the browser it must first login. -->
 
-最后，作为主菜，现在我将这个 React 应用与 ASP.NET 用户会话(Session )集成在一起。我将锁定获取天气数据的后端 API，并仅在使用有效会话时显示此信息。这意味着当浏览器触发 Ajax 请求时，它必须包含一个 ASP.NET session cookie。否则，该请求将被拒绝，并重定向以指示浏览器必须先登录。
+最后，作为主菜，现在我将这个 React 应用与 ASP.NET 用户会话(Session)集成在一起。我将锁定获取天气数据的后端 API，并仅在使用有效会话时显示此信息。这意味着当浏览器触发 Ajax 请求时，它必须包含一个 ASP.NET session cookie。否则，该请求将被拒绝，并重定向以指示浏览器必须先登录。
 
 <!-- To enable user session support in ASP.NET, open the Startup file and add this: -->
 
