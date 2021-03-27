@@ -23,7 +23,7 @@ Docker Desktop 将为您快速轻松地设置 Kubernetes。按照适用于您的
 
 1. 安装 Docker Desktop 后，您应该会在系统托盘中看到 Docker 图标。右键单击它，然后导航到 **Settings** > **Kubernetes**。
 2. 选中标签为 **Enable Kubernetes** 的复选框，然后点击 **Apply & Restart**。Docker Desktop 会自动为您设置 Kubernetes。当您看到设置菜单中“Kubernetes *running*”旁边的绿灯时，说明 Kubernetes 已经成功启用。
-    ![docker-enable-kubernetes](/assets/images/docker-enable-kubernetes.png)
+    ![docker-enable-kubernetes](/assets/images/earlier/docker-enable-kubernetes.png)
     > 译者注：
     > 
     > 如果看不到 **Kubernetes** 项，请右键单击系统托盘图标，选择 “Switch to Linux containers...” 后，再次导航到 **Settings** > **Kubernetes** 查看。

@@ -286,7 +286,7 @@ $ docker volume rm nginx-vol
 
 在构建故障容错的应用程序时，您可能需要配置同一服务的多个副本，以访问相同的文件。
 
-![volumes-shared-storage](/assets/images/docker-volumes-shared-storage.png)
+![volumes-shared-storage](/assets/images/earlier/docker-volumes-shared-storage.png)
 
 在开发应用程序时，有几种方法可以实现这一点。一种方法是向您的应用程序添加逻辑，在云对象存储系统（如 Amazon S3）上存储文件。另一个方法是使用支持将文件写入外部存储系统（如 NFS 或 Amazon S3）的驱动程序来创建卷。
 

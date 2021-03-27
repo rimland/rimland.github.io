@@ -35,7 +35,7 @@ published: true
 1. 单击菜单栏中的 Docker 图标，导航到 **Repositories > Create**。您将被重定向到 Docker Hub 上的 **Create Repository** 页。 
 2. 输入仓库名 `bulletinboard` 然后在页面底部点击 **Create** 。暂时不要填写任何其他细节。
 
-    ![make a repo](/assets/images/docker-repository-newrepo.png)
+    ![make a repo](/assets/images/earlier/docker-repository-newrepo.png)
 
 3. 您现在已经准备好在 Docker Hub 上共享镜像了，但是，必须先做一件事：镜像必须正确地设置命名空间，才能在 Docker Hub 上共享。具体来说，您必须将镜像命名为：<br/> `<Your Docker ID>/<Repository Name>:<tag>` 。
 

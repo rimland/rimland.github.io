@@ -20,7 +20,7 @@ C:\Program Files\Docker\Docker\resources\bin\docker.exe: Error response from dae
 See 'C:\Program Files\Docker\Docker\resources\bin\docker.exe run --help'.
 ```
 
-![docker-registry-timeout](/assets/images/docker-registry-timeout.png)
+![docker-registry-timeout](/assets/images/earlier/docker-registry-timeout.png)
 
 ## 原因
 
@@ -48,13 +48,13 @@ See 'C:\Program Files\Docker\Docker\resources\bin\docker.exe run --help'.
 
 如图：
 
-![docker-registry-mirrors](/assets/images/docker-registry-mirrors.png)
+![docker-registry-mirrors](/assets/images/earlier/docker-registry-mirrors.png)
 
 编辑完成后点击 `Apply & Restart` 按钮，等待 Docker 重启并应用配置的镜像加速器。
 
 再次运行命令 `docker run hello-world` 检查，已经运行正常了：
 
-![docker-registry-ok](/assets/images/docker-registry-ok.png)
+![docker-registry-ok](/assets/images/earlier/docker-registry-ok.png)
 
 
 <br/>
