@@ -165,24 +165,76 @@ Server needs to lookup the user information and do the required checks -->
 
 JSON Web Token 由三部分组成，以点（.）分隔，分别是：
 
+- Header（头）
+- Payload（有效负载）
+- Signature（签名）
+
+Therefore, a JWT typically looks like the following.
+
+因此，JWT 通常如下所示：
+
+```plain
+xxxxxx.yyyyyyy.zzzzzzzz
+```
+
+This separation will make it visually easier to see the different part of the tokens. Let's break down the different parts.
+
+这种分离使从视觉上更容易看出 token 的不同部分，让我们分解一下不同的部分。
+
+### Header
+
+<!-- The header typically consists of two parts:
+
+the type of the token, which is JWT,
+the signing algorithm being used, such as HMAC SHA256 or RSA. -->
+
+Header 通常由两部分组成：
+
+- token 的类型，这里是 JWT
+- 使用的签名算法，比如 HMAC、SHA256 或 RSA。
+
+```json
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+```
+
+<!-- Then, this JSON is Base64Url encoded to form the first part of the JWT. -->
+
+然后，此 JSON 以 Base64Url 编码，形成 JWT 的第一部分。
+
+### Payload (Data)
+
+<!-- The second part of the token is the payload, which contains the claims. Claims are statements about an entity (typically, the user) and additional data. There are three types of claims: registered, public, and private claims. -->
+
+token 的第二部分是有效负载，其中包含声明（Claims）。Claims 是有关实体（通常是用户）和其他数据的声明。有三种类型的 Claims：registered、public 和 private claims。
+
+<!-- - Registered claims: These are a set of predefined claims which are not mandatory but recommended, to provide a set of useful, interoperable claims. Some of them are: iss (issuer), exp (expiration time), sub (subject), aud (audience), and others. 
+- Public claims: These can be defined at will by those using JWTs. But to avoid collisions they should be defined in the IANA JSON Web Token Registry or be defined as a URI that contains a collision resistant namespace.
+- Private claims: These are the custom claims created to share information between parties that agree on using them and are neither registered or public claims.
+-->
+
+- **Registered claims**：这些是一组非强制性的但建议使用的预定义声明，以提供一组有用的、可互操作的声明。其中包含：iss (issuer，签发者)、exp (expiration time，过期时间)、sub (subject，主题)、aud (audience，受众) 等。
+- **Public claims**：这些可以由使用 JWT 的人员随意定义。但是为了避免冲突，应该在 [IANA JSON Web Token Registry](https://www.iana.org/assignments/jwt/jwt.xhtml) 中定义它们，或者将其定义为包含抗冲突命名空间的 URI。
+- **Private claims**：这些是自定义声明，是为了在同意使用它们的双方共享信息而创建的，它们既不是注册的声明，也不是公共的声明。
+
+有效负载的一个例子可以是：
+
+```json
+{
+  "sub": "221122112",
+  "name": "Mohamd Lawand",
+  "admin": true,
+  "exp": 15323232,
+  "iat": 14567766 // 该 token 的签发时间
+}
+```
 
 
-JSON Web令牌由点(.)分隔的三部分组成，它们是:
-
-JSON Web令牌由三部分组成，这些部分由点（。）分隔，分别是：
 
 
-
-
-
-
-
-
-
-
-
-
-
+<!-- <https://jwt.io/introduction> -->
 
 
 
