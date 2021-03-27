@@ -122,6 +122,8 @@ $ docker build --target builder -t alexellis2/href-counter:latest .
 - 使用一个启用了所有调试符号或工具的 `调试(debug)` 阶段和一个精益的 `生产(production)` 阶段
 - 使用一个`测试(testing)`阶段，在这个阶段你的应用会被测试数据填充，但是在构建产品时，使用一个使用真实数据的不同阶段。
 
+<!-- ![docker-multi-stage](/assets/images/earlier/docker-multi-stage-medium.png) -->
+
 ## 使用外部镜像作为“阶段”
 
 当使用多阶段构建时，您不受限于从 Dockerfile 中先前创建的阶段进行复制。您可以使用 `COPY --from` 指令从单独的镜像中进行复制，可以使用本地镜像名称、本地或 Docker 注册表上可用的标签或标签 ID。Docker 客户端会在必要时拉取镜像并从中复制工件。语法是：
