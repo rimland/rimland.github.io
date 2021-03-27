@@ -10,7 +10,7 @@ published: true
 
 该文件或目录不需要已经存在于 Docker 主机上。如果还不存在，则按需创建。绑定挂载的性能非常好，但它们依赖于主机的文件系统，该文件系统具有特定的可用目录结构。如果您正在开发新的 Docker 应用程序，请考虑改用[命名卷](https://ittranslator.cn/backend/docker/2020/07/04/docker-storage-volumes.html)。不能使用 Docker CLI 命令直接管理绑定挂载。
 
-![docker-types-of-mounts-bind](/assets/images/docker-types-of-mounts-bind.png)
+![docker-types-of-mounts-bind](/assets/images/earlier/docker-types-of-mounts-bind.png)
 
 ## 选择 `-v` 或者 `--mount` 标记
 

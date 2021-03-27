@@ -13,7 +13,7 @@ published: true
 
 与卷和绑定挂载不同，`tmpfs` 挂载是临时的，只存留在主机内存中。当容器停止时，`tmpfs` 挂载将被删除，在那里写入的文件不会被持久化。
 
-![docker-types-of-mounts-tmpfs](/assets/images/docker-types-of-mounts-tmpfs.png)
+![docker-types-of-mounts-tmpfs](/assets/images/earlier/docker-types-of-mounts-tmpfs.png)
 
 这对于临时存储您不想在主机或容器可写层中持久存储的敏感文件非常有用。
 

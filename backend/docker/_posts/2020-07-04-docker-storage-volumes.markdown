@@ -17,7 +17,7 @@ published: true
 
 此外，与将数据持久化到容器的可写层相比，卷通常是更好的选择，因为卷不会增加使用它的容器的大小，而且卷的内容存在于给定容器的生命周期之外。
 
-![types-of-mounts-volume](/assets/images/docker-types-of-mounts-volume.png)
+![types-of-mounts-volume](/assets/images/earlier/docker-types-of-mounts-volume.png)
 
 如果容器生成非持久性状态数据，请考虑使用 [tmpfs 挂载（tmpfs mount）](https://docs.docker.com/storage/tmpfs/)以避免将数据永久存储在任何位置，并通过避免写入容器的可写层来提高容器的性能。
 
