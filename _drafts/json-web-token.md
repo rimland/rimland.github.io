@@ -161,8 +161,15 @@ Server needs to lookup the user information and do the required checks -->
 
 ## JWT 结构
 
-JSON Web Tokens consist of three parts separated by dots (.), which are:
+<!-- JSON Web Tokens consist of three parts separated by dots (.), which are: -->
 
+JSON Web Token 由三部分组成，以点（.）分隔，分别是：
+
+
+
+JSON Web令牌由点(.)分隔的三部分组成，它们是:
+
+JSON Web令牌由三部分组成，这些部分由点（。）分隔，分别是：
 
 
 
