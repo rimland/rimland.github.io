@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "JWT 介绍 - Step by Step"
-date:   2021-03-25 00:10:09 +0800
+date:   2021-03-28 00:10:09 +0800
 categories: dotnet csharp
 published: true
 ---
@@ -13,13 +13,14 @@ published: true
 <!-- In this article I will be giving you an introduction about JWT. -->
 
 在本文中，我将向您介绍 [JWT](https://jwt.io/)[^2]。
+
 [^2]: <https://jwt.io/> jwt.io
 
 我们今天要讲的内容包含：
 
 - JWT 是什么
 - 我们应该什么时候使用它
-- JWT 对比 Session Id
+- JWT 与 Session Id 比较
 - JWT 结构
 - JWT 签名
 
@@ -44,7 +45,7 @@ JWT (Json Web Token) 是一个开放标准[^rfc7519]，它定义了一种以紧�
 - **授权：** 这是使用 JWT 最常见的场景。JWT 用于授权而非身份验证。通过身份验证，我们验证用户名和密码是否有效，并将用户登录到系统中。通过授权，我们可以验证发送到服务器的请求是否属于通过身份验证登录的用户，从而可以授权该用户具有访问系统的权限，继而批准该用户使用获得的 token 访问路由、服务和资源。
 - **信息交换：** Json Web Token 是在各方之间安全地传输信息的一种好方法。因为 JWT 可以被签名（例如，使用公钥/私钥对），所以您可以确定发送者是他们所声称的那一方。此外，由于签名是使用 header 和 payload 计算的，因此您还可以验证发送的内容没有被篡改。
 
-## Session Id 对比 JWT
+## JWT 与 Session Id 比较
 
 ### 小型 Web 应用程序
 
@@ -130,7 +131,9 @@ Hosting cost is high -->
 
 <!-- Let us do a quick summary on JWT vs SessionId -->
 
-### 让我们来快速总结一下 JWT 和 Session Id 的区别
+### JWT 和 Session Id 的区别总结
+
+让我们来快速总结一下 JWT 和 Session Id 的区别
 
 #### JWT
 
@@ -166,11 +169,11 @@ Server needs to lookup the user information and do the required checks -->
 
 JSON Web Token 由三部分组成，以点（.）分隔，分别是：
 
-- Header（头）
+- Header（标头）
 - Payload（有效负载）
 - Signature（签名）
 
-Therefore, a JWT typically looks like the following.
+<!-- Therefore, a JWT typically looks like the following. -->
 
 因此，JWT 通常如下所示：
 
@@ -178,9 +181,9 @@ Therefore, a JWT typically looks like the following.
 xxxxxx.yyyyyyy.zzzzzzzz
 ```
 
-This separation will make it visually easier to see the different part of the tokens. Let's break down the different parts.
+<!-- This separation will make it visually easier to see the different part of the tokens. Let's break down the different parts. -->
 
-这种分离使从视觉上更容易看出 token 的不同部分，让我们分解一下不同的部分。
+这种分隔使从视觉上更容易看出 token 的不同部分。让我们来分解一下它的不同的部分。
 
 ### Header
 
@@ -268,11 +271,11 @@ HMACSHA256(
 
 它的工作原因与密码哈希非常相似，我们将两部分组合在一起，并且使用特定的算法进行单向哈希，然后我们比较哈希的结果看它们是否有效。
 
-## 签名密钥
+### 签名密钥
 
 <!-- So now lets discuss JWT in more details, first how JWTs can be signed by -->
 
-因此，现在让我们更详细地讨论一下 JWT，首先是通过什么方式对 JWT 进行签名的
+现在，让我们更详细地讨论一下 JWT，可以通过什么方式对 JWT 进行签名：
 
 <!-- - a secret (with the HMAC algorithm)
 - a public/private key pair using RSA or ECDSA. -->
