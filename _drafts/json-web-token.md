@@ -12,7 +12,8 @@ published: true
 
 <!-- In this article I will be giving you an introduction about JWT. -->
 
-在本文中，我将向您介绍 JWT。
+在本文中，我将向您介绍 [JWT](https://jwt.io/)[^2]。
+[^2]: <https://jwt.io/> jwt.io
 
 我们今天要讲的内容包含：
 
@@ -282,8 +283,6 @@ HMACSHA256(
 <!-- Signed tokens can verify the integrity of the claims contained within it, while encrypted tokens hide those claims from other parties. -->
 
 签名的 token 可以验证其中包含的 Claims 的完整性，而加密的 token 则可以向其他方隐藏这些 Claims。
-
-<!-- <https://jwt.io/introduction> -->
 
 <br />
 
