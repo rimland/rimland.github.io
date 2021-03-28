@@ -219,7 +219,7 @@ token 的第二部分是有效负载，其中包含声明（Claims）。Claims �
 - **Public claims**：这些可以由使用 JWT 的人员随意定义。但是为了避免冲突，应该在 [IANA JSON Web Token Registry](https://www.iana.org/assignments/jwt/jwt.xhtml) 中定义它们，或者将其定义为包含抗冲突命名空间的 URI。
 - **Private claims**：这些是自定义声明，是为了在同意使用它们的双方共享信息而创建的，它们既不是注册的声明，也不是公共的声明。
 
-有效负载的一个例子可以是：
+举一个有效负载的例子：
 
 ```json
 {
@@ -231,12 +231,59 @@ token 的第二部分是有效负载，其中包含声明（Claims）。Claims �
 }
 ```
 
+<!-- The payload is then Base64Url encoded to form the second part of the JSON Web Token. -->
 
+然后，对有效负载进行 Base64Url 编码，形成 JSON Web Token 的第二部分。
 
+<!-- > Do not put secret information in the payload or header elements of a JWT unless it is encrypted. -->
+
+> 除非将其加密，否则请不要将机密信息放入 JWT 的 Payload 或 Header 元素中。
+
+## 签名
+
+<!-- This will allow us to verify that the token is valid and no changes has been done to it. The way it works it takes the first 2 parts of the token, it will encode the header to base64 and do the same for the payload. Then it will concatenate it with a "." so that way we have all of the data that we have shared with the user. -->
+
+签名使我们能够验证 token 是否有效和和没有被篡改。它的工作方式是获取 token 的前两部分，将 Header 和 Payload 分别编码为 Base64，然后将它们用 “.” 连接起来。这样我们就拥有了与用户共享的所有数据。
+
+<!-- Then it will take the algorithm provide and apply it on the first part. If the result of hashing the first couple of parts match the 3rd section of the token it means the JWT is valid. if it didn't match it shows the token has been edited and its invalid. -->
+
+然后，将获取在第一部分中提供的算法并应用于前面的连接结果。如果前两部分的哈希结果与 token 的第三部分匹配，则表示此 JWT 是有效的; 如果不匹配，则表示此 token 被修改过，是无效的。
+
+<!-- The only way to compromise this is making the secret key available anywhere other than the server. But if we keep the secret safe nothing can compromise the process. -->
+
+这种方案的唯一威胁是密钥在服务器以外的任何地方都可用。但是，如果我们保证密钥的安全，就没有什么能损害这一过程。
+
+```csharp
+HMACSHA256(
+  base64UrlEncode(header) + "." + base64UrlEncode(payload),
+  secret)
+```
+
+<!-- The signature is used to verify the message wasn't changed along the way, and, in the case of tokens signed with a private key, it can also verify that the sender of the JWT is who it says it is. -->
+
+签名用于验证消息在传输过程中没有被篡改，并且由于 token 是用私钥签名的，它还可以验证 JWT 发送者的真实身份。
+
+<!-- This works alot similar to password hashing, where we have 2 parts that are combined and we are using certain algorithms to do 1 way hashing, and then we are comparing the outcome of the hash together to see if they are valid or not. -->
+
+它的工作原因与密码哈希非常相似，我们将两部分组合在一起，并且使用特定的算法进行单向哈希，然后我们比较哈希的结果看它们是否有效。
+
+## 签名密钥
+
+<!-- So now lets discuss JWT in more details, first how JWTs can be signed by -->
+
+因此，现在让我们更详细地讨论一下 JWT，首先是通过什么方式对 JWT 进行签名的
+
+<!-- - a secret (with the HMAC algorithm)
+- a public/private key pair using RSA or ECDSA. -->
+
+- 一个 secret（使用 HMAC 算法）
+- 一个 公钥/私钥对（使用 RSA 或 ECDSA）
+
+<!-- Signed tokens can verify the integrity of the claims contained within it, while encrypted tokens hide those claims from other parties. -->
+
+签名的 token 可以验证其中包含的 Claims 的完整性，而加密的 token 则可以向其他方隐藏这些 Claims。
 
 <!-- <https://jwt.io/introduction> -->
-
-
 
 <br />
 
@@ -244,4 +291,3 @@ token 的第二部分是有效负载，其中包含声明（Claims）。Claims �
 > 译者 ： 技术译民  
 > 出品 ： [技术译站](https://ittranslator.cn/)  
 > 链接 ： [英文原文](https://dev.to/moe23/intro-to-jwt-mcb)
-
