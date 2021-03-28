@@ -43,7 +43,7 @@ JWT (Json Web Token) 是一个开放标准[^rfc7519]，它定义了一种以紧�
 <!-- Information Exchange: JSON Web Tokens are a good way of securely transmitting information between parties. Because JWTs can be signed—for example, using public/private key pairs—you can be sure the senders are who they say they are. Additionally, as the signature is calculated using the header and the payload, you can also verify that the content hasn't been tampered with. -->
 
 - **授权：** 这是使用 JWT 最常见的场景。JWT 用于授权而非身份验证。通过身份验证，我们验证用户名和密码是否有效，并将用户登录到系统中。通过授权，我们可以验证发送到服务器的请求是否属于通过身份验证登录的用户，从而可以授权该用户具有访问系统的权限，继而批准该用户使用获得的 token 访问路由、服务和资源。
-- **信息交换：** Json Web Token 是在各方之间安全地传输信息的一种好方法。因为 JWT 可以被签名（例如，使用公钥/私钥对），所以您可以确定发送者是他们所声称的那一方。此外，由于签名是使用 header 和 payload 计算的，因此您还可以验证发送的内容没有被篡改。
+- **信息交换：** Json Web Token 是在各方之间安全地传输信息的一种好方法。因为 JWT 可以被签名（例如，使用公钥/私钥对），所以您可以确定发送者是他们所声称的那一方。此外，由于签名是使用 Header 和 Payload 计算的，因此您还可以验证发送的内容没有被篡改。
 
 ## JWT 与 Session Id 比较
 
