@@ -30,7 +30,7 @@ published: true
 
 So in simpler terms its an encrypted string in json format that contain sensitive information which allow us to verify the sender between different services -->
 
-JWT (JSON Web Token) 是一个开放标准[^rfc7519]，它定义了一种以紧凑和自包含的方式，用于在双方之间安全地传输编码为 JSON 对象的信息。
+JWT (JSON Web Token) 是一个开放标准[^rfc7519]，它定义了一种以紧凑和自包含的方法，用于在双方之间安全地传输编码为 JSON 对象的信息。
 
 [^rfc7519]: <https://tools.ietf.org/html/rfc7519> RFC 7519
 
@@ -81,7 +81,7 @@ JWT (JSON Web Token) 是一个开放标准[^rfc7519]，它定义了一种以紧�
 
 <!-- We need to have a new server connected to a load balancer to navigate traffic between web servers based traffic and availability. This implementation introduce a new a new problem for us, which is the following -->
 
-我们需要有一台连接到负载均衡器的新服务器，以便基于流量和可用性在 Web 服务器之间导航流量。这种实现为我们带来了一个新的问题，如下所示：
+我们需要有一台连接到负载均衡器的新服务器，以便基于流量和可用性在 Web 服务器之间导航流量。这种实现给我们带来了一个新的问题，如下所示：
 
 <!-- What happens if user 1 has logged in with server 1 and server 1 has saved the session in its memory, when user 1 makes another request and the load balancer redirects the request to server 2 and server 2 doesn't have that session information saved. -->
 
