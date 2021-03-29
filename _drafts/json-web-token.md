@@ -61,7 +61,7 @@ JWT (JSON Web Token) 是一个开放标准[^rfc7519]，它定义了一种以紧�
 
 <!-- In JWT implementation we use JWT to authorise the users, once the users logged-in into the application will generate a unique JWT for every authenticated user. We save the token in local storage or cookie in the browser, but we don't save anything on the server side .With every request the token is sent to the server to be decrypted and validated to verify that the user is authorised, if the token is manipulated in anyway its rejected -->
 
-在 JWT 实现中，我们使用 JWT 授权用户，当用户登录到应用程序后，就会为每个通过身份验证的用户生成唯一的 JWT。我们将该 token 保存在浏览器的 local storage 或者 cookie 中，但不会在服务器端保存任何内容。对于每个请求，该 token 都会被发送到服务器进行解密和验证，以核实该用户是否被授权，不管以何种方式篡改了 token 都会被拒绝。
+在 JWT 实现中，我们使用 JWT 授权用户，当用户登录到应用程序后，就会为每个通过身份验证的用户生成一个唯一的 JWT。我们将该 token 保存在浏览器的 local storage 或者 cookie 中，而不会在服务器端保存任何内容。对于每个请求，该 token 都会被发送到服务器进行解密和验证，以核实该用户是否已授权，不管以何种方式篡改了 token 都会被拒绝。
 
 ![Implementation with JWT](/assets/images/202103/implementation-with-jwt.png)
 
