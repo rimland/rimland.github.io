@@ -67,7 +67,7 @@ JWT (JSON Web Token) 是一个开放标准[^rfc7519]，它定义了一种以紧�
 
 <!-- These implementations are fine for small sites, but we can already see some benefits in JWT by reducing the load from server since we are not storing the session id anymore. -->
 
-这种实现对于小型站点来说很好，仅仅因为我们不再存储 Session Id，所以通过减少服务器的负载，我们已经从 JWT 中看到了一些好处。
+这种实现对于小型站点来说很好，仅仅因为我们不再存储 Session Id，从而通过减少服务器的负载，我们已经从 JWT 中看到了一些好处。
 
 ### 高级 Web 应用程序（多个服务器）
 
@@ -81,15 +81,15 @@ JWT (JSON Web Token) 是一个开放标准[^rfc7519]，它定义了一种以紧�
 
 <!-- We need to have a new server connected to a load balancer to navigate traffic between web servers based traffic and availability. This implementation introduce a new a new problem for us, which is the following -->
 
-我们需要有一台连接到负载均衡器的新服务器，以便基于流量和可用性在 Web 服务器之间导航流量。这个实现为我们带来了一个新的问题，如下所示：
+我们需要有一台连接到负载均衡器的新服务器，以便基于流量和可用性在 Web 服务器之间导航流量。这种实现为我们带来了一个新的问题，如下所示：
 
 <!-- What happens if user 1 has logged in with server 1 and server 1 has saved the session in its memory, when user 1 makes another request and the load balancer redirects the request to server 2 and server 2 doesn't have that session information saved. -->
 
-如果*用户 1* 登录到了*服务器 1*，那么*服务器 1* 已经将 session 保存在其内存中，当*用户 1* 发出另一个请求并且负载均衡器将该请求重定向到了*服务器 2*，而*服务器 2* 没有保存该 session 信息时，会发生什么情况？
+如果*用户 1* 登录到了*服务器 1*，那么*服务器 1* 已经将 session 保存在其内存中，当*用户 1* 发出另一个请求并且负载均衡器将该请求重定向到了*服务器 2*，而*服务器 2* 没有保存该 session 信息，这时会发生什么情况？
 
 <!-- The user would be logged out of the application and be asked to sign in again, which is not a good user experience. The way we fix this but introducing cache -->
 
-*用户将被认为已退出应用程序并被要求再次登录*，这不是一个好的用户体验。我们解决这个问题的方法是引入缓存：
+*用户将被认为已退出应用程序并被要求再次登录*，这不是一个好的用户体验。通常，我们解决这个问题的方法是引入缓存：
 
 ![Session Id Implementation introducing cache](/assets/images/202103/session-id-implementation-cache.png)
 
