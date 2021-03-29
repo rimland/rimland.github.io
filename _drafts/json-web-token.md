@@ -42,7 +42,7 @@ JWT (JSON Web Token) 是一个开放标准[^rfc7519]，它定义了一种以紧�
 
 <!-- Information Exchange: JSON Web Tokens are a good way of securely transmitting information between parties. Because JWTs can be signed—for example, using public/private key pairs—you can be sure the senders are who they say they are. Additionally, as the signature is calculated using the header and the payload, you can also verify that the content hasn't been tampered with. -->
 
-- **授权：** 这是使用 JWT 最常见的场景。JWT 用于授权而非身份验证。通过身份验证，我们验证用户名和密码是否有效，并将用户登录到系统中。通过授权，我们可以验证发送到服务器的请求是否属于通过身份验证登录的用户，从而可以授予该用户访问系统的权限，继而批准该用户使用获得的 token 访问路由、服务和资源。
+- **授权：** 这是使用 JWT 最常见的场景。JWT 用于授权而非身份验证。通过**身份验证**，我们验证用户名和密码是否有效，并将用户登录到系统中。通过**授权**，我们可以验证发送到服务器的请求是否属于通过身份验证登录的用户，从而可以授予该用户访问系统的权限，继而批准该用户使用获得的 token 访问路由、服务和资源。
 - **信息交换：** JSON Web Token 是在双方之间安全地传输信息的一种好方法。因为 JWT 可以被签名（例如，使用公钥/私钥对），所以使您能确保发送方是他们所声称的那一方。此外，由于签名是使用 Header 和 Payload 计算的，因此还使您能验证发送的内容没有被篡改。
 
 ## JWT 与 Session Id 比较
@@ -119,15 +119,15 @@ Hosting cost is high -->
 
 让我们来看看如何通过 JWT 实现来处理相同的情况。
 
-<!-- Instead of using session ids in cookies and session matching in the server memory; we can use JWT to do this instead. So when the user sign in to our application the server will not generate a session id and save it in memory instead it will create a JWT token and it will encode and serialise it and signs it with its own encryption mechanism. This way the server will know if it got changed or manipulated it will become invalid. And this is being checked since it has been signed by the server encryption mechanism. -->
+<!-- Instead of using session ids in cookies and session matching in the server memory；we can use JWT to do this instead. So when the user sign in to our application the server will not generate a session id and save it in memory instead it will create a JWT token and it will encode and serialise it and signs it with its own encryption mechanism. This way the server will know if it got changed or manipulated it will become invalid. And this is being checked since it has been signed by the server encryption mechanism. -->
 
-不同于在 Cookie 中使用 Session Id 与服务器内存中的 Session 作匹配; 我们可以使用 JWT 来代替它。因此，当用户登录到我们的应用程序时，服务器将不会生成 Session Id 并将其保存在内存中，而是会创建一个 JWT token，并对其进行编码和序列化，然后使用自己的加密机制对其进行签名。通过这种方式，服务将知道一旦对它做了变更或篡改，便将其变为无效。由于通过服务器的加密机制对其进行了签名，所以这是可以被检验的。
+不同于在 Cookie 中使用 Session Id 与服务器内存中的 Session 作匹配；我们可以使用 JWT 来代替它。此时，当用户登录到我们的应用程序时，服务器将不会生成 Session Id 并将其保存在内存中，而是会创建一个 JWT token，并对其进行编码和序列化，然后使用自己的加密机制对其进行签名。通过这种方式，服务将知道一旦对它做了变更或篡改，便将其变为无效。由于通过服务器的加密机制对其进行了签名，所以这是可以被检验的。
 
 ![Implementation with JWT Multiple Servers](/assets/images/202103/implementation-with-jwt-multiple.png)
 
 <!-- Scalability is much easier to manage with JWT as we don't require the server to handle any session checks or cache check. Requests can go to any server the load balancer assign it without the need to worry about session availability. Incase 1 server fails all tokens will still be valid as the encryption mechanism is the same on all servers. -->
 
-使用 JWT 可以更容易地管理可伸缩性，因为我们不需要服务器来处理任何会话检查或缓存检查。请求可以转发到负载均衡器为其分配的任一服务器，而无需担心会话的可用性。万一某台服务器宕机，所有的 token 将仍然有效，因为所有服务器上的加密机制是相同的。
+使用 JWT 可以更容易地管理可伸缩性，因为我们不需要服务器来处理任何会话检查或缓存检查。请求可以转发到负载均衡器为其分配的任一服务器，而无需担心会话的可用性。万一某台服务器宕机，所有的 token 将仍然有效，因为所有服务器上的加密机制是一样的。
 
 <!-- Let us do a quick summary on JWT vs SessionId -->
 
@@ -142,7 +142,7 @@ Encrypted and Signed by the server
 Token contain all the user information
 All information are stored in the token itself -->
 
-- 服务器上没有保存任何东西，JWT 存储于客户端中
+- 服务器上不保存任何东西，JWT 存储于客户端中
 - 由服务器加密和签名
 - token 包含用户的所有信息
 - 所有信息都存储于 token 本身中
@@ -157,7 +157,7 @@ Encrypted and Signed
 Session id is a reference to the user
 Server needs to lookup the user information and do the required checks -->
 
-- Session Id 保存在服务器上和客户端中
+- Session Id 保存于服务器和客户端中
 - 加密并签名
 - Session Id 是对用户的引用
 - 服务器需要查找用户并进行必要的检查
@@ -199,6 +199,8 @@ Header 通常由两部分组成：
 - token 的类型，这里是 JWT
 - 使用的签名算法，比如 HMAC、SHA256 或 RSA。
 
+例如：
+
 ```json
 {
   "alg": "HS256",
@@ -208,7 +210,7 @@ Header 通常由两部分组成：
 
 <!-- Then, this JSON is Base64Url encoded to form the first part of the JWT. -->
 
-然后，此 JSON 以 Base64Url 编码，形成 JWT 的第一部分。
+然后，将此 JSON 以 **Base64Url** 编码，形成 JWT 的第一部分。
 
 ### Payload (Data)
 
@@ -221,7 +223,7 @@ token 的第二部分是有效负载，其中包含 Claims（声明）。Claims 
 - Private claims: These are the custom claims created to share information between parties that agree on using them and are neither registered or public claims.
 -->
 
-- **Registered Claims**：这是一组非强制性的但建议使用的预定义声明，以提供一组有用的、可互操作的 Claims。其中包含：iss (issuer，签发者)、exp (expiration time，过期时间)、sub (subject，主题)、aud (audience，受众) 等等。
+- **Registered Claims**：这是一组非强制性的但建议使用的预定义 Claims，以提供一组有用的、可互操作的 Claims。其中包含：**iss** (issuer，签发者)、**exp** (expiration time，过期时间)、**sub** (subject，主题)、**aud** (audience，受众) 等等。
 - **Public Claims**：这些可以由使用 JWT 的人员随意定义。但是为了避免冲突，应该在 [IANA JSON Web Token Registry](https://www.iana.org/assignments/jwt/jwt.xhtml) 中定义它们，或者将其定义为包含抗冲突命名空间的 URI。
 - **Private Claims**：这些是自定义声明，是为了在同意使用它们的双方共享信息而创建的，它们既不是注册的声明，也不是公共的声明。
 
@@ -239,7 +241,7 @@ token 的第二部分是有效负载，其中包含 Claims（声明）。Claims 
 
 <!-- The payload is then Base64Url encoded to form the second part of the JSON Web Token. -->
 
-然后，对有效负载进行 Base64Url 编码，形成 JSON Web Token 的第二部分。
+然后，对有效负载进行 **Base64Url** 编码，形成 JSON Web Token 的第二部分。
 
 <!-- > Do not put secret information in the payload or header elements of a JWT unless it is encrypted. -->
 
@@ -253,7 +255,7 @@ token 的第二部分是有效负载，其中包含 Claims（声明）。Claims 
 
 <!-- Then it will take the algorithm provide and apply it on the first part. If the result of hashing the first couple of parts match the 3rd section of the token it means the JWT is valid. if it didn't match it shows the token has been edited and its invalid. -->
 
-然后，获取在第一部分（Header）中提供的算法并应用于上面的连接结果。如果前两部分的哈希结果与 token 的第三部分匹配，则表示此 JWT 是有效的; 如果不匹配，则表示此 token 被修改过，是无效的。
+然后，获取在第一部分（Header）中提供的算法并应用于上面的连接结果。如果前两部分的哈希结果与 token 的第三部分匹配，则表示此 JWT 是有效的；如果不匹配，则表示此 token 被修改过，是无效的。
 
 ```csharp
 HMACSHA256(
@@ -271,13 +273,13 @@ HMACSHA256(
 
 <!-- This works alot similar to password hashing, where we have 2 parts that are combined and we are using certain algorithms to do 1 way hashing, and then we are comparing the outcome of the hash together to see if they are valid or not. -->
 
-它的工作原因与密码哈希非常相似——我们将两部分组合在一起，并且使用特定的算法进行单向哈希，然后我们比较哈希的结果看它们是否有效。
+它的工作原理与密码哈希非常相似——我们将两部分组合在一起，并且使用特定的算法进行单向哈希，然后我们比较哈希的结果看它们是否有效。
 
 ### 签名方式
 
 <!-- So now lets discuss JWT in more details, first how JWTs can be signed by -->
 
-现在，让我们更进一步讨论一下 JWT，对 JWT 进行签名 的方式有：
+现在，让我们来看一下对 JWT 进行签名的方式：
 
 <!-- - a secret (with the HMAC algorithm)
 - a public/private key pair using RSA or ECDSA. -->
