@@ -39,6 +39,7 @@ permalink: /links/
 - [WinDbg](https://docs.microsoft.com/zh-cn/windows-hardware/drivers/debugger/debugger-download-tools)
 - [Online GUID / UUID Generator](https://guidgenerator.com/online-guid-generator.aspx)
 - [Web Developer Tools - browserling](https://www.browserling.com/tools)
+- [DBeaver - Database Tool](https://dbeaver.io/)
 
 ## Front End
 
