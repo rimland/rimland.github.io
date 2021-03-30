@@ -19,6 +19,7 @@ permalink: /links/
 - [Target frameworks](https://docs.microsoft.com/en-us/dotnet/standard/frameworks)
 - [IdentityServer4](https://docs.identityserver.io/)
 - [IdentityServer](https://duendesoftware.com/)
+- [Serilog](https://serilog.net/)
 
 ## Tech
 
