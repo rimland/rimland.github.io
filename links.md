@@ -47,6 +47,7 @@ permalink: /links/
 - [cssbattle.dev](https://cssbattle.dev/)
 - [codepen.io](https://codepen.io/)
 - [css-doodle.com](https://css-doodle.com/)
+- [Markdown Guide](https://www.markdownguide.org/)
 
 ## Favorite Blogs
 <!-- Most Valuable Pepoles -->
