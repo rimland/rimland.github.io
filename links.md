@@ -47,7 +47,9 @@ permalink: /links/
 - [cssbattle.dev](https://cssbattle.dev/)
 - [codepen.io](https://codepen.io/)
 - [css-doodle.com](https://css-doodle.com/)
+- [React Docs](https://zh-hans.reactjs.org/docs/getting-started.html)
 - [Markdown Guide](https://www.markdownguide.org/)
+- [npm Docs](https://docs.npmjs.com/)
 
 ## Favorite Blogs
 <!-- Most Valuable Pepoles -->
