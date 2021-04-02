@@ -29,6 +29,11 @@ permalink: /links/
 - [JumpServer](https://www.jumpserver.org/)
 - [OAuth 2.0](https://oauth.net/2/)
 
+## Programming Language
+
+- [C# documentation](https://docs.microsoft.com/en-us/dotnet/csharp/)
+- [TypeScript](https://www.typescriptlang.org/)
+
 ## Tools
 
 - [JSON Deserialize](https://h5css.com/)
@@ -48,8 +53,8 @@ permalink: /links/
 - [cssbattle.dev](https://cssbattle.dev/)
 - [codepen.io](https://codepen.io/)
 - [css-doodle.com](https://css-doodle.com/)
-- [React Docs](https://zh-hans.reactjs.org/docs/getting-started.html)
 - [Markdown Guide](https://www.markdownguide.org/)
+- [React Docs](https://zh-hans.reactjs.org/docs/getting-started.html)
 - [npm Docs](https://docs.npmjs.com/)
 
 ## Favorite Blogs
