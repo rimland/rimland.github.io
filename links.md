@@ -33,6 +33,8 @@ permalink: /links/
 
 - [C# documentation](https://docs.microsoft.com/en-us/dotnet/csharp/)
 - [TypeScript](https://www.typescriptlang.org/)
+- [React](https://reactjs.org/)
+  - [React Docs](https://zh-hans.reactjs.org/docs/getting-started.html)
 
 ## Tools
 
@@ -54,7 +56,6 @@ permalink: /links/
 - [codepen.io](https://codepen.io/)
 - [css-doodle.com](https://css-doodle.com/)
 - [Markdown Guide](https://www.markdownguide.org/)
-- [React Docs](https://zh-hans.reactjs.org/docs/getting-started.html)
 - [npm Docs](https://docs.npmjs.com/)
 
 ## Favorite Blogs
