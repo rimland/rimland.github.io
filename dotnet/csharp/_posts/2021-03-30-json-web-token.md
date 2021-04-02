@@ -247,7 +247,7 @@ token 的第二部分是有效负载，其中包含 Claims（声明）。Claims 
 
 > 除非将其加密，否则请不要将机密信息放入 JWT 的 Payload 或 Header 元素中。
 
-## 签名
+### 签名
 
 <!-- This will allow us to verify that the token is valid and no changes has been done to it. The way it works it takes the first 2 parts of the token, it will encode the header to base64 and do the same for the payload. Then it will concatenate it with a "." so that way we have all of the data that we have shared with the user. -->
 
@@ -275,7 +275,7 @@ HMACSHA256(
 
 它的工作原理与密码哈希非常相似——我们将两部分组合在一起，并且使用特定的算法进行单向哈希，然后我们比较哈希的结果看它们是否有效。
 
-### 签名方式
+#### 签名方式
 
 <!-- So now lets discuss JWT in more details, first how JWTs can be signed by -->
 
