@@ -44,7 +44,7 @@ using System.Text.RegularExpressions;
 
 <!-- The good news is that Microsoft provides a basic scaffold template that will spin up a new ASP.NET project with React on the front end. This ASP.NET React project has the client app, which outputs static assets that can be hosted anywhere, and the ASP.NET back end that gets called via API endpoints to get JSON data. The one advantage here is that the entire solution can be deployed at the same time as one monolith without splitting both ends into separate deployment pipelines. -->
 
-好消息是，微软提供了一个基础的脚手架模板，用于启动新的带有 React 前端的 ASP.NET 项目。该 ASP.NET React 项目具有一个客户端应用，它输出可以托管在任何地方的静态资产；以及一个 ASP.NET 后端应用，它可以通过调用 API Endpoints 获取 JSON 数据。这里的一个优点是，整个解决方案可以作为一个整体同时部署，而无需将前后两端拆分成单独的部署管道。
+好消息是，微软提供了一个基础的脚手架模板，用于启动新的带有 React 前端的 ASP.NET 项目。该 ASP.NET React 项目具有一个客户端应用，它输出可以托管在任何地方的静态资产；以及一个 ASP.NET 后端应用，它可以通过调用 API Endpoints 获取 JSON 数据。这里的一个优点是，整个解决方案可以作为一个整体同时部署，而无需将前后两端拆分成单独的部署流水线。
 
 <!-- To get the basic scaffold in place: -->
 
