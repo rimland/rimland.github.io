@@ -20,6 +20,7 @@ permalink: /links/
 - [IdentityServer4](https://docs.identityserver.io/)
 - [IdentityServer](https://duendesoftware.com/)
 - [Serilog](https://serilog.net/)
+- [Key Bindings for Visual Studio Code](https://code.visualstudio.com/docs/getstarted/keybindings#_keyboard-shortcuts-reference)
 
 ## Tech
 
