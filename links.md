@@ -32,6 +32,10 @@ permalink: /links/
 ## Programming Language
 
 - [C# documentation](https://docs.microsoft.com/en-us/dotnet/csharp/)
+- [HTML](https://developer.mozilla.org/zh-CN/docs/Web/HTML)
+- [CSS](https://developer.mozilla.org/zh-CN/docs/Web/CSS)
+- [JavaScript](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript)
+- [Node.js](https://nodejs.org/zh-cn/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [React](https://reactjs.org/)
   - [React Docs](https://zh-hans.reactjs.org/docs/getting-started.html)
