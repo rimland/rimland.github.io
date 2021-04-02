@@ -187,7 +187,7 @@ xxxxxx.yyyyyyy.zzzzzzzz
 
 这种分隔使从视觉上更容易看出 token 的不同部分。让我们来分解一下它的不同的部分。
 
-### Header
+### Header {#header-part}
 
 <!-- The header typically consists of two parts:
 
