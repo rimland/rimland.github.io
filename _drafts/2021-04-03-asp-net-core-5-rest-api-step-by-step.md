@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Asp.Net Core 5 REST API - Step by Step"
-date:   2021-03-30 00:10:09 +0800
+date:   2021-04-03 00:10:09 +0800
 categories: dotnet csharp
 published: true
 ---
@@ -14,16 +14,22 @@ published: true
 
 在本文中，我们将创建一个简单的 Asp.Net Core REST API Todo 应用程序，在其中我们可以添加、编辑、删除和查看待办事项，并且将使用 SQLite 来存储数据。
 
+你也可以在 YouTube 上观看完整的视频 [^video]，还可以[下载源代码](https://github.com/mohamadlawand087/v6-RestApiNetCore5)[^source]。
+
+[^video]: <https://youtu.be/p_wUdWshYc8>
+
+[^source]: <https://github.com/mohamadlawand087/v6-RestApiNetCore5>
+
 <!-- This is Part 1 of API dev series: -->
 
-这是 API 开发系统的第一部分，后面还有：
+这是 API 开发系列的第一部分，后面还有：
 
-- Part 2：[Asp.Net Core 5 REST API 使用 JWT 身份验证](https://dev.to/moe23/asp-net-core-5-rest-api-authentication-with-jwt-step-by-step-140d)
-- Part 3：[Asp Net Core 5 REST API 中使用 RefreshToken 刷新 JWT](https://dev.to/moe23/refresh-jwt-with-refresh-tokens-in-asp-net-core-5-rest-api-step-by-step-3en5)
+- Part 2：[Asp.Net Core 5 REST API 使用 JWT 身份验证 - Step by Step](https://dev.to/moe23/asp-net-core-5-rest-api-authentication-with-jwt-step-by-step-140d)
+- Part 3：[Asp Net Core 5 REST API 中使用 RefreshToken 刷新 JWT - Step by Step](https://dev.to/moe23/refresh-jwt-with-refresh-tokens-in-asp-net-core-5-rest-api-step-by-step-3en5)
 
 ![Asp.Net Core 5 REST API](/assets/images/202104/2y624yffje41tclunrjo.png)
 
-在我们开始之前，需要准备的四样东西：
+在开始之前，我们需要准备的四样东西：
 
 - Visual Studio code (<https://code.visualstudio.com/>)
 - Dotnet core SDK (<https://dotnet.microsoft.com/download>)
@@ -78,11 +84,11 @@ dotnet run
 
 我们首先删除由 .Net Core 框架为我们生成的默认模板代码，即删除 `WeatherForcastController` `和WeatherForcast` 类。
 
-我们来创建自己的控制器，将其命名为 `TodoController`。
+我们再来创建自己的控制器，将其命名为 `TodoController`。
 
 <!-- Will create our first simple action will call it TestRun, lets start coding our controller -->
 
-将创建我们的第一个简单 `Action`，将其命名为 `TestRun`，让我们开始为我们控制器编码：
+然后，我们创建第一个简单的 `Action`，将其命名为 `TestRun`，让我们开始为我们的控制器编码：
 
 ```csharp
 [Route("api/[controller]")] // 我们定义控制器要使用的路由
@@ -98,7 +104,7 @@ public class TodoController : ControllerBase
 }
 ```
 
-Once we finish adding we need to test it, in order for us to do that we need to do the following
+<!-- Once we finish adding we need to test it, in order for us to do that we need to do the following -->
 
 创建完成后，我们需要对其进行测试，为了测试，我们需要执行以下操作：
 
@@ -109,21 +115,21 @@ dotnet run
 
 <!-- Once the application is running we need to open postman and try it there see we get the response. -->
 
-应用程序运行起来后，我们可以打开 Postman，请求一下看看我们获得的响应。
+应用程序运行起来后，我们可以打开 Postman 试一下看看我们获得的响应。
 
 <!-- we create a new request in postman and set the type to get and we add the following URL: -->
 
-我们在 Postman 中创建一个新请求，并将类型设置为 GET，然后请求以下 URL：
+我们在 Postman 中创建一个新请求，并将类型设置为 `GET`，然后请求以下 URL：
 
 ```text
 https://localhost:5001/api/todo/testrun
 ```
 
-正如您在 TestRun 中看到的那样，我们在 Postman 中获得了 "success" 响应。
+正如您在 TestRun 中看到的那样，我们在 Postman 中得到了 “success” 响应。
 
 <!-- After testing it we now need to start adding models, we add a models folder in the root directory and we add a class inside of it called Item. This is going to be a very simple model which represent our todo list item. -->
 
-测试完之后，现在我们需要开始添加模型，我们在根目录中添加一个 *Models* 文件夹，并在其中添加一个名为 `ItemData` 的类。这是一个非常简单的模型，它表示我们的待办事项列表项。
+测试完之后，我们现在需要开始添加模型，我们在根目录中添加一个 *Models* 文件夹，并在其中添加一个名为 `ItemData` 的类。这是一个非常简单的模型，它表示我们的待办事项的列表项。
 
 ```csharp
 public class ItemData
@@ -182,9 +188,9 @@ dotnet ef migrations add "Initial Migrations"
 dotnet ef database update
 ```
 
-After the database update has completed successfully we can see we have a new folder called migrations which will contain the C# script which will be responsible on creating the database and its table Item. we can verify that the database has been created since we can see the app.db file in our root directory as well we can see that use the SQLite browser to verify that the table has been created successfully.
+<!-- After the database update has completed successfully we can see we have a new folder called migrations which will contain the C# script which will be responsible on creating the database and its table Item. we can verify that the database has been created since we can see the app.db file in our root directory as well we can see that use the SQLite browser to verify that the table has been created successfully. -->
 
-成功完成数据库更新后，我们可以看到有一个名为 *Migrations* 的新文件夹，它将包含 C# 脚本，该脚本将负责创建数据库及其表 `ItemData`。我们可以验证数据库是否已创建，因为我们也可以在根目录中看到 *app.db* 文件，并且可以使用 SQLite 浏览器来验证表是否已成功创建。
+成功完成数据库更新后，我们可以看到有一个名为 *Migrations* 的新文件夹，它将包含 C# 脚本，该脚本将负责创建数据库及其表 `Items`。我们可以在根目录中看到 *app.db* 文件，也可以使用 SQLite 查看工具来验证表是否已成功创建，因此我们可以验证数据库是否已创建。
 
 <!-- Now that we have completed all of the infrastructure work for our controller. Now we need to start building our TodoController and connect it to the ApiDbContext. -->
 
@@ -290,7 +296,7 @@ namespace TodoApp.Controllers
 
 Finally since we are using .Net 5 when creating webapi project Swagger will be already integrated within our application, in order for us to see the swagger interface we need to go to
 
-最后，由于我们在创建 Web API 项目时使用的是 .Net 5，因此 Swagger 将已集成到我们的应用程序中，要看到 Swagger 界面，可以在浏览器中转到 <http://localhost:5000/swagger/index.html>。
+最后，由于我们在创建 Web API 项目时使用的是 .Net 5，因此 Swagger 已经集成到了我们的应用程序中，要查看 Swagger 界面，可以在浏览器中导航到 <http://localhost:5000/swagger/index.html>。
 
 Swagger allows you to describe the structure of your APIs so that machines can read them, at no extra work from our side other then defining swagger in older version of .net core swagger will be able to read our API structure and give us a UI that we can use to enhance our dev experience
 
@@ -306,4 +312,3 @@ Swagger 允许您描述 API 的结构，以便机器可以读取它们，而无�
 > 译者 ： 技术译民  
 > 出品 ： [技术译站](https://ittranslator.cn/)  
 > 链接 ： [英文原文](https://dev.to/moe23/asp-net-core-5-rest-api-step-by-step-2mb6)
-
