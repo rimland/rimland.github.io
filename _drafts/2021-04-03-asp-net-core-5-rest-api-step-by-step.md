@@ -14,7 +14,7 @@ published: true
 
 在本文中，我们将创建一个简单的 Asp.Net Core REST API Todo 应用程序，在其中我们可以添加、编辑、删除和查看待办事项，并且将使用 SQLite 来存储数据。
 
-你也可以在 YouTube 上观看完整的视频 [^video]，还可以[下载源代码](https://github.com/mohamadlawand087/v6-RestApiNetCore5)[^source]。
+你也可以在 YouTube 上[观看完整的视频](https://youtu.be/p_wUdWshYc8)[^video]，还可以[下载源代码](https://github.com/mohamadlawand087/v6-RestApiNetCore5)[^source]。
 
 [^video]: <https://youtu.be/p_wUdWshYc8>
 
