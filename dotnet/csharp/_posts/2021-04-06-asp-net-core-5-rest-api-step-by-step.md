@@ -267,7 +267,7 @@ namespace TodoApp.Controllers
             existItem.Description = item.Description;
             existItem.Done = item.Done;
 
-            // Implement the changes on the database level
+            // 在数据库级别实施更改
             await _context.SaveChangesAsync();
 
             return NoContent();
