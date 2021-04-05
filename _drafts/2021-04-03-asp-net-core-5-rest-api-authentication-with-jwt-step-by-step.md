@@ -35,7 +35,7 @@ Some of the topics we will cover are registration, login functionalities and uti
 
 前一篇文章中的代码准备好以后，就让我们开始本文吧。
 
-![Asp Net Core 5 REST API Authentication with JWT](/assets/images/202104/asz47zt2t3mzqlz227c1.png)
+![Asp Net Core 5 REST API Authentication with JWT](https://ittranslator.cn/assets/images/202104/asz47zt2t3mzqlz227c1.png)
 
 <!-- The first thing we need to install some package to utilise authentication -->
 
