@@ -416,11 +416,14 @@ public class TodoController : ControllerBase
 
 <!-- And now if we test it we are not able to execute any request since we are not authorised, in order for us to send authorised requests we need to add the authorisation header with the bearer token so that Asp.Net can verify it and give us permission to execute the actions -->
 
-现在，如果我们对其进行测试，则由于未获得授权，我们将无法执行任何请求，为了发送带授权的请求，我们需要添加带有 Bearer token 的授权标头，以便 Asp.Net 可以验证它，并给我们执行操作的权限。
+现在，如果我们对 `Todo` 进行测试，则由于未获得授权，我们将无法执行任何请求，为了发送带授权的请求，我们需要添加带有 Bearer token 的授权请求头，以便 Asp.Net 可以验证它，并给我们执行操作的权限。
+
+> 译者注：  
+> 添加 Bearer token 请求头的方法是：在 Headers 中，添加一个名称为 `Authorization` 的 Header 项，值为 `Bearer <token>`（将 `<token>` 替换为真实的 token 值）。使用 Postman 测试时，可参考 Postman 官方文档：<https://learning.postman.com/docs/sending-requests/authorization/#bearer-token>。
 
 感谢您花时间阅读本文。
 
-本文是 API 开发系列的第二部分，，本系列还包含：
+本文是 API 开发系列的第二部分，本系列还包含：
 
 - Part 1：[Asp.Net Core 5 REST API - Step by Step](https://ittranslator.cn/dotnet/csharp/2021/04/06/asp-net-core-5-rest-api-step-by-step.html)
 - Part 3：[Asp Net Core 5 REST API 中使用 RefreshToken 刷新 JWT - Step by Step](https://dev.to/moe23/refresh-jwt-with-refresh-tokens-in-asp-net-core-5-rest-api-step-by-step-3en5)
