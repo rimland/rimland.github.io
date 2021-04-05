@@ -274,49 +274,7 @@ public class AuthManagementController : ControllerBase
         });
     }
 
-    [HttpPost]
-    [Route("Login")]
-    public async Task<IActionResult> Login([FromBody] UserLoginRequest user)
-    {
-        if(ModelState.IsValid)
-        {
-            var existingUser = await _userManager.FindByEmailAsync(user.Email);
-
-            if(existingUser == null) {
-                    return BadRequest(new RegistrationResponse(){
-                        Errors = new List<string>() {
-                            "Invalid login request"
-                        },
-                        Success = false
-                });
-            }
-
-            var isCorrect = await _userManager.CheckPasswordAsync(existingUser, user.Password);
-
-            if(!isCorrect) {
-                    return BadRequest(new RegistrationResponse(){
-                        Errors = new List<string>() {
-                            "Invalid login request"
-                        },
-                        Success = false
-                });
-            }
-
-            var jwtToken  =GenerateJwtToken(existingUser);
-
-            return Ok(new RegistrationResponse() {
-                Success = true,
-                Token = jwtToken
-            });
-        }
-
-        return BadRequest(new RegistrationResponse(){
-                Errors = new List<string>() {
-                    "Invalid payload"
-                },
-                Success = false
-        });
-    }
+    
 
     private string GenerateJwtToken(IdentityUser user)
     {
@@ -355,446 +313,106 @@ public class AuthManagementController : ControllerBase
 }
 ```
 
+Once we finish the registration action we can now test it in postman and get the jwt token
 
+完成注册 Action 后，我们可以在 Postman 中对其进行测试并获得 JWT token。
 
+<!-- So the next step will be creating the user login request. -->
 
+下一步是创建用户登录请求。
 
+`Models\DTOs\Requests\UserLoginRequest.cs`
 
 ```csharp
-[Route("api/[controller]")] // api/authManagement
-[ApiController]
-public class AuthManagementController : ControllerBase
+public class UserLoginRequest
 {
-    private readonly UserManager<IdentityUser> _userManager;
-    private readonly JwtConfig _jwtConfig;
+    [Required]
+    [EmailAddress]
+    public string Email { get; set; }
+    [Required]
+    public string Password { get; set; }
+}
+```
 
-    public AuthManagementController(
-        UserManager<IdentityUser> userManager,
-        IOptionsMonitor<JwtConfig> optionsMonitor)
-    {
-        _userManager = userManager;
-        _jwtConfig = optionsMonitor.CurrentValue;
-    }
+After that we need to add our login action in the AuthManagementControtller
 
-    [HttpPost]
-    [Route("Register")]
-    public async Task<IActionResult> Register([FromBody] UserRegistrationDto user)
+然后，我们需要在 `AuthManagementController` 中添加 Login 方法：
+
+```csharp
+[HttpPost]
+[Route("Login")]
+public async Task<IActionResult> Login([FromBody] UserLoginRequest user)
+{
+    if(ModelState.IsValid)
     {
-        if(ModelState.IsValid)
+        // 检查使用相同电子邮箱的用户是否存在
+        var existingUser = await _userManager.FindByEmailAsync(user.Email);
+
+        if(existingUser == null) 
         {
-            // We can utilise the model
-            var existingUser = await _userManager.FindByEmailAsync(user.Email);
-
-            if(existingUser != null)
+            // 出于安全原因，我们不想透露太多关于请求失败的信息
+            return BadRequest(new RegistrationResponse()
             {
-                return BadRequest(new RegistrationResponse(){
-                        Errors = new List<string>() {
-                            "Email already in use"
-                        },
-                        Success = false
-                });
-            }
-
-            var newUser = new IdentityUser() { Email = user.Email, UserName = user.Username};
-            var isCreated = await _userManager.CreateAsync(newUser, user.Password);
-            if(isCreated.Succeeded)
-            {
-                var jwtToken =  GenerateJwtToken( newUser);
-
-                return Ok(new RegistrationResponse() {
-                    Success = true,
-                    Token = jwtToken
-                });
-            } else {
-                return BadRequest(new RegistrationResponse(){
-                        Errors = isCreated.Errors.Select(x => x.Description).ToList(),
-                        Success = false
-                });
-            }
-        }
-
-        return BadRequest(new RegistrationResponse(){
                 Errors = new List<string>() {
-                    "Invalid payload"
+                    "Invalid login request"
                 },
                 Success = false
-        });
-    }
-
-    [HttpPost]
-    [Route("Login")]
-    public async Task<IActionResult> Login([FromBody] UserLoginRequest user)
-    {
-        if(ModelState.IsValid)
-        {
-            var existingUser = await _userManager.FindByEmailAsync(user.Email);
-
-            if(existingUser == null) {
-                    return BadRequest(new RegistrationResponse(){
-                        Errors = new List<string>() {
-                            "Invalid login request"
-                        },
-                        Success = false
-                });
-            }
-
-            var isCorrect = await _userManager.CheckPasswordAsync(existingUser, user.Password);
-
-            if(!isCorrect) {
-                    return BadRequest(new RegistrationResponse(){
-                        Errors = new List<string>() {
-                            "Invalid login request"
-                        },
-                        Success = false
-                });
-            }
-
-            var jwtToken  =GenerateJwtToken(existingUser);
-
-            return Ok(new RegistrationResponse() {
-                Success = true,
-                Token = jwtToken
             });
         }
 
-        return BadRequest(new RegistrationResponse(){
+        // 现在我们需要检查用户是否输入了正确的密码
+        var isCorrect = await _userManager.CheckPasswordAsync(existingUser, user.Password);
+
+        if(!isCorrect) 
+        {
+            // 出于安全原因，我们不想透露太多关于请求失败的信息
+            return BadRequest(new RegistrationResponse()
+            {
                 Errors = new List<string>() {
-                    "Invalid payload"
+                    "Invalid login request"
                 },
                 Success = false
+            });
+        }
+
+        var jwtToken = GenerateJwtToken(existingUser);
+
+        return Ok(new RegistrationResponse() 
+        {
+            Success = true,
+            Token = jwtToken
         });
     }
 
-    private string GenerateJwtToken(IdentityUser user)
+    return BadRequest(new RegistrationResponse()
     {
-        var jwtTokenHandler = new JwtSecurityTokenHandler();
-
-        var key = Encoding.ASCII.GetBytes(_jwtConfig.Secret);
-
-        var tokenDescriptor = new SecurityTokenDescriptor
+        Errors = new List<string>() 
         {
-            Subject = new ClaimsIdentity(new []
-            {
-                new Claim("Id", user.Id), 
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-            }),
-            Expires = DateTime.UtcNow.AddHours(6),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-        };
-
-        var token = jwtTokenHandler.CreateToken(tokenDescriptor);
-        var jwtToken = jwtTokenHandler.WriteToken(token);
-
-        return jwtToken;
-    }
+            "Invalid payload"
+        },
+        Success = false
+    });
 }
 ```
 
+<!-- now we can test it out and we can see that our jwt tokens has been generated successfully, the next step is to secure our controller, to do that all we need to do is add the Authorise attribute to the controller -->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-在开始之前，我们需要准备的四样东西：
-
-- Visual Studio code (<https://code.visualstudio.com/>)
-- Dotnet core SDK (<https://dotnet.microsoft.com/download>)
-- Postman (<https://www.postman.com/downloads/>)
-- DBeaver (<https://dbeaver.io/download/>)
-
-<!-- Once we have downloaded and installed all of the required tool, we need to make sure that the dotnet SDK has been installed successfully, we need to open the terminal and check if the dotnet SDK is installed successfully by checking the dotnet version -->
-
-下载并安装了所有必需的工具后，我们需要确保 dotnet SDK 已成功安装，我们需要打开终端并通过检查 dotnet 版本来检查 dotnet SDK 是否已成功安装。
-
-打开终端，输入以下命令：
-
-```bash
-dotnet --version
-```
-
-<!-- Now we need to install the entity framework tool -->
-
-现在，我们需要安装 EntityFramework 工具：
-
-```bash
-dotnet tool install --global dotnet-ef
-```
-
-<!-- Once thats finish we need to create our application -->
-
-完成后，我们需要创建我们的应用程序：
-
-```bash
-dotnet new webapi -n "TodoApp" -lang "C#" -au none
-```
-
-<!-- Now lets add the packages that we will nee in order of us to utilise the EntityFramrwork and SQLite -->
-
-现在让我们添加需要使用的包，以便可以使用 EntityFramrwork 和 SQLite：
-
-```bash
-dotnet add package Microsoft.EntityFrameworkCore.Sqlite
-dotnet add package Microsoft.EntityFrameworkCore.Tools
-```
-
-<!-- Now lets open VS code and check our application and check the source code, lets build the application and see if its running -->
-
-现在，请打开 VS Code 并检查我们的应用程序和源代码，然后，让我们构建应用程序并查看其是否可以运行：
-
-```bash
-dotnet build
-dotnet run
-```
-
-<!-- We start by removing the default template code that was generated by the .Net core framework for us. Will dlete the WeatherForcastController and the WeatherForcast class. -->
-
-首先，我们删除由 .Net Core 框架为我们生成的默认模板代码，即删除 `WeatherForcastController` `和WeatherForcast` 类。
-
-接着，我们创建自己的控制器，将其命名为 `TodoController`。
-
-<!-- Will create our first simple action will call it TestRun, lets start coding our controller -->
-
-然后，我们创建第一个简单的 `Action`，将其命名为 `TestRun`，让我们开始为我们的控制器编码：
+现在我们可以对其进行测试，我们可以看到 JWT token 已经成功生成。下一步是保护我们的控制器，要做的就是在向控制器添加 `Authorise` 属性。
 
 ```csharp
-[Route("api/[controller]")] // 我们定义控制器要使用的路由
-[ApiController] // 我们需要指定控制器的类型以让 .Net core 知道
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+[Route("api/[controller]")] // api/todo
+[ApiController]
 public class TodoController : ControllerBase
-{
-    [Route("TestRun")] // 定义此 Action 的路由
-    [HttpGet]
-    public ActionResult TestRun()
-    {
-        return Ok("success");
-    }
-}
 ```
 
-<!-- Once we finish adding we need to test it, in order for us to do that we need to do the following -->
+<!-- And now if we test it we are not able to execute any request since we are not authorised, in order for us to send authorised requests we need to add the authorisation header with the bearer token so that Asp.Net can verify it and give us permission to execute the actions -->
 
-创建完成后，我们需要对其进行测试，为了测试，我们需要执行以下操作：
+现在，如果我们对其进行测试，则由于未获得授权，我们将无法执行任何请求，为了发送带授权的请求，我们需要添加带有 Bearer token 的授权标头，以便 Asp.Net 可以难它，并给我们执行操作的权限。
 
-```bash
-dotnet build
-dotnet run
-```
+感谢您花时间阅读本文。
 
-<!-- Once the application is running we need to open postman and try it there see we get the response. -->
-
-应用程序运行起来后，我们可以打开 Postman 试一下看看我们获得的响应。
-
-<!-- we create a new request in postman and set the type to get and we add the following URL: -->
-
-我们在 Postman 中创建一个新请求，并将类型设置为 `GET`，然后请求以下 URL：
-
-```text
-https://localhost:5001/api/todo/testrun
-```
-
-正如您在 TestRun 中看到的那样，我们在 Postman 中得到了 “success” 响应。
-
-<!-- After testing it we now need to start adding models, we add a models folder in the root directory and we add a class inside of it called Item. This is going to be a very simple model which represent our todo list item. -->
-
-测试完之后，我们现在需要开始添加模型，我们在根目录中添加一个 *Models* 文件夹，并在其中添加一个名为 `ItemData` 的类。这是一个非常简单的模型，它表示我们的待办事项的列表项。
-
-```csharp
-public class ItemData
-{
-    public int Id { get; set; }
-    public string Title { get; set; }
-    public string Description { get; set; }
-    public bool Done { get; set; }
-}
-```
-
-<!-- once we add our model now we need to build our ApiDbContext. We need to create a Data folder in our root directory and inside this folder will create a new class called ApiDbContext. -->
-
-添加好模型后，我们需要构建 `ApiDbContext`。在根目录中创建一个 *Data* 文件夹，然后在该文件夹中创建一个名为 `ApiDbContext` 的新类。
-
-```csharp
-public class ApiDbContext : DbContext
-{
-    public virtual DbSet<ItemData> Items {get;set;}
-
-    public ApiDbContext(DbContextOptions<ApiDbContext> options)
-        : base(options)
-    {
-        
-    }
-}
-```
-
-<!-- We need to specify our connection string inside the appsetting.json application -->
-
-然后，我们需要在 `appsetting.json` 中指定连接字符串：
-
-```json
-"ConnectionStrings": {
-  "DefaultConnection" : "DataSource=app.db; Cache=Shared"
-}
-```
-
-<!-- Perfect once our DbContext and connection string is ready we need to update the startup class so we can utilise the Application DbContext inside our application. Open the startup class in our root folder and add the following code. -->
-
-完善 DbContext 和连接字符串后，我们需要更新 `Startup` 类，以便可以在应用程序中使用 Application DbContext。在我们的根目录中打开 `Startup` 类，然后添加以下代码：
-
-```csharp
-services.AddDbContext<ApiDbContext>(options =>
-    options.UseSqlite(
-        Configuration.GetConnectionString("DefaultConnection")
-    ));
-```
-
-<!-- Once we have add the DbContext middleware we need to add the initial migration to create the database. -->
-
-添加好 DbContext 中间件后，我们需要添加初始化迁移来创建数据库。
-
-```bash
-dotnet ef migrations add "Initial Migrations"
-dotnet ef database update
-```
-
-<!-- After the database update has completed successfully we can see we have a new folder called migrations which will contain the C# script which will be responsible on creating the database and its table Item. we can verify that the database has been created since we can see the app.db file in our root directory as well we can see that use the SQLite browser to verify that the table has been created successfully. -->
-
-成功完成数据库更新后，我们可以看到有一个名为 *Migrations* 的新文件夹，它将包含 C# 脚本，该脚本将负责创建数据库及其表 `Items`。我们可以在根目录中看到 *app.db* 文件，也可以使用 SQLite 查看工具来验证表是否已成功创建，由此我们可以验证数据库是否已创建。
-
-<!-- Now that we have completed all of the infrastructure work for our controller. Now we need to start building our TodoController and connect it to the ApiDbContext. -->
-
-现在，我们已经完成了控制器的所有基础设施的搭建。现在，我们需要开始构建 `TodoController` 并将其连接到`ApiDbContext`。
-
-<!-- Will start by adding the get all items in our todo list -->
-
-我们从添加获取待办事项中的所有项的方法 `GetItems` 开始，依次添加所有需要的方法：
-
-```csharp
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using TodoApp.Data;
-using TodoApp.Models;
-
-namespace TodoApp.Controllers
-{
-    [Route("api/[controller]")] // api/todo
-    [ApiController]
-    public class TodoController : ControllerBase
-    {
-        private readonly ApiDbContext _context;
-
-        public TodoController(ApiDbContext context)
-        {
-            _context = context;
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetItems()
-        {
-            var items = await _context.Items.ToListAsync();
-            return Ok(items);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> CreateItem(ItemData data)
-        {
-            if (ModelState.IsValid)
-            {
-                await _context.Items.AddAsync(data);
-                await _context.SaveChangesAsync();
-
-                return CreatedAtAction("GetItem", new { data.Id }, data);
-            }
-
-            return new JsonResult("Something went wrong") { StatusCode = 500 };
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetItem(int id)
-        {
-            var item = await _context.Items.FirstOrDefaultAsync(x => x.Id == id);
-
-            if (item == null)
-                return NotFound();
-
-            return Ok(item);
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateItem(int id, ItemData item)
-        {
-            if (id != item.Id)
-                return BadRequest();
-
-            var existItem = await _context.Items.FirstOrDefaultAsync(x => x.Id == id);
-
-            if (existItem == null)
-                return NotFound();
-
-            existItem.Title = item.Title;
-            existItem.Description = item.Description;
-            existItem.Done = item.Done;
-
-            // Implement the changes on the database level
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteItem(int id)
-        {
-            var existItem = await _context.Items.FirstOrDefaultAsync(x => x.Id == id);
-
-            if (existItem == null)
-                return NotFound();
-
-            _context.Items.Remove(existItem);
-            await _context.SaveChangesAsync();
-
-            return Ok(existItem);
-        }
-    }
-}
-```
-
-<!-- We can test each one of these in postman. -->
-
-然后，我们可以在 Postman 中一个一个地对它们进行测试。
-
-<!-- Finally since we are using .Net 5 when creating webapi project Swagger will be already integrated within our application, in order for us to see the swagger interface we need to go to -->
-
-最后，由于我们在创建 Web API 项目时使用的是 .Net 5，因此 Swagger 已经集成到了我们的应用程序中，要查看 Swagger 界面，可以在浏览器中导航到 <http://localhost:5000/swagger/index.html>。
-
-<!-- Swagger allows you to describe the structure of your APIs so that machines can read them, at no extra work from our side other then defining swagger in older version of .net core swagger will be able to read our API structure and give us a UI that we can use to enhance our dev experience -->
-
-Swagger 允许您描述 API 的结构，以便程序可以自动读取它们，而无需我们额外的工作。Swagger 能够读取 API 结构并为我们生成一个 UI，我们可以借此来改善开发体验。
-
-感谢您阅读本文。
-
-本文是 API 开发系列的第一部分，后面会有第二、第三部分。
+本文是 API 开发系列的第二部分，后面会有第二、第三部分。
 
 <br />
 
