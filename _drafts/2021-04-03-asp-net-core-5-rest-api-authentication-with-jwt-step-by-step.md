@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Asp.Net Core 5 REST API 使用 JWT 身份验证 - Step by Step"
-date:   2021-04-03 00:10:09 +0800
+date:   2021-04-07 00:10:09 +0800
 categories: dotnet csharp
 published: true
 ---
@@ -26,7 +26,7 @@ Some of the topics we will cover are registration, login functionalities and uti
 
 这是 API 开发系列的第二部分，本系列还包含：
 
-- Part 1：[Asp.Net Core 5 REST API - Step by Step](https://dev.to/moe23/asp-net-core-5-rest-api-step-by-step-2mb6)
+- Part 1：[Asp.Net Core 5 REST API - Step by Step](https://ittranslator.cn/dotnet/csharp/2021/04/06/asp-net-core-5-rest-api-step-by-step.html)
 - Part 3：[Asp Net Core 5 REST API 中使用 RefreshToken 刷新 JWT - Step by Step](https://dev.to/moe23/refresh-jwt-with-refresh-tokens-in-asp-net-core-5-rest-api-step-by-step-3en5)
 
 <!-- We will be basing our current work on our previous Todo REST API application that we have created in our last article (https://dev.to/moe23/asp-net-core-5-rest-api-step-by-step-2mb6). -->
@@ -159,13 +159,15 @@ dotnet ef database update
 
 迁移完成后，我们可以使用 Dbeaver 打开数据库 *app.db*，我们可以看到 EntityFramework 已经为我们创建了身份表。
 
-The next step will be to setup out controllers and build the registration process for the user. Inside out controller folder will need to create a controller and our DTOs (data transfer objects).
+<!-- The next step will be to setup out controllers and build the registration process for the user. Inside out controller folder will need to create a controller and our DTOs (data transfer objects). -->
 
-下一步将是设置控制器并为用户构建注册流程。我们需要在 *Controllers* 文件夹中创建一个新的控制器，并创建对应的 DTO 类（Data Transfer Objects）。
+下一步是设置控制器并为用户构建注册流程。我们需要在 *Controllers* 文件夹中创建一个新的控制器，并创建对应的 DTO 类（Data Transfer Objects）。
 
 <!-- Will start by adding a new folder called Domain in our root directory, and we add a class called AuthResult -->
 
-首先在根目录中添加一个名为 *Domain* 的新文件夹，然后添加一个名为 `AuthResult` 的类：
+在根目录中的 *Configuration* 文件夹中添加一个名为 `AuthResult` 的类：
+
+`Configuration\AuthResult.cs`
 
 ```csharp
 public class AuthResult
@@ -211,6 +213,8 @@ public class RegistrationResponse : AuthResult
 <!-- Now we need to add our user registration controller, inside our controller folder we add a new class we call it AuthManagementController and we update it with the code below -->
 
 现在，我们需要添加用户注册控制器，在控制器文件夹内，我们添加一个新类，命名为 `AuthManagementController`，并使用以下代码更新它：
+
+`Controllers\AuthManagementController.cs`
 
 ```csharp
 [Route("api/[controller]")] // api/authManagement
@@ -258,7 +262,9 @@ public class AuthManagementController : ControllerBase
                     Success = true,
                     Token = jwtToken
                 });
-            } else {
+            } 
+            else 
+            {
                 return BadRequest(new RegistrationResponse(){
                         Errors = isCreated.Errors.Select(x => x.Description).ToList(),
                         Success = false
@@ -266,15 +272,15 @@ public class AuthManagementController : ControllerBase
             }
         }
 
-        return BadRequest(new RegistrationResponse(){
-                Errors = new List<string>() {
-                    "Invalid payload"
-                },
-                Success = false
+        return BadRequest(new RegistrationResponse()
+        {
+            Errors = new List<string>() 
+            {
+                "Invalid payload"
+            },
+            Success = false
         });
     }
-
-    
 
     private string GenerateJwtToken(IdentityUser user)
     {
@@ -313,9 +319,9 @@ public class AuthManagementController : ControllerBase
 }
 ```
 
-Once we finish the registration action we can now test it in postman and get the jwt token
+<!-- Once we finish the registration action we can now test it in postman and get the jwt token -->
 
-完成注册 Action 后，我们可以在 Postman 中对其进行测试并获得 JWT token。
+添加完注册的 Action 后，我们可以在 Postman 中对其进行测试并获得 JWT token。
 
 <!-- So the next step will be creating the user login request. -->
 
@@ -334,9 +340,9 @@ public class UserLoginRequest
 }
 ```
 
-After that we need to add our login action in the AuthManagementControtller
+<!-- After that we need to add our login action in the AuthManagementControtller -->
 
-然后，我们需要在 `AuthManagementController` 中添加 Login 方法：
+然后，我们需要在 `AuthManagementController` 中添加 `Login` 方法：
 
 ```csharp
 [HttpPost]
@@ -397,7 +403,9 @@ public async Task<IActionResult> Login([FromBody] UserLoginRequest user)
 
 <!-- now we can test it out and we can see that our jwt tokens has been generated successfully, the next step is to secure our controller, to do that all we need to do is add the Authorise attribute to the controller -->
 
-现在我们可以对其进行测试，我们可以看到 JWT token 已经成功生成。下一步是保护我们的控制器，要做的就是在向控制器添加 `Authorise` 属性。
+现在，我们可以在 Postman 中对其进行测试，我们可以看到 JWT token 已经成功生成。
+
+下一步是保护我们的控制器，需要做的就是向控制器添加 `Authorise` 属性。
 
 ```csharp
 [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -408,11 +416,14 @@ public class TodoController : ControllerBase
 
 <!-- And now if we test it we are not able to execute any request since we are not authorised, in order for us to send authorised requests we need to add the authorisation header with the bearer token so that Asp.Net can verify it and give us permission to execute the actions -->
 
-现在，如果我们对其进行测试，则由于未获得授权，我们将无法执行任何请求，为了发送带授权的请求，我们需要添加带有 Bearer token 的授权标头，以便 Asp.Net 可以难它，并给我们执行操作的权限。
+现在，如果我们对其进行测试，则由于未获得授权，我们将无法执行任何请求，为了发送带授权的请求，我们需要添加带有 Bearer token 的授权标头，以便 Asp.Net 可以验证它，并给我们执行操作的权限。
 
 感谢您花时间阅读本文。
 
-本文是 API 开发系列的第二部分，后面会有第二、第三部分。
+本文是 API 开发系列的第二部分，，本系列还包含：
+
+- Part 1：[Asp.Net Core 5 REST API - Step by Step](https://ittranslator.cn/dotnet/csharp/2021/04/06/asp-net-core-5-rest-api-step-by-step.html)
+- Part 3：[Asp Net Core 5 REST API 中使用 RefreshToken 刷新 JWT - Step by Step](https://dev.to/moe23/refresh-jwt-with-refresh-tokens-in-asp-net-core-5-rest-api-step-by-step-3en5)
 
 <br />
 
