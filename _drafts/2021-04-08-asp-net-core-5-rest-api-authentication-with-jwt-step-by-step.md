@@ -31,7 +31,7 @@ Some of the topics we will cover are registration, login functionalities and uti
 
 <!-- We will be basing our current work on our previous Todo REST API application that we have created in our last article (https://dev.to/moe23/asp-net-core-5-rest-api-step-by-step-2mb6). -->
 
-我们将基于[上一篇文章](https://dev.to/moe23/asp-net-core-5-rest-api-step-by-step-2mb6) 中创建的 Todo REST API 应用程序进行当前的工作，您可以通过阅读上一篇文章并与我一起构建应用程序，或者您可以从 github [下载源代码](https://github.com/mohamadlawand087/v6-RestApiNetCore5)。
+我们将基于[上一篇文章](https://dev.to/moe23/asp-net-core-5-rest-api-step-by-step-2mb6)中创建的 Todo REST API 应用程序进行当前的讲述，您可以通过阅读上一篇文章并与我一起构建应用程序，或者您可以从 github [下载上一篇中的源代码](https://github.com/mohamadlawand087/v6-RestApiNetCore5)。
 
 前一篇文章中的代码准备好以后，就让我们开始本文吧。
 
@@ -49,7 +49,7 @@ dotnet add package Microsoft.AspNetCore.Identity.UI
 
 <!-- then we need to do is we need to update our appsettings.json, in our appsettings we will need to add a JWT settings section and within that settings we need to add a JWT secret -->
 
-然后，我们需要做的就是更新 *appsettings.json*，我们需要在 *appsettings* 中添加 JWT 设置部分，在该设置中添加一个 JWT secret。
+然后，我们需要做的就是更新 *appsettings.json*，我们需要在 *appsettings* 中添加 JWT 设置部分，在该设置中添加一个 JWT secret（密钥）。
 
 ```json
 "JwtConfig": {
@@ -84,11 +84,11 @@ public class JwtConfig
 services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
 ```
 
-<!-- Adding these configuration in our startup class register the configurations in our Asp.Net core middlewear and in our IOC container. -->
+<!-- Adding these configuration in our startup class register the configurations in our Asp.Net core middleware and in our IOC container. -->
 
 将这些配置添加到我们的 `Startup` 类中，即可在 [Asp.Net](http://asp.net/) Core 中间件和 IoC 容器中注册配置。
 
-The next step is adding and configuring authentication in our startup class, inside our ConfigureServices method we need to add the following
+<!-- The next step is adding and configuring authentication in our startup class, inside our ConfigureServices method we need to add the following -->
 
 下一步是在我们的 `Startup` 类中添加和配置身份验证，在我们的 `ConfigureServices` 方法中，我们需要添加以下内容：
 
@@ -119,13 +119,13 @@ services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfi
 
 <!-- After updating the ConfigureServices we need to update the Configure method by adding authentication -->
 
-更新 `ConfigureServices` 之后，我们需要更新 `Configure` 方法，添加身份验证：
+更新好 `ConfigureServices` 之后，我们需要更新 `Configure` 方法，添加身份验证：
 
 ```csharp
 app.UseAuthentication();
 ```
 
-Once we add the configurations we need to build the application to see if everything is still building as it should.
+<!-- Once we add the configurations we need to build the application to see if everything is still building as it should. -->
 
 配置添加完成后，我们需要构建应用程序，以查看是否所有的内容都可以正常构建：
 
@@ -144,11 +144,11 @@ public class ApiDbContext : IdentityDbContext
 
 <!-- by inheriting from IdentityDbContext instead of DbContext, EntityFramework will know that we are using authentication and it will build the infrastructure for us to utilise the default identity tables. -->
 
-通过从 `IdentityDbContext` 而不是 `DbContext` 继承，EntityFramework 将知道我们正在使用身份验证，并且将为我们构建基础结构以使用默认身份表。
+通过从 `IdentityDbContext` 而不是 `DbContext` 继承，EntityFramework 将知道我们正在使用身份验证，并且将为我们构建基础设施以使用默认身份表。
 
 <!-- To Generate the identity tables in our database we need to prepare migrations scripts and run them. to do that inside the terminal we need to type the following -->
 
-要在我们的数据库中生成身份表，我们需要准备迁移脚本并运行它们。要做到这些，我们需要在终端中输入并运行以下命令：
+要在我们的数据库中生成身份表，我们需要准备迁移脚本并运行它们。也就是说，我们需要在终端中输入并运行以下命令：
 
 ```bash
 dotnet ef migrations add "Adding authentication to our Api"
@@ -165,11 +165,11 @@ dotnet ef database update
 
 <!-- Will start by adding a new folder called Domain in our root directory, and we add a class called AuthResult -->
 
-在根目录中的 *Configuration* 文件夹中添加一个名为 `AuthResult` 的类：
-
-`Configuration\AuthResult.cs`
+先在根目录中的 *Configuration* 文件夹中添加一个名为 `AuthResult` 的类：
 
 ```csharp
+// Configuration\AuthResult.cs
+
 public class AuthResult
 {
     public string Token { get; set; }
@@ -180,15 +180,15 @@ public class AuthResult
 
 <!-- Will start by adding some folders to organise our DTOs, inside the Models folder will add a folder called DTO and within the DTO folder will create 2 folders Requests/Responses -->
 
-我将添加一些文件夹来组织 DTOs，在 *Models* 文件夹中添加一个名为 *DTOs* 的文件夹，然后在此文件夹中创建两个文件夹 *Requests* 和 *Responses*。
+然后我将添加一些文件夹来组织 DTOs，在 *Models* 文件夹中添加一个名为 *DTOs* 的文件夹，然后在此文件夹中创建两个子文件夹 *Requests* 和 *Responses*。
 
 <!-- We need to add the UserRegistrationRequestDto which will be used by our registration action in the Controller. Then will navigate to Models/DTO/Requests and add a new class called UserRegistrationRequestDto -->
 
 我们需要添加供我们在控制器中的注册操作使用的 `UserRegistrationDto`。导航到 *Models/DTO/Requests*，添加一个新类 `UserRegistrationDto`。
 
-`Models\DTOs\Requests\UserRegistrationDto.cs`
-
 ```csharp
+// Models\DTOs\Requests\UserRegistrationDto.cs
+
 public class UserRegistrationDto
 {
     [Required]
@@ -201,9 +201,11 @@ public class UserRegistrationDto
 }
 ```
 
-`Models\DTOs\Responses\RegistrationResponse.cs`
+添加 `RegistrationResponse` 类。
 
 ```csharp
+// Models\DTOs\Responses\RegistrationResponse.cs
+
 public class RegistrationResponse : AuthResult
 {
     
@@ -214,9 +216,9 @@ public class RegistrationResponse : AuthResult
 
 现在，我们需要添加用户注册控制器，在控制器文件夹内，我们添加一个新类，命名为 `AuthManagementController`，并使用以下代码更新它：
 
-`Controllers\AuthManagementController.cs`
-
 ```csharp
+// Controllers\AuthManagementController.cs
+
 [Route("api/[controller]")] // api/authManagement
 [ApiController]
 public class AuthManagementController : ControllerBase
@@ -225,8 +227,8 @@ public class AuthManagementController : ControllerBase
     private readonly JwtConfig _jwtConfig;
 
     public AuthManagementController(
-        UserManager<IdentityUser> userManager,
-        IOptionsMonitor<JwtConfig> optionsMonitor)
+            UserManager<IdentityUser> userManager, 
+            IOptionsMonitor<JwtConfig> optionsMonitor)
     {
         _userManager = userManager;
         _jwtConfig = optionsMonitor.CurrentValue;
@@ -244,30 +246,34 @@ public class AuthManagementController : ControllerBase
 
             if(existingUser != null)
             {
-                return BadRequest(new RegistrationResponse(){
-                        Errors = new List<string>() {
-                            "Email already in use"
-                        },
-                        Success = false
+                return BadRequest(new RegistrationResponse()
+                {
+                    Errors = new List<string>() 
+                    {
+                        "Email already in use"
+                    },
+                    Success = false
                 });
             }
 
-            var newUser = new IdentityUser() { Email = user.Email, UserName = user.Username};
+            var newUser = new IdentityUser() { Email = user.Email, UserName = user.Username };
             var isCreated = await _userManager.CreateAsync(newUser, user.Password);
             if(isCreated.Succeeded)
             {
                 var jwtToken =  GenerateJwtToken( newUser);
 
-                return Ok(new RegistrationResponse() {
+                return Ok(new RegistrationResponse() 
+                {
                     Success = true,
                     Token = jwtToken
                 });
             } 
             else 
             {
-                return BadRequest(new RegistrationResponse(){
-                        Errors = isCreated.Errors.Select(x => x.Description).ToList(),
-                        Success = false
+                return BadRequest(new RegistrationResponse()
+                {
+                    Errors = isCreated.Errors.Select(x => x.Description).ToList(),
+                    Success = false
                 });
             }
         }
@@ -325,11 +331,11 @@ public class AuthManagementController : ControllerBase
 
 <!-- So the next step will be creating the user login request. -->
 
-下一步是创建用户登录请求。
-
-`Models\DTOs\Requests\UserLoginRequest.cs`
+接下来是创建用户登录请求：
 
 ```csharp
+// Models\DTOs\Requests\UserLoginRequest.cs
+
 public class UserLoginRequest
 {
     [Required]
@@ -359,7 +365,8 @@ public async Task<IActionResult> Login([FromBody] UserLoginRequest user)
             // 出于安全原因，我们不想透露太多关于请求失败的信息
             return BadRequest(new RegistrationResponse()
             {
-                Errors = new List<string>() {
+                Errors = new List<string>() 
+                {
                     "Invalid login request"
                 },
                 Success = false
@@ -374,7 +381,8 @@ public async Task<IActionResult> Login([FromBody] UserLoginRequest user)
             // 出于安全原因，我们不想透露太多关于请求失败的信息
             return BadRequest(new RegistrationResponse()
             {
-                Errors = new List<string>() {
+                Errors = new List<string>() 
+                {
                     "Invalid login request"
                 },
                 Success = false
@@ -403,9 +411,9 @@ public async Task<IActionResult> Login([FromBody] UserLoginRequest user)
 
 <!-- now we can test it out and we can see that our jwt tokens has been generated successfully, the next step is to secure our controller, to do that all we need to do is add the Authorise attribute to the controller -->
 
-现在，我们可以在 Postman 中对其进行测试，我们可以看到 JWT token 已经成功生成。
+现在，我们可以在 Postman 中对其进行测试，我们将会看到 JWT token 已经成功生成。
 
-下一步是保护我们的控制器，需要做的就是向控制器添加 `Authorise` 属性。
+下一步是保护我们的控制器，需要做的就是向控制器添加 `Authorize` 属性。
 
 ```csharp
 [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -416,10 +424,30 @@ public class TodoController : ControllerBase
 
 <!-- And now if we test it we are not able to execute any request since we are not authorised, in order for us to send authorised requests we need to add the authorisation header with the bearer token so that Asp.Net can verify it and give us permission to execute the actions -->
 
-现在，如果我们对 `Todo` 进行测试，则由于未获得授权，我们将无法执行任何请求，为了发送带授权的请求，我们需要添加带有 Bearer token 的授权请求头，以便 Asp.Net 可以验证它，并给我们执行操作的权限。
+此时，如果我们再对 `Todo` 进行测试，则由于未获得授权，我们将会无法执行任何请求。为了发送带授权的请求，我们需要添加带有 Bearer token 的授权 Header，以便 Asp.Net 可以验证它，并赋予我们执行操作的权限。
+
+```mermaid
+graph LR
+A((用户)) --> B[注册] & C[登录] --> D[获得 JWT token]
+
+D --> E[Headers 中添加 Bearer token]
+
+E --> F[调用 Todo 接口]
+```
+
+```mermaid
+graph LR
+B[注册] & C[登录] --> D[获得 JWT token]
+
+D --> E[Headers 中添加 Bearer token]
+
+E --> F[调用 Todo 接口]
+```
 
 > 译者注：  
-> 添加 Bearer token 请求头的方法是：在 Headers 中，添加一个名称为 `Authorization` 的 Header 项，值为 `Bearer <token>`（将 `<token>` 替换为真实的 token 值）。使用 Postman 测试时，可参考 Postman 官方文档：<https://learning.postman.com/docs/sending-requests/authorization/#bearer-token>。
+> 添加 Bearer token 请求头的方法是：在 Headers 中，添加一个名称为 `Authorization` 的 Header 项，值为 `Bearer <token>`（需将 `<token>` 替换为真实的 token 值）。使用 Postman 测试时，可参考 Postman 官方文档：<https://learning.postman.com/docs/sending-requests/authorization/#bearer-token>。
+
+至此，我们已经为 REST API 添加好 JWT 身份验证。
 
 感谢您花时间阅读本文。
 
