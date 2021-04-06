@@ -52,6 +52,7 @@ permalink: /links/
 - [Online GUID / UUID Generator](https://guidgenerator.com/online-guid-generator.aspx)
 - [Web Developer Tools - browserling](https://www.browserling.com/tools)
 - [DBeaver - Database Tool](https://dbeaver.io/)
+- [ScreenToGif](https://www.screentogif.com/)
 
 ## Front End
 
