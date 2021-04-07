@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Asp.Net Core 5 REST API 使用 JWT 身份验证 - Step by Step"
-date:   2021-04-07 00:10:09 +0800
+date:   2021-04-08 00:10:09 +0800
 categories: dotnet csharp
 published: true
 ---
@@ -427,13 +427,6 @@ public class TodoController : ControllerBase
 此时，如果我们再对 `Todo` 进行测试，则由于未获得授权，我们将会无法执行任何请求。为了发送带授权的请求，我们需要添加带有 **Bearer token** 的授权 Header，以便 Asp.Net 可以验证它，并授予我们执行操作的权限。
 
 ![current calling process](https://ittranslator.cn/assets/images/202104/current_calling_process.png)
-
-```mermaid
-graph LR
-A(用户使用邮箱和密码) --> B[注册] & C[登录] --> D[获得 JWT token]
-D --> E[Headers 中添加 Bearer token]
-E --> F(调用 Todo 接口)
-```
 
 > 译者注：  
 > 添加 Bearer token 请求头的方法是：在 Headers 中，添加一个名称为 `Authorization` 的 Header 项，值为 `Bearer <token>`（需将 `<token>` 替换为真实的 token 值）。使用 Postman 测试时，可参考 Postman 官方文档：<https://learning.postman.com/docs/sending-requests/authorization/#bearer-token>。
