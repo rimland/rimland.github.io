@@ -424,7 +424,7 @@ public class TodoController : ControllerBase
 
 <!-- And now if we test it we are not able to execute any request since we are not authorised, in order for us to send authorised requests we need to add the authorisation header with the bearer token so that Asp.Net can verify it and give us permission to execute the actions -->
 
-此时，如果我们再对 `Todo` 进行测试，则由于未获得授权，我们将会无法执行任何请求。为了发送带授权的请求，我们需要添加带有 Bearer token 的授权 Header，以便 Asp.Net 可以验证它，并赋予我们执行操作的权限。
+此时，如果我们再对 `Todo` 进行测试，则由于未获得授权，我们将会无法执行任何请求。为了发送带授权的请求，我们需要添加带有 **Bearer token** 的授权 Header，以便 Asp.Net 可以验证它，并赋予我们执行操作的权限。
 
 ![current calling process](https://ittranslator.cn/assets/images/202104/current_calling_process.png)
 
