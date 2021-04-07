@@ -431,10 +431,8 @@ public class TodoController : ControllerBase
 ```mermaid
 graph LR
 A(用户使用邮箱和密码) --> B[注册] & C[登录] --> D[获得 JWT token]
-
 D --> E[Headers 中添加 Bearer token]
-
-E --> F[调用 Todo 接口]
+E --> F(调用 Todo 接口)
 ```
 
 > 译者注：  
