@@ -16,9 +16,11 @@ Some of the topics we will cover are registration, login functionalities and uti
 
 在本文中，我将向您展示如何向我们的 Asp.Net Core REST API 添加 JWT 身份验证。
 
-我们将介绍的主题包含注册、登录功能以及如何使用 [JWT (Json Web Tokens)](https://ittranslator.cn/dotnet/csharp/2021/03/30/json-web-token.html) 和 Bearer 身份验证。
+我们将介绍的主题包含注册、登录功能以及如何使用 [JWT (Json Web Tokens)](https://ittranslator.cn/dotnet/csharp/2021/03/30/json-web-token.html)[^jwt]和 Bearer 身份验证。
 
 你也可以在 YouTube 上[观看完整的视频](https://youtu.be/LgpC4tYtc6Y)[^video]，还可以[下载源代码](https://github.com/mohamadlawand087/v7-RestApiNetCoreAuthentication)[^source]。
+
+[^jwt]: <https://mp.weixin.qq.com/s/WjUrUr_cU27gqXo-3kAVFw>
 
 [^video]: <https://youtu.be/LgpC4tYtc6Y>
 
@@ -219,7 +221,7 @@ public class RegistrationResponse : AuthResult
 ```csharp
 // Controllers\AuthManagementController.cs
 
-[Route("api/[controller]")] // api/authManagement
+[Route("api/[controller]")] // api/authmanagement
 [ApiController]
 public class AuthManagementController : ControllerBase
 {
