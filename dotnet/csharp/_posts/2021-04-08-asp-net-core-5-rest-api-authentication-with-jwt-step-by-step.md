@@ -33,9 +33,9 @@ Some of the topics we will cover are registration, login functionalities and uti
 
 我们将基于[上一篇文章](https://ittranslator.cn/dotnet/csharp/2021/04/06/asp-net-core-5-rest-api-step-by-step.html)中创建的 Todo REST API 应用程序进行当前的讲述，您可以通过阅读上一篇文章并与我一起构建应用程序，或者可以从 github [下载上一篇中的源代码](https://github.com/mohamadlawand087/v6-RestApiNetCore5)。
 
-前一篇文章中的代码准备好以后，就让我们开始本文吧。
-
 ![Asp Net Core 5 REST API Authentication with JWT](https://ittranslator.cn/assets/images/202104/asz47zt2t3mzqlz227c1.png)
+
+前一篇文章中的代码准备好以后，就让我们开始本文吧。
 
 <!-- The first thing we need to install some package to utilise authentication -->
 
