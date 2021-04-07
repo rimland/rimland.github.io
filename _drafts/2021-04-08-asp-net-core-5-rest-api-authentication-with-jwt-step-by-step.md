@@ -440,7 +440,7 @@ E --> F[调用 Todo 接口]
 > 译者注：  
 > 添加 Bearer token 请求头的方法是：在 Headers 中，添加一个名称为 `Authorization` 的 Header 项，值为 `Bearer <token>`（需将 `<token>` 替换为真实的 token 值）。使用 Postman 测试时，可参考 Postman 官方文档：<https://learning.postman.com/docs/sending-requests/authorization/#bearer-token>。
 
-至此，我们已经为 REST API 添加好 JWT 身份验证。
+至此，我们已经使用 JWT 为 REST API 添加好了身份验证功能。
 
 感谢您花时间阅读本文。
 
