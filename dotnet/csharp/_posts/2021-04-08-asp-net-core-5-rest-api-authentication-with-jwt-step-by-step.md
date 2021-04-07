@@ -20,7 +20,7 @@ Some of the topics we will cover are registration, login functionalities and uti
 
 你也可以在 YouTube 上[观看完整的视频](https://youtu.be/LgpC4tYtc6Y)[^video]，还可以[下载源代码](https://github.com/mohamadlawand087/v7-RestApiNetCoreAuthentication)[^source]。
 
-[^jwt]: <https://mp.weixin.qq.com/s/WjUrUr_cU27gqXo-3kAVFw>
+[^jwt]: <https://mp.weixin.qq.com/s/WjUrUr_cU27gqXo-3kAVFw> JWT 介绍 - Step by Step
 
 [^video]: <https://youtu.be/LgpC4tYtc6Y>
 
