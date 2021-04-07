@@ -426,18 +426,11 @@ public class TodoController : ControllerBase
 
 此时，如果我们再对 `Todo` 进行测试，则由于未获得授权，我们将会无法执行任何请求。为了发送带授权的请求，我们需要添加带有 Bearer token 的授权 Header，以便 Asp.Net 可以验证它，并赋予我们执行操作的权限。
 
-```mermaid
-graph LR
-A((用户)) --> B[注册] & C[登录] --> D[获得 JWT token]
-
-D --> E[Headers 中添加 Bearer token]
-
-E --> F[调用 Todo 接口]
-```
+![current calling process](https://ittranslator.cn/assets/images/202104/current_calling_process.png)
 
 ```mermaid
 graph LR
-B[注册] & C[登录] --> D[获得 JWT token]
+A(用户使用邮箱和密码) --> B[注册] & C[登录] --> D[获得 JWT token]
 
 D --> E[Headers 中添加 Bearer token]
 
@@ -456,7 +449,7 @@ E --> F[调用 Todo 接口]
 - Part 1：[Asp.Net Core 5 REST API - Step by Step](https://ittranslator.cn/dotnet/csharp/2021/04/06/asp-net-core-5-rest-api-step-by-step.html)
 - Part 3：[Asp Net Core 5 REST API 中使用 RefreshToken 刷新 JWT - Step by Step](https://dev.to/moe23/refresh-jwt-with-refresh-tokens-in-asp-net-core-5-rest-api-step-by-step-3en5)
 
-<br />
+<br/>
 
 > 作者 ： Mohamad Lawand  
 > 译者 ： 技术译民  
