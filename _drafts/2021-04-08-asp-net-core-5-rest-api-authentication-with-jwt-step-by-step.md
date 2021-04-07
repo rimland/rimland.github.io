@@ -16,7 +16,7 @@ Some of the topics we will cover are registration, login functionalities and uti
 
 在本文中，我将向您展示如何向我们的 Asp.Net Core REST API 添加 JWT 身份验证。
 
-我们将介绍的主题包含注册、登录功能以及如何使用 JWT (Json Web Tokens) 和 Bearer 身份验证。
+我们将介绍的主题包含注册、登录功能以及如何使用 [JWT (Json Web Tokens)](https://ittranslator.cn/dotnet/csharp/2021/03/30/json-web-token.html) 和 Bearer 身份验证。
 
 你也可以在 YouTube 上[观看完整的视频](https://youtu.be/LgpC4tYtc6Y)[^video]，还可以[下载源代码](https://github.com/mohamadlawand087/v7-RestApiNetCoreAuthentication)[^source]。
 
@@ -31,7 +31,7 @@ Some of the topics we will cover are registration, login functionalities and uti
 
 <!-- We will be basing our current work on our previous Todo REST API application that we have created in our last article (https://dev.to/moe23/asp-net-core-5-rest-api-step-by-step-2mb6). -->
 
-我们将基于[上一篇文章](https://dev.to/moe23/asp-net-core-5-rest-api-step-by-step-2mb6)中创建的 Todo REST API 应用程序进行当前的讲述，您可以通过阅读上一篇文章并与我一起构建应用程序，或者您可以从 github [下载上一篇中的源代码](https://github.com/mohamadlawand087/v6-RestApiNetCore5)。
+我们将基于[上一篇文章](https://ittranslator.cn/dotnet/csharp/2021/04/06/asp-net-core-5-rest-api-step-by-step.html)中创建的 Todo REST API 应用程序进行当前的讲述，您可以通过阅读上一篇文章并与我一起构建应用程序，或者可以从 github [下载上一篇中的源代码](https://github.com/mohamadlawand087/v6-RestApiNetCore5)。
 
 前一篇文章中的代码准备好以后，就让我们开始本文吧。
 
@@ -49,7 +49,7 @@ dotnet add package Microsoft.AspNetCore.Identity.UI
 
 <!-- then we need to do is we need to update our appsettings.json, in our appsettings we will need to add a JWT settings section and within that settings we need to add a JWT secret -->
 
-然后，我们需要做的就是更新 *appsettings.json*，我们需要在 *appsettings* 中添加 JWT 设置部分，在该设置中添加一个 JWT secret（密钥）。
+然后，我们需要更新 *appsettings.json*，在 *appsettings* 中添加 JWT 的设置部分，在该设置中添加一个 JWT secret（密钥）。
 
 ```json
 "JwtConfig": {
@@ -59,11 +59,11 @@ dotnet add package Microsoft.AspNetCore.Identity.UI
 
 <!-- In order for us to generate our secret we are going to use a free web tool to generate a random 32 char string https://www.browserling.com/tools/random-string -->
 
-为了生成 secret，我们将使用一个免费的 Web 工具（<https://www.browserling.com/tools/random-string>）来生成一个随机的 32 个字符的字符串。
+为了生成 secret，我们可以使用一个免费的 Web 工具（<https://www.browserling.com/tools/random-string>）来生成一个随机的 32 个字符的字符串。
 
 <!-- After adding the randomly generate 32 char string in our app settings now we need to create a new folder in our root directory called configuration. -->
 
-在我们的 appsettings 中添加完随机生成的 32 个字符的字符串后，现在我们需要在根目录中创建一个名为 *Configuration* 的新文件夹。
+我们在 *appsettings* 中添加完随机生成的 32 个字符的字符串后，接着需要在根目录中创建一个名为 *Configuration* 的新文件夹。
 
 <!-- Inside this configuration folder we will create a new class called JwtConfig -->
 
@@ -78,7 +78,7 @@ public class JwtConfig
 
 <!-- Now we need to update our startup class, inside our ConfigureServices method we need to add the below in order to inject our JwtConfiguration in our application -->
 
-现在我们需要更新 `Startup` 类，在 `ConfigureServices` 方法内，我们需要添加以下内容，以便将 JwtConfiguration 注入到应用程序中：
+现在我们需要更新 `Startup` 类，在 `ConfigureServices` 方法内，我们需要添加以下内容，以便将 JWT 配置注入到应用程序中：
 
 ```csharp
 services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
@@ -127,7 +127,7 @@ app.UseAuthentication();
 
 <!-- Once we add the configurations we need to build the application to see if everything is still building as it should. -->
 
-配置添加完成后，我们需要构建应用程序，以查看是否所有的内容都可以正常构建：
+配置添加完成后，我们需要构建应用程序，检查是否所有的内容都可以正常构建：
 
 ```bash
 dotnet build
@@ -136,7 +136,7 @@ dotnet run
 
 <!-- The next step is to update our ApiDbContext to take advantage of the Identity provider that Asp.Net provide for us, will navigate to our ApiDbContext in the Data folder and we update the ApiDbContext class as the following -->
 
-下一步是更新我们的 `ApiDbContext`，以使用 Asp.Net 为我们提供的身份提供程序，导航到 *Data* 文件夹中的`ApiDbContext`，然后按以下内容更新 `ApiDbContext` 类：
+下一步是更新我们的 `ApiDbContext`，以便使用 Asp.Net 为我们提供的身份提供程序，导航到 *Data* 文件夹中的`ApiDbContext`，然后按以下内容更新 `ApiDbContext` 类：
 
 ```csharp
 public class ApiDbContext : IdentityDbContext
@@ -184,7 +184,7 @@ public class AuthResult
 
 <!-- We need to add the UserRegistrationRequestDto which will be used by our registration action in the Controller. Then will navigate to Models/DTO/Requests and add a new class called UserRegistrationRequestDto -->
 
-我们需要添加供我们在控制器中的注册操作使用的 `UserRegistrationDto`。导航到 *Models/DTO/Requests*，添加一个新类 `UserRegistrationDto`。
+我们需要添加供我们在控制器中的注册 Action 使用的 `UserRegistrationDto`。导航到 *Models/DTO/Requests*，添加一个新类 `UserRegistrationDto`。
 
 ```csharp
 // Models\DTOs\Requests\UserRegistrationDto.cs
@@ -201,7 +201,7 @@ public class UserRegistrationDto
 }
 ```
 
-添加 `RegistrationResponse` 类。
+添加 `RegistrationResponse` 响应类。
 
 ```csharp
 // Models\DTOs\Responses\RegistrationResponse.cs
@@ -214,7 +214,7 @@ public class RegistrationResponse : AuthResult
 
 <!-- Now we need to add our user registration controller, inside our controller folder we add a new class we call it AuthManagementController and we update it with the code below -->
 
-现在，我们需要添加用户注册控制器，在控制器文件夹内，我们添加一个新类，命名为 `AuthManagementController`，并使用以下代码更新它：
+现在，我们需要添加用户注册控制器，在控制器文件夹中添加一个新类，命名为 `AuthManagementController`，并使用以下代码更新它：
 
 ```csharp
 // Controllers\AuthManagementController.cs
@@ -298,8 +298,8 @@ public class AuthManagementController : ControllerBase
 
         // 定义我们的 token descriptor
         // 我们需要使用 claims （token 中的属性）给出关于 token 的信息，它们属于特定的用户，
-        // 因此，可以包含他们的 Id、名字、邮箱。
-        // 好消息是，这些信息由我们的服务器和 identity framework 生成，它们是有效且可信的。
+        // 因此，可以包含用户的 Id、名字、邮箱等。
+        // 好消息是，这些信息由我们的服务器和 Identity framework 生成，它们是有效且可信的。
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new []
@@ -307,11 +307,11 @@ public class AuthManagementController : ControllerBase
                 new Claim("Id", user.Id), 
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-                // Jti 用于刷新 token，我们将在下一篇中进行讲到
+                // Jti 用于刷新 token，我们将在下一篇中讲到
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             }),
-            // token 的过期时间需要缩短，并利用 refresh token 来保持用户的登录状态
-            // 但由于这只是一个演示应用，我们可以对其进行延长以适应我们当前的需求
+            // token 的过期时间需要缩短，并利用 refresh token 来保持用户的登录状态，
+            // 不过由于这只是一个演示应用，我们可以对其进行延长以适应我们当前的需求
             Expires = DateTime.UtcNow.AddHours(6),
             // 这里我们添加了加密算法信息，用于加密我们的 token
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -424,7 +424,7 @@ public class TodoController : ControllerBase
 
 <!-- And now if we test it we are not able to execute any request since we are not authorised, in order for us to send authorised requests we need to add the authorisation header with the bearer token so that Asp.Net can verify it and give us permission to execute the actions -->
 
-此时，如果我们再对 `Todo` 进行测试，则由于未获得授权，我们将会无法执行任何请求。为了发送带授权的请求，我们需要添加带有 **Bearer token** 的授权 Header，以便 Asp.Net 可以验证它，并赋予我们执行操作的权限。
+此时，如果我们再对 `Todo` 进行测试，则由于未获得授权，我们将会无法执行任何请求。为了发送带授权的请求，我们需要添加带有 **Bearer token** 的授权 Header，以便 Asp.Net 可以验证它，并授予我们执行操作的权限。
 
 ![current calling process](https://ittranslator.cn/assets/images/202104/current_calling_process.png)
 
@@ -440,7 +440,7 @@ E --> F[调用 Todo 接口]
 > 译者注：  
 > 添加 Bearer token 请求头的方法是：在 Headers 中，添加一个名称为 `Authorization` 的 Header 项，值为 `Bearer <token>`（需将 `<token>` 替换为真实的 token 值）。使用 Postman 测试时，可参考 Postman 官方文档：<https://learning.postman.com/docs/sending-requests/authorization/#bearer-token>。
 
-至此，我们已经使用 JWT 为 REST API 添加好了身份验证功能。
+至此，我们已经完成了使用 JWT 为 REST API 添加身份验证的功能。
 
 感谢您花时间阅读本文。
 
