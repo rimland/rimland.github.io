@@ -62,6 +62,8 @@ permalink: /links/
 - [css-doodle.com](https://css-doodle.com/)
 - [Markdown Guide](https://www.markdownguide.org/)
 - [npm Docs](https://docs.npmjs.com/)
+- [webpack](https://webpack.js.org/)
+  - [webpack 中文](https://www.webpackjs.com/)
 - [CodeSandbox](https://codesandbox.io/)
 
 ## Favorite Blogs
