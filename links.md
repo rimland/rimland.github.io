@@ -64,6 +64,7 @@ permalink: /links/
 - [npm Docs](https://docs.npmjs.com/)
 - [webpack](https://webpack.js.org/)
   - [webpack 中文](https://www.webpackjs.com/)
+  - [webpack cli](https://webpack.js.org/api/cli/)
 - [CodeSandbox](https://codesandbox.io/)
 
 ## Favorite Blogs
