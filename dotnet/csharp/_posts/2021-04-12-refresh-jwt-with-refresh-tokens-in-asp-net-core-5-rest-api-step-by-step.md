@@ -55,7 +55,7 @@ Use refresh tokens to automatically re-authenticate the user and generate new JW
 
 <!-- Another main point is what happens to all of the tokens that were generated based on an user credentials if the user changes their password. we don't want to invalidate all of the sessions. We can just update the refresh tokens so a new JWT token based on the new credentials will be generated. -->
 
-另一个重点是，如果用户更改了密码，则根据之前的用户凭据生成的所有 token 会怎样呢。我们并不想使所有会话都失效，我们可以只更新 Refresh Token，那么将生成一个基于新凭证的新 JWT token。
+另一个重点是，如果用户更改了密码，则根据之前的用户凭据生成的所有 token 会怎样呢。我们并不想使所有会话都失效，我们只需请求刷新 Token，那么将生成一个基于新凭证的新 JWT token。
 
 <!-- 另一个要点是，如果用户更改了密码，则根据用户凭据生成的所有令牌都会发生什么情况。 我们不想使所有会话无效。 我们可以只更新刷新令牌，因此将基于新凭证生成一个新的JWT令牌。
 另一个要点是，如果用户更改了密码，那么基于用户凭证生成的所有令牌都将发生什么变化。
