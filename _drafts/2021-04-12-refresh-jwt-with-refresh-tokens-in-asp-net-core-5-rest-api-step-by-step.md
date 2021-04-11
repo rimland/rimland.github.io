@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Asp.Net Core 5 REST API 使用 JWT 身份验证 - Step by Step"
-date:   2021-04-08 00:10:09 +0800
+title:  "Asp Net Core 5 REST API 使用 RefreshToken 刷新 JWT - Step by Step"
+date:   2021-04-11 00:10:09 +0800
 categories: dotnet csharp
 published: true
 ---
@@ -10,13 +10,9 @@ published: true
 
 [^1]: <https://dev.to/moe23/refresh-jwt-with-refresh-tokens-in-asp-net-core-5-rest-api-step-by-step-3en5> Refresh JWT with Refresh Tokens in Asp Net Core 5 Rest API Step by Step
 
-<!-- Hello friends, In this article I will be showing you today How to add refresh tokens to our JWT authentication to our Asp.Net Core REST API -->
+在本文中，我将向您演示如何在 Asp.Net Core REST API 中将 Refresh Token 添加到 JWT 身份验证。
 
-在本文中，我将向您演示如何在 Asp.Net Core REST API 中将 refresh token 添加到 JWT 身份验证。
-
-Some of the topics we will cover are refresh tokens and New endpoints functionalities and utilising JWTs ("Json Web Tokens") and Bearer authentication.
-
-我们将覆盖的一些主题包含：Refresh Token、新的 Endpoints 功能以及使用 JWT（Json Web Token）和 Bearer 身份验证。
+我们将覆盖的一些主题包含：Refresh Token、一些新的 Endpoints 功能和 JWT（JSON Web Token）。
 
 你也可以在 YouTube 上[观看完整的视频](https://youtu.be/T_Hla1WzaZQ)[^video]，还可以[下载源代码](https://github.com/mohamadlawand087/v8-refreshtokenswithJWT)[^source]。
 
@@ -24,7 +20,7 @@ Some of the topics we will cover are refresh tokens and New endpoints functional
 
 [^source]: <https://github.com/mohamadlawand087/v8-refreshtokenswithJWT>
 
-这是 API 开发系列的第三部分，前面还有：
+这是 REST API 开发系列的第三部分，前面还有：
 
 - Part 1：[Asp.Net Core 5 REST API - Step by Step](https://ittranslator.cn/dotnet/csharp/2021/04/06/asp-net-core-5-rest-api-step-by-step.html)
 - Part 2：[Asp.Net Core 5 REST API 使用 JWT 身份验证 - Step by Step](https://ittranslator.cn/dotnet/csharp/2021/04/08/asp-net-core-5-rest-api-authentication-with-jwt-step-by-step.html)
@@ -33,33 +29,33 @@ Some of the topics we will cover are refresh tokens and New endpoints functional
 
 <!-- This is part 3 of our Rest API journey, and we will be basing our current work on our previous Todo REST API application that we have created in our last article, https://dev.to/moe23/asp-net-core-5-rest-api-authentication-with-jwt-step-by-step-140d. You can follow along by either going through the article and building the application with me as we go or you can get the source code from github. -->
 
-这是 REST API 系列的第三部分，我们将基于在[上一篇文章](https://ittranslator.cn/dotnet/csharp/2021/04/08/asp-net-core-5-rest-api-authentication-with-jwt-step-by-step.html)中创建的 Todo REST API 应用程序进行当前的讲述。您可以通过阅读上一篇文章并与我一起构建应用程序，或者可以从 github [下载上一篇中的源代码](https://github.com/mohamadlawand087/v7-RestApiNetCoreAuthentication)。
+我将基于在[上一篇文章](https://ittranslator.cn/dotnet/csharp/2021/04/08/asp-net-core-5-rest-api-authentication-with-jwt-step-by-step.html)中创建的 Todo REST API 应用程序进行当前的讲述。您可以通过阅读上一篇文章并与我一起构建应用程序，或者可以从 github [下载上一篇中的源代码](https://github.com/mohamadlawand087/v7-RestApiNetCoreAuthentication)。
 
 <!-- Before we start implementing the Refresh Token functionality, let us examine how the refresh token logic will work. -->
 
-在开始实现 **Refresh Token** 功能之前，让我们检查一下 **Refresh Token** 的运行逻辑是怎样的。
+在开始实现 **Refresh Token** 功能之前，让我们检查一下 Refresh Token 的运行逻辑是怎样的。
 
-By nature JWT tokens have an expiry time, the shorter the time the safer it is. there is 2 options to get new tokens after the JWT token has expired
+<!-- By nature JWT tokens have an expiry time, the shorter the time the safer it is. there is 2 options to get new tokens after the JWT token has expired -->
 
-本质上，JWT token 有一个过期时间，时间越短越安全。在 JWT token 过期后，有两种方法可以获取新的 token。
+本质上，JWT token 有一个过期时间，时间越短越安全。在 JWT token 过期后，有两种方法可以获取新的 token：
 
 <!-- Ask the user to login again, this is not a good user experience
 Use refresh tokens to automatically re-authenticate the user and generate new JWT tokens. -->
 
-1. 要求用户重新登录，这不是一个好的用户体验。
-2. 使用 refresh token 自动重新验证用户并生成新的 JWT token。
+1. 要求用户重新登录（这不是一个好的用户体验）。
+2. 使用 Refresh Token 自动重新验证用户并生成新的 JWT token。
 
 <!-- So what is a refresh token, a refresh token can be anything from strings to Guids to any combination as long as its unique -->
 
-那么，Refresh Token 是什么呢？一个 Refresh Token 可以是任何东西，从字符串到 Guid 到任意组合，只要它是唯一的。
+那么，Refresh Token 是什么呢？*一个 Refresh Token 可以是任何东西，从字符串到 Guid 到任意组合，只要它是唯一的*。
 
 <!-- Why is it important to have a short lived JWT token, if someone is stole our JWT token and started doing requests on the server, that token will only last for an amount of time before it expires and become useless. The only way to get a new token is using the refresh tokens or loging in. -->
 
-为什么短暂生命周期的 JWT token 很重要，这是因为如果有人窃取了我们的 JWT token 并开始请求我们的服务器，那么该 token 在过期变得不可用之前只会持续一小段时间。获取新 token 的唯一方法是使用 refresh token 或登录。
+为什么短暂生命周期的 JWT token 很重要，这是因为如果有人窃取了我们的 JWT token 并开始请求我们的服务器，那么该 token 在过期（变得不可用）之前只会持续一小段时间。获取新 token 的唯一方法是使用 Refresh Token 或登录。
 
-Another main point is what happens to all of the tokens that were generated based on an user credentials if the user changes their password. we don't want to invalidate all of the sessions. We can just update the refresh tokens so a new JWT token based on the new credentials will be generated.
+<!-- Another main point is what happens to all of the tokens that were generated based on an user credentials if the user changes their password. we don't want to invalidate all of the sessions. We can just update the refresh tokens so a new JWT token based on the new credentials will be generated. -->
 
-另一个重点是，如果用户更改了密码，则根据该用户凭据生成的所有 token 都该怎么处理。我们不想使所有会话无效。我们可以只更新 Refresh Token，因此将基于新凭证生成一个新的 JWT token。
+另一个重点是，如果用户更改了密码，则根据之前的用户凭据生成的所有 token 该怎么办呢。我们并不想使所有会话都无效。我们可以只更新 Refresh Token，那么基于新的凭证将生成一个新的 JWT token。
 
 <!-- 另一个要点是，如果用户更改了密码，则根据用户凭据生成的所有令牌都会发生什么情况。 我们不想使所有会话无效。 我们可以只更新刷新令牌，因此将基于新凭证生成一个新的JWT令牌。
 另一个要点是，如果用户更改了密码，那么基于用户凭证生成的所有令牌都将发生什么变化。
