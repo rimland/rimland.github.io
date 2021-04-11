@@ -33,7 +33,7 @@ published: true
 
 <!-- Before we start implementing the Refresh Token functionality, let us examine how the refresh token logic will work. -->
 
-在开始实现 **Refresh Token** 功能之前，让我们检查一下 Refresh Token 的运行逻辑是怎样的。
+在开始实现 **Refresh Token** 功能之前，让我们先来了解一下 Refresh Token 的运行逻辑是怎样的。
 
 <!-- By nature JWT tokens have an expiry time, the shorter the time the safer it is. there is 2 options to get new tokens after the JWT token has expired -->
 
@@ -162,9 +162,14 @@ public class AuthResult
 
 public class TokenRequest
 {
+    /// <summary>
+    /// 原 Token
+    /// </summary>
     [Required]
     public string Token { get; set; }
-
+    /// <summary>
+    /// Refresh Token
+    /// </summary>
     [Required]
     public string RefreshToken { get; set; }
 }
@@ -181,12 +186,12 @@ public class RefreshToken
 {
     public int Id { get; set; }
     public string UserId { get; set; } // 连接到 ASP.Net Identity User Id
-    public string Token { get; set; }
+    public string Token { get; set; }  // Refresh Token
     public string JwtId { get; set; } // 使用 JwtId 映射到对应的 token
     public bool IsUsed { get; set; } // 如果已经使用过它，我们不想使用相同的 refresh token 生成新的 JWT token
     public bool IsRevorked { get; set; } // 是否出于安全原因已将其撤销
     public DateTime AddedDate { get; set; }
-    public DateTime ExpiryDate { get; set; } // refresh token 的生命周期很长，可能会持续数月
+    public DateTime ExpiryDate { get; set; } // refresh token 的生命周期很长，可以持续数月
 
     [ForeignKey(nameof(UserId))]
     public IdentityUser User {get;set;}
@@ -525,7 +530,7 @@ dotnet run
 
 感谢您花时间阅读本文。
 
-本文是 API 开发系列的第三部分，你可以通过以下链接阅读前两部分：
+本文是 API 开发系列的第三部分，你可以通过下面链接阅读前两部分：
 
 - Part 1：[Asp.Net Core 5 REST API - Step by Step](https://ittranslator.cn/dotnet/csharp/2021/04/06/asp-net-core-5-rest-api-step-by-step.html)
 - Part 2：[Asp.Net Core 5 REST API 使用 JWT 身份验证 - Step by Step](https://ittranslator.cn/dotnet/csharp/2021/04/08/asp-net-core-5-rest-api-authentication-with-jwt-step-by-step.html)
