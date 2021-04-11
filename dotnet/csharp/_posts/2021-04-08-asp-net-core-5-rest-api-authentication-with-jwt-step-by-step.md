@@ -29,7 +29,7 @@ Some of the topics we will cover are registration, login functionalities and uti
 这是 API 开发系列的第二部分，本系列还包含：
 
 - Part 1：[Asp.Net Core 5 REST API - Step by Step](https://ittranslator.cn/dotnet/csharp/2021/04/06/asp-net-core-5-rest-api-step-by-step.html)
-- Part 3：[Asp Net Core 5 REST API 中使用 RefreshToken 刷新 JWT - Step by Step](https://dev.to/moe23/refresh-jwt-with-refresh-tokens-in-asp-net-core-5-rest-api-step-by-step-3en5)
+- Part 3：[Asp Net Core 5 REST API 中使用 RefreshToken 刷新 JWT - Step by Step](https://ittranslator.cn/dotnet/csharp/2021/04/12/refresh-jwt-with-refresh-tokens-in-asp-net-core-5-rest-api-step-by-step.html)
 
 <!-- We will be basing our current work on our previous Todo REST API application that we have created in our last article (https://dev.to/moe23/asp-net-core-5-rest-api-step-by-step-2mb6). -->
 
@@ -440,7 +440,7 @@ public class TodoController : ControllerBase
 本文是 API 开发系列的第二部分，本系列还包含：
 
 - Part 1：[Asp.Net Core 5 REST API - Step by Step](https://ittranslator.cn/dotnet/csharp/2021/04/06/asp-net-core-5-rest-api-step-by-step.html)
-- Part 3：[Asp Net Core 5 REST API 中使用 RefreshToken 刷新 JWT - Step by Step](https://dev.to/moe23/refresh-jwt-with-refresh-tokens-in-asp-net-core-5-rest-api-step-by-step-3en5)
+- Part 3：[Asp Net Core 5 REST API 中使用 RefreshToken 刷新 JWT - Step by Step](https://ittranslator.cn/dotnet/csharp/2021/04/12/refresh-jwt-with-refresh-tokens-in-asp-net-core-5-rest-api-step-by-step.html)
 
 <br/>
 

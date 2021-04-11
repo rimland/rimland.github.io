@@ -25,7 +25,7 @@ published: true
 这是 API 开发系列的第一部分，后面还有：
 
 - Part 2：[Asp.Net Core 5 REST API 使用 JWT 身份验证 - Step by Step](https://ittranslator.cn/dotnet/csharp/2021/04/08/asp-net-core-5-rest-api-authentication-with-jwt-step-by-step.html)
-- Part 3：[Asp Net Core 5 REST API 中使用 RefreshToken 刷新 JWT - Step by Step](https://dev.to/moe23/refresh-jwt-with-refresh-tokens-in-asp-net-core-5-rest-api-step-by-step-3en5)
+- Part 3：[Asp Net Core 5 REST API 中使用 RefreshToken 刷新 JWT - Step by Step](https://ittranslator.cn/dotnet/csharp/2021/04/12/refresh-jwt-with-refresh-tokens-in-asp-net-core-5-rest-api-step-by-step.html)
 
 ![Asp.Net Core 5 REST API](/assets/images/202104/2y624yffje41tclunrjo.png)
 
