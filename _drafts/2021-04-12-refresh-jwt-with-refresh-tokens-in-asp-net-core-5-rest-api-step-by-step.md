@@ -55,7 +55,7 @@ Use refresh tokens to automatically re-authenticate the user and generate new JW
 
 <!-- Another main point is what happens to all of the tokens that were generated based on an user credentials if the user changes their password. we don't want to invalidate all of the sessions. We can just update the refresh tokens so a new JWT token based on the new credentials will be generated. -->
 
-另一个重点是，如果用户更改了密码，则根据之前的用户凭据生成的所有 token 该怎么办呢。我们并不想使所有会话都无效。我们可以只更新 Refresh Token，那么基于新的凭证将生成一个新的 JWT token。
+另一个重点是，如果用户更改了密码，则根据之前的用户凭据生成的所有 token 会怎样呢。我们并不想使所有会话都失效，我们可以只更新 Refresh Token，那么将生成一个基于新凭证的新 JWT token。
 
 <!-- 另一个要点是，如果用户更改了密码，则根据用户凭据生成的所有令牌都会发生什么情况。 我们不想使所有会话无效。 我们可以只更新刷新令牌，因此将基于新凭证生成一个新的JWT令牌。
 另一个要点是，如果用户更改了密码，那么基于用户凭证生成的所有令牌都将发生什么变化。
@@ -64,11 +64,11 @@ Use refresh tokens to automatically re-authenticate the user and generate new JW
 
 <!-- As well a good way to implement automatic refresh tokens is before every request the client makes we need to check the expiry of the token if its expired we request a new one else we use the token we have to perform the request. -->
 
-另外，实现自动更新 token 的一个好办法是，在客户端发出每个请求之前，都需要检查 token 的过期时间，如果已过期，我们就请求一个新的 token，否则我们就使用现有的 token 执行请求。
+另外，实现自动刷新 token 的一个好办法是，在客户端发出每个请求之前，都需要检查 token 的过期时间，如果已过期，我们就请求一个新的 token，否则就使用现有的 token 执行请求。
 
 <!-- So in out application instead of just generating just a JWT token with every authorisation we will add a refresh token as well. -->
 
-因此，我们将在应用程序中添加一个 refresh token，而不仅仅是在每次授权时都只生成一个 JWT token。
+因此，我们将在应用程序中添加一个 Refresh Token，而不仅仅是在每次授权时都只生成一个 JWT token。
 
 <!-- So lets get started, we will first start by updating our startup class, by making TokenValidationParameters available across the application by adding them to our Dependency Injection Container -->
 
@@ -103,12 +103,15 @@ services.AddAuthentication(options =>
 });
 ```
 
-Once the JwtConfig class is updated now we need to update our GenerateJwtToken function in our AuthManagementController our TokenDescriptor Expire value from being fixed to the ExpiryTimeFrame, we need to make it shorter that we have specified
+<!-- Once the JwtConfig class is updated now we need to update our GenerateJwtToken function in our AuthManagementController our TokenDescriptor Expire value from being fixed to the ExpiryTimeFrame, we need to make it shorter that we have specified -->
 
-更新完 `Startup` 类以后，我们需要更新 `AuthManagementController` 中的 `GenerateJwtToken` 函数，将 `TokenDescriptor` 的 `Expires` 值从之前的值更新到 ExpiryTimeFrame，我们需要把它指定的更短一些。
+更新完 `Startup` 类以后，我们需要更新 `AuthManagementController` 中的 `GenerateJwtToken` 函数，将 `TokenDescriptor` 的 `Expires` 值从之前的值更新为 30 秒（比较合理的值为 5~10 分钟，这里设置为 30 秒只是作演示用），我们需要把它指定的更短一些。
+
+> 译者注：  
+> 实际使用时，可以在 *appsettings.json* 中为 JwtConfig 添加一个代表 token 过期时间的 *ExpiryTimeFrame* 配置项，对应的在 `JwtConfig` 类中添加一个 `ExpiryTimeFrame` 属性，然后赋值给 `TokenDescriptor` 的 `Expires`，这样 token 的过期时间就变得可配置了。
 
 ```csharp
-private async Task<AuthResult> GenerateJwtToken(IdentityUser user)
+private string GenerateJwtToken(IdentityUser user)
 {
     var jwtTokenHandler = new JwtSecurityTokenHandler();
 
@@ -123,39 +126,20 @@ private async Task<AuthResult> GenerateJwtToken(IdentityUser user)
             new Claim(JwtRegisteredClaimNames.Sub, user.Email),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         }),
-        Expires = DateTime.UtcNow.AddSeconds(30), // 5-10 
+        Expires = DateTime.UtcNow.AddSeconds(30), // 比较合理的值为 5~10 分钟，这里设置 30 秒只是作演示用
         SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
     };
 
     var token = jwtTokenHandler.CreateToken(tokenDescriptor);
     var jwtToken = jwtTokenHandler.WriteToken(token);
 
-    var refreshToken = new RefreshToken()
-    {
-        JwtId = token.Id,
-        IsUsed = false,
-        IsRevorked = false,
-        UserId = user.Id,
-        AddedDate = DateTime.UtcNow,
-        ExpiryDate = DateTime.UtcNow.AddMonths(6),
-        Token = RandomString(25) + Guid.NewGuid()
-    };
-
-    await _apiDbContext.RefreshTokens.AddAsync(refreshToken);
-    await _apiDbContext.SaveChangesAsync();
-
-    return new AuthResult()
-    {
-        Token = jwtToken,
-        Success = true,
-        RefreshToken = refreshToken.Token
-    };
+    return jwtToken;
 }
 ```
 
-The step will be to update our AuthResult in our configuration folder, we need to add a new property which will be catered for the refresh token
+<!-- The step will be to update our AuthResult in our configuration folder, we need to add a new property which will be catered for the refresh token -->
 
-步骤将是在 *Configuration* 文件夹中更新 `AuthResult`，我们需要添加一个新的 `RefreshToken` 属性。
+接下来的步骤是更新 *Configuration* 文件夹中的 `AuthResult`，我们需要为 Refresh Token 添加一个新属性：
 
 ```csharp
 // Configuration\AuthResult.cs
@@ -171,7 +155,7 @@ public class AuthResult
 
 <!-- We will add a new class called TokenRequest inside our Models/DTOs/Requests which will be responsible on accepting new request for the new endpoint that we will create later on to manage the refresh token -->
 
-我们将在 *Models/DTOs/Requests* 中添加一个名为 `TokenRequest` 的新类，该类负责接收稍后我们将创建的新的 Endpoint 的请求参数，用于管理 refresh token。
+我们将在 *Models/DTOs/Requests* 中添加一个名为 `TokenRequest` 的新类，该类负责接收稍后我们将创建的新 Endpoint 的请求参数，用于管理刷新 Token。
 
 ```csharp
 // Models\DTOs\Requests\TokenRequest.cs
@@ -186,7 +170,7 @@ public class TokenRequest
 }
 ```
 
-The next step is to create a new model called RefreshToken, in our Models folder.
+<!-- The next step is to create a new model called RefreshToken, in our Models folder. -->
 
 下一步是在我们的 *Models* 文件夹中创建一个名为 `RefreshToken` 的新模型。
 
@@ -196,13 +180,13 @@ The next step is to create a new model called RefreshToken, in our Models folder
 public class RefreshToken
 {
     public int Id { get; set; }
-    public string UserId { get; set; } // Linked to the AspNet Identity User Id
+    public string UserId { get; set; } // 连接到 ASP.Net Identity User Id
     public string Token { get; set; }
     public string JwtId { get; set; } // 使用 JwtId 映射到对应的 token
     public bool IsUsed { get; set; } // 如果已经使用过它，我们不想使用相同的 refresh token 生成新的 JWT token
     public bool IsRevorked { get; set; } // 是否出于安全原因已将其撤销
     public DateTime AddedDate { get; set; }
-    public DateTime ExpiryDate { get; set; } //refresh token 的生命周期很长，可能会持续数月
+    public DateTime ExpiryDate { get; set; } // refresh token 的生命周期很长，可能会持续数月
 
     [ForeignKey(nameof(UserId))]
     public IdentityUser User {get;set;}
@@ -217,18 +201,18 @@ public class RefreshToken
 public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
 ```
 
-Now lets create the migrations for our ApiDbContext so we can reflect the changes in your database
+<!-- Now lets create the migrations for our ApiDbContext so we can reflect the changes in your database -->
 
-现在让我们为 `ApiDbContext` 创建迁移，这样我们可以反映数据库中的更改：
+现在让我们为 `ApiDbContext` 创建数据库迁移，以便可以反映数据库中的更改：
 
 ```bash
 dotnet ef migrations add "Added refresh tokens table"
 dotnet ef database update
 ```
 
-Our next step will be to create our new Endpoind "RefreshToken" in our AuthManagementController. The first thing we need to do is to inject the TokenValidationParameters
+<!-- Our next step will be to create our new Endpoind "RefreshToken" in our AuthManagementController. The first thing we need to do is to inject the TokenValidationParameters -->
 
-下一步是在 `AuthManagementController` 中创建一个新的 `RefreshToken` Endpoind。需要的第一件事是注入 `TokenValidationParameters`：
+下一步是在 `AuthManagementController` 中创建一个新的名为 `RefreshToken` 的 Endpoind。需要做的第一件事是注入 `TokenValidationParameters`：
 
 ```csharp
 private readonly UserManager<IdentityUser> _userManager;
@@ -249,9 +233,9 @@ public AuthManagementController(
 }
 ```
 
-Once we inject the required parameters we need to update the GenerateToken function to include the refresh token
+<!-- Once we inject the required parameters we need to update the GenerateToken function to include the refresh token -->
 
-注入所需的参数后，我们需要更新 `GenerateToken` 函数以包含 refresh token：
+注入所需的参数后，我们需要更新 `GenerateJwtToken` 函数以包含 Refresh Token：
 
 ```csharp
 private async Task<AuthResult> GenerateJwtToken(IdentityUser user)
@@ -269,7 +253,7 @@ private async Task<AuthResult> GenerateJwtToken(IdentityUser user)
             new Claim(JwtRegisteredClaimNames.Sub, user.Email),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         }),
-        Expires = DateTime.UtcNow.AddSeconds(30), // 5-10 
+        Expires = DateTime.UtcNow.AddSeconds(30), // 比较合理的值为 5~10 分钟，这里设置 30 秒只是作演示用
         SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
     };
 
@@ -307,9 +291,9 @@ private string RandomString(int length)
 }
 ```
 
-Now lets update the return to both existing actions as we have changed the return type for GenerateJwtToken
+<!-- Now lets update the return to both existing actions as we have changed the return type for GenerateJwtToken -->
 
-现在让我们更新两个现有操作的返回值，因为我们已经更改了 `GenerateJwtToken` 的返回类型
+现在让我们更新两个现有 Action 的返回值，因为我们已经更改了 `GenerateJwtToken` 的返回类型
 
 `Login` Action：
 
@@ -392,7 +376,8 @@ private async Task<AuthResult> VerifyAndGenerateToken(TokenRequest tokenRequest)
             return new AuthResult()
             {
                 Success = false,
-                Errors = new List<string>() {
+                Errors = new List<string>() 
+                {
                     "Token has not yet expired"
                 }
             };
@@ -407,50 +392,65 @@ private async Task<AuthResult> VerifyAndGenerateToken(TokenRequest tokenRequest)
             return new AuthResult()
             {
                 Success = false,
-                Errors = new List<string>() {
-                    "Token does not exist"
+                Errors = new List<string>() 
+                {
+                    "Refresh Token does not exist"
                 }
             };
         }
 
-        // Validation 5 - validate if used
+        // Validation 5 - 检查存储的 RefreshToken 是否已过期
+        // Check the date of the saved refresh token if it has expired
+        if (DateTime.UtcNow > storedRefreshToken.ExpiryDate)
+        {
+            return new AuthResult()
+            {
+                Errors = new List<string>() { "Refresh Token has expired, user needs to re-login" },
+                Success = false
+            };
+        }
+
+        // Validation 6 - validate if used
         // 验证 refresh token 是否已使用
         if (storedRefreshToken.IsUsed)
         {
             return new AuthResult()
             {
                 Success = false,
-                Errors = new List<string>() {
-                    "Token has been used"
+                Errors = new List<string>() 
+                {
+                    "Refresh Token has been used"
                 }
             };
         }
 
-        // Validation 6 - validate if revoked
+        // Validation 7 - validate if revoked
         // 检查 refresh token 是否被撤销
         if (storedRefreshToken.IsRevorked)
         {
             return new AuthResult()
             {
                 Success = false,
-                Errors = new List<string>() {
-                    "Token has been revoked"
+                Errors = new List<string>() 
+                {
+                    "Refresh Token has been revoked"
                 }
             };
         }
 
-        // Validation 7 - validate the id
-        // 这里获得 JWT token Id
+        // Validation 8 - validate the id
+        // 这里获得原 JWT token Id
         var jti = tokenInVerification.Claims.FirstOrDefault(x => x.Type == JwtRegisteredClaimNames.Jti).Value;
 
-        // 根据数据库中保存的 Id 验证收到的 token 具有的 Id
+        // 根据数据库中保存的 Id 验证收到的 token 的 Id
         if (storedRefreshToken.JwtId != jti)
         {
             return new AuthResult()
             {
                 Success = false,
-                Errors = new List<string>() {
-                    "Token doesn't match"
+                Errors = new List<string>() 
+                {
+                    "The token doesn't mateched the saved token"
                 }
             };
         }
@@ -469,22 +469,22 @@ private async Task<AuthResult> VerifyAndGenerateToken(TokenRequest tokenRequest)
     {
         if (ex.Message.Contains("Lifetime validation failed. The token is expired."))
         {
-
             return new AuthResult()
             {
                 Success = false,
-                Errors = new List<string>() {
+                Errors = new List<string>() 
+                {
                     "Token has expired please re-login"
                 }
             };
-
         }
         else
         {
             return new AuthResult()
             {
                 Success = false,
-                Errors = new List<string>() {
+                Errors = new List<string>() 
+                {
                     "Something went wrong."
                 }
             };
@@ -500,27 +500,27 @@ private DateTime UnixTimeStampToDateTime(long unixTimeStamp)
 }
 ```
 
-Finally we need to make sure everything still builds and run
+<!-- Finally we need to make sure everything still builds and run -->
 
-最后，我们需要确保一切可以正常构建并运行。
+最后，我们需要确保一切可以正常构建和运行。
 
 ```csharp
 dotnet build
 dotnet run
 ```
 
-Once we make sure everything is as it should be we will test the app using postman, the testing scenarios will be as follow:
+<!-- Once we make sure everything is as it should be we will test the app using postman, the testing scenarios will be as follow: -->
 
-当我们确定一切正确后，我们将使用 Postman 测试应用程序，测试场景如下所示：
+当我们确定一切 OK 后，我们可以使用 Postman 测试应用程序，测试场景如下所示：
 
-login in generating a JWT token with a refresh token ⇒ fail
-directly try to refresh the token without waiting for it to expire ⇒ fail
-waiting for the JWT token to expire and request a refresh token ⇒ Success
-re-using the same refresh token ⇒ fail
+<!-- - login in generating a JWT token with a refresh token ⇒ fail
+- directly try to refresh the token without waiting for it to expire ⇒ fail
+- waiting for the JWT token to expire and request a refresh token ⇒ Success
+- re-using the same refresh token ⇒ fail -->
 
 - 登录，生成带有刷新令牌的 JWT 令牌 ⇒ 成功
-- 直接尝试刷新令牌而不等待令牌过期 ⇒ 失败
-- 等待 JWT 令牌到期然后请求刷新令牌 ⇒ 成功
+- 不等待令牌过期而直接尝试刷新令牌 ⇒ 失败
+- 等待 JWT 令牌过期然后请求刷新令牌 ⇒ 成功
 - 重新使用相同的刷新令牌 ⇒ 失败
 
 感谢您花时间阅读本文。
