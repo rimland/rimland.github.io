@@ -72,7 +72,7 @@ Use refresh tokens to automatically re-authenticate the user and generate new JW
 
 <!-- So lets get started, we will first start by updating our startup class, by making TokenValidationParameters available across the application by adding them to our Dependency Injection Container -->
 
-那么，就让我们开始吧，首先我们将更新 `Startup` 类，通过将 `TokenValidationParameters` 添加到依赖注入容器，使它在整个应用程序中可用。
+那就让我们开始吧，首先我们将更新 `Startup` 类，通过将 `TokenValidationParameters` 添加到依赖注入容器，使它在整个应用程序中可用。
 
 ```csharp
 var key = Encoding.ASCII.GetBytes(Configuration["JwtConfig:Secret"]);
