@@ -298,7 +298,7 @@ private string RandomString(int length)
 
 <!-- Now lets update the return to both existing actions as we have changed the return type for GenerateJwtToken -->
 
-现在让我们更新两个现有 Action 的返回值，因为我们已经更改了 `GenerateJwtToken` 的返回类型
+现在，让我们更新两个现有 Action 的返回值，因为我们已经更改了 `GenerateJwtToken` 的返回类型
 
 `Login` Action：
 
@@ -312,7 +312,7 @@ return Ok(await GenerateJwtToken(existingUser));
 return Ok(await GenerateJwtToken(newUser));
 ```
 
-现在，我们可以开始构建 `RefreshToken` Action：
+然后，我们可以开始构建 `RefreshToken` Action：
 
 ```csharp
 [HttpPost]
