@@ -6,7 +6,7 @@ categories: dotnet csharp
 published: true
 ---
 
-> 翻译自 Mohamad Lawand 2021年1月22日的文章 [《Refresh JWT with Refresh Tokens in Asp Net Core 5 Rest API Step by Step》](https://dev.to/moe23/refresh-jwt-with-refresh-tokens-in-asp-net-core-5-rest-api-step-by-step-3en5) [^1]
+> 翻译自 Mohamad Lawand 2021年1月25日的文章 [《Refresh JWT with Refresh Tokens in Asp Net Core 5 Rest API Step by Step》](https://dev.to/moe23/refresh-jwt-with-refresh-tokens-in-asp-net-core-5-rest-api-step-by-step-3en5) [^1]
 
 [^1]: <https://dev.to/moe23/refresh-jwt-with-refresh-tokens-in-asp-net-core-5-rest-api-step-by-step-3en5> Refresh JWT with Refresh Tokens in Asp Net Core 5 Rest API Step by Step
 
