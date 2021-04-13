@@ -1,14 +1,14 @@
 ---
 layout: post
-title:  "Asp Net Core 5 REST API 使用 RefreshToken 刷新 JWT - Step by Step"
+title:  "Asp.Net Core 5 REST API 使用 RefreshToken 刷新 JWT - Step by Step"
 date:   2021-04-12 00:10:09 +0800
 categories: dotnet csharp
 published: true
 ---
 
-> 翻译自 Mohamad Lawand 2021年1月25日的文章 [《Refresh JWT with Refresh Tokens in Asp Net Core 5 Rest API Step by Step》](https://dev.to/moe23/refresh-jwt-with-refresh-tokens-in-asp-net-core-5-rest-api-step-by-step-3en5) [^1]
+> 翻译自 Mohamad Lawand 2021年1月25日的文章 [《Refresh JWT with Refresh Tokens in Asp.Net Core 5 Rest API Step by Step》](https://dev.to/moe23/refresh-jwt-with-refresh-tokens-in-asp-net-core-5-rest-api-step-by-step-3en5) [^1]
 
-[^1]: <https://dev.to/moe23/refresh-jwt-with-refresh-tokens-in-asp-net-core-5-rest-api-step-by-step-3en5> Refresh JWT with Refresh Tokens in Asp Net Core 5 Rest API Step by Step
+[^1]: <https://dev.to/moe23/refresh-jwt-with-refresh-tokens-in-asp-net-core-5-rest-api-step-by-step-3en5> Refresh JWT with Refresh Tokens in Asp.Net Core 5 Rest API Step by Step
 
 在本文中，我将向您演示如何在 Asp.Net Core REST API 中将 Refresh Token 添加到 JWT 身份验证。
 
