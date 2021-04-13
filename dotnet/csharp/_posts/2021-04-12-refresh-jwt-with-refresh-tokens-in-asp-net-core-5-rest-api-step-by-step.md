@@ -12,7 +12,7 @@ published: true
 
 在本文中，我将向您演示如何在 Asp.Net Core REST API 中将 Refresh Token 添加到 JWT 身份验证。
 
-我们将覆盖的一些主题包含：Refresh Token、一些新的 Endpoints 功能和 JWT（JSON Web Token）。
+我们将覆盖的一些主题包含：Refresh Token、一些新的 Endpoints 功能和 [JWT（JSON Web Token）](https://ittranslator.cn/dotnet/csharp/2021/03/30/json-web-token.html)。
 
 你也可以在 YouTube 上[观看完整的视频](https://youtu.be/T_Hla1WzaZQ)[^video]，还可以[下载源代码](https://github.com/mohamadlawand087/v8-refreshtokenswithJWT)[^source]。
 
