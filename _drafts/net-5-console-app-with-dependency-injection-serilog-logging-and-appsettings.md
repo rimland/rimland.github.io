@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  ".NET 5 Console App with Dependency Injection, Serilog Logging, and AppSettings"
-date:   2021-04-12 00:10:09 +0800
+title:  "创建支持依赖注入、Serilog 日志和 AppSettings 的 .NET 5 控制台应用"
+date:   2021-04-18 00:10:09 +0800
 categories: dotnet csharp
 published: true
 ---
@@ -12,7 +12,7 @@ published: true
 
 <!-- In this article we will be building a .Net 5 console app which support dependency injection, logging and app settings configuration. -->
 
-在本文中，我们将构建一个 .Net 5 控制台应用程序，该应用程序支持依赖项注入、日志记录和 *appsettings* 配置。
+在本文中，我们将构建一个 .Net 5 控制台应用程序，该应用程序支持依赖注入、日志记录和 *appsettings* 配置。
 
 你也可以在 YouTube 上[观看完整的视频](https://youtu.be/4mEN1XpLN_s)[^video]，还可以在 GitHub 上[下载源代码](hhttps://github.com/mohamadlawand087/v22-DotnetConsole)[^source]。
 
@@ -22,7 +22,7 @@ published: true
 
 ![.NET 5 Console App with Dependency Injection, Serilog Logging, and AppSettings](https://ittranslator.cn/assets/images/202104/dotnet-console.png)
 
-我们要使用的开发工具有：
+我们要用到的开发工具有：
 
 - Visual Studio Code (<https://code.visualstudio.com/>)
 - Dotnet Core SDK (<https://dotnet.microsoft.com/download>)
@@ -33,9 +33,9 @@ published: true
 - Serilog Logger
 - AppSettings
 
-We are going to build a sample application which will mimic connecting to a database through dependency injection as well as outputting logs.
+<!-- We are going to build a sample application which will mimic connecting to a database through dependency injection as well as outputting logs. -->
 
-我们将构建一个示例应用程序，该应用程序将模拟通过依赖项注入连接数据库，并输出日志。
+我们将构建一个示例应用程序，该应用程序将模拟通过依赖注入连接数据库，并输出日志。
 
 <!-- We will start by creating our application, inside our terminal -->
 
@@ -47,7 +47,7 @@ dotnet new console -n "SampleApp"
 
 <!-- Once the application has been create, open the application in Visual Studio Code and let us build and the application to make sure everything is working. -->
 
-创建好应用程序后，在 Visual Studio Code 中打开应用程序，然后让我们构建一下应用程序，以确保一切正常。
+创建好应用程序后，在 Visual Studio Code 中打开它，然后构建一下刚刚创建的应用程序，以确保一切正常：
 
 ```bash
 dotnet build
@@ -67,9 +67,9 @@ dotnet add package Serilog.Sinks.Console
 
 Inside the appsettings we are going to add all of the configuration that we need to setup serilog as well as the connectionString to mimic a database connection -->
 
-下一步将添加我们的 *appsettings.json*，在应用程序的根目录中右键单击并选择 **New File**，将该文件命名为 *appsettings.json*。
+下一步是添加 *appsettings.json*，在应用程序的根目录中右键单击并选择 *New File*，将文件名称设置为 *appsettings.json*。
 
-我们将在 *appsettings* 中添加我们所需的配置——Serilog，以及用于模拟数据库连接的 ConnectionStrings。
+我们将在 *appsettings* 中添加我们所需的配置——Serilog，以及用于模拟数据库连接的 ConnectionStrings：
 
 ```json
 {
@@ -90,12 +90,12 @@ Inside the appsettings we are going to add all of the configuration that we need
 
 <!-- We will start by implementing the logging mechanism. Inside our Program.cs Add the following code, this code responsibility is reading the appsetting.json and making it available to our application. -->
 
-我们将从实现日志记录机制开始。在我们的 *Program.cs* 中添加以下代码，该段代码的职责是读取 *appsetting.json* 并将其提供给我们的应用程序：
+我们将从实现日志记录的机制开始，在 *Program.cs* 中添加以下代码，该段代码的职责是读取 *appsetting.json* 并将其提供给我们的应用程序：
 
 ```csharp
 // 检查应用程序运行的当前目录，找到并加载 'appsetting.json'，
 // 然后添加环境变量，这些环境变量会覆盖 appsettings.json 中的配置 
-static void ConfigSetup(IConfigurationBuilder builder)
+static void BuildConfig(IConfigurationBuilder builder)
 {
     builder.SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
@@ -105,13 +105,13 @@ static void ConfigSetup(IConfigurationBuilder builder)
 
 <!-- Now we need to create another method which will be out startup method for our application, it will responsible to put everything together. We will define Serilog as well our dependency injection mechanism in .Net Core. -->
 
-现在，我们需要创建另一个方法，该方法是我们应用程序的启动方法，它负责将所有内容放在一起。 我们将定义 Serilog 和 .Net Core 中的依赖项注入机制。
+然后，我们需要创建另一个方法，该方法是我们应用程序的启动方法，它负责将所有内容放在一起。 我们将定义 Serilog 和 .Net Core 中的依赖注入机制。
 
 ```csharp
 static IHost AppStartup()
 {
     var builder = new ConfigurationBuilder();
-    ConfigSetup(builder);
+    BuildConfig(builder);
 
     // 定义 Serilog 配置
     Log.Logger = new LoggerConfiguration()  //初始化 Logger 配置
@@ -139,7 +139,7 @@ static IHost AppStartup()
 
 Let us create a new class called DataService and an interface called IDataService -->
 
-现在，让我们实现数据服务，它将模拟数据库。
+现在，让我们实现数据服务，用它来模拟数据库。
 
 让我们创建一个名为 `DataService` 的新类和一个名为 `IDataService` 的接口：
 
