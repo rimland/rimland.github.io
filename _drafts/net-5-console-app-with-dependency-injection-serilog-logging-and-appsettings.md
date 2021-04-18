@@ -47,14 +47,14 @@ dotnet new console -n "SampleApp"
 
 <!-- Once the application has been create, open the application in Visual Studio Code and let us build and the application to make sure everything is working. -->
 
-创建好应用程序后，在 Visual Studio Code 中打开它，然后构建一下刚刚创建的应用程序，以确保一切正常：
+创建好应用程序后，在 Visual Studio Code 中打开应用程序，然后构建并运行一下，以确保一切正常：
 
 ```bash
 dotnet build
 dotnet run
 ```
 
-接下来是安装我们需要的程序包：
+接下来是安装我们所需的程序包：
 
 ```bash
 dotnet add package Microsoft.Extensions.Hosting
@@ -69,7 +69,7 @@ Inside the appsettings we are going to add all of the configuration that we need
 
 下一步是添加 *appsettings.json*，在应用程序的根目录中右键单击并选择 *New File*，将文件名称设置为 *appsettings.json*。
 
-我们将在 *appsettings* 中添加我们所需的配置——Serilog，以及用于模拟数据库连接的 ConnectionStrings：
+我们将在 *appsettings* 中添加所需的配置项——Serilog，以及用于模拟数据库连接的 ConnectionStrings：
 
 ```json
 {
@@ -90,7 +90,9 @@ Inside the appsettings we are going to add all of the configuration that we need
 
 <!-- We will start by implementing the logging mechanism. Inside our Program.cs Add the following code, this code responsibility is reading the appsetting.json and making it available to our application. -->
 
-我们将从实现日志记录的机制开始，在 *Program.cs* 中添加以下代码，该段代码的职责是读取 *appsetting.json* 并将其提供给我们的应用程序：
+我们从实现日志记录的机制开始讲起。
+
+在 *Program.cs* 中添加以下代码，该段代码的职责是读取 *appsetting.json* 并将其提供给我们的应用程序：
 
 ```csharp
 // 检查应用程序运行的当前目录，找到并加载 'appsetting.json'，
@@ -105,7 +107,7 @@ static void BuildConfig(IConfigurationBuilder builder)
 
 <!-- Now we need to create another method which will be out startup method for our application, it will responsible to put everything together. We will define Serilog as well our dependency injection mechanism in .NET Core. -->
 
-然后，我们需要创建另一个方法，该方法是我们应用程序的启动方法，它负责将所有内容放在一起。 我们将定义 Serilog 和 .NET Core 中的依赖注入机制。
+然后，我们需要创建另一个方法，该方法是我们应用程序的启动方法，它负责将所有的内容汇集在一起。我们将定义 Serilog 和 .NET Core 中的依赖注入机制。
 
 ```csharp
 static IHost AppStartup()
@@ -116,7 +118,7 @@ static IHost AppStartup()
     // 定义 Serilog 配置
     Log.Logger = new LoggerConfiguration()  //初始化 Logger 配置
         .ReadFrom.Configuration(builder.Build()) //将 Serilog 连接到我们的配置
-        .Enrich.FromLogContext() //从装入的 Serilog 向日志中添加更多信息
+        .Enrich.FromLogContext() //从装入的 Serilog 向日志添加更多信息
         .WriteTo.Console() //决定在哪里显示日志
         .CreateLogger(); //初始化 Logger
 
@@ -174,7 +176,7 @@ public class DataService : IDataService
 
 <!-- Now we need to update our AppStartup method in the Program.cs class to inject the DataService -->
 
-现在我们需要更新 *Program.cs* 类中的 `AppStartup` 方法以注入 `DataService`：
+然后我们需要更新 *Program.cs* 类中的 `AppStartup` 方法以注入 `DataService`：
 
 ```csharp
 var host = Host.CreateDefaultBuilder() //初始化 Host 
@@ -198,6 +200,8 @@ static void Main(string[] args)
     dataService.Connect();
 }
 ```
+
+好了，完工。
 
 感谢您阅读本文。
 
