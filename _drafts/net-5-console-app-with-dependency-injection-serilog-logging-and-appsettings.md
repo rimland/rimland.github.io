@@ -10,9 +10,9 @@ published: true
 
 [^1]: <https://dev.to/moe23/net-5-console-app-with-dependency-injection-serilog-logging-and-appsettings-3d4n> .NET 5 Console App with Dependency Injection, Serilog Logging, and AppSettings
 
-<!-- In this article we will be building a .Net 5 console app which support dependency injection, logging and app settings configuration. -->
+<!-- In this article we will be building a .NET 5 console app which support dependency injection, logging and app settings configuration. -->
 
-在本文中，我们将构建一个 .Net 5 控制台应用程序，该应用程序支持依赖注入、日志记录和 *appsettings* 配置。
+在本文中，我们将构建一个 .NET 5 控制台应用程序，该应用程序支持依赖注入、日志记录和 *appsettings* 配置。
 
 你也可以在 YouTube 上[观看完整的视频](https://youtu.be/4mEN1XpLN_s)[^video]，还可以在 GitHub 上[下载源代码](hhttps://github.com/mohamadlawand087/v22-DotnetConsole)[^source]。
 
@@ -54,7 +54,7 @@ dotnet build
 dotnet run
 ```
 
-下一步是安装我们需要的程序包：
+接下来是安装我们需要的程序包：
 
 ```bash
 dotnet add package Microsoft.Extensions.Hosting
@@ -103,9 +103,9 @@ static void BuildConfig(IConfigurationBuilder builder)
 }
 ```
 
-<!-- Now we need to create another method which will be out startup method for our application, it will responsible to put everything together. We will define Serilog as well our dependency injection mechanism in .Net Core. -->
+<!-- Now we need to create another method which will be out startup method for our application, it will responsible to put everything together. We will define Serilog as well our dependency injection mechanism in .NET Core. -->
 
-然后，我们需要创建另一个方法，该方法是我们应用程序的启动方法，它负责将所有内容放在一起。 我们将定义 Serilog 和 .Net Core 中的依赖注入机制。
+然后，我们需要创建另一个方法，该方法是我们应用程序的启动方法，它负责将所有内容放在一起。 我们将定义 Serilog 和 .NET Core 中的依赖注入机制。
 
 ```csharp
 static IHost AppStartup()
