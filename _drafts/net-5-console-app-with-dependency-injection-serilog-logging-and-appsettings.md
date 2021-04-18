@@ -14,13 +14,13 @@ published: true
 
 在本文中，我们将构建一个 .NET 5 控制台应用程序，该应用程序支持依赖注入、日志记录和 *appsettings* 配置。
 
-![.NET 5 Console App with Dependency Injection, Serilog Logging, and AppSettings](https://ittranslator.cn/assets/images/202104/dotnet-console.png)
-
 你也可以在 YouTube 上[观看完整的视频](https://youtu.be/4mEN1XpLN_s)[^video]，还可以在 GitHub 上[下载源代码](hhttps://github.com/mohamadlawand087/v22-DotnetConsole)[^source]。
 
 [^video]: <https://youtu.be/4mEN1XpLN_s>
 
 [^source]: <https://github.com/mohamadlawand087/v22-DotnetConsole>
+
+![.NET 5 Console App with Dependency Injection, Serilog Logging, and AppSettings](https://ittranslator.cn/assets/images/202104/dotnet-console.png)
 
 我们要用到的开发工具有：
 
