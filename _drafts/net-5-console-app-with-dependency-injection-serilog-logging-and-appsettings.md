@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "创建支持依赖注入、Serilog 日志和 AppSettings 的 .NET 5 控制台应用"
-date:   2021-04-18 00:10:09 +0800
+date:   2021-04-19 00:10:09 +0800
 categories: dotnet csharp
 published: true
 ---
