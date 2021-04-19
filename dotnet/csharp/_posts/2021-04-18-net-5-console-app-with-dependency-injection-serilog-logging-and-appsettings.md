@@ -25,7 +25,7 @@ published: true
 我们要用到的开发工具有：
 
 - Visual Studio Code (<https://code.visualstudio.com/>)
-- Dotnet Core SDK (<https://dotnet.microsoft.com/download>)
+- .NET Core SDK (<https://dotnet.microsoft.com/download>)
 
 我们要实现的功能包含：
 
