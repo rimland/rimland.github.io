@@ -72,8 +72,6 @@ Inside the appsettings we are going to add all of the configuration that we need
 我们将在 *appsettings* 中添加所需的配置项——Serilog，以及用于模拟数据库连接的 ConnectionStrings：
 
 ```json
-// appsettings.json
-
 {
     "Serilog": {
         "MinimalLevel": {
@@ -151,7 +149,6 @@ Let us create a new class called DataService and an interface called IDataServic
 
 ```csharp
 // IDataService.cs
-
 // 接口
 public interface IDataService
 {
@@ -159,7 +156,6 @@ public interface IDataService
 }
 
 // DataService.cs
-
 // 类
 public class DataService : IDataService
 {
@@ -187,8 +183,6 @@ public class DataService : IDataService
 然后我们需要更新 *Program.cs* 类中的 `AppStartup` 方法以注入 `DataService`：
 
 ```csharp
-// Program.cs
-
 var host = Host.CreateDefaultBuilder() //初始化 Host 
             .ConfigureServices((context, services) => //向容器添加服务
             {
