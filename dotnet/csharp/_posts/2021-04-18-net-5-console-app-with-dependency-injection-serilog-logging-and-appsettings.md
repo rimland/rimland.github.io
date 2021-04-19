@@ -201,7 +201,7 @@ static void Main(string[] args)
 }
 ```
 
-好了，完工。
+好了，就是这样。
 
 感谢您的阅读。
 
