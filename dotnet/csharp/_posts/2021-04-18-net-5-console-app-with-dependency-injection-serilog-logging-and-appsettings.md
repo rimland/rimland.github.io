@@ -72,6 +72,8 @@ Inside the appsettings we are going to add all of the configuration that we need
 我们将在 *appsettings* 中添加所需的配置项——Serilog，以及用于模拟数据库连接的 ConnectionStrings：
 
 ```json
+// appsettings.json
+
 {
     "Serilog": {
         "MinimalLevel": {
@@ -110,6 +112,8 @@ static void BuildConfig(IConfigurationBuilder builder)
 然后，我们需要创建另一个方法，该方法是我们应用程序的启动方法，它负责将所有的内容汇集在一起。我们将定义 Serilog 和 .NET Core 中的依赖注入机制。
 
 ```csharp
+// Program.cs
+
 static IHost AppStartup()
 {
     var builder = new ConfigurationBuilder();
@@ -146,11 +150,15 @@ Let us create a new class called DataService and an interface called IDataServic
 让我们创建一个名为 `DataService` 的新类和一个名为 `IDataService` 的接口：
 
 ```csharp
+// IDataService.cs
+
 // 接口
 public interface IDataService
 {
     void Connect();
 }
+
+// DataService.cs
 
 // 类
 public class DataService : IDataService
@@ -179,6 +187,8 @@ public class DataService : IDataService
 然后我们需要更新 *Program.cs* 类中的 `AppStartup` 方法以注入 `DataService`：
 
 ```csharp
+// Program.cs
+
 var host = Host.CreateDefaultBuilder() //初始化 Host 
             .ConfigureServices((context, services) => //向容器添加服务
             {
@@ -191,6 +201,8 @@ var host = Host.CreateDefaultBuilder() //初始化 Host
 最后，让我们在 `Main` 方法中调用他们：
 
 ```csharp
+// Program.cs
+
 static void Main(string[] args)
 {
     var host = AppStartup();
