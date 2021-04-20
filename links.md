@@ -28,6 +28,8 @@ permalink: /links/
 - [softether.org](https://www.softether.org/)
 - [JumpServer](https://www.jumpserver.org/)
 - [OAuth 2.0](https://oauth.net/2/)
+- [Dapr](https://dapr.io/)
+  - [Dapr Docs](https://docs.dapr.io/)
 
 ## Programming Language
 
