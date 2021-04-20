@@ -30,6 +30,7 @@ permalink: /links/
 - [OAuth 2.0](https://oauth.net/2/)
 - [Dapr](https://dapr.io/)
   - [Dapr Docs](https://docs.dapr.io/)
+  - [面向 .NET 开发人员的 Dapr](https://docs.microsoft.com/zh-cn/dotnet/architecture/dapr-for-net-developers/)
 
 ## Programming Language
 
