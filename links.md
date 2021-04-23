@@ -11,9 +11,6 @@ permalink: /links/
 - [Microsoft Developer Blogs](https://devblogs.microsoft.com/)
 - [Microsoft Archived Content](https://docs.microsoft.com/zh-cn/archive/)
 - [.NET on GitHub](https://github.com/dotnet)
-- .NET documentation
-  - <https://docs.microsoft.com/en-us/dotnet/core/>
-  - <https://docs.microsoft.com/zh-cn/dotnet/>
 - [Json.NET Documentation](https://www.newtonsoft.com/json/help/html/Introduction.htm)
 - [C# 语言版本控制](https://docs.microsoft.com/zh-cn/dotnet/csharp/language-reference/configure-language-version)
 - [Target frameworks](https://docs.microsoft.com/en-us/dotnet/standard/frameworks)
@@ -21,6 +18,9 @@ permalink: /links/
 - [IdentityServer](https://duendesoftware.com/)
 - [Serilog](https://serilog.net/)
 - [Key Bindings for Visual Studio Code](https://code.visualstudio.com/docs/getstarted/keybindings#_keyboard-shortcuts-reference)
+- .NET documentation
+  - <https://docs.microsoft.com/en-us/dotnet/core/>
+  - <https://docs.microsoft.com/zh-cn/dotnet/>
 - Manual Collection
   - [Getting started with .NET on RHEL](https://access.redhat.com/documentation/en-us/net/5.0/)
 
@@ -56,8 +56,9 @@ permalink: /links/
 - [WinDbg](https://docs.microsoft.com/zh-cn/windows-hardware/drivers/debugger/debugger-download-tools)
 - [Online GUID / UUID Generator](https://guidgenerator.com/online-guid-generator.aspx)
 - [Web Developer Tools - browserling](https://www.browserling.com/tools)
-- [DBeaver - Database Tool](https://dbeaver.io/)
 - [ScreenToGif](https://www.screentogif.com/)
+- Database Tool
+  - [DBeaver - Database Tool](https://dbeaver.io/)
 
 ## Front End
 
