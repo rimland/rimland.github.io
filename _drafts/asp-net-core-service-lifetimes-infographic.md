@@ -52,7 +52,7 @@ services.AddTransient<IProductService, ProductService>();
 
 > 译者注：  
 > 图中背景颜色（深浅）不同的 `Instance` 代表不同的服务实例。  
-> 此图是我见过最简单易懂的*服务生命周期*解释了。
+> 此图是我见过的对 *服务生命周期* 最简单易懂的解释了。
 
 <br/>
 
