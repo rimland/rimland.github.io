@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "ASP.NET Core Service 生命周期"
+title:  "一图看懂 ASP.NET Core 中的服务生命周期"
 date:   2021-04-19 00:10:10 +0800
 categories: dotnet csharp
 published: true
@@ -46,7 +46,7 @@ services.AddTransient<IProductService, ProductService>();
 
 <!-- If you want to visualize the above concepts then here is an infographic for your quick reference. -->
 
-如果您想将上述概念形象化，那么这里有一个信息图，供您快速参考。
+如果您想将上述概念形象化，那么这里有一张信息图，供您快速参考。
 
 ![ASP.NET Core Service Lifetimes (Infographic](/assets/images//202104/ASP.NET-Core-Service-Lifetime-Infographic.png)
 
