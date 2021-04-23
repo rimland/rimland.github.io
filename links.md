@@ -24,16 +24,6 @@ permalink: /links/
 - Manual Collection
   - [Getting started with .NET on RHEL](https://access.redhat.com/documentation/en-us/net/5.0/)
 
-## Tech
-
-- [kubernetes.io](https://kubernetes.io/)
-- [softether.org](https://www.softether.org/)
-- [JumpServer](https://www.jumpserver.org/)
-- [OAuth 2.0](https://oauth.net/2/)
-- [Dapr](https://dapr.io/)
-  - [Dapr Docs](https://docs.dapr.io/)
-  - [面向 .NET 开发人员的 Dapr](https://docs.microsoft.com/zh-cn/dotnet/architecture/dapr-for-net-developers/)
-
 ## Programming Language
 
 - [C# documentation](https://docs.microsoft.com/en-us/dotnet/csharp/)
@@ -44,6 +34,16 @@ permalink: /links/
 - [Node.js](https://nodejs.org/zh-cn/)
 - [React](https://reactjs.org/)
   - [React Docs](https://zh-hans.reactjs.org/docs/getting-started.html)
+
+## Tech
+
+- [kubernetes.io](https://kubernetes.io/)
+- [softether.org](https://www.softether.org/)
+- [JumpServer](https://www.jumpserver.org/)
+- [OAuth 2.0](https://oauth.net/2/)
+- [Dapr](https://dapr.io/)
+  - [Dapr Docs](https://docs.dapr.io/)
+  - [面向 .NET 开发人员的 Dapr](https://docs.microsoft.com/zh-cn/dotnet/architecture/dapr-for-net-developers/)
 
 ## Tools
 
@@ -58,7 +58,7 @@ permalink: /links/
 - [Web Developer Tools - browserling](https://www.browserling.com/tools)
 - [ScreenToGif](https://www.screentogif.com/)
 - Database Tool
-  - [DBeaver - Database Tool](https://dbeaver.io/)
+  - [DBeaver](https://dbeaver.io/)
 
 ## Front End
 
