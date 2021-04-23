@@ -18,7 +18,7 @@ ASP.NET Core 支持依赖关系注入（DI）软件设计模式，该模式允�
 
 <!-- A single instance of the service class is created, stored in memory and reused throughout the application. We can use Singleton for services that are expensive to instantiate. We can register Singleton service using the **AddSingleton** method as follows: -->
 
-创建服务类的单个实例，将其存储在内存中，并在整个应用程序中重复使用。我们可以将 *Singleton* 用于成本昂贵的实例化服务。我们可以使用 **AddSingleton** 方法注册 *Singleton* 服务，如下所示：
+创建服务类的单个实例，将其存储在内存中，并在整个应用程序中重复使用。我们可以将 *Singleton* 用于实例化成本昂贵的服务。我们可以使用 **AddSingleton** 方法注册 *Singleton* 服务，如下所示：
 
 ```csharp
 services.AddSingleton<IProductService, ProductService>();
