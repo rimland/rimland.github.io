@@ -21,6 +21,8 @@ permalink: /links/
 - [IdentityServer](https://duendesoftware.com/)
 - [Serilog](https://serilog.net/)
 - [Key Bindings for Visual Studio Code](https://code.visualstudio.com/docs/getstarted/keybindings#_keyboard-shortcuts-reference)
+- Manual Collection
+  - [Getting started with .NET on RHEL](https://access.redhat.com/documentation/en-us/net/5.0/)
 
 ## Tech
 
