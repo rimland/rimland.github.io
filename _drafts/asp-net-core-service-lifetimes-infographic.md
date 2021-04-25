@@ -12,7 +12,7 @@ published: true
 
 <!-- ASP.NET Core supports the dependency injection (DI) software design pattern that allows us to register services and control how these services will be instantiated and injected in different components. Some services will be instantiated for a short time and will be available only in a particular component and request. Some will be instantiated just once and will be available throughout the application. Here are the service lifetimes available in ASP.NET Core. -->
 
-ASP.NET Core 支持依赖关系注入（DI）软件设计模式，该模式允许我们注册服务、控制如何实例化这些服务并将其注入到不同的组件中。一些服务可以在短周期内实例化，并且仅在特定的组件和请求中可用；一些实例仅被实例化一次，并在整个应用程序生命周期中可用。这就是 ASP.NET Core 中可用的服务生命周期，共三种，下面我们分别介绍它们。
+ASP.NET Core 支持依赖关系注入（DI）软件设计模式，该模式允许我们注册服务、控制如何实例化这些服务并将其注入到不同的组件中。一些服务可以在短周期内实例化，并且仅在特定的组件和请求中可用；一些实例仅被实例化一次，并在整个应用程序生命周期中可用。这就是 ASP.NET Core 中可用的服务生命周期，共三种，下面我们来分别介绍一下。
 
 ## Singleton（单例）
 
