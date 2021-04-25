@@ -46,13 +46,13 @@ services.AddTransient<IProductService, ProductService>();
 
 <!-- If you want to visualize the above concepts then here is an infographic for your quick reference. -->
 
-如果您想将上述概念形象化，那么这里有一张信息图，供您快速参考。
+如果您想将上述概念形象化，那么这里有一张图表，供您快速参考。
 
 ![ASP.NET Core Service Lifetimes (Infographic](https://ittranslator.cn/assets/images//202104/ASP.NET-Core-Service-Lifetime-Infographic-t.png)
 
 > 译者注：  
 > 图中背景颜色(深浅)不同的 `Instance` 代表不同的服务实例。  
-> 这应该是描述 *服务生命周期* 最简单易懂的图解了。
+> 这算得上描述 *服务生命周期* 最简单易懂的图解吗？
 
 <br/>
 
