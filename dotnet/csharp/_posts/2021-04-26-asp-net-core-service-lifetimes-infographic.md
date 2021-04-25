@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "一图看懂 ASP.NET Core 中的服务生命周期"
-date:   2021-04-19 00:10:10 +0800
+date:   2021-04-26 00:10:09 +0800
 categories: dotnet csharp
 published: true
 ---
@@ -57,6 +57,5 @@ services.AddTransient<IProductService, ProductService>();
 <br/>
 
 > 作者 ： Waqas Anwar  
-> 译者 ： 技术译民  
-> 出品 ： [技术译站](https://ittranslator.cn/)  
+> 翻译 ： [技术译站](https://ittranslator.cn/)  
 > 链接 ： [英文原文](https://www.ezzylearning.net/tutorial/asp-net-core-service-lifetimes-infographic)
