@@ -48,7 +48,7 @@ services.AddTransient<IProductService, ProductService>();
 
 如果您想将上述概念形象化，那么这里有一张图表，供您快速参考。
 
-![ASP.NET Core Service Lifetimes (Infographic](https://ittranslator.cn/assets/images//202104/ASP.NET-Core-Service-Lifetime-Infographic-t.png)
+![ASP.NET Core Service Lifetimes (Infographic)](https://ittranslator.cn/assets/images//202104/ASP.NET-Core-Service-Lifetime-Infographic-t.png)
 
 > 译者注：  
 > 图中背景颜色(深浅)不同的 `Instance` 代表不同的服务实例。  
