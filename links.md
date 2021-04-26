@@ -59,6 +59,8 @@ permalink: /links/
 - [ScreenToGif](https://www.screentogif.com/)
 - Database Tool
   - [DBeaver](https://dbeaver.io/)
+- [Git](https://git-scm.com/)
+  - [Git Docs](https://git-scm.com/book/zh/v2)
 
 ## Front End
 
