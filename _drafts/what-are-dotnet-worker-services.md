@@ -110,7 +110,7 @@ public class Program
 
 <!-- The appsettings.json file will be very familiar if you have previously used ASP.NET Core. It is one of the common sources for application configuration. The host is configured to load application configuration from several sources when the application starts using any registered configuration providers. One such provider loads configuration from the appsettings.json file. This file contains JSON, structured to contain keys and values representing application configuration. These values can optionally by defined within sections which logically group related configuration. -->
 
-如果您以前使用过 ASP.NET Core，将会非常熟悉 *appsettings.json* 文件。它是应用程序配置的常见来源之一。宿主被设计<!--（配置）-->为，当使用任意已注册的配置提供程序启动应用程序时，从多个来源加载应用程序配置。其中一种提供程序是从 *appsettings.json* 加载配置，该文件内容由 JSON 组成，其结构包含表示应用程序配置的键和值。这些值可以随意地定义在对相关配置按逻辑分组成的片段（Sections）内。
+如果您以前使用过 ASP.NET Core，将会非常熟悉 *appsettings.json* 文件，它是应用程序配置的常见来源之一。宿主被设计<!--（配置）-->为，当启动应用程序时，使用任意已注册的配置提供程序从多个来源加载应用程序配置。其中一种提供程序是从 *appsettings.json* 加载配置，该文件内容由 JSON 组成，其结构包含表示应用程序配置的键和值。这些值可以随意地定义在对相关配置按逻辑分组成的片段（Sections）内。
 
 <!-- In worker services, the same configuration sources, including this appsettings.json file and environment variables will be inspected at startup, with the final configuration being built from the various sources. A number of default providers, and therefore sources, are loaded by default. If you need to, it’s possible to customise the providers which the host uses to load configuration data. -->
 
@@ -130,7 +130,7 @@ public class Program
 
 <!-- The default appsettings file in the template includes configuration settings for the logging library, which is available by default for worker services. The configuration here sets log levels for some of the logging contexts. -->
 
-模板中的默认 *appsettings* 文件中包含日志记录库的配置设置项，默认对 Worker Service 可用。这里的配置是为某些日志记录上下文设置记录级别。
+模板中的默认 *appsettings* 文件中包含日志记录库的配置设置项，默认对 Worker Service 可用。这里的配置是为某些日志记录上下文设置记录级别的。
 
 ### 3. Worker.cs
 
@@ -173,13 +173,13 @@ public class Worker : BackgroundService
 
 <!-- Internally, the host will start any registered implementations of IHostedService. This includes types which derive from the BackgroundService abstract class. Remember, BackgroundService implements IHostedService for us.  -->
 
-在内部，宿主将启动 *IHostedService* 的所有注册实现，包括从 *BackgroundService* 抽象类派生的类型。请记住，*BackgroundService* 为我们实现了 *IHostedService*。
+在内部，宿主将启动 *IHostedService* 的所有注册实现（包括从 *BackgroundService* 抽象类派生的类型）。请记住，*BackgroundService* 为我们实现了 *IHostedService*。
 
 ### 4. 如何注册托管服务(IHostedService)？
 
 <!-- The next logical question is, how do I register an IHostedService? If we head back to the code from Program.cs, we’ll find out. -->
 
-下一个逻辑问题是，如何注册 *IHostedService* ？ 如果我们返回到 *Program.cs* 的代码，我们将会找到答案：
+下一个显而易见的问题是，如何注册 *IHostedService* ？ 如果我们返回到 *Program.cs* 的代码，我们将会找到答案：
 
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
