@@ -12,7 +12,7 @@ published: true
 
 <!-- With the release of .NET Core 3.0, the ASP.NET team introduced a new “Worker Service” project template, which is available as part of the SDK. In this post, I’ll introduce the new template, along with some practical examples of the kinds of services which I develop using it. -->
 
-随着 .NET Core 3.0 的发布，ASP.NET 团队引入了一个新的 **Worker Service** 项目模板，该模板作为 .NET SDK 的一部分发布。在本文中，我将向您介绍此新模板，以及使用它开发的一些实际的服务示例。
+随着 .NET Core 3.0 的发布，ASP.NET 团队引入了一个新的 **Worker Service** 项目模板，该模板作为 .NET SDK 的一部分发布。在本文中，我将向您介绍这个新模板，以及使用它开发的一些实际的服务示例。
 
 <!-- If you find the information in this post useful and plan to build your own worker services, may I suggest viewing my new course on Pluralsight – “Building ASP.NET Core Hosted Services and .NET Core Worker Services“. I dive deeply into worker services and demonstrate how to refactor parts of a web application as microservices. -->
 
