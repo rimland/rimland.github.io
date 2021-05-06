@@ -18,7 +18,7 @@ published: true
 
 > 译者注：  
 > 请先完成以下准备工作，以便于您理解本文。  
-> 1、下载最新的 .NET SDK：<https://dotnet.microsoft.com/download>  
+> 1、下载并安装最新的 .NET SDK：<https://dotnet.microsoft.com/download>  
 > 2、命令行运行 `dotnet new Worker -n "MyService"` 命令，创建一个 Worker Service 项目。
 
 ## 什么是 .NET Core Worker Service？
