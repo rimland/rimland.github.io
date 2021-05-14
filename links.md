@@ -85,6 +85,10 @@ permalink: /links/
 - [Mohamad Lawand](https://dev.to/moe23)
 - [hakim.se](https://hakim.se/)
 
+## Code Fonts
+
+- [Cascadia Mono | Cascadia Code](https://github.com/microsoft/cascadia-code)
+
 ## Others
 
 - Emoji
