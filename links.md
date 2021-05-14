@@ -87,7 +87,7 @@ permalink: /links/
 
 ## Code Fonts
 
-- [Cascadia Mono | Cascadia Code](https://github.com/microsoft/cascadia-code)
+- [Cascadia Mono | Cascadia Code](https://github.com/microsoft/cascadia-code) [ref](https://ittranslator.cn/os/2020/12/31/getting-started-with-windows-terminal.html#%E5%AD%97%E4%BD%93)
 
 ## Others
 
