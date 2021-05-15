@@ -16,11 +16,13 @@ published: false
 
 先来看看它的基类 *BackgroundService* ：
 
-![BackgroundService](BackgroundService.png)
+![Background Service](/assets/images/202105/BackgroundService.png)
+
+基类 *BackgroundService* 中有 3 个可重写的方法，可以让你绑定到应用程序的生命周期中：
 
 - 抽象方法 `ExecuteAsync`，作为应用程序主要入口点的方法。如果此方法退出，则应用程序将关闭。我们必须在 *Worker* 中实现它。
 - 虚方法 `StartAsync`，在应用程序启动时调用。如果需要，可以重写此方法，它可用于在服务启动时一次性设置资源；当然，也可以忽略它。
-- 虚方法 `StopAsync`，在应用程序关闭时调用。如果需要，可以重写此方法，在关闭时释放资源和销毁对象。
+- 虚方法 `StopAsync`，在应用程序关闭时调用。如果需要，可以重写此方法，在关闭时释放资源和销毁对象；当然，也可以忽略它。
 
 
 
