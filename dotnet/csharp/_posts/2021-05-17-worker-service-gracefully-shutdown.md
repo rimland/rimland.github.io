@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  ".NET Worker Service 如何优雅退出"
-date:   2021-05-17 00:10:00 +0800
+date:   2021-05-17 00:10:01 +0800
 categories: dotnet csharp
 published: true
 ---
