@@ -22,7 +22,11 @@ published: false
 - 虚方法 `StartAsync`，在应用程序启动时调用。如果需要，可以重写此方法，它可用于在服务启动时一次性设置资源；当然，也可以忽略它。
 - 虚方法 `StopAsync`，在应用程序关闭时调用。如果需要，可以重写此方法，在关闭时释放资源和销毁对象；当然，也可以忽略它。
 
+默认情况下 *Worker* 只重写必要的抽象方法 `ExecuteAsync`。
+
 ## 新建一个 Worker Service
+
+我们新建一个 Worker Service，使用 `Task.Delay` 来模拟关闭前必须完成的一些操作，看看是否通过简单的在 ExecuteAsync 中 Delay 就可以实现优雅关闭。
 
 需要用到的开发工具：
 
@@ -42,7 +46,7 @@ dotnet build
 dotnet run
 ```
 
-按 `CTRL+C` 键关闭服务，服务会立即退出。
+按 `CTRL+C` 键关闭服务，服务会立即退出，默认情况下 Worker Service 的关闭就是这么直接！在很多场景中（比如内存中的队列），这不是我们想要的结果，有时我们不得不在服务关闭前完成一些必要的资源回收或事务处理。
 
 我们看一下 *Worker* 类的代码，会看到它只重写了基类 *BackgroundService* 中的抽象方法 `ExecuteAsync`：
 
@@ -77,15 +81,200 @@ protected override async Task ExecuteAsync(CancellationToken stoppingToken)
 }
 ```
 
-然后我们测试一下，看它是不是会像我们预期的那样在关闭前先等待 60 秒。
+然后测试一下，看它是不是会像我们预期的那样先等待 60 秒再关闭。
 
 ```bash
 dotnet build
 dotnet run
 ```
 
-按 `CTRL+C` 键关闭服务，我们会发现，它在输出 “等待退出” 后，并没有等待 60 秒并输出 “退出” 之后再关闭，而是直接关闭应用程序了。这就像是以前的控制台应用程序一样，在我们点了右上角的关闭按钮或者按下 `CTRL+C` 键，它会直接关闭。
+按 `CTRL+C` 键关闭服务，我们会发现，它在输出 “等待退出” 后，并没有等待 60 秒并输出 “退出” 之后再关闭，而是很快便退出了。这就像我们熟悉的控制台应用程序，默认情况下，在我们点了右上角的关闭按钮或者按下 `CTRL+C` 键时，会直接关闭一样。
 
+## Worker Service 优雅退出
+
+那么，怎么才能实现优雅退出呢？
+
+方法其实很简单，那就是将 *IHostApplicationLifetime* 注入到我们的服务中，然后在应用程序停止时手动调用 *IHostApplicationLifetime* 的 `StopApplication` 方法来关闭应用程序。
+
+修改 *Worker* 的构造函数，注入 *IHostApplicationLifetime*：
+
+```csharp
+private readonly IHostApplicationLifetime _hostApplicationLifetime;
+private readonly ILogger<Worker> _logger;
+
+public Worker(IHostApplicationLifetime hostApplicationLifetime, ILogger<Worker> logger)
+{
+    _hostApplicationLifetime = hostApplicationLifetime;
+    _logger = logger;
+}
+```
+
+然后在 `ExecuteAsync` 中手动调用 *IHostApplicationLifetime* 的 `StopApplication` 方法，下面是丰富过的 `ExecuteAsync` 代码：
+
+```csharp
+protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+{
+    try
+    {
+        // 这里实现实际的业务逻辑
+        while (!stoppingToken.IsCancellationRequested)
+        {
+            try
+            {
+                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+
+                await SomeMethodThatDoesTheWork(stoppingToken);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Global exception occurred. Will resume in a moment.");
+            }
+
+            await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+        }
+    }
+    finally
+    {
+        _logger.LogWarning("Exiting application...");
+        GetOffWork(stoppingToken);
+        _hostApplicationLifetime.StopApplication(); //手动调用 StopApplication
+    }
+}
+
+private async Task SomeMethodThatDoesTheWork(CancellationToken cancellationToken)
+{
+    _logger.LogInformation("我爱工作，埋头苦干ing……");
+    await Task.CompletedTask;
+}
+
+/// <summary>
+/// 关闭前需要完成的工作
+/// </summary>
+private void GetOffWork(CancellationToken cancellationToken)
+{
+    _logger.LogInformation("啊，糟糕，有一个紧急 bug 需要下班前完成！！！");
+
+    _logger.LogInformation("啊啊啊，我爱加班，我要再干 20 秒，Wait 1 ");
+
+    Task.Delay(TimeSpan.FromSeconds(20)).Wait();
+
+    _logger.LogInformation("啊啊啊啊啊啊，我爱加班，我要再干 1 分钟，Wait 2 ");
+
+    Task.Delay(TimeSpan.FromMinutes(1)).Wait();
+
+    _logger.LogInformation("啊哈哈哈哈哈，终于好了，下班走人！");
+}
+```
+
+此时，再次 `dotnet run` 运行服务，然后按 `CTRL+C` 键关闭服务，您会发现关闭前需要完成的工作 `GetOffWork` 运行完成后才会退出服务了。
+
+此时已经实现了 Worker Service 的优雅退出。
+
+## StartAsync 和 StopAsync
+
+为了更进一步了解 Worker Service，我们再来丰富一下我们的代码，重写基类 *BackgroundService* 的 `StartAsync` 和 `StopAsync` 方法：
+
+```csharp
+public class Worker : BackgroundService
+{
+    private bool _isStopping = false; //是否正在停止工作
+    private readonly IHostApplicationLifetime _hostApplicationLifetime;
+    private readonly ILogger<Worker> _logger;
+
+    public Worker(IHostApplicationLifetime hostApplicationLifetime, ILogger<Worker> logger)
+    {
+        _hostApplicationLifetime = hostApplicationLifetime;
+        _logger = logger;
+    }
+
+    public override Task StartAsync(CancellationToken cancellationToken)
+    {
+        _logger.LogInformation("上班了，又是精神抖擞的一天，output from StartAsync");
+        return base.StartAsync(cancellationToken);
+    }
+
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        try
+        {
+            // 这里实现实际的业务逻辑
+            while (!stoppingToken.IsCancellationRequested)
+            {
+                try
+                {
+                    _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+
+                    await SomeMethodThatDoesTheWork(stoppingToken);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Global exception occurred. Will resume in a moment.");
+                }
+
+                await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+            }
+        }
+        finally
+        {
+            _logger.LogWarning("Exiting application...");
+            GetOffWork(stoppingToken);
+            _hostApplicationLifetime.StopApplication();
+        }
+    }
+
+    private async Task SomeMethodThatDoesTheWork(CancellationToken cancellationToken)
+    {
+        if (_isStopping)
+            _logger.LogInformation("假装还在埋头苦干ing…… 其实我去洗杯子了");
+        else
+            _logger.LogInformation("我爱工作，埋头苦干ing……");
+
+        await Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// 关闭前需要完成的工作
+    /// </summary>
+    private void GetOffWork(CancellationToken cancellationToken)
+    {
+        _logger.LogInformation("啊，糟糕，有一个紧急 bug 需要下班前完成！！！");
+
+        _logger.LogInformation("啊啊啊，我爱加班，我要再干 20 秒，Wait 1 ");
+
+        Task.Delay(TimeSpan.FromSeconds(20)).Wait();
+
+        _logger.LogInformation("啊啊啊啊啊啊，我爱加班，我要再干 1 分钟，Wait 2 ");
+
+        Task.Delay(TimeSpan.FromMinutes(1)).Wait();
+
+        _logger.LogInformation("啊哈哈哈哈哈，终于好了，下班走人！");
+    }
+
+    public override Task StopAsync(CancellationToken cancellationToken)
+    {
+        _logger.LogInformation("太好了，下班时间到了，output from StopAsync at: {time}", DateTimeOffset.Now);
+
+        _isStopping = true;
+
+        _logger.LogInformation("去洗洗茶杯先……", DateTimeOffset.Now);
+        Task.Delay(30_000).Wait();
+        _logger.LogInformation("茶杯洗好了。", DateTimeOffset.Now);
+
+        _logger.LogInformation("下班喽 ^_^", DateTimeOffset.Now);
+
+        return base.StopAsync(cancellationToken);
+    }
+}
+```
+
+重新运行一下
+
+```bash
+dotnet build
+dotnet run
+```
+
+然后按 `CTRL+C` 键关闭服务，看看运行结果是什么？我们可以观察到在 Worker Service 启动和关闭时，基类 *BackgroundService* 中可重写的三个方法的运行顺序分别如下图所示：
 
 <!-- <https://devblogs.microsoft.com/premier-developer/demystifying-the-new-net-core-3-worker-service/> -->
 
@@ -93,4 +282,5 @@ dotnet run
 
 ![worker service shutdown flowchart](/assets/images/202105/worker-service-flowchart-shutdown.png)
 
+## 总结
 
