@@ -1,0 +1,31 @@
+---
+layout: page
+---
+
+{%- include date_format.html -%}
+
+{% comment %}
+下面当前标签的文章列表
+{% endcomment %}
+
+<h2>Posts with {{ page.type }} 『 {{ page.title }} 』</h2>
+<ul class="posts">
+    {% for post in page.posts %}
+    <li>
+        <span class="post-date">{{ post.date | date: date_format }}</span>
+        <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% comment %}
+下面为所有的标签列表
+{% endcomment %}
+
+{% assign sorted_tags = site.tags | sort %}
+<h2>All tags</h2>
+<p>
+    {% for tag in sorted_tags %}
+    <a class="post-tag" href="{{ site.baseurl }}/tag/{{ tag[0] | slugify }}"><i class="fas fa-tag"></i>{{ tag[0] }}</a>
+    {% endfor %}
+</p>

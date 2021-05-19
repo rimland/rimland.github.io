@@ -37,6 +37,7 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-paginate
+  - jekyll-archives
 
 # Exclude from processing.
 # The following items will not be processed, by default.
@@ -81,5 +82,16 @@ Navigation:
   url: https://h5css.com
 
 header_pages:
+ - tags.html
  - links.md
  - about.markdown
+ 
+
+jekyll-archives:
+  enabled: [year, tags]
+  layouts:
+    year: year-archive
+    tag: tag-archive
+  permalinks:
+    year: '/year/:year/'
+    tag: '/tag/:name/'

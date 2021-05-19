@@ -5,6 +5,25 @@
     margin-bottom: 5px;
 }
 
+.post-tag {
+    display: inline-block;
+    background: lightgray;
+    padding: .1rem .4rem;
+    margin-right: .6rem;
+    border-radius: 4px;
+    color: $text-color;
+    font-size: 1rem;
+    &:hover {
+      text-decoration: none;
+      background: gray;
+      color: $background-color;
+    }
+
+    i {
+        padding-right: 3px;
+    }
+}
+
 
 .post-content {
 

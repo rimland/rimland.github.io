@@ -3,6 +3,8 @@ layout: post
 title:  ".NET Worker Service 如何优雅退出"
 date:   2021-05-17 00:10:01 +0800
 categories: dotnet csharp
+author: 技术译民
+tags: [DotNet, Worker Service]
 published: true
 ---
 
