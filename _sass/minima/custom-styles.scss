@@ -123,3 +123,26 @@
         margin-bottom: 5px;
     }
 }
+
+
+.site-header{
+    width: 100%;
+    position: fixed;
+    background-color: rgba(253, 253, 253, .8);
+}
+
+main{
+    margin-top: 60px;
+}
+
+.headroom {
+    will-change: transform;
+    transition: transform 300ms linear;
+}
+  .headroom--pinned {
+    transform: translateY(0%);
+}
+  .headroom--unpinned {
+    transform: translateY(-100%);
+}
+  

@@ -48,16 +48,22 @@
         s.parentNode.insertBefore(bp, s);
 
 
-        var headroom = new Headroom(document.querySelector(".site-header"), {
-            "tolerance": 3,
-            "offset": 300,
-            "classes": {
-                "initial": "animated",
-                "pinned": "slideDown",
-                "unpinned": "slideUp"
-            }
-        });
+        const header = document.querySelector(".site-header");
+
+        const headroom = new Headroom(header);
         headroom.init();
+
+        // var headroom = new Headroom(document.querySelector(".site-header"), {
+        //     "tolerance": 3,
+        //     "offset": 300,
+        //     "classes": {
+        //         "initial": "animated",
+        //         "pinned": "slideDown",
+        //         "unpinned": "slideUp"
+        //     }
+        // });
+        // headroom.init();
+        console.log(document.querySelector(".site-header"));
     })();
     </script>
 
