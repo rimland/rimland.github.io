@@ -82,7 +82,7 @@ Navigation:
   url: https://h5css.com
 
 header_pages:
- - tags.html
+#  - tags.html
  - links.md
  - about.markdown
  
