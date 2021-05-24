@@ -13,8 +13,12 @@ published: true
 [^part1]: <https://ittranslator.cn/dotnet/csharp/2021/05/06/what-are-dotnet-worker-services.html> .NET Worker Service 入门介绍
 [^part2]: <https://ittranslator.cn/dotnet/csharp/2021/05/17/worker-service-gracefully-shutdown.html> 如何优雅退出 Worker Service
 
-<!-- https://stackify.com/nlog-vs-log4net-vs-serilog/ 
+<!-- 
+https://stackify.com/nlog-vs-log4net-vs-serilog/ 
+
 https://enlabsoftware.com/development/top-logging-frameworks-for-net-applications-and-the-best-configuration-tips.html
+
+https://docs.microsoft.com/en-us/dotnet/core/extensions/custom-logging-provider
 -->
 
 ## log4net、NLog、Serilog
