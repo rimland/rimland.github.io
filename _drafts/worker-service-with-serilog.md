@@ -19,6 +19,8 @@ https://stackify.com/nlog-vs-log4net-vs-serilog/
 https://enlabsoftware.com/development/top-logging-frameworks-for-net-applications-and-the-best-configuration-tips.html
 
 https://docs.microsoft.com/en-us/dotnet/core/extensions/custom-logging-provider
+
+https://github.com/nlog/nlog/wiki/How-to-use-structured-logging
 -->
 
 ## log4net、NLog、Serilog
