@@ -13,21 +13,7 @@ published: true
 [^part1]: <https://ittranslator.cn/dotnet/csharp/2021/05/06/what-are-dotnet-worker-services.html> .NET Worker Service 入门介绍
 [^part2]: <https://ittranslator.cn/dotnet/csharp/2021/05/17/worker-service-gracefully-shutdown.html> 如何优雅退出 Worker Service
 
-<!-- 
-https://stackify.com/nlog-vs-log4net-vs-serilog/ see also
-
-https://enlabsoftware.com/development/top-logging-frameworks-for-net-applications-and-the-best-configuration-tips.html
-
-https://docs.microsoft.com/en-us/dotnet/core/extensions/custom-logging-provider
-
-https://github.com/nlog/nlog/wiki/How-to-use-structured-logging
-
-https://stackify.com/log4net-guide-dotnet-logging/
-
-https://redwerk.com/blog/structured-logging-in-third-party-net-logging-frameworks/
--->
-
-在实际的生产环境中，应用程序中记录日志是非常宝贵的。在许多情况下，开发人员无法直接访问生产环境来调试问题。高质量的日志是解决线上问题的线索和依据。
+在实际的生产环境中，应用程序中记录日志是非常宝贵的。在许多情况下，开发人员无法直接访问生产环境来调试问题。高质量的日志记录是解决线上问题的线索和依据。
 
 > [日志记录是将应用程序操作和状态记录到辅助接口的过程。](https://www.codeproject.com/Articles/42354/The-Art-of-Logging#what)
 
@@ -35,9 +21,93 @@ https://redwerk.com/blog/structured-logging-in-third-party-net-logging-framework
 
 .NET 中有很多默认的[日志记录提供程序](https://docs.microsoft.com/zh-cn/dotnet/core/extensions/logging-providers)[^logging-providers]，它们可以将日志输出到控制台、Debug、EventSource 和 EventLog 等，例如在上一篇的示例中，默认的实现是将日志记录输出到了控制台窗口。
 
-但是 .NET 中没有内置的提供程序可以帮我们将日志信息输出文件和数据库，而这却是我们在生产环境中常见的应用场景。为了实现这一功能，我们需要为 .NET [实现自定义的日志记录提供程序](https://docs.microsoft.com/zh-cn/dotnet/core/extensions/custom-logging-provider)[^custom-provider]，这需要大量时间，因为我们需要考虑很多事情，比如读写性能、存储空间、配置等等。
+但是 .NET 中没有可以帮我们将日志信息输出文件和数据库的内置提供程序，而这却是我们在生产环境中常见的应用场景。为了实现这一功能，我们需要为 .NET [实现自定义的日志记录提供程序](https://docs.microsoft.com/zh-cn/dotnet/core/extensions/custom-logging-provider)[^custom-provider]，这需要大量时间，因为需要考虑很多事情，比如读写性能、存储空间、配置等等。
 
 [^logging-providers]: <https://docs.microsoft.com/zh-cn/dotnet/core/extensions/logging-providers>
 [^custom-provider]: <https://docs.microsoft.com/zh-cn/dotnet/core/extensions/custom-logging-provider>
 
 幸运的是，一些优秀的第三方软件包可以为我们提供帮助，.NET 中三种最流行的日志框架分别是：[log4net](https://logging.apache.org/log4net/)、[NLog](https://nlog-project.org/)、[Serilog](https://serilog.net/)，我们只需从 [NuGet](https://www.nuget.org/) 包存储库中获取它们，然后简单地配置一下便可以使用它们了。
+
+### log4net
+
+log4net 是一个始于 2001 年的领先的日志记录框架，最初是 Java 框架 log4j 的端口。多年来，Apache Logging Services 项目持续进行开发，没有其他框架能像 log4net 一样饱受考验。log4net 是所有现代 .NET 日志记录框架的鼻祖，在日志框架中，日志级别（log levels）、记录器(logger)和输出端(appenders/targets/sinks)等概念几乎都是通用的[^vs]。相信所有多年使用 .NET 编程的大牛对 log4net 都相当熟悉。
+
+[^vs]: <https://stackify.com/nlog-vs-log4net-vs-serilog/>
+
+log4net 很好用、很稳定也很灵活，但是它的配置相对来说比较复杂一些，而且很难实现[结构化的日志记录](https://messagetemplates.org/)。
+
+### NLog
+
+NLog 也是一个相当老的项目，最早的版本发布于 2006 年，不过目前仍在积极开发中。NLog 从 v4.5 版本开始[新增了结构化日志记录的支持](https://github.com/nlog/nlog/wiki/How-to-use-structured-logging)。
+
+<!-- 在 NLog 框架中使用结构化日志非常容易。只需要一个 `@`  -->
+<!-- 
+因此，如您所见，在NLog框架中使用结构化日志非常容易。只需一个符号即可为您的日志提供更多上下文，这可以在错误处理过程中提供帮助。
+-->
+
+与 log4net 相比，NLog 的配置更加容易，并且基于代码的配置也比较简洁。NLog 中的默认设置比 log4net 中的默认设置会更合理一些。需要注意的一点是，当使用这两个框架，您可能会遇到同一个问题，那就是忘记复制配置文件时，不会得到任何提示，当然也不会输出日志信息。假如您将应用部署上线以后遇到这个情况，这将是致命的，因为不会得到日志记录，而许多问题的检查都是依赖于日志输出的。当然，这么设计的初衷是不让应用程序因日志问题而导致崩溃。
+
+### Serilog
+
+Serilog 日志记录框架发布于 2013 年，相对来说是一个较新的框架。与其他日志框架不同的是，Serilog 在构建时考虑了强大的结构化事件数据，提供了开箱即用的结构化日志实现。所以 Serilog 对结构化日志的支持非常好，而且配置简洁。Serilog 中的日志可以发送到许多终端，Serilog 称这些终端为“输出模块库(sinks)”。您可以在 <https://github.com/serilog/serilog/wiki/Provided-Sinks> 页面查看非常全面的列表。
+
+Serilog 中还有一个功能强大的概念是[Enricher](https://github.com/serilog/serilog/wiki/Enrichment)，可以通过各种方式来丰富日志事件的属性，从而向日志添加新的信息。NuGet 中提供了一些预建的 Enricher，您也可以通过实现 *ILogEventEnricher* 构建自己的 Enricher。
+
+## 结构化日志记录
+
+上面多次提到结构化日志记录，那么什么是结构化日志记录，为什么要强调结构化日志记录呢？
+
+通常情况下，您会发现输出的日志基本上包含两部分内容：消息和值，而 .NET 通常只接受诸如 `string.Format(...)` 这样的的输入字符串。比如：
+
+```csharp
+var position = new { Latitude = 25, Longitude = 134 };
+var elapsedMs = 34;
+
+log.Information("Processed Position, Latitude:{0}, Longitude: {1} in Elapsed:{2} ms.", position.Latitude, position.Longitude, elapsedMs);
+```
+
+这条日志只是简单地被转换为文本输出到日志文件中：
+
+```text
+[INF] Processed Position, Latitude:25, Longitude: 134 in Elapsed:34 ms.
+```
+
+这看起来很好，但是当我们检索日志的时候会遇到一些麻烦，例如，假设我们知道了 Latitude 为 25，Longitude 为 134，我们要查找这条日志的话，该怎么查找呢，正则表达式或者简单的字符串包含？麻烦吧。
+
+假设我们将其中包含值的部分作为特征提取出来，形成由键和值组成的 JSON 对象，单独作为该条日志记录的 `properties` 存储：
+
+```json
+{"Position": {"Latitude": 25, "Longitude": 134}, "Elapsed": 34}
+```
+
+这样的，在我们检索的时候只需要检索日志记录的 `properties` 就可以了，它是结构化的，很容易检索。
+
+有了 Serilog，您可以很容易做到这一点，只需改动一行代码：
+
+```csharp
+log.Information("Processed {@Position} in {Elapsed:000} ms.", position, elapsedMs);
+```
+
+Position 前面的 `@` 操作符告诉 Serilog 需要将传入的对象序列化，而不是调用 `ToString()` 转换它。
+
+Elapsed 之后的 `:000` 是一个标准的 .NET 格式化字符串，它决定属性的呈现方式。
+
+## Serilog 实例介绍
+
+
+
+<!-- 
+https://stackify.com/nlog-vs-log4net-vs-serilog/ see also
+
+https://enlabsoftware.com/development/top-logging-frameworks-for-net-applications-and-the-best-configuration-tips.html
+
+https://docs.microsoft.com/en-us/dotnet/core/extensions/custom-logging-provider
+
+https://stackify.com/log4net-guide-dotnet-logging/
+
+https://redwerk.com/blog/structured-logging-in-third-party-net-logging-frameworks/\
+
+https://github.com/nlog/nlog/wiki/How-to-use-structured-logging
+
+https://messagetemplates.org/
+-->
