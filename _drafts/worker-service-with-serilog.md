@@ -96,6 +96,80 @@ Elapsed 之后的 `:000` 是一个标准的 .NET 格式化字符串，它决定�
 
 ## Serilog 实例介绍
 
+现在，您应该大概了解了 Serilog，以及为什么我会选用它的原因。下面我用一个实例介绍一下它的使用。
+
+基于[上一篇文章中的 Worker Service 源码](https://github.com/ITTranslate/WorkerServiceGracefullyShutdown)修改，如果您安装有 git，您可以用下面的命令获取它：
+
+```bash
+git clone git@github.com:ITTranslate/WorkerServiceGracefullyShutdown.git
+```
+
+然后，使用 Visual Studio Code 打开此项目，运行一下，以确保一切正常：
+
+```bash
+dotnet build
+dotnet run
+```
+
+您可以在 [Serilog 官方文档](https://serilog.net/)中看很多例子，不过大部分示例都是使用编码的方式配置 Serilog，或者以 xml 的方式配置在老旧项目中的 AppSettings 文件中。在本文的示例中，我将以 JSON 的方式把 Serilog 的配置放置在 `appsettings.json` 文件中。
+
+首先，安装我们所需的程序包：
+
+```bash
+dotnet add package Serilog
+dotnet add package Serilog.Settings.Configuration
+dotnet add package Serilog.Extensions.Hosting
+dotnet add package Serilog.Sinks.Console
+dotnet add package Serilog.Sinks.RollingFile
+```
+
+```csharp
+public static void Main(string[] args)
+{
+    var configuration = new ConfigurationBuilder()
+        .SetBasePath(Directory.GetCurrentDirectory())
+        .AddJsonFile("appsettings.json")
+        .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT") ?? "Production"}.json", true)
+        .Build();
+
+    // 全局共享的日志记录器
+    Log.Logger = new LoggerConfiguration()
+        .ReadFrom.Configuration(configuration)
+        .Enrich.FromLogContext()
+        .CreateLogger();
+
+    try
+    {
+        var separator = new string('-', 30);
+
+        Log.Information($"{separator} Starting host {separator} ");
+
+        CreateHostBuilder(args).Build().Run();
+
+        Log.Information($"{separator} Exit host {separator} ");
+    }
+    catch (Exception ex)
+    {
+        Log.Fatal(ex, "Host terminated unexpectedly");
+    }
+    finally
+    {
+        Log.CloseAndFlush(); // 释放资源
+    }
+}
+```
+
+```csharp
+public static IHostBuilder CreateHostBuilder(string[] args) =>
+    Host.CreateDefaultBuilder(args)
+        .ConfigureServices((hostContext, services) =>
+        {
+            services.AddHostedService<Worker>();
+        })
+        .UseSerilog(); //将 Serilog 设置为日志提供程序
+```
+
+
 <!-- 
 
 https://github.com/serilog/serilog/wiki/Structured-Data
