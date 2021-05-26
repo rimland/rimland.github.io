@@ -57,7 +57,7 @@ Serilog 中还有一个功能强大的概念是[Enricher](https://github.com/ser
 
 上面多次提到结构化日志记录，那么什么是结构化日志记录，为什么要强调结构化日志记录呢？
 
-通常情况下，您会发现输出的日志基本上包含两部分内容：消息和值，而 .NET 通常只接受诸如 `string.Format(...)` 这样的的输入字符串。比如：
+通常情况下，您会发现输出的日志基本上包含两部分内容：消息模板和值，而 .NET 通常只默认接受诸如 `string.Format(...)` 这样的的输入字符串。比如：
 
 ```csharp
 var position = new { Latitude = 25, Longitude = 134 };
@@ -72,17 +72,19 @@ log.Information("Processed Position, Latitude:{0}, Longitude: {1} in Elapsed:{2}
 [INF] Processed Position, Latitude:25, Longitude: 134 in Elapsed:34 ms.
 ```
 
-这看起来很好，但是当我们检索日志的时候会遇到一些麻烦，例如，假设我们知道了 Latitude 为 25，Longitude 为 134，我们要查找这条日志的话，该怎么查找呢，正则表达式或者简单的字符串包含？麻烦吧。
+这看起来也挺好，但它可以更好。
 
-假设我们将其中包含值的部分作为特征捕获出来，形成由键和值组成的 JSON 对象，单独作为该条日志记录的 `properties` 存储：
+当我们遇到问题的时候，我们需要根据一些已知的信息来检索日志记录，例如，假设我们知道了 Latitude 为 25，Longitude 为 134，我们要查找这条日志的话，该怎么做呢？由于日志信息是简单的文本，您可能立马会想到使用正则表达式或者简单的字符串匹配，但这样不仅不够直观，实现起来也比较麻烦。
+
+假设我们将其中包含值的部分作为特征捕获出来，形成由键和值组成的有结构的 JSON 对象，单独作为该条日志记录的属性(`properties`)存储：
 
 ```json
 {"Position": {"Latitude": 25, "Longitude": 134}, "Elapsed": 34}
 ```
 
-这样的，在我们检索的时候只需要查找日志记录的 `properties` 就可以了，它是结构化的，很容易检索。
+然后，在我们检索的时候只需要查找日志记录的 `properties` 就可以了，它是结构化的，检索起来既简单又直观。
 
-有了 Serilog，您可以很容易做到这一点，只需改动一行代码：
+Serilog 帮我们实现了这一点，只需改动一行代码：
 
 ```csharp
 log.Information("Processed {@Position} in {Elapsed:000} ms.", position, elapsedMs);
