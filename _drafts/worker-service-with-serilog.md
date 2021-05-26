@@ -72,7 +72,7 @@ log.Information("Processed Position, Latitude:{0}, Longitude: {1} in Elapsed:{2}
 [INF] Processed Position, Latitude:25, Longitude: 134 in Elapsed:34 ms.
 ```
 
-这看起来也挺好，但它可以更好。
+这看起来很好，但它可以更好。
 
 当我们遇到问题的时候，我们需要根据一些已知的信息来检索日志记录，例如，假设我们知道了 Latitude 为 25，Longitude 为 134，我们要查找这条日志的话，该怎么做呢？由于日志信息是简单的文本，您可能立马会想到使用正则表达式或者简单的字符串匹配，但这样不仅不够直观，实现起来也比较麻烦。
 
@@ -90,9 +90,9 @@ Serilog 帮我们实现了这一点，只需改动一行代码：
 log.Information("Processed {@Position} in {Elapsed:000} ms.", position, elapsedMs);
 ```
 
-Position 前面的 `@` 是解构操作符，它告诉 Serilog 需要将传入的对象序列化，而不是调用 `ToString()` 转换它。
+Position 前面的 `@` 是*解构操作符*，它告诉 Serilog 需要将传入的对象序列化，而不是调用 `ToString()` 转换它。
 
-Elapsed 之后的 `:000` 是一个标准的 .NET 格式化字符串，它决定属性的呈现方式。
+Elapsed 之后的 `:000` 是一个标准的 .NET 格式化字符串，它决定该属性的呈现方式。
 
 ## Serilog 实例介绍
 
