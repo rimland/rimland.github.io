@@ -13,7 +13,7 @@ published: true
 [^part1]: <https://ittranslator.cn/dotnet/csharp/2021/05/06/what-are-dotnet-worker-services.html> .NET Worker Service 入门介绍
 [^part2]: <https://ittranslator.cn/dotnet/csharp/2021/05/17/worker-service-gracefully-shutdown.html> 如何优雅退出 Worker Service
 
-在实际的生产环境中，应用程序中记录日志是非常宝贵的。在许多情况下，开发人员无法直接访问生产环境来调试问题。高质量的日志记录是解决线上问题的线索和依据。
+在实际的生产环境中，应用程序中记录日志是非常宝贵的。在许多情况下，开发人员无法直接访问生产环境来调试问题。高质量的日志记录为解决线上问题提供了线索和依据。
 
 > [日志记录是将应用程序操作和状态记录到辅助接口的过程。](https://www.codeproject.com/Articles/42354/The-Art-of-Logging#what)
 
@@ -94,9 +94,10 @@ Elapsed 之后的 `:000` 是一个标准的 .NET 格式化字符串，它决定�
 
 ## Serilog 实例介绍
 
-
-
 <!-- 
+
+https://github.com/serilog/serilog/wiki/Structured-Data
+
 {"Position":{"Latitude":25,"Longitude":134},"Elapsed":34,"MachineName":"DESKTOP-6LVG1OL","ProcessId":53392,"ProcessName":"MyService","ThreadId":1}
 
 https://stackify.com/nlog-vs-log4net-vs-serilog/ see also
