@@ -74,13 +74,13 @@ log.Information("Processed Position, Latitude:{0}, Longitude: {1} in Elapsed:{2}
 
 这看起来很好，但是当我们检索日志的时候会遇到一些麻烦，例如，假设我们知道了 Latitude 为 25，Longitude 为 134，我们要查找这条日志的话，该怎么查找呢，正则表达式或者简单的字符串包含？麻烦吧。
 
-假设我们将其中包含值的部分作为特征提取出来，形成由键和值组成的 JSON 对象，单独作为该条日志记录的 `properties` 存储：
+假设我们将其中包含值的部分作为特征捕获出来，形成由键和值组成的 JSON 对象，单独作为该条日志记录的 `properties` 存储：
 
 ```json
 {"Position": {"Latitude": 25, "Longitude": 134}, "Elapsed": 34}
 ```
 
-这样的，在我们检索的时候只需要检索日志记录的 `properties` 就可以了，它是结构化的，很容易检索。
+这样的，在我们检索的时候只需要查找日志记录的 `properties` 就可以了，它是结构化的，很容易检索。
 
 有了 Serilog，您可以很容易做到这一点，只需改动一行代码：
 
@@ -88,7 +88,7 @@ log.Information("Processed Position, Latitude:{0}, Longitude: {1} in Elapsed:{2}
 log.Information("Processed {@Position} in {Elapsed:000} ms.", position, elapsedMs);
 ```
 
-Position 前面的 `@` 操作符告诉 Serilog 需要将传入的对象序列化，而不是调用 `ToString()` 转换它。
+Position 前面的 `@` 是解构操作符，它告诉 Serilog 需要将传入的对象序列化，而不是调用 `ToString()` 转换它。
 
 Elapsed 之后的 `:000` 是一个标准的 .NET 格式化字符串，它决定属性的呈现方式。
 
@@ -97,6 +97,8 @@ Elapsed 之后的 `:000` 是一个标准的 .NET 格式化字符串，它决定�
 
 
 <!-- 
+{"Position":{"Latitude":25,"Longitude":134},"Elapsed":34,"MachineName":"DESKTOP-6LVG1OL","ProcessId":53392,"ProcessName":"MyService","ThreadId":1}
+
 https://stackify.com/nlog-vs-log4net-vs-serilog/ see also
 
 https://enlabsoftware.com/development/top-logging-frameworks-for-net-applications-and-the-best-configuration-tips.html
