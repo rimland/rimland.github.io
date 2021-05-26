@@ -123,6 +123,8 @@ dotnet add package Serilog.Sinks.Console
 dotnet add package Serilog.Sinks.RollingFile
 ```
 
+修改 *Program* 中的 `Main` 方法：
+
 ```csharp
 public static void Main(string[] args)
 {
@@ -158,6 +160,8 @@ public static void Main(string[] args)
     }
 }
 ```
+
+修改 *Program* 中的 `CreateHostBuilder` 方法：
 
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
