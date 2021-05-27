@@ -103,6 +103,12 @@ Elapsed 之后的 `:000` 是一个标准的 .NET 格式字符串，它决定该�
 
 现在，您已经大概了解了 Serilog，以及为什么我会选用它的原因。下面我用一个实例来介绍一下它的用法。
 
+需要用到的开发工具：
+
+- Visual Studio Code：<https://code.visualstudio.com/>
+- 最新的 .NET SDK：<https://dotnet.microsoft.com/download>
+- DBeaver：<https://dbeaver.io/>
+
 本示例基于[上一篇文章中的 Worker Service 源码](https://github.com/ITTranslate/WorkerServiceGracefullyShutdown)[^precode]修改，如果您安装有 git，可以用下面的命令获取它：
 
 [^precode]: <https://github.com/ITTranslate/WorkerServiceGracefullyShutdown>
@@ -312,18 +318,62 @@ dotnet run
 
 前文我提到过日志文件的属性(`properties`)，为什么直到现在还没有看到过它呢？
 
-这是因为，当 Serilog 将日志事件写入文件或控制台时，消息模板和属性将仅会输出为易于阅读的友好文本。而当我们将事件日志发送到基于云的日志服务器、数据库和消息队列等输出模块(Sinks)时，就可以保存为结构化的数据了。
+这是因为，当 Serilog 将日志事件写入文件或控制台时，消息模板和属性将仅会呈现为易于阅读的友好文本。而当我们将日志事件发送到基于云的日志服务器、数据库和消息队列等输出模块(Sinks)时，就可以保存为结构化的数据了。
 
-为了简单起见，我们以 SQLite 数据库来介绍一下。
+为了简便起见，我以 SQLite 数据库为例来介绍一下。
 
-添加 SQLite 依赖程序包：
+添加 [SQLite 依赖程序包](https://github.com/saleem-mirza/serilog-sinks-sqlite)：
 
 ```bash
-dotnet add Serilog.Sinks.SQLite
+dotnet add package Serilog.Sinks.SQLite
 ```
 
-<!-- 
+修改 *appsettings.json*，在 Serilog 配置中的 WriteTo 节点下添加以下配置节点，以向 SQLite 输出日志：
 
+```json
+{
+  "Name": "SQLite",
+  "Args": {
+    "sqliteDbPath": "Logs\\log.db",
+    "tableName": "Logs",
+    "maxDatabaseSize": 1,
+    "rollOver": true
+  }
+}
+```
+
+解释一下 *Args* 各个选项的作用：
+
+- **sqliteDbPath：** SQLite 数据库的路径。
+- **tableName：** 用于存储日志的 SQLite 表的名称。
+- **maxDatabaseSize：** 数据库文件的最大大小可以以 MB 为单位增加。默认为10MB，最大为20GB。为了测试，这里设置为了 1MB。
+- **rollOver：** 如果文件大小超过最大数据库文件大小，则创建滚动备份，默认为 true。
+
+此时，再次运行应用程序：
+
+```bash
+dotnet build
+dotnet run
+```
+
+您将会在应用程序目录下的 Logs 文件夹中看到一个 SQLite 数据库文件 *log.db*。使用 DBeaver 打开检查一下：
+
+![Serilog SQLite table](https://ittranslator.cn/assets/images/202105/Serilog-SQLite-table.png)
+
+可以看到，输出模块自动为我们创建了数据库和表，日志记录是成功的。
+
+我们配置了数据库文件大于 1MB 时自动滚动备份，可以多输出一些日志测试一下，看它是否有自动滚动备份。结果如下图：
+
+![Serilog SQLite dbs](https://ittranslator.cn/assets/images/202105/Serilog-SQLite-dbs.png)
+
+再看一下 Serilog 为我们捕获的 `properties`：
+
+![Serilog SQLite table properties](https://ittranslator.cn/assets/images/202105/Serilog-SQLite-table-Properties.png)
+
+
+
+<!-- 
+Serilog-SQLite-table-Properties.png
 https://github.com/serilog/serilog/wiki/Structured-Data
 
 {"Position":{"Latitude":25,"Longitude":134},"Elapsed":34,"MachineName":"DESKTOP-6LVG1OL","ProcessId":53392,"ProcessName":"MyService","ThreadId":1}
