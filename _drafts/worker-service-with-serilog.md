@@ -231,7 +231,7 @@ MinimumLevel 对象配置输出日志的最低级别。添加 MinimalLevel.Overr
 
 使用 WriteTo 对象配置输出模块(Sinks)，可以同时配置并激活多个输出模块。本示例中我们配置了 *Console* 和 *RollingFile*，前者将日志输出到控制台，后者将日志输出到滚动文件中。
 
-> 将日志输出到文件，您还可以使用 [Serilog.Sinks.File](https://github.com/serilog/serilog-sinks-file) 软件包，它也支持滚动文件。
+> 将日志输出到文件，您还可以使用 [Serilog.Sinks.File](https://github.com/serilog/serilog-sinks-file) 程序包，它也支持滚动文件。
 
 `Args` 用于配置 Sink 的选项。本例中 `pathFormat` 配置了日志文件的存放位置，该项的值中 `{Hour}` 是 RollingFile 日志的 *文件名格式说明符*。该输出模块支持三种不同的文件名格式说明符（区分大小写）：
 
@@ -250,9 +250,9 @@ dotnet run
 
 ### 添加 Enricher 和格式化输出
 
-前文我们提到过 Serilog 中还有一个功能强大的概念是[Enricher](https://github.com/serilog/serilog/wiki/Enrichment)，这里我们就以预建的 Enricher 来举例说明一下它的使用。
+前文我提到过 Serilog 中还有一个功能强大的概念是[Enricher](https://github.com/serilog/serilog/wiki/Enrichment)，这里我就以预建的 Enricher 来举例说明一下它的使用。
 
-添加以下的依赖程序集：
+添加以下的依赖程序包：
 
 ```bash
 dotnet add package Serilog.Enrichers.Thread
@@ -310,7 +310,7 @@ dotnet run
 
 为了简单起见，我们以 SQLite 数据库来介绍一下。
 
-添加 SQLite 依赖程序集：
+添加 SQLite 依赖程序包：
 
 ```bash
 dotnet add Serilog.Sinks.SQLite
