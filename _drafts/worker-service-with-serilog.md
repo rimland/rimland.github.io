@@ -94,11 +94,13 @@ Position 前面的 `@` 是*解构操作符*，它告诉 Serilog 需要将传入�
 
 Elapsed 之后的 `:000` 是一个标准的 .NET 格式化字符串，它决定该属性的呈现方式。
 
-## Serilog 实例介绍
+## 为 Worker Service 添加 Serilog 日志
 
-现在，您已经大概了解了 Serilog，以及为什么我会选用它的原因。下面我用一个实例来介绍一下它的使用。
+现在，您已经大概了解了 Serilog，以及为什么我会选用它的原因。下面我用一个实例来介绍一下它的用法。
 
-本示例基于[上一篇文章中的 Worker Service 源码](https://github.com/ITTranslate/WorkerServiceGracefullyShutdown)修改，如果您安装有 git，可以用下面的命令获取它：
+本示例基于[上一篇文章中的 Worker Service 源码](https://github.com/ITTranslate/WorkerServiceGracefullyShutdown)[^precode]修改，如果您安装有 git，可以用下面的命令获取它：
+
+[^precode]: <https://github.com/ITTranslate/WorkerServiceGracefullyShutdown>
 
 ```bash
 git clone git@github.com:ITTranslate/WorkerServiceGracefullyShutdown.git
