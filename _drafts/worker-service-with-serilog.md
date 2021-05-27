@@ -213,7 +213,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 }
 ```
 
-### 88
+### Serilog 配置
 
 看下我们都配置了什么：
 
@@ -266,7 +266,7 @@ dotnet add package Serilog.Enrichers.Process
 - **Serilog.Enrichers.Process** 提供 `WithProcessId()`
 - **Serilog.Enrichers.Thread** 提供 `WithThreadId()`
 
-修改 *appsettings.json* 向 Serilog 配置添加以下配置节点，以丰富日志事件的信息：
+修改 *appsettings.json*，向 Serilog 配置添加以下配置节点，以丰富日志事件的信息：
 
 ```json
 "Enrich": [
@@ -277,7 +277,7 @@ dotnet add package Serilog.Enrichers.Process
 ]
 ```
 
-修改 WriteTo 下 RollingFile 节点对象的选项 *Args*，添加一个 `outputTemplate` 选项，以自定义输出消息模板：
+在 *appsettings.json* 中，修改 WriteTo 下 RollingFile 对象节点的选项 *Args*，添加一个 `outputTemplate` 选项，以自定义输出消息模板：
 
 ```json
 {
