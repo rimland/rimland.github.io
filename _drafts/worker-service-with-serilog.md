@@ -62,7 +62,7 @@ Serilog 中还有一个功能强大的概念是[Enricher](https://github.com/ser
 
 您或许会已经注意到了，前面我多次提到*结构化日志记录*，那么什么是结构化日志记录，为什么我要强调结构化日志记录呢？
 
-通常情况下，您会发现输出的日志基本上包含两部分内容：消息模板和值，而 .NET 通常只默认接受诸如 `string.Format(...)` 这样的的输入字符串。比如：
+通常情况下，您会发现输出的日志基本上包含两部分内容：*消息模板*和*值*，而 .NET 通常只默认接受诸如 `string.Format(...)` 这样的的输入字符串。比如：
 
 ```csharp
 var position = new { Latitude = 25, Longitude = 134 };
@@ -97,7 +97,7 @@ log.Information("Processed {@Position} in {Elapsed:000} ms.", position, elapsedM
 
 Position 前面的 `@` 是*解构操作符*，它告诉 Serilog 需要将传入的对象序列化，而不是调用 `ToString()` 转换它。
 
-Elapsed 之后的 `:000` 是一个标准的 .NET 格式化字符串，它决定该属性的呈现方式。
+Elapsed 之后的 `:000` 是一个标准的 .NET 格式字符串，它决定该属性的呈现方式。
 
 ## 为 Worker Service 添加 Serilog 日志
 
@@ -182,9 +182,11 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
         .UseSerilog(); //将 Serilog 设置为日志提供程序
 ```
 
+修改应用程序配置文件 *appsettings.json*，添加 `Serilog` 节点(Section)。Serilog 所需的默认配置节点名称为 `Serilog`；当然，您也可以改变它，但要在读取的时候指定节点名。
+
 ```json
 {
-    "Serilog": {
+  "Serilog": {
     "Using": [
       "Serilog.Sinks.Console",
       "Serilog.Sinks.RollingFile"
@@ -211,13 +213,108 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 }
 ```
 
-`pathFormat` 项的值中 `{Hour}` 是*文件名格式说明符*。
+### 88
 
-该输出模块库支持三种不同的文件名格式说明符：
+看下我们都配置了什么：
+
+#### Using 节点
+
+Using 节点包含了所需的程序集列表，用于自动发现配置中所需要的程序集。
+
+对于 .NET Core 项目，构建工具会生成 *.deps.json* 文件，并且此包使用 Microsoft.Extensions.DependencyModel 实现了一个约定，以在包名称中任意位置带有 Serilog 的依赖项中找到正确的包，并从中提取配置的方法，因此，上面示例中的 Using 节点可以省略：
+
+#### MinimalLevel 节点
+
+MinimumLevel 对象配置输出日志的最低级别。添加 MinimalLevel.Override 项，可以覆盖某些特定命名空间的最小级别。
+
+#### WriteTo 节点
+
+使用 WriteTo 对象配置输出模块(Sinks)，可以同时配置并激活多个输出模块。本示例中我们配置了 *Console* 和 *RollingFile*，前者将日志输出到控制台，后者将日志输出到滚动文件中。
+
+> 将日志输出到文件，您还可以使用 [Serilog.Sinks.File](https://github.com/serilog/serilog-sinks-file) 软件包，它也支持滚动文件。
+
+`Args` 用于配置 Sink 的选项。本例中 `pathFormat` 配置了日志文件的存放位置，该项的值中 `{Hour}` 是 RollingFile 日志的 *文件名格式说明符*。该输出模块支持三种不同的文件名格式说明符（区分大小写）：
 
 - `{Date}`：每天创建一个文件。文件名使用 `yyyyMMdd` 格式。
 - `{Hour}`：每小时创建一个文件。文件名使用 `yyyyMMddHH` 格式。
 - `{HalfHour}`：每半小时创建一个文件。文件名使用 `yyyyMMddHHmm` 格式。
+
+完成以上这些配置后，我们运行应用程序：
+
+```bash
+dotnet build
+dotnet run
+```
+
+您会发现在应用程序根目录下多了一个 *Logs* 文件夹，可以将日志信息正常输出到文件了。同时，控制台也有输出日志。两者的输出格式略有不同，控制台中的日志更简洁一些。
+
+### 添加 Enricher 和格式化输出
+
+前文我们提到过 Serilog 中还有一个功能强大的概念是[Enricher](https://github.com/serilog/serilog/wiki/Enrichment)，这里我们就以预建的 Enricher 来举例说明一下它的使用。
+
+添加以下的依赖程序集：
+
+```bash
+dotnet add package Serilog.Enrichers.Thread
+dotnet add package Serilog.Enrichers.Environment
+dotnet add package Serilog.Enrichers.Process
+```
+
+这三个 Enricher 分别提供了不同的信息以丰富日志事件的属性。
+
+- **Serilog.Enrichers.Environment** 提供 `WithMachineName()` 和 `WithEnvironmentUserName()`
+- **Serilog.Enrichers.Process** 提供 `WithProcessId()`
+- **Serilog.Enrichers.Thread** 提供 `WithThreadId()`
+
+修改 *appsettings.json* 向 Serilog 配置添加以下配置节点，以丰富日志事件的信息：
+
+```json
+"Enrich": [
+  "WithMachineName",
+  "WithProcessId",
+  "WithProcessName",
+  "WithThreadId"
+]
+```
+
+修改 WriteTo 下 RollingFile 节点对象的选项 *Args*，添加一个 `outputTemplate` 选项，以自定义输出消息模板：
+
+```json
+{
+  "Name": "RollingFile",
+  "Args": {
+    "pathFormat": "Logs\\{HalfHour}.txt",
+    "outputTemplate": "{Timestamp:o} [{Level:u3}] ({MachineName}/{ProcessId}/{ProcessName}/{ThreadId}) {Message}{NewLine}{Exception}"
+  }
+}
+```
+
+修改完配置后，重新运行应用程序：
+
+```bash
+dotnet build
+dotnet run
+```
+
+再查看一下日志文件，您会发现日志已经按我们自定义的格式输出了，并且多了一些我们使用 Enricher 获得的信息：*(计算机名/进程ID/进程名称/线程ID)*。
+
+```text
+2021-05-27T18:15:40.2992230+08:00 [INF] (DESKTOP-6LTYU3O/54376/MyService/1) Worker running at: 05/27/2021 18:15:40 +08:00
+```
+
+## 将日志保存到数据库
+
+前文我提到过日志文件的属性(`properties`)，为什么直到现在还没有看到过它呢？
+
+这是因为，当 Serilog 将日志事件写入文件或控制台时，消息模板和属性将仅会输出为易于阅读的友好文本。而当我们将事件日志发送到基于云的日志服务器、数据库和消息队列等输出模块(Sinks)时，就可以保存为结构化的数据了。
+
+为了简单起见，我们以 SQLite 数据库来介绍一下。
+
+添加 SQLite 依赖程序集：
+
+```bash
+dotnet add Serilog.Sinks.SQLite
+```
 
 <!-- 
 
