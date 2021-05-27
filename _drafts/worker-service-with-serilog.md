@@ -30,15 +30,18 @@ published: true
 
 ### log4net
 
-log4net 是一个始于 2001 年的领先的日志记录框架，最初是 Java 框架 log4j 的端口。多年来，Apache Logging Services 项目持续进行开发，没有其他框架能像 log4net 一样饱受考验。log4net 是所有现代 .NET 日志记录框架的鼻祖，在日志框架中，日志级别（log levels）、记录器(logger)和输出端(appenders/targets/sinks)等概念几乎都是通用的[^vs]。相信所有多年使用 .NET 编程的大牛对 log4net 都相当熟悉。
+[log4net](https://logging.apache.org/log4net/)[^log4net] 是一个始于 2001 年的领先的日志记录框架，最初是 Java 框架 log4j 的端口。多年来，Apache Logging Services 项目持续进行开发，没有其他框架能像 log4net 一样饱受考验。log4net 是所有现代 .NET 日志记录框架的鼻祖，在日志框架中，日志级别（log levels）、记录器(logger)和输出端(appenders/targets/sinks)等概念几乎都是通用的[^vs]。相信所有多年使用 .NET 编程的大牛对 log4net 都相当熟悉。
 
+[^log4net]: <https://logging.apache.org/log4net/>
 [^vs]: <https://stackify.com/nlog-vs-log4net-vs-serilog/>
 
 log4net 很好用、很稳定也很灵活，但是它的配置相对来说比较复杂一些，而且很难实现[结构化的日志记录](https://messagetemplates.org/)。
 
 ### NLog
 
-NLog 也是一个相当老的项目，最早的版本发布于 2006 年，不过目前仍在积极开发中。NLog 从 v4.5 版本开始[新增了结构化日志记录的支持](https://github.com/nlog/nlog/wiki/How-to-use-structured-logging)。
+[NLog](https://nlog-project.org/)[^NLog] 也是一个相当老的项目，最早的版本发布于 2006 年，不过目前仍在积极开发中。NLog 从 v4.5 版本开始[新增了结构化日志记录的支持](https://github.com/nlog/nlog/wiki/How-to-use-structured-logging)。
+
+[^NLog]: <https://nlog-project.org/>
 
 <!-- 在 NLog 框架中使用结构化日志非常容易。只需要一个 `@`  -->
 <!-- 
@@ -49,7 +52,9 @@ NLog 也是一个相当老的项目，最早的版本发布于 2006 年，不过
 
 ### Serilog
 
-Serilog 日志记录框架发布于 2013 年，相对来说是一个较新的框架。与其他日志框架不同的是，Serilog 在构建时考虑了强大的结构化事件数据，提供了开箱即用的结构化日志实现。所以 Serilog 对结构化日志的支持非常好，而且配置简洁。Serilog 中的日志可以发送到许多终端，Serilog 称这些终端为“输出模块库(sinks)”。您可以在 <https://github.com/serilog/serilog/wiki/Provided-Sinks> 页面查看非常全面的列表。
+[Serilog](https://serilog.net/)[^Serilog] 日志记录框架发布于 2013 年，相对来说是一个较新的框架。与其他日志框架不同的是，Serilog 在构建时考虑了强大的结构化事件数据，提供了开箱即用的结构化日志实现。所以 Serilog 对结构化日志的支持非常好，而且配置简洁。Serilog 中的日志可以发送到许多终端，Serilog 称这些终端为“输出模块库(sinks)”。您可以在 <https://github.com/serilog/serilog/wiki/Provided-Sinks> 页面查看非常全面的列表。
+
+[^Serilog]: <https://serilog.net/>
 
 Serilog 中还有一个功能强大的概念是[Enricher](https://github.com/serilog/serilog/wiki/Enrichment)，可以通过各种方式来丰富日志事件的属性，从而向日志添加新的信息。NuGet 中提供了一些预建的 Enricher，您也可以通过实现 *ILogEventEnricher* 构建自己的 Enricher。
 
