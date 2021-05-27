@@ -122,6 +122,8 @@ dotnet run
 
 在本文的示例中，我将以 JSON 的方式把 Serilog 的配置放置在现在流行的 *appsettings.json* 配置文件中。我们只需要修改 *Program.cs* 和 *appsettings.json*，不需要修改 *Worker.cs*。
 
+### 安装依赖程序包
+
 首先，安装我们所需的程序包：
 
 ```bash
@@ -131,6 +133,8 @@ dotnet add package Serilog.Extensions.Hosting
 dotnet add package Serilog.Sinks.Console
 dotnet add package Serilog.Sinks.RollingFile
 ```
+
+### 修改 *Program*
 
 然后，修改 *Program* 中的 `Main` 方法，从 *appsettings.json* 读取配置并根据配置构建 Serilog 日志记录器的实例：
 
@@ -181,6 +185,8 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
         })
         .UseSerilog(); //将 Serilog 设置为日志提供程序
 ```
+
+### 修改配置文件 *appsettings.json*
 
 修改应用程序配置文件 *appsettings.json*，添加 `Serilog` 节点(Section)。Serilog 所需的默认配置节点名称为 `Serilog`；当然，您也可以改变它，但要在读取的时候指定节点名。
 
