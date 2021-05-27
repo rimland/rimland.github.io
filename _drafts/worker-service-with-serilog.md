@@ -182,6 +182,42 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
         .UseSerilog(); //将 Serilog 设置为日志提供程序
 ```
 
+```json
+{
+    "Serilog": {
+    "Using": [
+      "Serilog.Sinks.Console",
+      "Serilog.Sinks.RollingFile"
+    ],
+    "MinimalLevel": {
+      "Default": "Information",
+      "Override": {
+        "System": "Warning",
+        "Microsoft": "Information"
+      }
+    },
+    "WriteTo": [
+      {
+        "Name": "Console"
+      },
+      {
+        "Name": "RollingFile",
+        "Args": {
+          "pathFormat": "Logs\\{Hour}.txt",
+        }
+      }
+    ]
+  }
+}
+```
+
+`pathFormat` 项的值中 `{Hour}` 是*文件名格式说明符*。
+
+该输出模块库支持三种不同的文件名格式说明符：
+
+- `{Date}`：每天创建一个文件。文件名使用 `yyyyMMdd` 格式。
+- `{Hour}`：每小时创建一个文件。文件名使用 `yyyyMMddHH` 格式。
+- `{HalfHour}`：每半小时创建一个文件。文件名使用 `yyyyMMddHHmm` 格式。
 
 <!-- 
 
