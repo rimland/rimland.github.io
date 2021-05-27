@@ -132,7 +132,7 @@ dotnet add package Serilog.Sinks.Console
 dotnet add package Serilog.Sinks.RollingFile
 ```
 
-然后，修改 *Program* 中的 `Main` 方法，从 *appsettings.json* 读取配置并根据配置构建 Serilog Logger 的实例：
+然后，修改 *Program* 中的 `Main` 方法，从 *appsettings.json* 读取配置并根据配置构建 Serilog 日志记录器的实例：
 
 ```csharp
 public static void Main(string[] args)
