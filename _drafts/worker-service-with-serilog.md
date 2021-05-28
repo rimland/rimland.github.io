@@ -194,7 +194,9 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 
 ### 修改配置文件 *appsettings.json*
 
-修改应用程序配置文件 *appsettings.json*，添加 `Serilog` 节点(Section)。Serilog 所需的默认配置节点名称为 `Serilog`；当然，您也可以改变它，但要在读取的时候指定节点名。
+修改应用程序配置文件 *appsettings.json*，添加 `Serilog` 节点(Section)。
+
+Serilog 所需的默认配置节点名称为 `Serilog`；当然，您也可以改变它，但要在读取的时候指定节点名。
 
 ```json
 {
@@ -225,15 +227,17 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 }
 ```
 
-### Serilog 配置
+<!-- ### Serilog 配置 -->
 
-看下我们都配置了什么：
+看一下我们都配置了什么：
+
+> 您可以在 [Serilog.Settings.Configuration](https://github.com/serilog/serilog-settings-configuration) 的文档中找到这些配置的说明。
 
 #### Using 节点
 
-Using 节点包含了所需的程序集列表，用于自动发现配置中所需要的程序集。
+Using 节点包含了所需的程序集列表，用于自动发现 *WriteTo* 和 *Enrich* 等节点中配置的方法所属的程序集。
 
-对于 .NET Core 项目，构建工具会生成 *.deps.json* 文件，并且此包使用 Microsoft.Extensions.DependencyModel 实现了一个约定，以在包名称中任意位置带有 Serilog 的依赖项中找到正确的包，并从中提取配置的方法，因此，上面示例中的 Using 节点可以省略：
+对于 .NET Core 项目，构建工具会生成 *.deps.json* 文件，并且 *Serilog.Settings.Configuration* 包使用 *Microsoft.Extensions.DependencyModel* 实现了一个约定，从而可以从名称任意位置带有*Serilog* 的依赖程序包中找出正确的包，并从中提取配置的方法。因此，上面示例中的 Using 节点是可以省略的。
 
 #### MinimalLevel 节点
 
@@ -245,7 +249,7 @@ MinimumLevel 对象配置输出日志的最低级别。添加 MinimalLevel.Overr
 
 > 将日志输出到文件，您还可以使用 [Serilog.Sinks.File](https://github.com/serilog/serilog-sinks-file) 程序包，它也支持滚动文件。
 
-`Args` 用于配置 Sink 的选项。本例中 `pathFormat` 配置了日志文件的存放位置，该项的值中 `{Hour}` 是 RollingFile 日志的 *文件名格式说明符*。该输出模块支持三种不同的文件名格式说明符（区分大小写）：
+`Args` 用于配置 Sink 的选项。本例中 `pathFormat` 配置了日志文件的存放位置，该项的值中 `{Hour}` 是滚动日志文件的 *文件名格式说明符*。该输出模块支持三种不同的文件名格式说明符（区分大小写）：
 
 - `{Date}`：每天创建一个文件。文件名使用 `yyyyMMdd` 格式。
 - `{Hour}`：每小时创建一个文件。文件名使用 `yyyyMMddHH` 格式。
