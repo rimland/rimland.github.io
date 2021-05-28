@@ -388,10 +388,6 @@ Log.Information("Processed {@Position} in {Elapsed:000} ms.", position, elapsedM
 
 Serilog 对结构化事件数据的深入且丰富的支持，开创了原本使用传统日志记录器所没有的巨大的诊断可能性。
 <!-- 
-
-Serilog-SQLite-structured -data.png
-
-Serilog-SQLite-table-Properties.png
 https://github.com/serilog/serilog/wiki/Structured-Data
 
 {"Position":{"Latitude":25,"Longitude":134},"Elapsed":34,"MachineName":"DESKTOP-6LVG1OL","ProcessId":53392,"ProcessName":"MyService","ThreadId":1}
@@ -407,6 +403,4 @@ https://stackify.com/log4net-guide-dotnet-logging/
 https://redwerk.com/blog/structured-logging-in-third-party-net-logging-frameworks/\
 
 https://github.com/nlog/nlog/wiki/How-to-use-structured-logging
-
-https://messagetemplates.org/
 -->
