@@ -35,7 +35,7 @@ published: true
 [^log4net]: <https://logging.apache.org/log4net/>
 [^vs]: <https://stackify.com/nlog-vs-log4net-vs-serilog/>
 
-log4net 很好用、很稳定也很灵活，但是它的配置相对来说比较复杂一些，而且很难实现[结构化的日志记录](https://messagetemplates.org/)。
+log4net 很好用、很稳定也很灵活，但是它的配置相对来说比较复杂一些，而且很难实现结构化的日志记录。
 
 ### NLog
 
@@ -370,11 +370,11 @@ dotnet run
 
 ![Serilog SQLite dbs](https://ittranslator.cn/assets/images/202105/Serilog-SQLite-dbs.png)
 
-再看一下 Serilog 为我们捕获的属性(`properties`)：
+再看一下 Serilog 捕获的日志事件的属性(`properties`)：
 
 ![Serilog SQLite table properties](https://ittranslator.cn/assets/images/202105/Serilog-SQLite-table-Properties.png)
 
-我们添加几行代码，测试一下 Serilog 捕获的日志事件的属性(`properties`)：
+Serilog 使用[消息模板](https://messagetemplates.org/)、以及命名和位置参数扩展 .NET 的格式化字符串，不过 Serilog 捕获与每个命名参数相关联的值，而不是直接将事件格式化为文本。我们添加几行代码，测试一下 Serilog 捕获日志事件的情况：
 
 ```csharp
 var position = new { Latitude = 25, Longitude = 134 };
@@ -382,10 +382,11 @@ var elapsedMs = 34;
 Log.Information("Processed {@Position} in {Elapsed:000} ms.", position, elapsedMs);
 ```
 
-数据库中存储的结构化的 `Properties` 如下图所示：
+上面的示例在日志事件中记录了两个属性：*Position* 和 *Elapsed*，*Position* 前面的 `@` 操作符告诉 Serilog 要序列化传入的对象。它在数据库中存储的结构化的 `Properties` 如下图所示：
 
 ![Serilog SQLite structured data](https://ittranslator.cn/assets/images/202105/Serilog-SQLite-structured-data.png)
 
+Serilog 对结构化事件数据的深入而丰富的支持，开创了原本使用传统日志记录器所没有的巨大的诊断可能性。
 <!-- 
 
 Serilog-SQLite-structured -data.png
