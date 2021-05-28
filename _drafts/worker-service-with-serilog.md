@@ -268,7 +268,7 @@ dotnet run
 
 前文我提到过 Serilog 中还有一个功能强大的概念是[Enricher](https://github.com/serilog/serilog/wiki/Enrichment)，这里我就以预建的 Enricher 来举例说明一下它的使用。
 
-添加以下的依赖程序包：
+添加以下依赖程序包：
 
 ```bash
 dotnet add package Serilog.Enrichers.Thread
@@ -282,7 +282,7 @@ dotnet add package Serilog.Enrichers.Process
 - **Serilog.Enrichers.Process** 提供 `WithProcessId()`
 - **Serilog.Enrichers.Thread** 提供 `WithThreadId()`
 
-修改 *appsettings.json*，向 Serilog 配置添加以下配置节点，以丰富日志事件的信息：
+修改 *appsettings.json*，向 Serilog 配置对象添加 *Enrich* 配置节点，以丰富日志事件的信息：
 
 ```json
 "Enrich": [
@@ -293,7 +293,7 @@ dotnet add package Serilog.Enrichers.Process
 ]
 ```
 
-在 *appsettings.json* 中，修改 WriteTo 下 RollingFile 对象节点的选项 *Args*，添加一个 `outputTemplate` 选项，以自定义输出消息模板：
+修改 *appsettings.json*，向 WriteTo 下的 RollingFile 对象节点的 *Args* 添加一个 `outputTemplate` 选项，以自定义输出消息模板：
 
 ```json
 {
@@ -305,7 +305,7 @@ dotnet add package Serilog.Enrichers.Process
 }
 ```
 
-修改完配置后，重新运行应用程序：
+修改好配置后，重新运行应用程序：
 
 ```bash
 dotnet build
