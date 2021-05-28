@@ -4,7 +4,7 @@ title:  ".NET Worker Service 添加 Serilog 日志记录"
 date:   2021-05-25 00:10:01 +0800
 categories: dotnet csharp
 author: 技术译民
-tags: [DotNet, Worker Service]
+tags: [Serilog, DotNet, Worker Service]
 published: true
 ---
 
@@ -30,7 +30,7 @@ published: true
 
 ### log4net
 
-[log4net](https://logging.apache.org/log4net/)[^log4net] 是一个始于 2001 年的领先的日志记录框架，最初是 Java 框架 log4j 的端口。多年来，Apache Logging Services 项目持续进行开发，没有其他框架能像 log4net 一样饱受考验。log4net 是所有现代 .NET 日志记录框架的鼻祖，在日志框架中，日志级别（log levels）、记录器(logger)和输出端(appenders/targets/sinks)等概念几乎都是通用的[^vs]。相信所有多年使用 .NET 编程的大牛对 log4net 都相当熟悉。
+[log4net](https://logging.apache.org/log4net/)[^log4net] 是一个始于 2001 年的领先的日志记录框架，最初是 Java 框架 log4j 的端口。多年来，Apache Logging Services 项目持续进行开发，没有其他框架能像 log4net 一样久经考验。log4net 是所有现代 .NET 日志记录框架的鼻祖，在日志框架中，日志级别（log levels）、记录器(logger)和输出端(appenders/targets/sinks)等概念几乎都是通用的[^vs]。相信所有多年使用 .NET 编程的大牛对 log4net 都相当熟悉。
 
 [^log4net]: <https://logging.apache.org/log4net/>
 [^vs]: <https://stackify.com/nlog-vs-log4net-vs-serilog/>
@@ -48,11 +48,11 @@ log4net 很好用、很稳定也很灵活，但是它的配置相对来说比较
 因此，如您所见，在NLog框架中使用结构化日志非常容易。只需一个符号即可为您的日志提供更多上下文，这可以在错误处理过程中提供帮助。
 -->
 
-与 log4net 相比，NLog 的配置更加容易，并且基于代码的配置也比较简洁。NLog 中的默认设置比 log4net 中的默认设置会更合理一些。需要注意的一点是，当使用这两个框架，您可能会遇到同一个问题，那就是忘记复制配置文件时，不会得到任何提示，当然也不会输出日志信息。假如您将应用部署上线以后遇到这个情况，这将是致命的，因为不会得到日志记录，而许多问题的检查都是依赖于日志输出的。当然，这么设计的初衷是不让应用程序因日志问题而导致崩溃。
+与 log4net 相比，NLog 的配置更加容易，并且基于代码的配置也比较简洁。NLog 中的默认设置比 log4net 中的默认设置会更合理一些。需要注意的一点是，当使用这两个框架，您可能会遇到同一个问题，那就是配置有问题（比如忘记复制配置文件）时，不会得到任何提示，当然也不会输出日志信息。假如您将应用部署上线以后遇到这个情况，这将是致命的，因为不会得到日志记录，而许多问题的检查都是依赖于日志输出的。当然，这么设计的初衷是不让应用程序因日志问题而导致崩溃。
 
 ### Serilog
 
-[Serilog](https://serilog.net/)[^Serilog] 日志记录框架发布于 2013 年，相对来说是一个较新的框架。与其他日志框架不同的是，Serilog 在构建时考虑了强大的结构化事件数据，提供了开箱即用的结构化日志实现。所以 Serilog 对结构化日志的支持非常好，而且配置简洁。Serilog 中的日志可以发送到许多终端，Serilog 称这些终端为“输出模块库(sinks)”。您可以在 <https://github.com/serilog/serilog/wiki/Provided-Sinks> 页面查看非常全面的列表。
+[Serilog](https://serilog.net/)[^Serilog] 日志记录框架发布于 2013 年，相对来说是一个较新的框架。与其他日志框架不同的是，Serilog 在设计时考虑了强大的结构化事件数据，提供了开箱即用的结构化日志实现。所以 Serilog 对结构化日志的支持非常好，而且配置简洁。Serilog 中的日志可以发送到许多终端，Serilog 称这些终端为“输出模块库(sinks)”。您可以在 <https://github.com/serilog/serilog/wiki/Provided-Sinks> 页面查看非常全面的列表。
 
 [^Serilog]: <https://serilog.net/>
 
@@ -62,7 +62,7 @@ Serilog 中还有一个功能强大的概念是[Enricher](https://github.com/ser
 
 您或许会已经注意到了，前面我多次提到*结构化日志记录*，那么什么是结构化日志记录，为什么我要强调结构化日志记录呢？
 
-通常情况下，您会发现输出的日志基本上包含两部分内容：*消息模板*和*值*，而 .NET 通常只默认接受诸如 `string.Format(...)` 这样的的输入字符串。比如：
+通常情况下，您会发现日志信息基本上包含两部分内容：*消息模板*和*值*，而 .NET 通常只接受诸如 `string.Format(...)` 这样的的输入字符串。比如：
 
 ```csharp
 var position = new { Latitude = 25, Longitude = 134 };
@@ -81,7 +81,7 @@ log.Information("Processed Position, Latitude:{0}, Longitude: {1} in Elapsed:{2}
 
 当我们遇到问题的时候，我们需要根据一些已知的信息来检索日志记录。比如，假设我们已知 Latitude 为 25，Longitude 为 134，我们要查找这条日志的话，该怎么做呢？由于上面输出的日志信息是简单的文本，有经验的您可能立马会想到使用正则表达式或者简单的字符串匹配，但这样不仅不够直观，实现起来也比较麻烦。有没有更好的解决方案呢？
 
-假设我们在存储日志的时候，将其中包含值的部分作为特征捕获出来，形成由键和值组成的有结构的 JSON 对象，作为每条日志记录的属性(`properties`)：
+如果我们在存储日志的时候，将其中包含值的部分作为特征捕获出来，形成由键和值组成的有结构的 JSON 对象，作为每条日志记录的属性(`properties`)：
 
 ```json
 {"Position": {"Latitude": 25, "Longitude": 134}, "Elapsed": 34}
