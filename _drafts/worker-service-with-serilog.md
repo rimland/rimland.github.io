@@ -374,7 +374,7 @@ dotnet run
 
 ![Serilog SQLite table properties](https://ittranslator.cn/assets/images/202105/Serilog-SQLite-table-Properties.png)
 
-我们添加几行代码，测试一下 Serilog 捕获的日志事件的 `properties`：
+我们添加几行代码，测试一下 Serilog 捕获的日志事件的属性(`properties`)：
 
 ```csharp
 var position = new { Latitude = 25, Longitude = 134 };
@@ -382,7 +382,7 @@ var elapsedMs = 34;
 Log.Information("Processed {@Position} in {Elapsed:000} ms.", position, elapsedMs);
 ```
 
-数据库中存储的结构化的 `properties` 如下图所示：
+数据库中存储的结构化的 `Properties` 如下图所示：
 
 ![Serilog SQLite structured data](https://ittranslator.cn/assets/images/202105/Serilog-SQLite-structured-data.png)
 
