@@ -382,7 +382,7 @@ var elapsedMs = 34;
 Log.Information("Processed {@Position} in {Elapsed:000} ms.", position, elapsedMs);
 ```
 
-上面的示例在日志事件中记录了两个属性：*Position* 和 *Elapsed*，*Position* 前面的 `@` 操作符告诉 Serilog 要序列化传入的对象。它在数据库中存储的结构化的 `Properties` 如下图所示：
+上面的示例在日志事件中记录了两个属性：*Position* 和 *Elapsed*，*Position* 前面的 `@` 操作符告诉 Serilog 要序列化传入的对象。最终我们在数据库中存储的结构化的 `Properties` 如下图所示：
 
 ![Serilog SQLite structured data](https://ittranslator.cn/assets/images/202105/Serilog-SQLite-structured-data.png)
 
