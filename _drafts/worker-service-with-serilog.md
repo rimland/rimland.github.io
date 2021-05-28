@@ -350,7 +350,7 @@ dotnet add package Serilog.Sinks.SQLite
 
 - **sqliteDbPath：** SQLite 数据库的路径。
 - **tableName：** 用于存储日志的 SQLite 表的名称。
-- **maxDatabaseSize：** 数据库文件的最大大小可以以 MB 为单位增加。默认为10MB，最大为20GB。为了测试，这里设置为了 1MB。
+- **maxDatabaseSize：** 数据库的最大文件大小，可以以 MB 为单位增加。默认为 10MB，最大为 20GB。为了方便测试，我在这里将其设置为 1MB。
 - **rollOver：** 如果文件大小超过最大数据库文件大小，则创建滚动备份，默认为 true。
 
 此时，再次运行应用程序：
@@ -364,19 +364,32 @@ dotnet run
 
 ![Serilog SQLite table](https://ittranslator.cn/assets/images/202105/Serilog-SQLite-table.png)
 
-可以看到，输出模块自动为我们创建了数据库和表，日志记录是成功的。
+可以看到，SQLite 输出模块自动为我们创建了数据库和表，日志记录是成功的。
 
-我们配置了数据库文件大于 1MB 时自动滚动备份，可以多输出一些日志测试一下，看它是否有自动滚动备份。结果如下图：
+我们配置了数据库文件大于 1MB 时自动滚动备份，可以多输出一些日志测试一下，看它是否有自动滚动备份。我的测试结果如下图：
 
 ![Serilog SQLite dbs](https://ittranslator.cn/assets/images/202105/Serilog-SQLite-dbs.png)
 
-再看一下 Serilog 为我们捕获的 `properties`：
+再看一下 Serilog 为我们捕获的属性(`properties`)：
 
 ![Serilog SQLite table properties](https://ittranslator.cn/assets/images/202105/Serilog-SQLite-table-Properties.png)
 
+我们添加几行代码，测试一下 Serilog 捕获的日志事件的 `properties`：
 
+```csharp
+var position = new { Latitude = 25, Longitude = 134 };
+var elapsedMs = 34;
+Log.Information("Processed {@Position} in {Elapsed:000} ms.", position, elapsedMs);
+```
+
+数据库中存储的结构化的 `properties` 如下图所示：
+
+![Serilog SQLite structured data](https://ittranslator.cn/assets/images/202105/Serilog-SQLite-structured-data.png)
 
 <!-- 
+
+Serilog-SQLite-structured -data.png
+
 Serilog-SQLite-table-Properties.png
 https://github.com/serilog/serilog/wiki/Structured-Data
 
