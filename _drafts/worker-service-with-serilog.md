@@ -386,7 +386,7 @@ Log.Information("Processed {@Position} in {Elapsed:000} ms.", position, elapsedM
 
 ![Serilog SQLite structured data](https://ittranslator.cn/assets/images/202105/Serilog-SQLite-structured-data.png)
 
-Serilog 对结构化事件数据的深入而丰富的支持，开创了原本使用传统日志记录器所没有的巨大的诊断可能性。
+Serilog 对结构化事件数据的深入且丰富的支持，开创了原本使用传统日志记录器所没有的巨大的诊断可能性。
 <!-- 
 
 Serilog-SQLite-structured -data.png
