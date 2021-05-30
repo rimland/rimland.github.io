@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  ".NET Worker Service 添加 Serilog 日志记录"
-date:   2021-05-25 00:10:01 +0800
+date:   2021-05-31 00:10:01 +0800
 categories: dotnet csharp
 author: 技术译民
 tags: [Serilog, DotNet, Worker Service]
