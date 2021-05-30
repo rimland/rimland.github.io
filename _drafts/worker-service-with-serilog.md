@@ -21,25 +21,25 @@ published: true
 
 .NET 中有很多默认的[日志记录提供程序](https://docs.microsoft.com/zh-cn/dotnet/core/extensions/logging-providers)[^logging-providers]，它们可以将日志输出到控制台、Debug、EventSource 和 EventLog 等，例如在上一篇的示例中，默认的实现是将日志记录输出到了控制台窗口。
 
-但是 .NET 中没有可以帮我们将日志信息输出文件和数据库的内置提供程序，而这却是我们在生产环境中常见的应用场景。为了实现这一功能，我们需要为 .NET [实现自定义的日志记录提供程序](https://docs.microsoft.com/zh-cn/dotnet/core/extensions/custom-logging-provider)[^custom-provider]，这需要大量时间，因为需要考虑很多事情，比如读写性能、存储空间、配置等等。
+但是 .NET 中没有可以帮我们将日志信息输出到文件和数据库的内置提供程序，而这却是我们在生产环境中十分常见的应用场景。为了实现这一功能，我们需要为 .NET [实现自定义的日志记录提供程序](https://docs.microsoft.com/zh-cn/dotnet/core/extensions/custom-logging-provider)[^custom-provider]，这需要大量时间，因为需要考虑很多事情，比如读写性能、存储空间、配置等等。
 
 [^logging-providers]: <https://docs.microsoft.com/zh-cn/dotnet/core/extensions/logging-providers>
 [^custom-provider]: <https://docs.microsoft.com/zh-cn/dotnet/core/extensions/custom-logging-provider>
 
-幸运的是，一些优秀的第三方软件包可以为我们提供帮助，.NET 中三种最流行的日志框架分别是：[log4net](https://logging.apache.org/log4net/)、[NLog](https://nlog-project.org/)、[Serilog](https://serilog.net/)，我们只需从 [NuGet](https://www.nuget.org/) 包存储库中获取它们，然后简单地配置一下便可以使用它们了。
+幸运的是，一些优秀的第三方程序包可以为我们提供帮助，.NET 中三种最流行的日志框架分别是：[log4net](https://logging.apache.org/log4net/)、[NLog](https://nlog-project.org/)、[Serilog](https://serilog.net/)，我们只需从 [NuGet](https://www.nuget.org/) 包存储库中获取它们，然后简单地配置一下便可以愉快地使用它们了。
 
 ### log4net
 
-[log4net](https://logging.apache.org/log4net/)[^log4net] 是一个始于 2001 年的领先的日志记录框架，最初是 Java 框架 log4j 的端口。多年来，Apache Logging Services 项目持续进行开发，没有其他框架能像 log4net 一样久经考验。log4net 是所有现代 .NET 日志记录框架的鼻祖，在日志框架中，日志级别（log levels）、记录器(logger)和输出端(appenders/targets/sinks)等概念几乎都是通用的[^vs]。相信所有多年使用 .NET 编程的大牛对 log4net 都相当熟悉。
+[log4net](https://logging.apache.org/log4net/)[^log4net] 是一个始于 2001 年的领先的日志记录框架，最初是 Java 框架 log4j 的端口。多年来，Apache Logging Services 项目持续进行开发，没有其他框架能像 log4net 一样久经考验。log4net 是所有现代 .NET 日志记录框架的鼻祖，在日志框架中，日志级别（log levels）、记录器(logger)和输出模块(appenders/targets/sinks)等概念几乎都是通用的[^vs]。相信所有多年使用 .NET 编程的朋友对 log4net 都相当熟悉。
 
 [^log4net]: <https://logging.apache.org/log4net/>
 [^vs]: <https://stackify.com/nlog-vs-log4net-vs-serilog/>
 
-log4net 很好用、很稳定也很灵活，但是它的配置相对来说比较复杂一些，而且很难实现结构化的日志记录。
+log4net 好用、稳定且灵活，但是它的配置相对来说比较复杂一些，而且很难实现结构化的日志记录。
 
 ### NLog
 
-[NLog](https://nlog-project.org/)[^NLog] 也是一个相当老的项目，最早的版本发布于 2006 年，不过目前仍在积极开发中。NLog 从 v4.5 版本开始[新增了结构化日志记录的支持](https://github.com/nlog/nlog/wiki/How-to-use-structured-logging)。
+[NLog](https://nlog-project.org/)[^NLog] 也是一个相当老的项目，最早的版本发布于 2006 年，不过目前仍在积极开发中。NLog 从 v4.5 版本开始新增了[对结构化日志记录的支持](https://github.com/nlog/nlog/wiki/How-to-use-structured-logging)。
 
 [^NLog]: <https://nlog-project.org/>
 
@@ -48,7 +48,7 @@ log4net 很好用、很稳定也很灵活，但是它的配置相对来说比较
 因此，如您所见，在NLog框架中使用结构化日志非常容易。只需一个符号即可为您的日志提供更多上下文，这可以在错误处理过程中提供帮助。
 -->
 
-与 log4net 相比，NLog 的配置更加容易，并且基于代码的配置也比较简洁。NLog 中的默认设置比 log4net 中的默认设置会更合理一些。需要注意的一点是，当使用这两个框架，您可能会遇到同一个问题，那就是配置有问题（比如忘记复制配置文件）时，不会得到任何提示，当然也不会输出日志信息。假如您将应用部署上线以后遇到这个情况，这将是致命的，因为不会得到日志记录，而许多问题的检查都是依赖于日志输出的。当然，这么设计的初衷是不让应用程序因日志问题而导致崩溃。
+与 log4net 相比，NLog 的配置更加容易，并且基于代码的配置也比较简洁。NLog 中的默认设置比 log4net 中的默认设置会更合理一些。需要注意的一点是，当使用这两个框架，您可能会遇到同一个问题，那就是配置有问题（比如忘记复制配置文件）时，不会得到任何提示，当然也不会输出日志信息。假如您将应用部署上线以后遇到这个情况，这将是致命的，因为许多问题的检查都是依赖于日志记录的。当然，这么设计的初衷是避免让应用程序因日志问题而导致崩溃。
 
 ### Serilog
 
@@ -60,7 +60,7 @@ Serilog 中还有一个功能强大的概念是[Enricher](https://github.com/ser
 
 ## 结构化日志记录
 
-您或许会已经注意到了，前面我多次提到*结构化日志记录*，那么什么是结构化日志记录，为什么我要强调结构化日志记录呢？
+或许您已注意到了，前面我多次提到*结构化日志记录*，那么什么是结构化日志记录，为什么我要强调结构化日志记录呢？
 
 通常情况下，您会发现日志信息基本上包含两部分内容：*消息模板*和*值*，而 .NET 通常只接受诸如 `string.Format(...)` 这样的的输入字符串。比如：
 
@@ -79,9 +79,9 @@ log.Information("Processed Position, Latitude:{0}, Longitude: {1} in Elapsed:{2}
 
 这看起来很好，但它可以更好！
 
-当我们遇到问题的时候，我们需要根据一些已知的信息来检索日志记录。比如，假设我们已知 Latitude 为 25，Longitude 为 134，我们要查找这条日志的话，该怎么做呢？由于上面输出的日志信息是简单的文本，有经验的您可能立马会想到使用正则表达式或者简单的字符串匹配，但这样不仅不够直观，实现起来也比较麻烦。有没有更好的解决方案呢？
+当我们遇到问题的时候，我们需要根据一些已知的信息来检索日志记录。比如，假设我们已知 Latitude 为 25，Longitude 为 134，我们要查找这条日志的话，该怎么做呢？由于上面输出的日志信息是简单的文本，有经验的您可能立马会想到使用正则表达式或者简单的字符串匹配，但这样不仅不够直观，实现起来也比较麻烦。有没有更好的方法呢？
 
-如果我们在存储日志的时候，将其中包含值的部分作为特征捕获出来，形成由键和值组成的有结构的 JSON 对象，作为每条日志记录的属性(`properties`)：
+如果我们在存储日志的时候，将其中包含值的部分作为特征提取出来，形成由键和值组成的有结构的 JSON 对象，作为每条日志记录的属性(`properties`)：
 
 ```json
 {"Position": {"Latitude": 25, "Longitude": 134}, "Elapsed": 34}
@@ -105,9 +105,9 @@ Elapsed 之后的 `:000` 是一个标准的 .NET 格式字符串，它决定该�
 
 需要用到的开发工具：
 
-- Visual Studio Code：<https://code.visualstudio.com/>
-- 最新的 .NET SDK：<https://dotnet.microsoft.com/download>
-- DBeaver：<https://dbeaver.io/>
+- Visual Studio Code：(<https://code.visualstudio.com/>)
+- 最新的 .NET SDK：(<https://dotnet.microsoft.com/download>)
+- DBeaver：(<https://dbeaver.io/>)
 
 本示例基于[上一篇文章中的 Worker Service 源码](https://github.com/ITTranslate/WorkerServiceGracefullyShutdown)[^precode]修改，如果您安装有 git，可以用下面的命令获取它：
 
@@ -124,7 +124,7 @@ dotnet build
 dotnet run
 ```
 
-您在 [Serilog 官方文档](https://serilog.net/)中可以看很多例子，不过大部分示例都是使用编码的方式配置 Serilog，或者以 xml 的方式配置在老旧项目的 AppSettings 文件中。
+您在 [Serilog 官方文档](https://serilog.net/)中可以看到很多例子，不过大部分示例都是使用编码的方式配置 Serilog，或者以 xml 的方式配置在老旧项目的 AppSettings 文件中。
 
 在本文的示例中，我将以 JSON 的方式把 Serilog 的配置放置在现在流行的 *appsettings.json* 配置文件中。我们只需要修改 *Program.cs* 和 *appsettings.json*，不需要修改 *Worker.cs*。
 
@@ -196,7 +196,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 
 修改应用程序配置文件 *appsettings.json*，添加 `Serilog` 节点(Section)。
 
-Serilog 所需的默认配置节点名称为 `Serilog`；当然，您也可以改变它，但要在读取的时候指定节点名。
+Serilog 所需的配置节点名称默认为 `Serilog`；当然，您也可以改变它，但要在读取的时候指定节点名。
 
 ```json
 {
@@ -231,7 +231,9 @@ Serilog 所需的默认配置节点名称为 `Serilog`；当然，您也可以�
 
 看一下我们都配置了什么：
 
-> 您可以在 [Serilog.Settings.Configuration](https://github.com/serilog/serilog-settings-configuration) 的文档中找到这些配置的说明。
+> 您可以在 [Serilog.Settings.Configuration 包](https://github.com/serilog/serilog-settings-configuration)[^config] 的文档中找到这些配置的说明。
+
+[^config]: <https://github.com/serilog/serilog-settings-configuration>
 
 #### Using 节点
 
@@ -245,7 +247,7 @@ MinimumLevel 对象配置输出日志的最低级别。添加 MinimalLevel.Overr
 
 #### WriteTo 节点
 
-使用 WriteTo 对象配置输出模块(Sinks)，可以同时配置并激活多个输出模块。本示例中我们配置了 *Console* 和 *RollingFile*，前者将日志输出到控制台，后者将日志输出到滚动文件中。
+使用 WriteTo 对象配置输出模块(sinks)，可以同时配置并激活多个输出模块。本示例中我们配置了 *Console* 和 *RollingFile*，前者将日志输出到控制台，后者将日志输出到滚动文件中。
 
 > 将日志输出到文件，您还可以使用 [Serilog.Sinks.File](https://github.com/serilog/serilog-sinks-file) 程序包，它也支持滚动文件。
 
@@ -262,7 +264,7 @@ dotnet build
 dotnet run
 ```
 
-您会发现在应用程序根目录下多了一个 *Logs* 文件夹，可以将日志信息正常输出到文件了。同时，控制台也有输出日志。两者的输出格式略有不同，控制台中的日志更简洁一些。
+您会发现在应用程序根目录下多了一个 *Logs* 文件夹，可以将日志信息正常输出到文件了。同时，控制台也有输出日志。两者的输出格式略有不同，控制台中的输出更简洁一些。
 
 ### 添加 Enricher 和格式化输出
 
@@ -322,7 +324,7 @@ dotnet run
 
 前文我提到过日志文件的属性(`properties`)，为什么直到现在还没有看到过它呢？
 
-这是因为，当 Serilog 将日志事件写入文件或控制台时，消息模板和属性将仅会呈现为易于阅读的友好文本。而当我们将日志事件发送到基于云的日志服务器、数据库和消息队列等输出模块(Sinks)时，就可以保存为结构化的数据了。
+这是因为，当 Serilog 将日志事件写入文件或控制台时，消息模板和属性将仅会呈现为易于阅读的友好文本。而当我们将日志事件发送到基于云的日志服务器、数据库和消息队列等输出模块(sinks)时，就可以保存为结构化的数据了。
 
 为了简便起见，我以 SQLite 数据库为例来介绍一下。
 
@@ -364,7 +366,7 @@ dotnet run
 
 ![Serilog SQLite table](https://ittranslator.cn/assets/images/202105/Serilog-SQLite-table.png)
 
-可以看到，SQLite 输出模块自动为我们创建了数据库和表，日志记录是成功的。
+可以看到，SQLite 输出模块自动为我们创建了数据库和表，日志记录成功了。
 
 我们配置了数据库文件大于 1MB 时自动滚动备份，可以多输出一些日志测试一下，看它是否有自动滚动备份。我的测试结果如下图：
 
@@ -382,15 +384,33 @@ var elapsedMs = 34;
 Log.Information("Processed {@Position} in {Elapsed:000} ms.", position, elapsedMs);
 ```
 
-上面的示例在日志事件中记录了两个属性：*Position* 和 *Elapsed*，*Position* 前面的 `@` 操作符告诉 Serilog 要序列化传入的对象。最终我们在数据库中存储的结构化的 `Properties` 如下图所示：
+上面的示例在日志事件中记录了两个属性：*Position* 和 *Elapsed*，*Position* 前面的 `@` 操作符告诉 Serilog 要序列化传入的对象。最终我们在数据库中存储的结构化的 `Properties` 如下所示：
+
+```json
+{"Position":{"Latitude":25,"Longitude":134},"Elapsed":34,"MachineName":"DESKTOP-6LVG1OL","ProcessId":54332,"ProcessName":"MyService","ThreadId":1}
+```
 
 ![Serilog SQLite structured data](https://ittranslator.cn/assets/images/202105/Serilog-SQLite-structured-data.png)
 
-Serilog 对结构化事件数据的深入且丰富的支持，开创了原本使用传统日志记录器所没有的巨大的诊断可能性。
+Serilog 对结构化事件数据深入且丰富的支持，开创了原本使用传统日志记录器所没有的巨大的诊断可能性。
+
+## 总结
+
+在本文中，我介绍了 .NET 中常用的结构化事件日志框架 Serilog，以及使用它的原因和好处；并通过一个 .NET Worker Service 实例，说明如何将日志保存到滚动文件和数据库中。
+
+Serilog 是一个稳定的、配置简洁的、功能强大的、可扩展的、支持结构化日志事件的 .NET 日志记录提供程序，值得我们在应用中广泛使用。
+
+您可以从 GitHub [下载本文中的源码](https://github.com/ITTranslate/WorkerServiceWithSerilog)[^github]。
+
+[^github]: <https://github.com/ITTranslate/WorkerServiceWithSerilog> 源码下载
+
+<br />
+
+> 作者 ： 技术译民  
+> 出品 ： [技术译站](https://ittranslator.cn/)
+
 <!-- 
 https://github.com/serilog/serilog/wiki/Structured-Data
-
-{"Position":{"Latitude":25,"Longitude":134},"Elapsed":34,"MachineName":"DESKTOP-6LVG1OL","ProcessId":53392,"ProcessName":"MyService","ThreadId":1}
 
 https://stackify.com/nlog-vs-log4net-vs-serilog/ see also
 
