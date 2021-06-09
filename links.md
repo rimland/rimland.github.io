@@ -30,6 +30,7 @@ permalink: /links/
 - [HTML](https://developer.mozilla.org/zh-CN/docs/Web/HTML)
 - [CSS](https://developer.mozilla.org/zh-CN/docs/Web/CSS)
 - [JavaScript](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript)
+- [w3schools.com](https://www.w3schools.com/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Node.js](https://nodejs.org/zh-cn/)
 - [React](https://reactjs.org/)
