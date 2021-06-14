@@ -321,6 +321,8 @@ SERVICE_NAME: MyService
 
 这次服务启动成功了。
 
+![My Service](https://ittranslator.cn/assets/images/202106/MyService.png)
+
 ### 停止服务
 
 运行以下命令，停止 *MyService* 服务。
@@ -360,7 +362,22 @@ sc delete MyService
 
 ## 问题
 
-我们查看一下 *C:\test\workerpub\Logs* 目录下的日志，会发现当我们停止服务的时候，它并没有像我们在控制台测试的时候优雅退出（等待所有必要的任务完成后再退出）。这是什么原因呢，怎么解决呢？
+### 服务的优雅退出
 
+我们查看一下 *C:\test\workerpub\Logs* 目录下的日志，会发现当我们停止服务的时候，它并没有像我们在控制台测试的时候那样优雅退出（等待所有必要的任务完成后再退出）。这是什么原因呢？
 
+看一下 `UseWindowsService` 方法的源代码：
 
+![UseWindowsService Method](https://ittranslator.cn/assets/images/202106/UseWindowsService.png)
+
+其中有这样一行代码：
+
+```csharp
+services.AddSingleton<IHostLifetime, WindowsServiceLifetime>();
+```
+
+![WindowsServiceLifetime Class](https://ittranslator.cn/assets/images/202106/WindowsServiceLifetime.png)
+
+也就是，当 Worker Service 作为 Windows Service 运行时，使用的生命周期管理类是 *WindowsServiceLifetime*。
+
+*IHostApplicationLifetime* 换为 *IHostLifetime*
