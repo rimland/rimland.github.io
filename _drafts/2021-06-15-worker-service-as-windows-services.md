@@ -25,7 +25,7 @@ published: true
 打开 Windows 命令提示符窗口，输入并运行 `sc` 命令，您便可以看到 **sc.exe** 实用工具的帮助信息：
 
 ```bat
->sc
+> sc
 
 描述:
         SC 是用来与服务控制管理器和服务进行通信
@@ -97,11 +97,11 @@ published: true
 - stop------------向服务发送 STOP 请求。
 - delete ----------(从注册表中)删除服务。
 
-## 创建并运行服务
+## 创建项目并发布
 
 ### 下载 Worker Service 源码
 
-我们使用[上一篇文章中的 Worker Service 源码](https://github.com/ITTranslate/WorkerServiceWithSerilog)[^precode]来说明，如果您安装有 git，可以用下面的命令获取它：
+我将基于[上一篇文章中的 Worker Service 源码](https://github.com/ITTranslate/WorkerServiceWithSerilog)[^precode]来修改，如果您安装有 git，可以用下面的命令获取它：
 
 [^precode]: <https://github.com/ITTranslate/WorkerServiceWithSerilog>
 
@@ -116,9 +116,38 @@ dotnet build
 dotnet run
 ```
 
+### 添加 Windows Services 依赖
+
+为了作为 Windows 服务运行，我们需要我们的 Worker 监听来自 ServiceBase 的启动和停止信号，*ServiceBase* 是将 Windows 服务系统公开给 .NET 应用程序的 .NET 类型。为此，我们需要添加 `Microsoft.Extensions.Hosting.WindowsServices` NuGet 包：
+
+```bash
+dotnet add package Microsoft.Extensions.Hosting.WindowsServices
+```
+
+然后修改 *Program.cs* 中的 `CreateHostBuilder` 方法，添加 `UseWindowsService` 方法调用：
+
+```csharp
+public static IHostBuilder CreateHostBuilder(string[] args) =>
+    Host.CreateDefaultBuilder(args)
+        .UseWindowsService() // Sets the host lifetime to WindowsServiceLifetime...
+        .ConfigureServices((hostContext, services) =>
+        {
+            services.AddHostedService<Worker>();
+        })
+        .UseSerilog(); //将 Serilog 设置为日志提供程序
+```
+
+然后，运行一下构建命令，确保一切正常：
+
+```bat
+dotnet build
+```
+
+不出意外，您会看到 *已成功生成* 的提示。
+
 ### 发布程序
 
-运行 `dotnet publish` 命令将应用程序及其依赖项发布到文件夹（我的操作系统是 win x64 系统）[^publish]。
+运行 `dotnet publish` 命令将应用程序及其依赖项发布到文件夹（我的操作系统是 win10 x64 系统）[^publish]。
 
 [^publish]: <https://docs.microsoft.com/zh-cn/dotnet/core/tools/dotnet-publish>
 
@@ -128,11 +157,15 @@ dotnet publish -c Release -r win-x64 -o c:\test\workerpub
 
 命令运行完成后，您会在 *C:\test\workerpub* 文件夹中看到可执行程序及其所有依赖项。
 
+## 创建并运行服务
+
+首先，需要特别注意的是：当我们使用 **sc.exe** 实用工具管理服务时，**必须以管理员身份运行 Windows 命令提示符**，否则会执行失败。
+
 ### 安装服务
 
 安装服务我们需要用到创建服务命令 —— `sc create`。
 
-打开 Windows 命令提示符窗口，输入并运行 `sc create` 命令，可以看到此命令的的帮助信息：
+以管理员身份打开 Windows 命令提示符窗口，输入并运行 `sc create` 命令，可以看到此命令的的帮助信息：
 
 ```bat
 > sc create
@@ -187,8 +220,6 @@ dotnet publish -c Release -r win-x64 -o c:\test\workerpub
 sc create MyService binPath= C:\test\workerpub\MyService.exe start= auto displayname= "技术译站的测试服务"
 ```
 
-此处需要特别注意的是 —— **必须以管理员身份运行命令提示符**，否则会执行失败。
-
 运行以上命令，输出以下结果：
 
 ```text
@@ -215,6 +246,12 @@ sc create MyService binPath= C:\test\workerpub\MyService.exe start= auto display
 sc description MyService "这是一个由 Worker Service 实现的测试服务。"
 ```
 
+输出结果：
+
+```text
+[SC] ChangeServiceConfig2 成功
+```
+
 运行成功以后，按 `F5` 刷新服务列表，您将看到服务描述已经更新了。
 
 ### 启动服务
@@ -235,3 +272,95 @@ sc description MyService "这是一个由 Worker Service 实现的测试服务�
 ```bat
 sc start MyService
 ```
+
+输出结果：
+
+```text
+[SC] StartService 失败 1053:
+
+服务没有及时响应启动或控制请求。
+```
+
+启动失败了，为什么呢？查看一下 Windows 事件查看器 --> 应用程序，显示错误原因大致如下：
+
+```text
+The process was terminated due to an unhandled exception.
+Exception Info: System.IO.FileNotFoundException: The configuration file 'appsettings.json' was not found and is not optional. 
+The physical path is 'C:\WINDOWS\system32\appsettings.json'.
+```
+
+回头看一下 *Program.cs* 文件，在 `Main` 方法中我们为配置设置的基路径是 `Directory.GetCurrentDirectory()`。但是作为 Windows Service 运行时，默认的当前工作目录是 *C:\WINDOWS\system32*，所以导致了这样的错误。为了解决这一问题，我们需要在设置基路径前中添加一行 `Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory)`，代码如下：
+
+```csharp
+// 作为 Windows Service 运行时，默认的当前工作目录是 C:\WINDOWS\system32，会导致找不到配置文件，所以需要添加下面一行代码。
+Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
+
+var configuration = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json")
+    .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT") ?? "Production"}.json", true)
+    .Build();
+```
+
+再次启动：
+
+```bat
+> sc start MyService
+
+SERVICE_NAME: MyService
+        TYPE               : 10  WIN32_OWN_PROCESS
+        STATE              : 2  START_PENDING
+                                (NOT_STOPPABLE, NOT_PAUSABLE, IGNORES_SHUTDOWN)
+        WIN32_EXIT_CODE    : 0  (0x0)
+        SERVICE_EXIT_CODE  : 0  (0x0)
+        CHECKPOINT         : 0x0
+        WAIT_HINT          : 0x7d0
+        PID                : 21736
+        FLAGS              :
+```
+
+这次服务启动成功了。
+
+### 停止服务
+
+运行以下命令，停止 *MyService* 服务。
+
+```bat
+sc stop MyService
+```
+
+输出结果：
+
+```text
+SERVICE_NAME: MyService
+        TYPE               : 10  WIN32_OWN_PROCESS
+        STATE              : 3  STOP_PENDING
+                                (STOPPABLE, NOT_PAUSABLE, ACCEPTS_SHUTDOWN)
+        WIN32_EXIT_CODE    : 0  (0x0)
+        SERVICE_EXIT_CODE  : 0  (0x0)
+        CHECKPOINT         : 0x0
+        WAIT_HINT          : 0x0
+```
+
+### 删除服务
+
+运行以下命令，(从注册表中)删除 *MyService* 服务。
+
+```bat
+sc delete MyService
+```
+
+输出结果：
+
+```text
+[SC] DeleteService 成功
+```
+
+至此，我们使用 **sc** 实用工具演示了服务的创建、更改描述、启动、停止、删除。当服务创建完成后，您也可以使用 Windows 服务管理器维护服务的启动、停止等。
+
+## 问题
+
+我们查看一下 *C:\test\workerpub\Logs* 目录下的日志，会发现当我们停止服务的时候，它并没有像我们在控制台测试的时候优雅退出（等待所有必要的任务完成后再退出）。这是什么原因呢，怎么解决呢？
+
+
+
