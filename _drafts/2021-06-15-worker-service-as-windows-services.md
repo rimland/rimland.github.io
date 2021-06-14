@@ -366,18 +366,20 @@ sc delete MyService
 
 我们查看一下 *C:\test\workerpub\Logs* 目录下的日志，会发现当我们停止服务的时候，它并没有像我们在控制台测试的时候那样优雅退出（等待所有必要的任务完成后再退出）。这是什么原因呢？
 
-看一下 `UseWindowsService` 方法的源代码：
+看一下 `UseWindowsService` 方法的[源代码](https://github.com/dotnet/runtime/blob/main/src/libraries/Microsoft.Extensions.Hosting.WindowsServices/src/WindowsServiceLifetimeHostBuilderExtensions.cs)：
 
 ![UseWindowsService Method](https://ittranslator.cn/assets/images/202106/UseWindowsService.png)
 
-其中有这样一行代码：
+其中有这样一行：
 
 ```csharp
+// https://github.com/dotnet/runtime/blob/main/src/libraries/Microsoft.Extensions.Hosting.WindowsServices/src/WindowsServiceLifetimeHostBuilderExtensions.cs
+
 services.AddSingleton<IHostLifetime, WindowsServiceLifetime>();
 ```
 
+也就是，当 Worker Service 作为 Windows Service 运行时，使用的生命周期控制类是 *WindowsServiceLifetime*。
+
 ![WindowsServiceLifetime Class](https://ittranslator.cn/assets/images/202106/WindowsServiceLifetime.png)
 
-也就是，当 Worker Service 作为 Windows Service 运行时，使用的生命周期管理类是 *WindowsServiceLifetime*。
-
-*IHostApplicationLifetime* 换为 *IHostLifetime*
+<!-- *IHostApplicationLifetime* 换为 *IHostLifetime* -->
