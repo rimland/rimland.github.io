@@ -283,7 +283,8 @@ The physical path is 'C:\WINDOWS\system32\appsettings.json'.
 回头看一下 *Program.cs* 文件，在 `Main` 方法中我们为配置设置的基路径是 `Directory.GetCurrentDirectory()`。但是作为 Windows Service 运行时，默认的当前工作目录是 *C:\WINDOWS\system32*，所以导致了这样的错误。为了解决这一问题，我们需要在设置基路径前中添加一行 `Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory)`，代码如下：
 
 ```csharp
-// 作为 Windows Service 运行时，默认的当前工作目录是 C:\WINDOWS\system32，会导致找不到配置文件，所以需要添加下面一行代码。
+// 作为 Windows Service 运行时，默认的当前工作目录是 C:\WINDOWS\system32，会导致找不到配置文件，
+// 所以需要添加下面一行，指定当前工作目录为应用程序所在的实际目录。
 Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
 
 var configuration = new ConfigurationBuilder()
@@ -381,4 +382,106 @@ services.AddSingleton<IHostLifetime, WindowsServiceLifetime>();
 
 功夫不负有心人，在认真研究了 *BackgroundService* 、*WindowsServiceLifetime* 和 *ApplicationLifetime* 的源代码后，终于找到了解决方法。既然 *WindowsServiceLifetime* 中调用了 `StopApplication`，那我就换别的方法呗。
 
+注意到 *ApplicationLifetime* 的属性 `CancellationToken ApplicationStopping`，它的注释是：
 
+> Triggered when the application host is performing a graceful shutdown. Request may still be in flight. Shutdown will block until this event completes.
+
+所以我们可以为它注册一个取消时执行的委托操作。修改一下 *Worker* 类中的 `ExecuteAsync` 方法：
+
+```csharp
+protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+{
+    // 注册应用停止前需要完成的操作
+    _hostApplicationLifetime.ApplicationStopping.Register(() =>
+    {
+        GetOffWork();
+    });
+
+    try
+    {
+        // 这里实现实际的业务逻辑
+        while (!stoppingToken.IsCancellationRequested)
+        {
+            try
+            {
+                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+
+                await SomeMethodThatDoesTheWork(stoppingToken);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Global exception occurred. Will resume in a moment.");
+            }
+
+            await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+        }
+    }
+    finally
+    {
+        _logger.LogWarning("My worker service shutdown.");
+    }
+}
+```
+
+*Worker* 类其它部分的修改：
+
+```csharp
+/// <summary>
+/// 状态：0-默认状态，1-正在完成关闭前的必要工作，2-正在执行 StopAsync
+/// </summary>
+private volatile int _status = 0; //状态
+
+private async Task SomeMethodThatDoesTheWork(CancellationToken cancellationToken)
+{
+    string msg = _status switch
+    {
+        1 => "正在完成关闭前的必要工作……",
+        2 => "假装还在埋头苦干ing…… 其实我去洗杯子了",
+        _ => "我爱工作，埋头苦干ing……"
+    };
+
+    _logger.LogInformation(msg);
+    await Task.CompletedTask;
+}
+
+/// <summary>
+/// 关闭前需要完成的工作
+/// </summary>
+private void GetOffWork()
+{
+    _status = 1;
+
+    _logger.LogInformation("太好了，下班时间到，output from ApplicationStopping.Register Action at: {time}", DateTimeOffset.Now);           
+
+    _logger.LogDebug("开始处理关闭前必须完成的工作 at: {time}", DateTimeOffset.Now);
+
+    _logger.LogInformation("糟糕，有一个紧急 bug 需要下班前完成！！！");
+
+    _logger.LogInformation("啊啊啊，我爱加班，我要再干 20 秒，Wait 1 ");
+
+    Task.Delay(TimeSpan.FromSeconds(20)).Wait();
+
+    _logger.LogInformation("啊啊啊啊啊啊，我爱加班，我要再干 1 分钟，Wait 2 ");
+
+    Task.Delay(TimeSpan.FromMinutes(1)).Wait();
+
+    _logger.LogInformation("啊哈哈哈哈哈，终于好了，可以下班了！");
+
+    _logger.LogDebug("关闭前必须完成的工作处理完成 at: {time}", DateTimeOffset.Now);
+}
+
+public override Task StopAsync(CancellationToken cancellationToken)
+{
+    _status = 2;
+
+    _logger.LogInformation("准备下班了，output from StopAsync at: {time}", DateTimeOffset.Now);
+
+    _logger.LogInformation("去洗洗茶杯先……", DateTimeOffset.Now);
+    Task.Delay(30_000).Wait();
+    _logger.LogInformation("茶杯洗好了。", DateTimeOffset.Now);
+
+    _logger.LogInformation("下班喽 ^_^", DateTimeOffset.Now);
+
+    return base.StopAsync(cancellationToken);
+}
+```
