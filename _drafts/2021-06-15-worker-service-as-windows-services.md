@@ -353,11 +353,11 @@ sc delete MyService
 
 ## 问题
 
-### 服务的优雅退出
+### Windows Service 的优雅退出
 
-我们查看一下 *C:\test\workerpub\Logs* 目录下的日志，会发现当我们停止服务的时候，它并没有像我们在控制台测试的时候那样优雅退出（等待所有必要的任务完成后再退出）。这是什么原因呢？
+我们查看一下 *C:\test\workerpub\Logs* 目录下的日志，会发现当我们停止服务的时候，它并没有像我们在控制台测试的时候那样优雅退出（等待关闭前必须完成的任务完成后再退出）。这是什么原因呢，如何解决呢？
 
-看一下 `UseWindowsService` 方法的[源代码](https://github.com/dotnet/runtime/blob/main/src/libraries/Microsoft.Extensions.Hosting.WindowsServices/src/WindowsServiceLifetimeHostBuilderExtensions.cs)：
+我们来看一下 `UseWindowsService` 方法的[源代码](https://github.com/dotnet/runtime/blob/main/src/libraries/Microsoft.Extensions.Hosting.WindowsServices/src/WindowsServiceLifetimeHostBuilderExtensions.cs)：
 
 ![UseWindowsService Method](https://ittranslator.cn/assets/images/202106/UseWindowsService.png)
 
@@ -369,8 +369,16 @@ sc delete MyService
 services.AddSingleton<IHostLifetime, WindowsServiceLifetime>();
 ```
 
-也就是，当 Worker Service 作为 Windows Service 运行时，使用的生命周期控制类是 *WindowsServiceLifetime*。
+也就是说，当 Worker Service 作为 Windows Service 运行时，使用的宿主(Host)生命周期控制类不再是作为控制台应用运行时的 [*ConsoleLifetime*](https://github.com/dotnet/runtime/blob/main/src/libraries/Microsoft.Extensions.Hosting/src/Internal/ConsoleLifetime.cs)，而是 [*WindowsServiceLifetime*](https://github.com/dotnet/runtime/blob/main/src/libraries/Microsoft.Extensions.Hosting.WindowsServices/src/WindowsServiceLifetime.cs)，它派生自 [*ServiceBase*](https://github.com/dotnet/runtime/blob/main/src/libraries/System.ServiceProcess.ServiceController/src/System/ServiceProcess/ServiceBase.cs)。
+
+让我们看一下 *WindowsServiceLifetime* 的[源代码](https://github.com/dotnet/runtime/blob/main/src/libraries/Microsoft.Extensions.Hosting.WindowsServices/src/WindowsServiceLifetime.cs)：
 
 ![WindowsServiceLifetime Class](https://ittranslator.cn/assets/images/202106/WindowsServiceLifetime.png)
 
-<!-- *IHostApplicationLifetime* 换为 *IHostLifetime* -->
+您会发现 *WindowsServiceLifetime* 类的 `OnShutdown` 方法中调用了 `ApplicationLifetime.StopApplication()`；而它的基类 *ServiceBase* 中，当服务停止时调用了 `OnShutdown` 方法。也就是说，在 Windows 服务停止的时候已经调用了 `ApplicationLifetime.StopApplication()`。这就是我们在 *Worker* 中手动调用 `StopApplication` 失效的原因。
+
+找到了原因，我们应该怎么解决呢？
+
+功夫不负有心人，在认真研究了 *BackgroundService* 、*WindowsServiceLifetime* 和 *ApplicationLifetime* 的源代码后，终于找到了解决方法。既然 *WindowsServiceLifetime* 中调用了 `StopApplication`，那我就换别的方法呗。
+
+
