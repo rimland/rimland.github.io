@@ -97,7 +97,7 @@ published: true
 [^precode]: <https://github.com/ITTranslate/WorkerServiceWithSerilog>
 
 ```bash
-git clone https://github.com/ITTranslate/WorkerServiceWithSerilog.git
+git clone git@github.com:ITTranslate/WorkerServiceWithSerilog.git
 ```
 
 然后，使用 Visual Studio Code 打开此项目，运行一下，以确保一切正常：
