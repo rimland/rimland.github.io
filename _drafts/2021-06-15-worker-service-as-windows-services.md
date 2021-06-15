@@ -77,15 +77,6 @@ published: true
           GetDisplayName--获取服务的 DisplayName。
           GetKeyName------获取服务的 ServiceKeyName。
           EnumDepend------枚举服务依赖关系。
-
-        以下命令不需要服务名称:
-        sc <server> <command> <option>
-          boot------------(ok | bad)指示是否应将上一次启动另存为
-                          最近一次已知的正确启动配置
-          Lock------------锁定服务数据库
-          QueryLock-------查询 SCManager 数据库的 LockStatus
-示例:
-        sc start MyService
 ...
 ```
 
