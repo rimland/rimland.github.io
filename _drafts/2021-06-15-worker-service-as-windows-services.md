@@ -376,17 +376,17 @@ services.AddSingleton<IHostLifetime, WindowsServiceLifetime>();
 
 ![WindowsServiceLifetime Class](https://ittranslator.cn/assets/images/202106/WindowsServiceLifetime.png)
 
-您会发现 *WindowsServiceLifetime* 类的 `OnShutdown` 方法中调用了 `ApplicationLifetime.StopApplication()`；而它的基类 *ServiceBase* 中，当服务停止时调用了 `OnShutdown` 方法。也就是说，在 Windows 服务停止的时候已经调用了 `ApplicationLifetime.StopApplication()`。这就是我们在 *Worker* 中手动调用 `StopApplication` 失效的原因。
+您会发现 *WindowsServiceLifetime* 类的 `OnStop` 和 `OnShutdown` 方法中调用了 `ApplicationLifetime.StopApplication()`；而它的基类 *ServiceBase* 中，当服务停止时调用了 `OnStop` 和 `OnShutdown` 方法。也就是说，在 Windows 服务停止的时候已经调用了 `ApplicationLifetime.StopApplication()`。这就是我们在 *Worker* 中手动调用 `StopApplication` 失效的原因。
 
 找到了原因，我们应该怎么解决呢？
 
 功夫不负有心人，在认真研究了 *BackgroundService* 、*WindowsServiceLifetime* 和 *ApplicationLifetime* 的源代码后，终于找到了解决方法。既然 *WindowsServiceLifetime* 中调用了 `StopApplication`，那我就换别的方法呗。
 
-注意到 *ApplicationLifetime* 的属性 `CancellationToken ApplicationStopping`，它的注释是：
+注意到 *ApplicationLifetime* 的属性 `ApplicationStopping`（类型为 *CancellationToken*），它的注释是：
 
 > Triggered when the application host is performing a graceful shutdown. Request may still be in flight. Shutdown will block until this event completes.
 
-所以我们可以为它注册一个取消时执行的委托操作。修改一下 *Worker* 类中的 `ExecuteAsync` 方法：
+所以，我们可以向它注册一个取消时执行的委托操作。修改一下 *Worker* 类中的 `ExecuteAsync` 方法：
 
 ```csharp
 protected override async Task ExecuteAsync(CancellationToken stoppingToken)
