@@ -556,3 +556,7 @@ dotnet publish -c Release -r win-x64 -o c:\test\workerpub
 
 > 作者 ： 技术译民  
 > 出品 ： [技术译站](https://ittranslator.cn/)
+
+<!-- 
+    https://docs.microsoft.com/zh-cn/aspnet/core/host-and-deploy/windows-service?view=aspnetcore-5.0&tabs=visual-studio
+-->
