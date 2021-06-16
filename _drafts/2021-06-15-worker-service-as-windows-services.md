@@ -352,11 +352,13 @@ sc delete MyService
 
 至此，我们使用 **sc** 实用工具演示了服务的创建、更改描述、启动、停止、删除。当服务创建完成后，您也可以使用 Windows 服务管理器维护服务的启动、停止等。
 
-## 问题
+## Windows Service 优雅退出
 
-### Windows Service 的优雅退出
+### 问题
 
-我们查看一下 *C:\test\workerpub\Logs* 目录下的日志，会发现当我们停止服务的时候，它并没有像我们在控制台测试的时候那样优雅退出（等待关闭前必须完成的任务完成后再退出）。这是什么原因呢，如何解决呢？
+我们查看一下 *C:\test\workerpub\Logs* 目录下的日志信息，会发现当我们停止服务的时候，它并没有像我们在将 Worker Service 作为控制台应用运行时那样优雅退出（等待关闭前必须完成的任务正常结束后再退出）。这是什么原因呢，如何解决呢？
+
+### 原因
 
 我们来看一下 `UseWindowsService` 方法的[源代码](https://github.com/dotnet/runtime/blob/main/src/libraries/Microsoft.Extensions.Hosting.WindowsServices/src/WindowsServiceLifetimeHostBuilderExtensions.cs)：
 
@@ -372,7 +374,7 @@ services.AddSingleton<IHostLifetime, WindowsServiceLifetime>();
 
 也就是说，当 Worker Service 作为 Windows Service 运行时，使用的宿主(Host)生命周期控制类不再是作为控制台应用运行时的 [*ConsoleLifetime*](https://github.com/dotnet/runtime/blob/main/src/libraries/Microsoft.Extensions.Hosting/src/Internal/ConsoleLifetime.cs)，而是 [*WindowsServiceLifetime*](https://github.com/dotnet/runtime/blob/main/src/libraries/Microsoft.Extensions.Hosting.WindowsServices/src/WindowsServiceLifetime.cs)，它派生自 [*ServiceBase*](https://github.com/dotnet/runtime/blob/main/src/libraries/System.ServiceProcess.ServiceController/src/System/ServiceProcess/ServiceBase.cs)。
 
-让我们看一下 *WindowsServiceLifetime* 的[源代码](https://github.com/dotnet/runtime/blob/main/src/libraries/Microsoft.Extensions.Hosting.WindowsServices/src/WindowsServiceLifetime.cs)：
+让我们来看一下 *WindowsServiceLifetime* 的[源代码](https://github.com/dotnet/runtime/blob/main/src/libraries/Microsoft.Extensions.Hosting.WindowsServices/src/WindowsServiceLifetime.cs)：
 
 ![WindowsServiceLifetime Class](https://ittranslator.cn/assets/images/202106/WindowsServiceLifetime.png)
 
@@ -380,108 +382,142 @@ services.AddSingleton<IHostLifetime, WindowsServiceLifetime>();
 
 找到了原因，我们应该怎么解决呢？
 
-功夫不负有心人，在认真研究了 *BackgroundService* 、*WindowsServiceLifetime* 和 *ApplicationLifetime* 的源代码后，终于找到了解决方法。既然 *WindowsServiceLifetime* 中调用了 `StopApplication`，那我就换别的方法呗。
+### 解决方法
+
+功夫不负有心人，在认真查阅了 dotnet runtime 中 *BackgroundService* 、*WindowsServiceLifetime* 和 *ApplicationLifetime* 类的源代码后，终于找到了解决方法。既然 *WindowsServiceLifetime* 中调用了 `StopApplication`，那我就换别的方法呗。
 
 注意到 *ApplicationLifetime* 的属性 `ApplicationStopping`（类型为 *CancellationToken*），它的注释是：
 
 > Triggered when the application host is performing a graceful shutdown. Request may still be in flight. Shutdown will block until this event completes.
 
-所以，我们可以向它注册一个取消时执行的委托操作。修改一下 *Worker* 类中的 `ExecuteAsync` 方法：
+所以，我们可以向它注册一个取消时调用的的委托操作。修改一下 *Worker* 类中的 `StartAsync` 方法，添加以下代码：
 
 ```csharp
-protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+// 注册应用停止前需要完成的操作
+_hostApplicationLifetime.ApplicationStopping.Register(() =>
 {
-    // 注册应用停止前需要完成的操作
-    _hostApplicationLifetime.ApplicationStopping.Register(() =>
-    {
-        GetOffWork();
-    });
+    GetOffWork();
+});
+```
 
-    try
+修改完成后，*Worker* 类完整的代码如下：
+
+```csharp
+public class Worker : BackgroundService
+{
+    /// <summary>
+    /// 状态：0-默认状态，1-正在完成关闭前的必要工作，2-正在执行 StopAsync
+    /// </summary>
+    private volatile int _status = 0; //状态
+    private readonly IHostApplicationLifetime _hostApplicationLifetime;
+    private readonly ILogger<Worker> _logger;
+
+    public Worker(IHostApplicationLifetime hostApplicationLifetime, ILogger<Worker> logger)
     {
-        // 这里实现实际的业务逻辑
-        while (!stoppingToken.IsCancellationRequested)
+        _hostApplicationLifetime = hostApplicationLifetime;
+        _logger = logger;
+    }
+
+    public override Task StartAsync(CancellationToken cancellationToken)
+    {
+        // 注册应用停止前需要完成的操作
+        _hostApplicationLifetime.ApplicationStopping.Register(() =>
         {
-            try
-            {
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+            GetOffWork();
+        });
 
-                await SomeMethodThatDoesTheWork(stoppingToken);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Global exception occurred. Will resume in a moment.");
-            }
+        _logger.LogInformation("上班了，又是精神抖擞的一天，output from StartAsync");
+        return base.StartAsync(cancellationToken);
+    }
 
-            await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        try
+        {
+            // 这里实现实际的业务逻辑
+            while (!stoppingToken.IsCancellationRequested)
+            {
+                try
+                {
+                    _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+
+                    await SomeMethodThatDoesTheWork(stoppingToken);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Global exception occurred. Will resume in a moment.");
+                }
+
+                await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+            }
+        }
+        finally
+        {
+            _logger.LogWarning("My worker service shut down.");
         }
     }
-    finally
+
+    private async Task SomeMethodThatDoesTheWork(CancellationToken cancellationToken)
     {
-        _logger.LogWarning("My worker service shutdown.");
+        string msg = _status switch
+        {
+            1 => "正在完成关闭前的必要工作……",
+            2 => "假装还在埋头苦干ing…… 其实我去洗杯子了",
+            _ => "我爱工作，埋头苦干ing……"
+        };
+
+        _logger.LogInformation(msg);
+        await Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// 关闭前需要完成的工作
+    /// </summary>
+    private void GetOffWork()
+    {
+        _status = 1;
+
+        _logger.LogInformation("太好了，下班时间到，output from ApplicationStopping.Register Action at: {time}", DateTimeOffset.Now);           
+
+        _logger.LogDebug("开始处理关闭前必须完成的工作 at: {time}", DateTimeOffset.Now);
+
+        _logger.LogInformation("糟糕，有一个紧急 bug 需要下班前完成！！！");
+
+        _logger.LogInformation("啊啊啊，我爱加班，我要再干 20 秒，Wait 1 ");
+
+        Task.Delay(TimeSpan.FromSeconds(20)).Wait();
+
+        _logger.LogInformation("啊啊啊啊啊啊，我爱加班，我要再干 1 分钟，Wait 2 ");
+
+        Task.Delay(TimeSpan.FromMinutes(1)).Wait();
+
+        _logger.LogInformation("啊哈哈哈哈哈，终于好了，可以下班了！");
+
+        _logger.LogDebug("关闭前必须完成的工作处理完成 at: {time}", DateTimeOffset.Now);
+    }
+
+    public override Task StopAsync(CancellationToken cancellationToken)
+    {
+        _status = 2;
+
+        _logger.LogInformation("准备下班了，output from StopAsync at: {time}", DateTimeOffset.Now);
+
+        _logger.LogInformation("去洗洗茶杯先……", DateTimeOffset.Now);
+        Task.Delay(30_000).Wait();
+        _logger.LogInformation("茶杯洗好了。", DateTimeOffset.Now);
+
+        _logger.LogInformation("下班喽 ^_^", DateTimeOffset.Now);
+
+        return base.StopAsync(cancellationToken);
     }
 }
 ```
 
-*Worker* 类其它部分的修改：
+修改完成以后，停止服务，重新发布程序，再次启动服务然后关闭服务，您会发现，我们编写的 Windows Service 已经可以优雅退出了。
 
-```csharp
-/// <summary>
-/// 状态：0-默认状态，1-正在完成关闭前的必要工作，2-正在执行 StopAsync
-/// </summary>
-private volatile int _status = 0; //状态
+## 总结
 
-private async Task SomeMethodThatDoesTheWork(CancellationToken cancellationToken)
-{
-    string msg = _status switch
-    {
-        1 => "正在完成关闭前的必要工作……",
-        2 => "假装还在埋头苦干ing…… 其实我去洗杯子了",
-        _ => "我爱工作，埋头苦干ing……"
-    };
 
-    _logger.LogInformation(msg);
-    await Task.CompletedTask;
-}
 
-/// <summary>
-/// 关闭前需要完成的工作
-/// </summary>
-private void GetOffWork()
-{
-    _status = 1;
 
-    _logger.LogInformation("太好了，下班时间到，output from ApplicationStopping.Register Action at: {time}", DateTimeOffset.Now);           
 
-    _logger.LogDebug("开始处理关闭前必须完成的工作 at: {time}", DateTimeOffset.Now);
-
-    _logger.LogInformation("糟糕，有一个紧急 bug 需要下班前完成！！！");
-
-    _logger.LogInformation("啊啊啊，我爱加班，我要再干 20 秒，Wait 1 ");
-
-    Task.Delay(TimeSpan.FromSeconds(20)).Wait();
-
-    _logger.LogInformation("啊啊啊啊啊啊，我爱加班，我要再干 1 分钟，Wait 2 ");
-
-    Task.Delay(TimeSpan.FromMinutes(1)).Wait();
-
-    _logger.LogInformation("啊哈哈哈哈哈，终于好了，可以下班了！");
-
-    _logger.LogDebug("关闭前必须完成的工作处理完成 at: {time}", DateTimeOffset.Now);
-}
-
-public override Task StopAsync(CancellationToken cancellationToken)
-{
-    _status = 2;
-
-    _logger.LogInformation("准备下班了，output from StopAsync at: {time}", DateTimeOffset.Now);
-
-    _logger.LogInformation("去洗洗茶杯先……", DateTimeOffset.Now);
-    Task.Delay(30_000).Wait();
-    _logger.LogInformation("茶杯洗好了。", DateTimeOffset.Now);
-
-    _logger.LogInformation("下班喽 ^_^", DateTimeOffset.Now);
-
-    return base.StopAsync(cancellationToken);
-}
-```
