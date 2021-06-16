@@ -535,7 +535,7 @@ dotnet publish -c Release -r win-x64 -o c:\test\workerpub
 
 在本文中，我通过一个实例详细介绍了如何将 .NET Worker Service 作为 Windows 服务运行，并说明了如何使用 **sc.exe** 实用工具安装和管理服务。还改进了 Worker Service 优雅退出的方法，使它不仅适用于控制台应用而且适用于 Windows 服务。
 
-当我们向 *HostBuilder* 添加了 `.UseWindowsService()` 方法调用后，编译出的程序，即可以作为控制台应用运行，也可以作为 Windows 服务运行。
+当我们向 *HostBuilder* 添加了 `.UseWindowsService()` 方法调用后，编译出的程序，既可以作为控制台应用运行，也可以作为 Windows 服务运行。
 
 您可以从 GitHub [下载本文中的源码](https://github.com/ITTranslate/WorkerServiceAsWindowsService)[^github]。
 
