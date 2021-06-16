@@ -356,9 +356,13 @@ sc delete MyService
 
 ### 问题
 
-我们查看一下 *C:\test\workerpub\Logs* 目录下的日志信息，会发现当我们停止服务的时候，它并没有像我们在将 Worker Service 作为控制台应用运行时那样优雅退出（等待关闭前必须完成的任务正常结束后再退出）。这是什么原因呢，如何解决呢？
+我查看了一下 *C:\test\workerpub\Logs* 目录下的日志信息，发现当停止服务的时候，它并没有像我将 Worker Service 作为控制台应用运行时那样优雅退出（等待关闭前必须完成的任务正常结束后再退出）。也就是说，我在[.NET Worker Service 如何优雅退出](https://ittranslator.cn/dotnet/csharp/2021/05/17/worker-service-gracefully-shutdown.html)[^graceful]中使用的方法，在将 Worker Service 作为 Windows 服务运行时失效了。
 
-### 原因
+[^graceful]: <https://ittranslator.cn/dotnet/csharp/2021/05/17/worker-service-gracefully-shutdown.html>
+
+这是什么原因呢，该如何解决呢？
+
+### 查找原因
 
 我们来看一下 `UseWindowsService` 方法的[源代码](https://github.com/dotnet/runtime/blob/main/src/libraries/Microsoft.Extensions.Hosting.WindowsServices/src/WindowsServiceLifetimeHostBuilderExtensions.cs)：
 
@@ -380,11 +384,13 @@ services.AddSingleton<IHostLifetime, WindowsServiceLifetime>();
 
 您会发现 *WindowsServiceLifetime* 类的 `OnStop` 和 `OnShutdown` 方法中调用了 `ApplicationLifetime.StopApplication()`；而它的基类 *ServiceBase* 中，当服务停止时调用了 `OnStop` 和 `OnShutdown` 方法。也就是说，在 Windows 服务停止的时候已经调用了 `ApplicationLifetime.StopApplication()`。这就是我们在 *Worker* 中手动调用 `StopApplication` 失效的原因。
 
-找到了原因，我们应该怎么解决呢？
+问题的原因找到了，该怎么解决它呢？
 
 ### 解决方法
 
-功夫不负有心人，在认真查阅了 dotnet runtime 中 *BackgroundService* 、*WindowsServiceLifetime* 和 *ApplicationLifetime* 类的源代码后，终于找到了解决方法。既然 *WindowsServiceLifetime* 中调用了 `StopApplication`，那我就换别的方法呗。
+功夫不负有心人，在认真查阅了 [dotnet runtime](https://github.com/dotnet/runtime)[^runtime] 中 *BackgroundService* 、*WindowsServiceLifetime* 和 *ApplicationLifetime* 类的源代码后，终于找到了解决方法。既然 *WindowsServiceLifetime* 中调用了 `StopApplication`，那我就换别的方法呗。
+
+[^runtime]: <https://github.com/dotnet/runtime> dotnet runtime
 
 注意到 *ApplicationLifetime* 的属性 `ApplicationStopping`（类型为 *CancellationToken*），它的注释是：
 
@@ -513,11 +519,21 @@ public class Worker : BackgroundService
 }
 ```
 
-修改完成以后，停止服务，重新发布程序，再次启动服务然后关闭服务，您会发现，我们编写的 Windows Service 已经可以优雅退出了。
+修改完成以后，停止服务，重新发布程序。再次启动服务然后关闭服务，您会发现，我们编写的 Windows Service 已经可以优雅退出了。
+
+这种方法，不仅作为 Windows 服务运行可以优雅退出，而且作为控制台应用运行也一样适用，它比我在[.NET Worker Service 如何优雅退出](https://ittranslator.cn/dotnet/csharp/2021/05/17/worker-service-gracefully-shutdown.html)中介绍的方法更加完美。
 
 ## 总结
 
+在本文中，我通过一个实例详细介绍了如何将 .NET Worker Service 作为 Windows 服务运行，并说明了如何使用 **sc.exe** 实用工具安装和管理服务。还改进了 Worker Service 优雅退出的方法，使它不仅适用于控制台应用而且适用于 Windows 服务。
 
+当我们向 *HostBuilder* 调用 `.UseWindowsService()` 方法后，编译出的应用，即可以作为控制台程序运行，也可以作为 Windows 服务运行。
 
+您可以从 GitHub [下载本文中的源码](https://github.com/ITTranslate/WorkerServiceAsWindowsService)[^github]。
 
+[^github]: <https://github.com/ITTranslate/WorkerServiceAsWindowsService> 源码下载
 
+<br />
+
+> 作者 ： 技术译民  
+> 出品 ： [技术译站](https://ittranslator.cn/)
