@@ -109,7 +109,7 @@ dotnet run
 
 ### 添加 Windows Services 依赖
 
-为了作为 Windows 服务运行，我们需要我们的 Worker 监听来自 ServiceBase 的启动和停止信号，*ServiceBase* 是将 Windows 服务系统公开给 .NET 应用程序的 .NET 类型。为此，我们需要添加 `Microsoft.Extensions.Hosting.WindowsServices` NuGet 包：
+为了作为 Windows 服务运行，我们需要我们的 Worker 监听来自 *ServiceBase* 的启动和停止信号，[*ServiceBase*](https://github.com/dotnet/runtime/blob/main/src/libraries/System.ServiceProcess.ServiceController/src/System/ServiceProcess/ServiceBase.cs) 是将 Windows 服务系统公开给 .NET 应用程序的 .NET 类型。为此，我们需要添加 `Microsoft.Extensions.Hosting.WindowsServices` NuGet 包：
 
 ```bash
 dotnet add package Microsoft.Extensions.Hosting.WindowsServices
