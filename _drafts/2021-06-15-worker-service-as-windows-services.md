@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  ".NET Worker Service 作为 Windows 服务运行"
+title:  ".NET Worker Service 作为 Windows 服务运行及优雅退出改进"
 date:   2021-05-31 00:10:01 +0800
 categories: dotnet csharp
 author: 技术译民
@@ -533,13 +533,20 @@ dotnet publish -c Release -r win-x64 -o c:\test\workerpub
 
 在本文中，我通过一个实例详细介绍了如何将 .NET Worker Service 作为 Windows 服务运行，并说明了如何使用 **sc.exe** 实用工具安装和管理服务。还改进了 Worker Service 优雅退出的方法，使它不仅适用于控制台应用而且适用于 Windows 服务。
 
-当我们向 *HostBuilder* 调用 `.UseWindowsService()` 方法后，编译出的应用，即可以作为控制台应用运行，也可以作为 Windows 服务运行。
+当我们向 *HostBuilder* 添加了 `.UseWindowsService()` 方法调用后，编译出的程序，即可以作为控制台应用运行，也可以作为 Windows 服务运行。
 
 您可以从 GitHub [下载本文中的源码](https://github.com/ITTranslate/WorkerServiceAsWindowsService)[^github]。
 
 [^github]: <https://github.com/ITTranslate/WorkerServiceAsWindowsService> 源码下载
 
 <br />
+
+相关阅读：
+
+- [.NET Worker Service 入门介绍](https://ittranslator.cn/dotnet/csharp/2021/05/06/what-are-dotnet-worker-services.html)
+- [.NET Worker Service 如何优雅退出](https://ittranslator.cn/dotnet/csharp/2021/05/17/worker-service-gracefully-shutdown.html)
+- [.NET Worker Service 添加 Serilog 日志记录](https://ittranslator.cn/dotnet/csharp/2021/05/31/worker-service-with-serilog.html)
+- [.NET Worker Service 作为 Windows 服务运行及优雅退出改进](本文)
 
 > 作者 ： 技术译民  
 > 出品 ： [技术译站](https://ittranslator.cn/)
