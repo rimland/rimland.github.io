@@ -1,11 +1,11 @@
 ---
 layout: post
 title:  ".NET Worker Service 作为 Windows 服务运行及优雅退出改进"
-date:   2021-05-31 00:10:01 +0800
+date:   2021-06-17 00:10:01 +0800
 categories: dotnet csharp
 author: 技术译民
 tags: [DotNet, Worker Service, Windows Services]
-published: true
+published: false
 ---
 
 上一篇文章我们了解了[如何为 Worker Service 添加 Serilog 日志记录](https://ittranslator.cn/dotnet/csharp/2021/05/31/worker-service-with-serilog.html)，今天我们接着介绍一下如何将 Worker Service 作为 Windows 服务运行。
