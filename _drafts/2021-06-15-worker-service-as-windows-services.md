@@ -272,7 +272,7 @@ sc start MyService
 服务没有及时响应启动或控制请求。
 ```
 
-启动失败了，为什么呢？查看一下 Windows 事件查看器 --> 应用程序，显示错误原因大致如下：
+启动失败了，为什么呢？查看一下 Windows 事件查看器 --> 应用程序，显示的错误原因大致如下：
 
 ```text
 The process was terminated due to an unhandled exception.
@@ -280,7 +280,7 @@ Exception Info: System.IO.FileNotFoundException: The configuration file 'appsett
 The physical path is 'C:\WINDOWS\system32\appsettings.json'.
 ```
 
-回头看一下 *Program.cs* 文件，在 `Main` 方法中我们为配置设置的基路径是 `Directory.GetCurrentDirectory()`。但是作为 Windows Service 运行时，默认的当前工作目录是 *C:\WINDOWS\system32*，所以导致了这样的错误。为了解决这一问题，我们需要在设置基路径前中添加一行 `Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory)`，代码如下：
+回头看一下 *Program.cs* 文件，在 `Main` 方法中我们为配置设置的基路径是 `Directory.GetCurrentDirectory()`。但是作为 Windows Service 运行时，默认的当前工作目录是 *C:\WINDOWS\system32*，所以导致了这样的错误。为了解决这一问题，我们需要在设置配置的基路径前中添加一行 `Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory)`，代码如下：
 
 ```csharp
 // 作为 Windows Service 运行时，默认的当前工作目录是 C:\WINDOWS\system32，会导致找不到配置文件，
@@ -350,7 +350,7 @@ sc delete MyService
 [SC] DeleteService 成功
 ```
 
-至此，我们使用 **sc** 实用工具演示了服务的创建、更改描述、启动、停止、删除。当服务创建完成后，您也可以使用 Windows 服务管理器维护服务的启动、停止等。
+至此，我们使用 **sc** 实用工具演示了服务的创建、更改描述、启动、停止和删除。当服务创建完成以后，您也可以使用 Windows 服务管理器来维护服务的启动、停止等。
 
 ## Windows Service 优雅退出
 
@@ -527,7 +527,7 @@ dotnet publish -c Release -r win-x64 -o c:\test\workerpub
 
 再次启动服务然后关闭服务，您会发现，我们编写的 Windows Service 已经可以优雅退出了。
 
-这种方法，不仅作为 Windows 服务运行可以优雅退出，而且作为控制台应用运行也一样适用，它比我在[.NET Worker Service 如何优雅退出](https://ittranslator.cn/dotnet/csharp/2021/05/17/worker-service-gracefully-shutdown.html)中介绍的方法更加完美。
+这种方法，不仅作为 Windows 服务运行时可以优雅退出，而且作为控制台应用运行时也一样适用，它比我在[.NET Worker Service 如何优雅退出](https://ittranslator.cn/dotnet/csharp/2021/05/17/worker-service-gracefully-shutdown.html)中介绍的方法更加完美。
 
 ## 总结
 
