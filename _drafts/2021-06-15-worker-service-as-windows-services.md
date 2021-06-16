@@ -406,7 +406,7 @@ _hostApplicationLifetime.ApplicationStopping.Register(() =>
 });
 ```
 
-修改完成后，*Worker* 类完整的代码如下：
+修改后 *Worker* 类的完整代码如下：
 
 ```csharp
 public class Worker : BackgroundService
@@ -519,7 +519,13 @@ public class Worker : BackgroundService
 }
 ```
 
-修改完成以后，停止服务，重新发布程序。再次启动服务然后关闭服务，您会发现，我们编写的 Windows Service 已经可以优雅退出了。
+代码修改完成以后，停止服务，重新发布程序。
+
+```bash
+dotnet publish -c Release -r win-x64 -o c:\test\workerpub
+```
+
+再次启动服务然后关闭服务，您会发现，我们编写的 Windows Service 已经可以优雅退出了。
 
 这种方法，不仅作为 Windows 服务运行可以优雅退出，而且作为控制台应用运行也一样适用，它比我在[.NET Worker Service 如何优雅退出](https://ittranslator.cn/dotnet/csharp/2021/05/17/worker-service-gracefully-shutdown.html)中介绍的方法更加完美。
 
@@ -527,7 +533,7 @@ public class Worker : BackgroundService
 
 在本文中，我通过一个实例详细介绍了如何将 .NET Worker Service 作为 Windows 服务运行，并说明了如何使用 **sc.exe** 实用工具安装和管理服务。还改进了 Worker Service 优雅退出的方法，使它不仅适用于控制台应用而且适用于 Windows 服务。
 
-当我们向 *HostBuilder* 调用 `.UseWindowsService()` 方法后，编译出的应用，即可以作为控制台程序运行，也可以作为 Windows 服务运行。
+当我们向 *HostBuilder* 调用 `.UseWindowsService()` 方法后，编译出的应用，即可以作为控制台应用运行，也可以作为 Windows 服务运行。
 
 您可以从 GitHub [下载本文中的源码](https://github.com/ITTranslate/WorkerServiceAsWindowsService)[^github]。
 
