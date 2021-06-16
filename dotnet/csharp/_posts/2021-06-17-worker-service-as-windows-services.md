@@ -552,7 +552,7 @@ dotnet publish -c Release -r win-x64 -o c:\test\workerpub
 - [.NET Worker Service 入门介绍](https://ittranslator.cn/dotnet/csharp/2021/05/06/what-are-dotnet-worker-services.html)
 - [.NET Worker Service 如何优雅退出](https://ittranslator.cn/dotnet/csharp/2021/05/17/worker-service-gracefully-shutdown.html)
 - [.NET Worker Service 添加 Serilog 日志记录](https://ittranslator.cn/dotnet/csharp/2021/05/31/worker-service-with-serilog.html)
-- [.NET Worker Service 作为 Windows 服务运行及优雅退出改进](#本文)
+- [.NET Worker Service 作为 Windows 服务运行及优雅退出改进](https://ittranslator.cn/dotnet/csharp/2021/06/17/worker-service-as-windows-services.html)
 
 > 作者 ： 技术译民  
 > 出品 ： [技术译站](https://ittranslator.cn/)
