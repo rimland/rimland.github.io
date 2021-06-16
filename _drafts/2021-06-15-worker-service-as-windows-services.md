@@ -280,12 +280,12 @@ Exception Info: System.IO.FileNotFoundException: The configuration file 'appsett
 The physical path is 'C:\WINDOWS\system32\appsettings.json'.
 ```
 
-回头看一下 *Program.cs* 文件，在 `Main` 方法中我们为配置设置的基路径是 `Directory.GetCurrentDirectory()`。但是作为 Windows Service 运行时，默认的当前工作目录是 *C:\WINDOWS\system32*，所以导致了这样的错误。为了解决这一问题，我们需要在设置配置的基路径前添加一行 `Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory)`，代码如下：
+回头看一下 *Program.cs* 文件，在 `Main` 方法中我们为配置设置的基路径是 `Directory.GetCurrentDirectory()`。但是作为 Windows Service 运行时，默认的当前工作目录是 *C:\WINDOWS\system32*，所以导致了这样的错误。为了解决这一问题，我们需要在设置配置的基路径前添加一行 `Directory.SetCurrentDirectory(AppContext.BaseDirectory)`，代码如下：
 
 ```csharp
 // 作为 Windows Service 运行时，默认的当前工作目录是 C:\WINDOWS\system32，会导致找不到配置文件，
 // 所以需要添加下面一行，指定当前工作目录为应用程序所在的实际目录。
-Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
+Directory.SetCurrentDirectory(AppContext.BaseDirectory);
 
 var configuration = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
@@ -293,6 +293,10 @@ var configuration = new ConfigurationBuilder()
     .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT") ?? "Production"}.json", true)
     .Build();
 ```
+
+> 作为 Windows Service 运行时，默认情况下，Directory.GetCurrentDirectory() 为 *C:\WINDOWS\system32*，  
+> AppDomain.CurrentDomain.BaseDirectory 和 AppContext.BaseDirectory 为应用程序所在的实际目录。  
+> 因为在有的依赖程序包中有用到 Directory.GetCurrentDirectory() 获取来程序所在目录，所以这里必须使用 Directory.SetCurrentDirectory 设置当前工作目录。
 
 再次启动：
 
