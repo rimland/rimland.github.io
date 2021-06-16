@@ -1,11 +1,11 @@
 ---
 layout: post
 title:  ".NET Worker Service 作为 Windows 服务运行及优雅退出改进"
-date:   2021-06-17 00:10:01 +0800
+date:   2021-06-17 00:01:01 +0800
 categories: dotnet csharp
 author: 技术译民
 tags: [DotNet, Worker Service, Windows Services]
-published: false
+published: true
 ---
 
 上一篇文章我们了解了[如何为 Worker Service 添加 Serilog 日志记录](https://ittranslator.cn/dotnet/csharp/2021/05/31/worker-service-with-serilog.html)，今天我们接着介绍一下如何将 Worker Service 作为 Windows 服务运行。
@@ -24,7 +24,7 @@ published: false
 
 打开 Windows 命令提示符窗口，输入并运行 `sc` 命令，您便可以看到 **sc.exe** 实用工具的帮助信息：
 
-```bat
+```bash
 > sc
 
 描述:
@@ -102,7 +102,7 @@ git clone git@github.com:ITTranslate/WorkerServiceWithSerilog.git
 
 然后，使用 Visual Studio Code 打开此项目，运行一下，以确保一切正常：
 
-```bat
+```bash
 dotnet build
 dotnet run
 ```
@@ -130,7 +130,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 
 然后，运行一下构建命令，确保一切正常：
 
-```bat
+```bash
 dotnet build
 ```
 
@@ -142,7 +142,7 @@ dotnet build
 
 [^publish]: <https://docs.microsoft.com/zh-cn/dotnet/core/tools/dotnet-publish>
 
-```bat
+```bash
 dotnet publish -c Release -r win-x64 -o c:\test\workerpub
 ```
 
@@ -158,7 +158,7 @@ dotnet publish -c Release -r win-x64 -o c:\test\workerpub
 
 以管理员身份打开 Windows 命令提示符窗口，输入并运行 `sc create` 命令，可以看到此命令的的帮助信息：
 
-```bat
+```bash
 > sc create
 
 描述:
@@ -207,7 +207,7 @@ dotnet publish -c Release -r win-x64 -o c:\test\workerpub
 
 了解了 `sc create` 命令的用法，不难得出此处我们所需要的命令如下：
 
-```bat
+```bash
 sc create MyService binPath= "C:\test\workerpub\MyService.exe" start= auto displayname= "技术译站的测试服务"
 ```
 
@@ -223,7 +223,7 @@ sc create MyService binPath= "C:\test\workerpub\MyService.exe" start= auto displ
 
 输入并运行 `sc description` 命令，可以看到此命令的的帮助信息：
 
-```bat
+```bash
 > sc description
 描述:
         设置服务的描述字符串。
@@ -233,7 +233,7 @@ sc create MyService binPath= "C:\test\workerpub\MyService.exe" start= auto displ
 
 运行以下命令给该服务添加描述信息：
 
-```bat
+```bash
 sc description MyService "这是一个由 Worker Service 实现的测试服务。"
 ```
 
@@ -249,7 +249,7 @@ sc description MyService "这是一个由 Worker Service 实现的测试服务�
 
 输入并运行 `sc start` 命令，可以看到此命令的的帮助信息：
 
-```bat
+```bash
 > sc start
 
 描述:
@@ -260,7 +260,7 @@ sc description MyService "这是一个由 Worker Service 实现的测试服务�
 
 输入以下命令启动服务：
 
-```bat
+```bash
 sc start MyService
 ```
 
@@ -300,7 +300,7 @@ var configuration = new ConfigurationBuilder()
 
 再次启动服务：
 
-```bat
+```bash
 > sc start MyService
 
 SERVICE_NAME: MyService
@@ -323,7 +323,7 @@ SERVICE_NAME: MyService
 
 运行以下命令，停止 *MyService* 服务。
 
-```bat
+```bash
 sc stop MyService
 ```
 
@@ -344,7 +344,7 @@ SERVICE_NAME: MyService
 
 运行以下命令，(从注册表中)删除 *MyService* 服务。
 
-```bat
+```bash
 sc delete MyService
 ```
 
