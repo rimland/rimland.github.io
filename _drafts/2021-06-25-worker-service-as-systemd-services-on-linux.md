@@ -80,8 +80,14 @@ mkdir /home/worker
 cp -r /mnt/c/test/workerpub/linux/. /home/worker
 ```
 
+打开 */home/worker* 目录，输入 `./MyService` 回车，运行应用。
+
 ```bash
 cd /home/worker
 
 ./MyService
 ```
+
+您可以在终端看到控制台输出，按 `Ctrl+C` 关闭应用，等待关闭前必须完成的任务正常结束，应用退出。输入 `ls` 命令回车，您会在当前目录下看到多了一个 *Logs* 目录，日志文件输出正常。
+
+## 作为 Systemd Service 运行
