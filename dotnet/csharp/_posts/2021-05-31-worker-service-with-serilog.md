@@ -219,7 +219,7 @@ Serilog 所需的配置节点名称默认为 `Serilog`；当然，您也可以�
       {
         "Name": "RollingFile",
         "Args": {
-          "pathFormat": "Logs\\{Hour}.txt",
+          "pathFormat": "Logs\\{Hour}.log",
         }
       }
     ]
@@ -301,7 +301,7 @@ dotnet add package Serilog.Enrichers.Process
 {
   "Name": "RollingFile",
   "Args": {
-    "pathFormat": "Logs\\{HalfHour}.txt",
+    "pathFormat": "Logs\\{HalfHour}.log",
     "outputTemplate": "{Timestamp:o} [{Level:u3}] ({MachineName}/{ProcessId}/{ProcessName}/{ThreadId}) {Message}{NewLine}{Exception}"
   }
 }
