@@ -70,17 +70,25 @@ dotnet publish -c Release -r linux-x64 -o c:\test\workerpub\linux
 
 ## 作为 Linux 控制台程序运行
 
-[如何在 Windows 10 上安装 WSL2](https://ittranslator.cn/os/2020/12/14/how-to-install-wsl2-on-windows-10.html)
+- [如何在 Windows 10 上安装 WSL2](https://ittranslator.cn/os/2020/12/14/how-to-install-wsl2-on-windows-10.html)
+- [在 WSL Ubuntu 上使用 .NET 进行跨平台开发新手入门](https://ittranslator.cn/os/2020/12/28/creating-cross-platform-applications-with-net-on-ubuntu-on-wsl.html)
+- [Windows Terminal 新手入门](https://ittranslator.cn/os/2020/12/31/getting-started-with-windows-terminal.html)
+
+启动 WSL 2 上的 Ubuntu 系统，新建 */home/worker* 目录
 
 ```bash
 mkdir /home/worker
 ```
 
+复制应用程序文件到 Ubuntu 系统：
+
 ```bash
 cp -r /mnt/c/test/workerpub/linux/. /home/worker
 ```
 
-打开 */home/worker* 目录，输入 `./MyService` 回车，运行应用。
+> 此处的 /mnt/ 为 Ubuntu 系统中看到的 Windows 文件系统的根目录，/mnt/c/ 即为 Windows 系统中的 C 盘。
+
+打开 */home/worker* 目录，输入 `./MyService` 回车，运行应用，您会在终端看到控制台输出。
 
 ```bash
 cd /home/worker
@@ -88,6 +96,6 @@ cd /home/worker
 ./MyService
 ```
 
-您可以在终端看到控制台输出，按 `Ctrl+C` 关闭应用，等待关闭前必须完成的任务正常结束，应用退出。输入 `ls` 命令回车，您会在当前目录下看到多了一个 *Logs* 目录，日志文件输出正常。
+按 `Ctrl+C` 关闭应用，等待关闭前必须完成的任务正常结束，应用退出。输入 `ls` 命令回车，您会在当前目录下看到多了一个 *Logs* 目录，日志文件输出正常。
 
 ## 作为 Systemd Service 运行
