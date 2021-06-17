@@ -96,6 +96,8 @@ cd /home/worker
 ./MyService
 ```
 
+![run as console on linux](https://ittranslator.cn/assets/images/202106/linux-run-as-console.png)
+
 按 `Ctrl+C` 关闭应用，等待关闭前必须完成的任务正常结束，应用退出。输入 `ls` 命令回车，您会在当前目录下看到多了一个 *Logs* 目录，日志文件输出正常。
 
 ## 作为 Systemd Service 运行
