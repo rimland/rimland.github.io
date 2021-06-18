@@ -17,6 +17,8 @@ permalink: /links/
 - .NET CLI
   - [.NET CLI zh-cn](https://docs.microsoft.com/zh-cn/dotnet/core/tools/)
   - [.NET CLI en-us](https://docs.microsoft.com/en-us/dotnet/core/tools/)
+  - [使用 .NET CLI 发布 .NET 应用](https://docs.microsoft.com/zh-cn/dotnet/core/deploying/deploy-with-cli)
+  - [.NET 运行时标识符(Runtime Identifier)目录](https://docs.microsoft.com/zh-cn/dotnet/core/rid-catalog)
 - [IdentityServer4](https://docs.identityserver.io/)
 - [IdentityServer](https://duendesoftware.com/)
 - [Serilog](https://serilog.net/)
