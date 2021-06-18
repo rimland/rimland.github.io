@@ -14,6 +14,9 @@ permalink: /links/
 - [Json.NET Documentation](https://www.newtonsoft.com/json/help/html/Introduction.htm)
 - [C# 语言版本控制](https://docs.microsoft.com/zh-cn/dotnet/csharp/language-reference/configure-language-version)
 - [Target frameworks](https://docs.microsoft.com/en-us/dotnet/standard/frameworks)
+- .NET CLI
+  - [.NET CLI zh-cn](https://docs.microsoft.com/zh-cn/dotnet/core/tools/)
+  - [.NET CLI en-us](https://docs.microsoft.com/en-us/dotnet/core/tools/)
 - [IdentityServer4](https://docs.identityserver.io/)
 - [IdentityServer](https://duendesoftware.com/)
 - [Serilog](https://serilog.net/)
