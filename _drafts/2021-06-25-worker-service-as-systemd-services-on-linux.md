@@ -165,7 +165,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 dotnet publish -c Release -r linux-x64 -o c:\test\workerpub\linux
 ```
 
-然后使用 `rz` 将程序文件复制到测试机。
+然后使用 `rz` 将程序文件复制到测试机，并为 */srv/Worker/MyService* 文件分配可执行权限。
 
 接下来，我们需要为 systemd 创建配置文件，告诉它服务的信息，以便它知道如何运行它。为此，我们需要创建一个 `.service` 文件，我们将在注册和运行此服务的 Linux 机器上使用此文件。
 
