@@ -267,7 +267,7 @@ journalctl -u MyService -f
 | Error       | 3            | err          |
 | Critical    | 2            | crit         |
 
-由于我们集成了 Systemd，所以我们可以使用 `journalctl` 命令的优先级标记（priority-flag）`-p` 根据日志级别来过滤应用的输出信息：
+所以，我们可以使用 `journalctl` 命令的优先级标记（priority-flag）`-p` 来根据日志级别过滤应用的输出信息：
 
 ```bash
 journalctl -p 4 -u MyService -f
