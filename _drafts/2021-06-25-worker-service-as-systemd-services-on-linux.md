@@ -158,6 +158,14 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
         .UseSerilog(); //将 Serilog 设置为日志提供程序
 ```
 
+重新运行以下命令将程序发布到文件夹：
+
+```bash
+dotnet publish -c Release -r linux-x64 -o c:\test\workerpub\linux
+```
+
+然后使用 `rz` 将程序文件复制到测试机。
+
 接下来，我们需要为 systemd 创建配置文件，告诉它服务的信息，以便它知道如何运行它。为此，我们需要创建一个 `.service` 文件，我们将在注册和运行此服务的 Linux 机器上使用此文件。
 
 在我们的项目中创建一个名为 *MyService.service* 的服务单元配置文件，内容如下（请将 *User=yourusername* 中的 `yourusername` 改为 CentOS 系统的用户名）：
