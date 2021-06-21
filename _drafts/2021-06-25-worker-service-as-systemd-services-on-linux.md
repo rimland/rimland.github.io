@@ -91,7 +91,7 @@ mkdir /srv/Worker
 
 使用 `rz` 命令将 *linux.zip* 复制到测试机，
 
-![copy files to linux](https://ittranslator.cn/assets/images/202106/xshell-rz.png)
+![copy files to linux](https://ittranslator.cn/assets/images/202106/xshel-copy-rz.png)
 
 然后解压 *linux.zip* 到 */srv/Worker* 目录：
 
