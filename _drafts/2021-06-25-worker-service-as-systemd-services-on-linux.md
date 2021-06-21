@@ -212,7 +212,7 @@ cd /etc/systemd/system/
 rz
 ```
 
-然后告诉 systemd 重新加载配置文件，并启动服务。
+然后执行以下命令让 systemd 重新加载配置文件：
  <!-- all configuration files to be put under '/etc/systemd/system/'. Copy the service configuration file to '/etc/systemd/system/HelloWorld.service'. Then tell systemd to reload the configuration files, and start the service.
 
 Systemd 期望所有配置文件都放在“/etc/systemd/system/”下。 将服务配置文件复制到'/etc/systemd/system/HelloWorld.service'。 然后告诉 systemd 重新加载配置文件，并启动服务。 
@@ -227,7 +227,7 @@ systemctl daemon-reload
 
 <!-- > 请将  /mnt/d/demo/WorkerServiceAsSystemdService/MyService.service 替换成您的实际路径 -->
 
-之后，您可以运行以下命令来查看 systemd 是否认出了您的服务：
+之后，可以运行以下命令来查看 systemd 是否识别了您的服务：
 
 ```bash
 systemctl status MyService
@@ -247,7 +247,7 @@ systemctl start MyService
 
 ![systemctl status MyService 2](https://ittranslator.cn/assets/images/202106/systemctl-status-MyService-2.png)
 
-使用 `journalctl`，我们可以验证应用程序是否成功运行。命令 `journalctl` 可以跟随显示应用程序的输出信息：
+使用 `journalctl`，我们可以验证应用程序是否成功运行。命令 `journalctl` 可以跟踪显示应用程序的输出信息：
 
 ```bash
 journalctl -u MyService -f
