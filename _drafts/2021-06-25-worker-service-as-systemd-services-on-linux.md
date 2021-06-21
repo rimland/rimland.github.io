@@ -278,7 +278,7 @@ https://superuser.com/questions/1126721/rebooting-ubuntu-on-windows-without-rebo
 
 -->
 
-```bash
+<!-- ```bash
 sudo apt install git
 ```
 
@@ -287,4 +287,4 @@ sudo git clone https://github.com/DamionGans/ubuntu-wsl2-systemd-script.git
 cd ubuntu-wsl2-systemd-script/
 bash ubuntu-wsl2-systemd-script.sh
 # Enter your password and wait until the script has finished
-```
+``` -->
