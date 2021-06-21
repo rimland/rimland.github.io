@@ -247,6 +247,12 @@ systemctl start MyService
 
 ![systemctl status MyService 2](https://ittranslator.cn/assets/images/202106/systemctl-status-MyService-2.png)
 
+如果您希望该服务在机器启动时自动启动，那么可以使用以下命令：
+
+```bash
+systemctl enable MyService
+```
+
 使用 `journalctl`，我们可以验证应用程序是否成功运行。命令 `journalctl` 可以跟踪显示应用程序的输出信息：
 
 ```bash
