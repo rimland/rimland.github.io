@@ -121,6 +121,12 @@ Windows Terminal 默认使用 Cascadia Mono 字体。字体是*配置文件（pr
 
 <br/>
 
+相关阅读：
+
+- [如何在 Windows 10 上安装 WSL2](https://ittranslator.cn/os/2020/12/14/how-to-install-wsl2-on-windows-10.html)
+- [在 WSL Ubuntu 上使用 .NET 进行跨平台开发新手入门](https://ittranslator.cn/os/2020/12/28/creating-cross-platform-applications-with-net-on-ubuntu-on-wsl.html)
+- [Windows Terminal 新手入门](https://ittranslator.cn/os/2020/12/31/getting-started-with-windows-terminal.html)
+
 > 作者 ： Kayla Cinnamon  
 > 译者 ： 技术译民  
 > 出品 ： [技术译站](https://ittranslator.cn/)  

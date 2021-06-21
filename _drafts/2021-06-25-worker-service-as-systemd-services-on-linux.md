@@ -70,6 +70,7 @@ dotnet publish -c Release -r linux-x64 -o c:\test\workerpub\linux
 
 ## 作为 Linux 控制台程序运行
 
+<!-- 
 - [如何在 Windows 10 上安装 WSL2](https://ittranslator.cn/os/2020/12/14/how-to-install-wsl2-on-windows-10.html)
 - [在 WSL Ubuntu 上使用 .NET 进行跨平台开发新手入门](https://ittranslator.cn/os/2020/12/28/creating-cross-platform-applications-with-net-on-ubuntu-on-wsl.html)
 - [Windows Terminal 新手入门](https://ittranslator.cn/os/2020/12/31/getting-started-with-windows-terminal.html)
@@ -77,9 +78,36 @@ dotnet publish -c Release -r linux-x64 -o c:\test\workerpub\linux
 启动 WSL 2 上的 Ubuntu 系统，新建 */srv/Worker* 目录
 
 ```bash
-sudo mkdir /srv/Worker
+mkdir /srv/Worker
+``` -->
+
+将文件夹 *C:\test\workerpub\linux* 下的文件压缩为 *linux.zip*。
+
+打开 Xshell 工具，连接到一台 CentOS 测试机，新建 */srv/Worker* 目录：
+
+```bash
+mkdir /srv/Worker
 ```
 
+使用 `rz` 命令将 *linux.zip* 复制到测试机，
+
+![copy files to linux](https://ittranslator.cn/assets/images/202106/xshell-rz)
+
+然后解压 *linux.zip* 到 */srv/Worker* 目录：
+
+```bash
+unzip linux.zip -d /srv/Worker
+```
+
+为我们的程序分配可执行权限，并运行：
+
+```bash
+chmod +x /srv/Worker/MyService
+
+/srv/Worker/MyService
+```
+
+<!-- 
 复制应用程序文件到 Ubuntu 系统：
 
 ```bash
@@ -94,11 +122,11 @@ cp -r /mnt/c/test/workerpub/linux/. /srv/Worker
 cd /srv/Worker
 
 ./MyService
-```
+``` -->
 
 ![run as console on linux](https://ittranslator.cn/assets/images/202106/linux-run-as-console.png)
 
-按 `Ctrl+C` 关闭应用，等待关闭前必须完成的任务正常结束，应用退出。输入 `ls` 命令回车，您会在当前目录下看到多了一个 *Logs* 目录，日志文件输出正常。
+按 `Ctrl+C` 关闭应用，等待关闭前必须完成的任务正常结束，应用退出。输入 `ls /srv/Worker` 命令回车，您会在该目录下看到多了一个 *Logs* 目录，日志文件输出正常。
 
 ## 作为 Systemd Service 运行
 
