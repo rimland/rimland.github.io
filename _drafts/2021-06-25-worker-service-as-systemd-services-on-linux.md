@@ -132,17 +132,20 @@ cd /srv/Worker
 
 ### 添加 Systemd Service 依赖
 
-```bash
-dotnet add package Microsoft.Extensions.Hosting.Systemd
-```
-
-<!-- provides notification messages for application started and stopping, and configures console logging to the systemd format.
+<!-- 
+provides notification messages for application started and stopping, and configures console logging to the systemd format.
 并将控制台日志记录配置为systemd格式。
 并将控制台日志配置为 systemd 格式。
 https://www.freedesktop.org/software/systemd/man/systemd.service.html
  -->
 
-为了让我们的 Worker 监听来自 Systemd 的启动和停止信号，我们需要修改 *Program.cs* 中的 `CreateHostBuilder` 方法，添加 `UseSystemd` 方法调用，将宿主(host)生命周期设置为 *Microsoft.Extensions.Hosting.Systemd.SystemdLifetime*，以便应用程序可以接收启动和停止通知，并配置控制台输出记录为 systemd 格式。
+为了让我们的 Worker 监听来自 Systemd 的启动和停止信号，我们需要添加 `Microsoft.Extensions.Hosting.Systemd` NuGet 包：
+
+```bash
+dotnet add package Microsoft.Extensions.Hosting.Systemd
+```
+
+然后，我们需要修改 *Program.cs* 中的 `CreateHostBuilder` 方法，添加 `UseSystemd` 方法调用，将宿主(host)生命周期设置为 *Microsoft.Extensions.Hosting.Systemd.SystemdLifetime*，以便应用程序可以接收启动和停止通知，并配置控制台输出记录为 systemd 格式。
 
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -155,7 +158,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
         .UseSerilog(); //将 Serilog 设置为日志提供程序
 ```
 
-现在我们有了一个应用程序，我们需要为 systemd 创建配置文件，告诉它服务的信息，以便它知道如何运行它。为此，我们需要创建一个 `.service` 文件，我们将在注册和运行此服务的 Linux 机器上使用此文件。
+接下来，我们需要为 systemd 创建配置文件，告诉它服务的信息，以便它知道如何运行它。为此，我们需要创建一个 `.service` 文件，我们将在注册和运行此服务的 Linux 机器上使用此文件。
 
 在我们的项目中创建一个名为 *MyService.service* 的服务单元配置文件：
 
