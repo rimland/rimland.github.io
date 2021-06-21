@@ -102,8 +102,9 @@ unzip linux.zip -d /srv/Worker
 为我们的程序分配可执行权限，并运行：
 
 ```bash
+# 分配可执行权限
 chmod +x /srv/Worker/MyService
-
+# 运行
 /srv/Worker/MyService
 ```
 
@@ -168,7 +169,7 @@ dotnet publish -c Release -r linux-x64 -o c:\test\workerpub\linux
 
 接下来，我们需要为 systemd 创建配置文件，告诉它服务的信息，以便它知道如何运行它。为此，我们需要创建一个 `.service` 文件，我们将在注册和运行此服务的 Linux 机器上使用此文件。
 
-在我们的项目中创建一个名为 *MyService.service* 的服务单元配置文件，内容如下（请将 *User=yourusername* 中的 `yourusername` 改为 CentOS 系统的用户名）：
+在我们的项目中创建一个名为 *MyService.service* 的服务单元配置文件，内容如下（请将 *User=yourusername* 项的 `yourusername` 改为 CentOS 系统的用户名）：
 
 ```ini
 [Unit]
@@ -247,6 +248,32 @@ systemctl start MyService
 重新运行 `systemctl status MyService` 命令查看服务状态，显示如下：
 
 ![systemctl status MyService 2](https://ittranslator.cn/assets/images/202106/systemctl-status-MyService-2.png)
+
+使用 `journalctl`，我们可以验证应用程序是否成功运行。命令 `journalctl` 可以跟随显示应用程序的输出信息：
+
+```bash
+journalctl -u MyService -f
+```
+
+按 `Ctrl-C` 退出命令。
+
+当我们调用 `UseSystemd` 时，会将 `Extensions.LogLevel` 映射到 Syslog 日志级别：
+
+| LogLevel    | Syslog level | systemd name |
+| ----------- | ------------ | ------------ |
+| Trace/Debug | 7            | debug        |
+| Information | 6            | info         |
+| Warning     | 4            | warning      |
+| Error       | 3            | err          |
+| Critical    | 2            | crit         |
+
+由于我们集成了 Systemd，所以我们可以使用 `journalctl` 命令的优先级标记（priority-flag）`-p` 根据日志级别来过滤应用的输出信息：
+
+```bash
+journalctl -p 4 -u MyService -f
+```
+
+## 总结
 
 <!-- ```bash
 $ sudo systemctl daemon-reload
