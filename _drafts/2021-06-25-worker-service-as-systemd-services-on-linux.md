@@ -169,7 +169,7 @@ dotnet publish -c Release -r linux-x64 -o c:\test\workerpub\linux
 
 接下来，我们需要为 systemd 创建配置文件，告诉它服务的信息，以便它知道如何运行它。为此，我们需要创建一个 `.service` 文件，我们将在注册和运行此服务的 Linux 机器上使用此文件。
 
-在我们的项目中创建一个名为 *MyService.service* 的服务单元配置文件，内容如下（请将 *User=yourusername* 项的 `yourusername` 改为 CentOS 系统的用户名）：
+在我们的项目中创建一个名为 *MyService.service* 的服务单元配置文件，内容如下：
 
 ```ini
 [Unit]
@@ -202,9 +202,7 @@ TimeoutStopSec=300
 WantedBy=multi-user.target
 ```
 
-<!-- 这个文件需要存在于 /etc/systemd/system/ 目录中，在我们的例子中是 /etc/systemd/system/testapp.service。 通过指定 Type=notify，应用程序可以在主机启动/停止时通知 systemd。 一旦文件存在于目录中，请为 systemd 运行以下命令以使用 systemctl 命令加载新的配置文件，这是您与 systemd 交互的方式：
-
-This file needs to exist in the /etc/systemd/system/ directory, /etc/systemd/system/testapp.service in our case. By specifying Type=notify an application can notify systemd when the host has started/is stopping. Once the file exists in the directory run the following for systemd to load the new configuration file using the systemctl command which is how you interact with systemd: -->
+使用时应将 *User=yourusername* 项中的 `yourusername` 改为具体的 linux 系统的登录名。
 
 Systemd 期望所有的配置文件放置在 */etc/systemd/system/* 目录下，我们打开此目录，并使用 `rz` 命令将服务配置文件复制到 */etc/systemd/system/MyService.service*，
 
