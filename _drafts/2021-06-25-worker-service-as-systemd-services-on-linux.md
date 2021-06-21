@@ -160,7 +160,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 
 接下来，我们需要为 systemd 创建配置文件，告诉它服务的信息，以便它知道如何运行它。为此，我们需要创建一个 `.service` 文件，我们将在注册和运行此服务的 Linux 机器上使用此文件。
 
-在我们的项目中创建一个名为 *MyService.service* 的服务单元配置文件：
+在我们的项目中创建一个名为 *MyService.service* 的服务单元配置文件，内容如下（请将 *User=yourusername* 中的 `yourusername` 改为 CentOS 系统的用户名）：
 
 ```ini
 [Unit]
@@ -186,6 +186,9 @@ User=yourusername
 # To figure out this value, run 'env | grep DOTNET_ROOT' when dotnet has been loaded into your shell.
 Environment=DOTNET_ROOT=/usr/share/dotnet/dotnet
 
+# This gives time to MyService to shutdown gracefully.
+TimeoutStopSec=300
+
 [Install]
 WantedBy=multi-user.target
 ```
@@ -194,7 +197,15 @@ WantedBy=multi-user.target
 
 This file needs to exist in the /etc/systemd/system/ directory, /etc/systemd/system/testapp.service in our case. By specifying Type=notify an application can notify systemd when the host has started/is stopping. Once the file exists in the directory run the following for systemd to load the new configuration file using the systemctl command which is how you interact with systemd: -->
 
-Systemd 期望所有的配置文件放置在 */etc/systemd/system/* 目录下，将服务配置文件复制到 */etc/systemd/system/MyService.service*，然后告诉 systemd 重新加载配置文件，并启动服务。
+Systemd 期望所有的配置文件放置在 */etc/systemd/system/* 目录下，我们打开此目录，并使用 `rz` 命令将服务配置文件复制到 */etc/systemd/system/MyService.service*，
+
+```bash
+cd /etc/systemd/system/
+
+rz
+```
+
+然后告诉 systemd 重新加载配置文件，并启动服务。
  <!-- all configuration files to be put under '/etc/systemd/system/'. Copy the service configuration file to '/etc/systemd/system/HelloWorld.service'. Then tell systemd to reload the configuration files, and start the service.
 
 Systemd 期望所有配置文件都放在“/etc/systemd/system/”下。 将服务配置文件复制到'/etc/systemd/system/HelloWorld.service'。 然后告诉 systemd 重新加载配置文件，并启动服务。 
@@ -203,20 +214,33 @@ sudo cp -r /mnt/d/Git/Github/it/WorkerServiceAsSystemdService/MyService.service 
 -->
 
 ```bash
-sudo cp -r /mnt/d/demo/WorkerServiceAsSystemdService/MyService.service /etc/systemd/system/
-sudo systemctl daemon-reload
-sudo systemctl start MyService
+# sudo cp -r /mnt/d/demo/WorkerServiceAsSystemdService/MyService.service /etc/systemd/system/
+systemctl daemon-reload
 ```
 
-> 请将  /mnt/d/demo/WorkerServiceAsSystemdService/MyService.service 替换成您的实际路径
+<!-- > 请将  /mnt/d/demo/WorkerServiceAsSystemdService/MyService.service 替换成您的实际路径 -->
 
-之后，如果您可以运行以下命令来查看 systemd 是否了解您的服务：
+之后，您可以运行以下命令来查看 systemd 是否认出了您的服务：
 
 ```bash
-sudo systemctl status MyService
+systemctl status MyService
 ```
 
+结果显示如下：
+
+![systemctl status MyService](https://ittranslator.cn/assets/images/202106/systemctl-status-MyService.png)
+
+这表明您注册的新服务被禁用了，我们可以通过运行以下命令来启动它:
+
 ```bash
+systemctl start MyService
+```
+
+重新运行 `systemctl status MyService` 命令查看服务状态，显示如下：
+
+![systemctl status MyService 2](https://ittranslator.cn/assets/images/202106/systemctl-status-MyService-2.png)
+
+<!-- ```bash
 $ sudo systemctl daemon-reload
 
 System has not been booted with systemd as init system (PID 1). Can't operate.
@@ -228,7 +252,7 @@ $ systemctl
 
 System has not been booted with systemd as init system (PID 1). Can't operate.
 Failed to connect to bus: Host is down
-```
+``` -->
 
 <!-- 
 sudo systemctl daemon-reload
