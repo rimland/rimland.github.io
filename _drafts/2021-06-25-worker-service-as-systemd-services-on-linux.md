@@ -186,7 +186,7 @@ SyslogIdentifier=MyService
 # Use your username to keep things simple.
 # If you pick a different user, make sure dotnet and all permissions are set correctly to run the app
 # To update permissions, use 'chown yourusername -R /srv/Worker' to take ownership of the folder and files,
-#       Use 'chmod +x /srv/Worker/Worker' to allow execution of the executable file
+#       Use 'chmod +x /srv/Worker/MyService' to allow execution of the executable file
 User=yourusername
 
 # This environment variable is necessary when dotnet isn't loaded for the specified user.
