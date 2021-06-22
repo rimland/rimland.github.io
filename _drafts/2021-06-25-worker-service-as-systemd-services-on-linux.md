@@ -329,3 +329,8 @@ cd ubuntu-wsl2-systemd-script/
 bash ubuntu-wsl2-systemd-script.sh
 # Enter your password and wait until the script has finished
 ``` -->
+
+参考：
+
+- <https://docs.microsoft.com/zh-cn/dotnet/core/tools/dotnet-publish>
+- <https://www.freedesktop.org/software/systemd/man/systemd.kill.html>
