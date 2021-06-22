@@ -334,3 +334,6 @@ bash ubuntu-wsl2-systemd-script.sh
 
 - <https://docs.microsoft.com/zh-cn/dotnet/core/tools/dotnet-publish>
 - <https://www.freedesktop.org/software/systemd/man/systemd.kill.html>
+- <https://www.linode.com/docs/guides/how-to-use-journalctl/>
+- <https://swimburger.net/blog/dotnet/how-to-run-a-dotnet-core-console-app-as-a-service-using-systemd-on-linux>
+- <https://devblogs.microsoft.com/dotnet/net-core-and-systemd/>
