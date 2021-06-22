@@ -83,7 +83,7 @@ mkdir /srv/Worker
 
 将文件夹 *C:\test\workerpub\linux* 下的文件压缩为 *linux.zip*。
 
-打开 Xshell 工具，连接到一台 CentOS 测试机，新建 */srv/Worker* 目录：
+打开 Xshell 工具，连接到一台 Linux 测试机（我的测试机系统为 CentOS 7.3），新建 */srv/Worker* 目录：
 
 ```bash
 mkdir /srv/Worker
