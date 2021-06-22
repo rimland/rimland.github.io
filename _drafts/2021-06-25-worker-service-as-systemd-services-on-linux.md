@@ -58,9 +58,7 @@ dotnet remove package Microsoft.Extensions.Hosting.WindowsServices
 
 ### 发布程序
 
-运行 `dotnet publish` 命令将应用程序及其依赖项发布到文件夹[^publish]。
-
-[^publish]: <https://docs.microsoft.com/zh-cn/dotnet/core/tools/dotnet-publish>
+运行 `dotnet publish` 命令将应用程序及其依赖项发布到文件夹。
 
 ```bash
 dotnet publish -c Release -r linux-x64 -o c:\test\workerpub\linux
