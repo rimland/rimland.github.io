@@ -15,11 +15,11 @@ permalink: /links/
 - [C# 语言版本控制](https://docs.microsoft.com/zh-cn/dotnet/csharp/language-reference/configure-language-version)
 - [Target frameworks](https://docs.microsoft.com/en-us/dotnet/standard/frameworks)
 - .NET CLI
+  - [安装 .NET](https://docs.microsoft.com/zh-cn/dotnet/core/install/)
   - [.NET CLI zh-cn](https://docs.microsoft.com/zh-cn/dotnet/core/tools/)
   - [.NET CLI en-us](https://docs.microsoft.com/en-us/dotnet/core/tools/)
   - [使用 .NET CLI 发布 .NET 应用](https://docs.microsoft.com/zh-cn/dotnet/core/deploying/deploy-with-cli)
   - [.NET 运行时标识符(Runtime Identifier)目录](https://docs.microsoft.com/zh-cn/dotnet/core/rid-catalog)
-  - [安装 .NET](https://docs.microsoft.com/zh-cn/dotnet/core/install/)
 - [IdentityServer4](https://docs.identityserver.io/)
 - [IdentityServer](https://duendesoftware.com/)
 - [Serilog](https://serilog.net/)
