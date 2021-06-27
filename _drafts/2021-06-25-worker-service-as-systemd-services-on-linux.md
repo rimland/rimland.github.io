@@ -22,9 +22,7 @@ published: true
 
 ### 下载 Worker Service 源码
 
-我将基于[上一篇文章中的 Worker Service 源码](https://github.com/ITTranslate/WorkerServiceAsWindowsService)[^precode]来修改，如果您安装有 git，可以用下面的命令获取它：
-
-[^precode]: <https://github.com/ITTranslate/WorkerServiceAsWindowsService> 前一篇源码下载
+我将基于[上一篇文章中的 Worker Service 源码](https://github.com/ITTranslate/WorkerServiceAsWindowsService)来修改，如果您安装有 git，可以用下面的命令获取它：
 
 ```bash
 git clone git@github.com:ITTranslate/WorkerServiceAsWindowsService.git
@@ -308,9 +306,7 @@ journalctl -p 4 -u MyService -f
 
 当我们向 *HostBuilder* 添加了 `.UseSystemd()` 方法调用后，编译出的程序，既可以作为 Linux 控制台应用运行，也可以作为 Systemd Service 运行。
 
-您可以从 GitHub [下载本文中的源码](https://github.com/ITTranslate/WorkerServiceAsSystemdService)[^github]。
-
-[^github]: <https://github.com/ITTranslate/WorkerServiceAsSystemdService> 本文源码下载
+您可以从 GitHub [下载本文中的源码](https://github.com/ITTranslate/WorkerServiceAsSystemdService)。
 
 <!-- ```bash
 $ sudo systemctl daemon-reload
@@ -340,8 +336,7 @@ https://stackoverflow.com/questions/48407070/wsl-ubuntu-hangs-how-to-restart
 
 https://superuser.com/questions/1126721/rebooting-ubuntu-on-windows-without-rebooting-windows
 -->
-
-参考：
+<b> 参考：</b>
 
 - <https://swimburger.net/blog/dotnet/how-to-run-a-dotnet-core-console-app-as-a-service-using-systemd-on-linux>
 - <https://devblogs.microsoft.com/dotnet/net-core-and-systemd/>
@@ -349,8 +344,22 @@ https://superuser.com/questions/1126721/rebooting-ubuntu-on-windows-without-rebo
 - <https://www.freedesktop.org/wiki/Software/systemd/>
 - <https://systemd.io/>
 - <https://www.linode.com/docs/guides/how-to-use-journalctl/>
+- <https://github.com/ITTranslate/WorkerServiceAsWindowsService> 前篇文章源码
+- <https://github.com/ITTranslate/WorkerServiceAsSystemdService> 本文源码
 
 <!-- 
 https://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-commands.html
 https://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-part-two.html
 -->
+
+<br />
+
+相关阅读：
+
+- [.NET Worker Service 入门介绍](https://ittranslator.cn/dotnet/csharp/2021/05/06/what-are-dotnet-worker-services.html)
+- [.NET Worker Service 如何优雅退出](https://ittranslator.cn/dotnet/csharp/2021/05/17/worker-service-gracefully-shutdown.html)
+- [.NET Worker Service 添加 Serilog 日志记录](https://ittranslator.cn/dotnet/csharp/2021/05/31/worker-service-with-serilog.html)
+- [.NET Worker Service 作为 Windows 服务运行及优雅退出改进](https://ittranslator.cn/dotnet/csharp/2021/06/17/worker-service-as-windows-services.html)
+
+> 作者 ： 技术译民  
+> 出品 ： [技术译站](https://ittranslator.cn/)
