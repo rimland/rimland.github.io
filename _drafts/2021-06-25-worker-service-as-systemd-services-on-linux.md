@@ -1,11 +1,11 @@
 ---
 layout: post
 title:  ".NET Worker Service 部署到 Linux 作为 Systemd Service 运行"
-date:   2021-06-17 00:01:01 +0800
+date:   2021-06-27 00:01:01 +0800
 categories: dotnet csharp
 author: 技术译民
 tags: [DotNet, Worker Service, Windows Services]
-published: false
+published: true
 ---
 
 上一篇文章我们了解了如何将[.NET Worker Service 作为 Windows 服务运行](https://ittranslator.cn/dotnet/csharp/2021/06/17/worker-service-as-windows-services.html)，今天我接着介绍一下如何将 Worker Service 部署到 Linux 上，并作为 Systemd Service 运行。
@@ -16,17 +16,37 @@ published: false
 
 - 作为 Linux 控制台程序运行
 - 作为 Systemd Service 运行
-- 开机自动启动
+- 开机自动启动、查看日志信息
 
-## 删除不用的依赖库
+## 创建项目并发布
+
+### 下载 Worker Service 源码
+
+我将基于[上一篇文章中的 Worker Service 源码](https://github.com/ITTranslate/WorkerServiceAsWindowsService)[^precode]来修改，如果您安装有 git，可以用下面的命令获取它：
+
+[^precode]: <https://github.com/ITTranslate/WorkerServiceAsWindowsService> 前一篇源码下载
+
+```bash
+git clone git@github.com:ITTranslate/WorkerServiceAsWindowsService.git
+```
+
+然后，使用 Visual Studio Code 打开此项目，构建一下，以确保一切正常：
+
+```bash
+dotnet build
+```
+
+### 删除用不到的依赖库
 
 ```bash
 dotnet remove package Microsoft.Extensions.Hosting.WindowsServices
 ```
 
+删除 *Program.cs* 中的 `.UseWindowsService()`。
+
 ### 修改配置文件
 
-打开配置文件 *appsettings.json*，将日志文件的保存路径中的 `\` 改为 `/`，其他不用做任何更改。
+打开配置文件 *appsettings.json*，将日志文件保存路径中的 `\` 改为 `/`，其他不用做任何更改。
 
 ```json
 {
@@ -49,7 +69,7 @@ dotnet remove package Microsoft.Extensions.Hosting.WindowsServices
 
 这是因为 Windows 中用反斜杠 `\` 用来表示目录而，Linux 中用正斜杠 `/` 来表示目录。
 
-如果保存路径不改，您将会看到日志保存成如下的尴尬文件名：
+假如不修改保存路径，您将会看到日志被保存成如下的尴尬文件名：
 
 ```bash
 'Logs\2021061715.log'
@@ -63,6 +83,8 @@ dotnet remove package Microsoft.Extensions.Hosting.WindowsServices
 ```bash
 dotnet publish -c Release -r linux-x64 -o c:\test\workerpub\linux
 ```
+
+> 这里我们使用 `-r linux-x64` 参数，指定发布运行于 Linux 系统的应用程序。
 
 命令运行完成后，您会在 *C:\test\workerpub\linux* 文件夹中看到适用于 Linux 系统的可执行程序及其所有依赖项。
 
@@ -81,7 +103,7 @@ mkdir /srv/Worker
 
 将文件夹 *C:\test\workerpub\linux* 下的文件压缩为 *linux.zip*。
 
-打开 Xshell 工具，连接到一台 Linux 测试机（我的测试机系统为 CentOS 7.3），新建 */srv/Worker* 目录：
+打开 Xshell 工具，连接到一台 Linux 测试机（我的测试机操作系统为 CentOS 7.3），在测试机上新建 */srv/Worker* 目录：
 
 ```bash
 mkdir /srv/Worker
@@ -89,15 +111,15 @@ mkdir /srv/Worker
 
 使用 `rz` 命令将 *linux.zip* 复制到测试机，
 
-![copy files to linux](https://ittranslator.cn/assets/images/202106/xshel-copy-rz.png)
+![copy files to linux](/assets/images/202106/xshel-copy-rz.png)
 
-然后解压 *linux.zip* 到 */srv/Worker* 目录：
+然后在测试机上解压 *linux.zip* 到 */srv/Worker* 目录：
 
 ```bash
 unzip linux.zip -d /srv/Worker
 ```
 
-为我们的程序分配可执行权限，并运行：
+为我们的应用程序分配可执行权限，并运行：
 
 ```bash
 # 分配可执行权限
@@ -123,9 +145,9 @@ cd /srv/Worker
 ./MyService
 ``` -->
 
-![run as console on linux](https://ittranslator.cn/assets/images/202106/linux-run-as-console.png)
+![run as console on linux](/assets/images/202106/linux-run-as-console.png)
 
-按 `Ctrl+C` 关闭应用，等待关闭前必须完成的任务正常结束，应用退出。输入 `ls /srv/Worker` 命令回车，您会在该目录下看到多了一个 *Logs* 目录，日志文件输出正常。
+按下 `Ctrl+C` 关闭应用，等待关闭前必须完成的任务正常结束后，应用退出。输入 `ls /srv/Worker` 命令回车，您会看到在该目录下多了一个 *Logs* 目录，日志文件输出正常。
 
 ## 作为 Systemd Service 运行
 
@@ -138,13 +160,13 @@ provides notification messages for application started and stopping, and configu
 https://www.freedesktop.org/software/systemd/man/systemd.service.html
  -->
 
-为了让我们的 Worker 监听来自 Systemd 的启动和停止信号，我们需要添加 `Microsoft.Extensions.Hosting.Systemd` NuGet 包：
+为了让我们的 Worker 监听来自 Systemd 的启动和停止信号，我们需要添加 *Microsoft.Extensions.Hosting.Systemd* NuGet 包：
 
 ```bash
 dotnet add package Microsoft.Extensions.Hosting.Systemd
 ```
 
-然后，我们需要修改 *Program.cs* 中的 `CreateHostBuilder` 方法，添加 `UseSystemd` 方法调用，将宿主(host)生命周期设置为 *Microsoft.Extensions.Hosting.Systemd.SystemdLifetime*，以便应用程序可以接收启动和停止通知，并配置控制台输出记录为 systemd 格式。
+然后，我们需要修改 *Program.cs* 中的 `CreateHostBuilder` 方法，添加 `UseSystemd` 方法调用，将宿主（Host）生命周期设置为 *Microsoft.Extensions.Hosting.Systemd.SystemdLifetime*，以便应用程序可以接收启动和停止信号，并配置控制台输出记录为 systemd 格式。
 
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -165,7 +187,9 @@ dotnet publish -c Release -r linux-x64 -o c:\test\workerpub\linux
 
 然后使用 `rz` 将程序文件复制到测试机，并为 */srv/Worker/MyService* 文件分配可执行权限。
 
-接下来，我们需要为 systemd 创建配置文件，告诉它服务的信息，以便它知道如何运行它。为此，我们需要创建一个 `.service` 文件，我们将在注册和运行此服务的 Linux 机器上使用此文件。
+### 配置文件
+
+接下来我们需要创建配置文件，将服务的有关信息告知 systemd，以便它知道如何运行此服务。为此，我们需要创建一个 `.service` 文件，我们将在注册和运行此服务的 Linux 机器上使用该文件。
 
 在我们的项目中创建一个名为 *MyService.service* 的服务单元配置文件，内容如下：
 
@@ -211,21 +235,14 @@ rz
 ```
 
 然后执行以下命令让 systemd 重新加载配置文件：
- <!-- all configuration files to be put under '/etc/systemd/system/'. Copy the service configuration file to '/etc/systemd/system/HelloWorld.service'. Then tell systemd to reload the configuration files, and start the service.
-
-Systemd 期望所有配置文件都放在“/etc/systemd/system/”下。 将服务配置文件复制到'/etc/systemd/system/HelloWorld.service'。 然后告诉 systemd 重新加载配置文件，并启动服务。 
-
-sudo cp -r /mnt/d/Git/Github/it/WorkerServiceAsSystemdService/MyService.service /etc/systemd/system/
--->
 
 ```bash
-# sudo cp -r /mnt/d/demo/WorkerServiceAsSystemdService/MyService.service /etc/systemd/system/
 systemctl daemon-reload
 ```
 
-<!-- > 请将  /mnt/d/demo/WorkerServiceAsSystemdService/MyService.service 替换成您的实际路径 -->
+### 启动服务
 
-之后，可以运行以下命令来查看 systemd 是否识别了您的服务：
+之后，可以运行以下命令来检查 systemd 是否识别了您的服务：
 
 ```bash
 systemctl status MyService
@@ -233,7 +250,7 @@ systemctl status MyService
 
 结果显示如下：
 
-![systemctl status MyService](https://ittranslator.cn/assets/images/202106/systemctl-status-MyService.png)
+![systemctl status MyService](/assets/images/202106/systemctl-status-MyService.png)
 
 这表明您注册的新服务被禁用了，我们可以通过运行以下命令来启动它:
 
@@ -243,7 +260,7 @@ systemctl start MyService
 
 重新运行 `systemctl status MyService` 命令查看服务状态，显示如下：
 
-![systemctl status MyService 2](https://ittranslator.cn/assets/images/202106/systemctl-status-MyService-2.png)
+![systemctl status MyService 2](/assets/images/202106/systemctl-status-MyService-2.png)
 
 如果您希望该服务在开机时自动启动，那么可以运行以下命令：
 
@@ -257,9 +274,9 @@ systemctl enable MyService
 systemctl disable MyService
 ```
 
-`journalctl` 命令可以用来查看 systemd 收集的日志。*systemd-journald* 服务负责 systemd 的日志收集，它从内核、systemd 服务和其他源检索信息。日志被集中收集，便于对其进行检索查询。journal 中的日志记录是结构化和有索引的，因此 `journalctl` 能够以各种有益的格式来展现日志信息。[^j]
+### Systemd 日志
 
-[^j]: <https://www.linode.com/docs/guides/how-to-use-journalctl/>
+命令 `journalctl` 可以用来查看 systemd 收集的日志。*systemd-journald* 服务负责 systemd 的日志收集，它从内核、systemd 服务和其他源检索信息。日志的集中收集，有利于对其进行检索查询。journal 中的日志记录是结构化和有索引的，因此 `journalctl` 能够以各种有用的格式来展现日志信息。
 
 使用 `journalctl`，我们可以验证应用程序是否成功运行。命令 `journalctl` 可以跟踪显示应用程序的输出信息：
 
@@ -269,7 +286,7 @@ journalctl -u MyService -f
 
 按 `Ctrl-C` 退出命令。
 
-当我们调用 `UseSystemd` 时，会将 `Extensions.LogLevel` 映射到 Syslog 日志级别：
+当我们在程序中调用 `UseSystemd` 方法时，会将 `Extensions.LogLevel` 映射到 Syslog 日志级别：
 
 | LogLevel    | Syslog level | systemd name |
 | ----------- | ------------ | ------------ |
@@ -279,13 +296,21 @@ journalctl -u MyService -f
 | Error       | 3            | err          |
 | Critical    | 2            | crit         |
 
-所以，我们可以使用 `journalctl` 命令的优先级标记（priority-flag）`-p` 来根据日志级别过滤应用的输出信息：
+所以，我们可以使用 `journalctl` 命令的优先级标记（priority-flag）`-p` 来根据日志级别过滤应用程序的输出信息：
 
 ```bash
 journalctl -p 4 -u MyService -f
 ```
 
 ## 总结
+
+在本文中，我通过一个实例详细介绍了如何将 .NET Worker Service 部署到 Linux 作为 Systemd Service 运行，并说明了如何使用 `systemctl` 命令管理服务，如何使用 `journalctl` 命令查看 Systemd 服务日志。
+
+当我们向 *HostBuilder* 添加了 `.UseSystemd()` 方法调用后，编译出的程序，既可以作为 Linux 控制台应用运行，也可以作为 Systemd Service 运行。
+
+您可以从 GitHub [下载本文中的源码](https://github.com/ITTranslate/WorkerServiceAsSystemdService)[^github]。
+
+[^github]: <https://github.com/ITTranslate/WorkerServiceAsSystemdService> 本文源码下载
 
 <!-- ```bash
 $ sudo systemctl daemon-reload
@@ -314,19 +339,7 @@ https://www.cyberciti.biz/faq/howto-reboot-linux/
 https://stackoverflow.com/questions/48407070/wsl-ubuntu-hangs-how-to-restart
 
 https://superuser.com/questions/1126721/rebooting-ubuntu-on-windows-without-rebooting-windows
-
 -->
-
-<!-- ```bash
-sudo apt install git
-```
-
-```bash
-sudo git clone https://github.com/DamionGans/ubuntu-wsl2-systemd-script.git
-cd ubuntu-wsl2-systemd-script/
-bash ubuntu-wsl2-systemd-script.sh
-# Enter your password and wait until the script has finished
-``` -->
 
 参考：
 
