@@ -224,7 +224,7 @@ TimeoutStopSec=300
 WantedBy=multi-user.target
 ```
 
-使用时应将 *User=yourusername* 项中的 `yourusername` 改为具体的 linux 系统的登录名。
+> 使用时应将 *User=yourusername* 项中的 `yourusername` 改为具体的 linux 系统的登录名。
 
 Systemd 期望所有的配置文件放置在 */etc/systemd/system/* 目录下，我们打开此目录，并使用 `rz` 命令将服务配置文件复制到 */etc/systemd/system/MyService.service*，
 
