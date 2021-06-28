@@ -34,7 +34,7 @@ git clone git@github.com:ITTranslate/WorkerServiceAsWindowsService.git
 dotnet build
 ```
 
-### 删除用不到的依赖库
+### 删除用不到的依赖项
 
 删除上一篇文章中用于 Windows Services 的依赖程序包：
 
@@ -67,7 +67,7 @@ dotnet remove package Microsoft.Extensions.Hosting.WindowsServices
 }
 ```
 
-这是因为 Windows 中用反斜杠 `\` 用来表示目录而，Linux 中用正斜杠 `/` 来表示目录。
+这是因为 Windows 中使用反斜杠（`\`）来表示目录，而 Linux 中使用正斜杠（`/`）来表示目录。
 
 假如不修改保存路径，您将会看到日志被保存成如下的尴尬文件名：
 
