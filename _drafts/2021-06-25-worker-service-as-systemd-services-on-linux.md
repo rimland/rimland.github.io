@@ -191,7 +191,7 @@ dotnet publish -c Release -r linux-x64 -o c:\test\workerpub\linux
 
 接下来我们需要创建配置文件，将服务的有关信息告知 systemd，以便它知道如何运行此服务。为此，我们需要创建一个 `.service` 文件，我们将在注册和运行此服务的 Linux 机器上使用该文件。
 
-在我们的项目中创建一个名为 *MyService.service* 的服务单元配置文件，内容如下：
+在我们的项目中创建一个名为 `MyService.service` 的服务单元配置文件，内容如下：
 
 ```ini
 [Unit]
@@ -242,7 +242,7 @@ systemctl daemon-reload
 
 ### 管理服务
 
-之后，可以运行以下命令来检查 systemd 是否识别了您的服务：
+之后，可以运行以下命令来检查 systemd 是否识别了我们的服务：
 
 ```bash
 systemctl status MyService
@@ -252,7 +252,7 @@ systemctl status MyService
 
 ![systemctl status MyService](/assets/images/202106/systemctl-status-MyService.png)
 
-这表明您注册的新服务被禁用了，我们可以通过运行以下命令来启动它:
+这表明我们注册的新服务被禁用了，可以通过运行以下命令来启动它:
 
 ```bash
 systemctl start MyService
@@ -286,11 +286,11 @@ systemctl disable MyService
 systemctl is-enabled MyService
 ```
 
-### Systemd 日志
+### Systemd 服务日志
 
 命令 `journalctl` 可以用来查看 systemd 收集的日志。*systemd-journald* 服务负责 systemd 的日志收集，它从内核、systemd 服务和其他源检索信息。日志的集中收集，有利于对其进行检索查询。journal 中的日志记录是结构化和有索引的，因此 `journalctl` 能够以各种有用的格式来展现日志信息。
 
-使用 `journalctl`，我们可以验证应用程序是否成功运行。因为该命令可以跟踪显示应用程序的输出信息：
+我们可以使用 `journalctl` 命令来验证应用程序是否成功运行，因为该命令可以跟踪显示应用程序的输出信息：
 
 ```bash
 journalctl -u MyService -f
