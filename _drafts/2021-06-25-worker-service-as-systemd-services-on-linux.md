@@ -262,6 +262,12 @@ systemctl start MyService
 
 ![systemctl status MyService 2](/assets/images/202106/systemctl-status-MyService-2.png)
 
+停止服务可以运行以下命令：
+
+```bash
+systemctl stop MyService
+```
+
 如果您希望该服务在开机时自动启动，那么可以运行以下命令：
 
 ```bash
