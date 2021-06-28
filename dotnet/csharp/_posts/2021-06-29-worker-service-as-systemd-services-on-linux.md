@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  ".NET Worker Service 部署到 Linux 作为 Systemd Service 运行"
-date:   2021-06-27 00:01:01 +0800
+date:   2021-06-29 00:56:01 +0800
 categories: dotnet csharp
 author: 技术译民
 tags: [DotNet, Worker Service, Systemd]
