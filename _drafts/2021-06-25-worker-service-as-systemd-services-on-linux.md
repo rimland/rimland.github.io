@@ -290,7 +290,7 @@ systemctl is-enabled MyService
 
 命令 `journalctl` 可以用来查看 systemd 收集的日志。*systemd-journald* 服务负责 systemd 的日志收集，它从内核、systemd 服务和其他源检索信息。日志的集中收集，有利于对其进行检索查询。journal 中的日志记录是结构化和有索引的，因此 `journalctl` 能够以各种有用的格式来展现日志信息。
 
-使用 `journalctl`，我们可以验证应用程序是否成功运行。命令 `journalctl` 可以跟踪显示应用程序的输出信息：
+使用 `journalctl`，我们可以验证应用程序是否成功运行。因为该命令可以跟踪显示应用程序的输出信息：
 
 ```bash
 journalctl -u MyService -f
