@@ -316,7 +316,7 @@ journalctl -p 4 -u MyService -f
 
 ## 总结
 
-在本文中，我通过一个实例详细介绍了如何将 .NET Worker Service 部署到 Linux 作为 Systemd Service 运行，并说明了如何使用 `systemctl` 命令管理服务，如何使用 `journalctl` 命令查看 Systemd 服务日志。
+在本文中，我通过一个实例详细介绍了如何将 .NET Worker Service 部署到 Linux 系统作为 Systemd Service 运行，并说明了如何使用 `systemctl` 命令来管理服务，如何使用 `journalctl` 命令查看 Systemd 服务日志。
 
 当我们向 *HostBuilder* 添加了 `.UseSystemd()` 方法调用后，编译出的程序，既可以作为 Linux 控制台应用运行，也可以作为 Systemd Service 运行。
 
