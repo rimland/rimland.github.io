@@ -185,7 +185,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 dotnet publish -c Release -r linux-x64 -o c:\test\workerpub\linux
 ```
 
-然后使用 `rz` 将程序文件复制到测试机，并为 */srv/Worker/MyService* 文件分配可执行权限。
+然后重复前面的步骤，在 Xshell 中使用 `rz` 命令将应用程序复制到测试机，并为 */srv/Worker/MyService* 文件分配可执行权限。
 
 ### 配置文件
 
