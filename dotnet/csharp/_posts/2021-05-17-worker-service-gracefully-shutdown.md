@@ -300,5 +300,13 @@ Worker Service 本质上仍是一个控制台应用程序，执行一个作业�
 
 <br />
 
+相关阅读：
+
+- [.NET Worker Service 入门介绍](https://ittranslator.cn/dotnet/csharp/2021/05/06/what-are-dotnet-worker-services.html)
+- [.NET Worker Service 如何优雅退出](https://ittranslator.cn/dotnet/csharp/2021/05/17/worker-service-gracefully-shutdown.html)
+- [.NET Worker Service 添加 Serilog 日志记录](https://ittranslator.cn/dotnet/csharp/2021/05/31/worker-service-with-serilog.html)
+- [.NET Worker Service 作为 Windows 服务运行及优雅退出改进](https://ittranslator.cn/dotnet/csharp/2021/06/17/worker-service-as-windows-services.html)
+- [.NET Worker Service 部署到 Linux 作为 Systemd Service 运行](https://ittranslator.cn/dotnet/csharp/2021/06/29/worker-service-as-systemd-services-on-linux.html)
+
 > 作者 ： 技术译民  
 > 出品 ： [技术译站](https://ittranslator.cn/)
