@@ -240,7 +240,7 @@ rz
 systemctl daemon-reload
 ```
 
-### 启动服务
+### 管理服务
 
 之后，可以运行以下命令来检查 systemd 是否识别了您的服务：
 
@@ -278,6 +278,12 @@ systemctl enable MyService
 
 ```bash
 systemctl disable MyService
+```
+
+查看服务是否开机自动启动，可以运行以下命令：
+
+```bash
+systemctl is-enabled MyService
 ```
 
 ### Systemd 日志
