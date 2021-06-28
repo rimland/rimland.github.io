@@ -67,7 +67,7 @@ dotnet remove package Microsoft.Extensions.Hosting.WindowsServices
 }
 ```
 
-这是因为 Windows 中使用反斜杠（`\`）来表示目录，而 Linux 中使用正斜杠（`/`）来表示目录。
+这是因为 Windows 中使用反斜杠 `\` 来表示目录，而 Linux 中使用正斜杠 `/` 来表示目录。
 
 假如不修改保存路径，您将会看到日志被保存成如下的尴尬文件名：
 
@@ -84,7 +84,7 @@ dotnet remove package Microsoft.Extensions.Hosting.WindowsServices
 dotnet publish -c Release -r linux-x64 -o c:\test\workerpub\linux
 ```
 
-> 这里我们使用 `-r linux-x64` 参数，指定发布运行于 Linux 系统的应用程序。
+> 这里我使用 `-r linux-x64` 参数，指定发布独立部署于 Linux 系统的应用程序。
 
 命令运行完成后，您会在 *C:\test\workerpub\linux* 文件夹中看到适用于 Linux 系统的可执行程序及其所有依赖项。
 
