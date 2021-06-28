@@ -36,11 +36,13 @@ dotnet build
 
 ### 删除用不到的依赖库
 
+删除上一篇文章中用于 Windows Services 的依赖程序包：
+
 ```bash
 dotnet remove package Microsoft.Extensions.Hosting.WindowsServices
 ```
 
-删除 *Program.cs* 中的 `.UseWindowsService()`。
+然后，删除 *Program.cs* 中的 `.UseWindowsService()` 方法调用。
 
 ### 修改配置文件
 
