@@ -39,10 +39,23 @@ Blazor 是一个免费、开源的单页应用程序（SPA）开发框架，使�
 
 ## WebAssembly 是什么？
 
-WebAssembly (sometimes abbreviated **Wasm**) is a portable binary format (low-level instructions set) designed to run on any host capable of interpreting those instructions. The main goal of WebAssembly is to allow developers to build high-performance web apps but the format is designed to be executed and integrated into other environments as well. WebAssembly is currently supported by all major browsers such as Chrome, Chrome for Android, Edge, Firefox, Safari, Opera, and many more.
+<!-- WebAssembly (sometimes abbreviated **Wasm**) is a portable binary format (low-level instructions set) designed to run on any host capable of interpreting those instructions. The main goal of WebAssembly is to allow developers to build high-performance web apps but the format is designed to be executed and integrated into other environments as well. WebAssembly is currently supported by all major browsers such as Chrome, Chrome for Android, Edge, Firefox, Safari, Opera, and many more. -->
 
 WebAssembly（有时简写为 **Wasm**）是一种可移植的二进制格式（低级指令集），设计用于在任何能够解释这些指令的主机上运行。WebAssembly 的主要目标是允许开发人员构建高性能的 Web 应用程序，但其格式也被设计为可执行于和集成到其他环境中。WebAssembly 目前受到了所有主流浏览器的支持，比如 Chrome、Android 版 Chrome、Edge、Firefox、Safari、Opera 等。
 
 ![WebAssembly](https://www.ezzylearning.net/wp-content/uploads/WebAssembly.png)
 
 ## Blazor 托管模型
+
+The Blazor component model is the core of Blazor and it is designed in such a way that it keeps both calculating the UI changes and rendering the UI separate from each other. This is why the basic component model doesn’t change no matter what method you are using to render your apps. At the time of this writing, there are four rendering/hosting models available and they are all at different stages of development.
+
+Blazor 组件模型是 Blazor 的核心，它的设计方式使计算 UI 更改和呈现 UI 彼此分离。 这就是为什么无论您使用何种方法渲染您的应用程序，基本组件模型都保持不变的原因。 在撰写本文时，有四种渲染/托管模型可用，它们都处于不同的开发阶段。
+
+1. Blazor Server
+2. Blazor WebAssembly
+3. Blazor Electron
+4. Mobile Blazor Bindings
+
+Blazor Electron and Mobile Blazor Bindings are currently at the experimental stage and Microsoft hasn’t yet committed to shipping these hosting models so I will not discuss them in this article.
+
+Blazor Electron 和 Mobile Blazor Bindings 目前处于实验阶段，Microsoft 尚未承诺提供这些托管模型，因此我不会在本文中讨论它们。
