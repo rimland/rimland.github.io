@@ -1,0 +1,31 @@
+---
+layout: post
+title:  "Blazor Server and WebAssembly 应用程序入门指南"
+date:   2021-04-26 00:10:10 +0800
+categories: dotnet csharp
+published: true
+---
+
+> 翻译自 Waqas Anwar 2021年3月12日的文章 [《A Beginner’s Guide To Blazor Server and WebAssembly Applications》](https://www.ezzylearning.net/tutorial/a-beginners-guide-to-blazor-server-and-webassembly-applications) [^1]
+
+[^1]: <https://www.ezzylearning.net/tutorial/a-beginners-guide-to-blazor-server-and-webassembly-applications> A Beginner’s Guide To Blazor Server and WebAssembly Applications
+
+<!-- If you have been keeping yourself up-to-date with the latest development trends in the .NET world, then you must have heard about Blazor by now. There is currently a lot of hype for Blazor in the .NET community and the most common reason for this hype is that it has introduced something which most .NET developers were dreaming from decades and that is the ability to run C# not only on the server but also in the browser. Blazor allows us to build interactive web apps using HTML, CSS, and C# instead of JavaScript. In this tutorial, I will cover the basic concepts of Blazor and will give you an overview of different hosting models available for Blazor. I will also cover the pros and cons of each hosting model so that you can decide the best hosting model for your next Blazor project. -->
+
+<!-- 如果您一直在了解 .NET 世界的最新发展趋势，那么您现在一定听说过 Blazor。 目前在 .NET 社区中对 Blazor 进行了大量炒作，这种炒作的最常见原因是它引入了大多数 .NET 开发人员几十年来一直梦想的东西，即不仅可以在服务器上运行 C# 但也在浏览器中。 Blazor 允许我们使用 HTML、CSS 和 C# 而不是 JavaScript 来构建交互式 Web 应用程序。 在本教程中，我将介绍 Blazor 的基本概念，并将概述可用于 Blazor 的不同托管模型。 我还将介绍每种托管模型的优缺点，以便您可以为下一个 Blazor 项目确定最佳托管模型。
+
+如果您一直紧跟。net世界的最新开发趋势，那么您现在一定听说过Blazor。
+目前很多炒作的Blazor。net社区这个炒作的最常见的原因是,它引入了一些大多数。net开发人员从几十年,梦想是能够在服务器上运行c#不仅,而且在浏览器中。
+Blazor允许我们使用HTML、CSS和c#而不是JavaScript来构建交互式web应用。
+在本教程中，我将介绍Blazor的基本概念，并概述Blazor可用的不同托管模型。
+我还将介绍每种托管模型的优缺点，以便您可以为下一个Blazor项目决定最佳的托管模型。
+
+如果您一直在了解.NET世界的最新发展趋势，那么您现在一定听说过Blazor。目前在.NET社区中有很多关于Blazor的宣传，这种宣传最常见的原因是它引入了一些大多数.NET开发人员几十年来一直梦想的东西，即不仅在服务器上而且在浏览器中运行C的能力。Blazor允许我们使用HTML、CSS和C#而不是JavaScript构建交互式web应用程序。在本教程中，我将介绍Blazor的基本概念，并概述Blazor可用的各种托管模型。我还将介绍每种托管模式的优缺点，以便您可以为下一个Blazor项目决定最佳的托管模式。 -->
+
+如果您一直紧跟 .NET 世界的最新发展趋势，那么现在您一定听说过 Blazor。目前在 .NET 社区中有很多关于 Blazor 的宣传，这种宣传最常见的原因是它引入了一些大多数 .NET 开发人员十几年来一直梦寐以求的东西，即不仅可以在服务端而且可以在浏览器中运行 C# 的能力。Blazor 允许我们使用 HTML、CSS 和 C# 而不是 JavaScript 来构建交互式 Web 应用程序。在本教程中，我将介绍 Blazor 的基本概念，并将概述可用于 Blazor 的不同的托管模型。我还将介绍每种托管模型的优缺点，以便您可以为下一个 Blazor 项目决定最佳的托管模型。
+
+## Blazor 是什么？
+
+Blazor is a free, open-source, single-page apps (SPA) development framework that enables developers to build interactive web apps using C# on both servers as well as client-side. Blazor does not require any plugin to be installed on the client to execute the C#/.NET code inside a browser. It executes the .NET code using WebAssembly which is a web standard supported by all major browsers. Blazor can also run .NET code and build UI on the server and transfer only the updated DOM to clients over SignalR connections.
+
+Blazor 是一个免费、开源的单页应用程序开发框架，
