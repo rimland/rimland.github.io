@@ -20,12 +20,29 @@ Blazor允许我们使用HTML、CSS和c#而不是JavaScript来构建交互式web�
 在本教程中，我将介绍Blazor的基本概念，并概述Blazor可用的不同托管模型。
 我还将介绍每种托管模型的优缺点，以便您可以为下一个Blazor项目决定最佳的托管模型。
 
-如果您一直在了解.NET世界的最新发展趋势，那么您现在一定听说过Blazor。目前在.NET社区中有很多关于Blazor的宣传，这种宣传最常见的原因是它引入了一些大多数.NET开发人员几十年来一直梦想的东西，即不仅在服务器上而且在浏览器中运行C的能力。Blazor允许我们使用HTML、CSS和C#而不是JavaScript构建交互式web应用程序。在本教程中，我将介绍Blazor的基本概念，并概述Blazor可用的各种托管模型。我还将介绍每种托管模式的优缺点，以便您可以为下一个Blazor项目决定最佳的托管模式。 -->
+如果您一直在了解.NET世界的最新发展趋势，那么您现在一定听说过Blazor。目前在.NET社区中有很多关于Blazor的宣传，这种宣传最常见的原因是它引入了一些大多数.NET开发人员几十年来一直梦想的东西，即不仅在服务器上而且在浏览器中运行C的能力。Blazor允许我们使用HTML、CSS和C#而不是JavaScript构建交互式web应用程序。在本教程中，我将介绍Blazor的基本概念，并概述Blazor可用的各种托管模型。我还将介绍每种托管模式的优缺点，以便您可以为下一个Blazor项目决定最佳的托管模式。
 
-如果您一直紧跟 .NET 世界的最新发展趋势，那么现在您一定听说过 Blazor。目前在 .NET 社区中有很多关于 Blazor 的宣传，这种宣传最常见的原因是它引入了一些大多数 .NET 开发人员十几年来一直梦寐以求的东西，即不仅可以在服务端而且可以在浏览器中运行 C# 的能力。Blazor 允许我们使用 HTML、CSS 和 C# 而不是 JavaScript 来构建交互式 Web 应用程序。在本教程中，我将介绍 Blazor 的基本概念，并将概述可用于 Blazor 的不同的托管模型。我还将介绍每种托管模型的优缺点，以便您可以为下一个 Blazor 项目决定最佳的托管模型。
+/assets/images/202107/A-Beginner-Guide-To-Blazor-Server-and-WebAssembly-Applications.png
+ -->
+
+![A-Beginner-Guide-To-Blazor-Server-and-WebAssembly-Applications](https://www.ezzylearning.net/wp-content/uploads/A-Beginner-Guide-To-Blazor-Server-and-WebAssembly-Applications.png)
+
+如果您一直紧跟 .NET 世界的最新发展趋势，那么现在您一定听说过 Blazor。目前在 .NET 社区中有很多关于 Blazor 的宣传，这种宣传最常见的原因是它引入了一些大多数 .NET 开发人员十几年来一直梦寐以求的东西，即：既可以在服务端又可以在浏览器中运行 C# 的能力。Blazor 允许我们使用 HTML、CSS 和 C#（而不是 JavaScript）来构建交互式 Web 应用程序。在本教程中，我将介绍 Blazor 的基本概念，并将概述可用于 Blazor 的不同的托管模型。我还将介绍每种托管模型的优缺点，以便您可以为下一个 Blazor 项目决定最佳的托管模型。
 
 ## Blazor 是什么？
 
-Blazor is a free, open-source, single-page apps (SPA) development framework that enables developers to build interactive web apps using C# on both servers as well as client-side. Blazor does not require any plugin to be installed on the client to execute the C#/.NET code inside a browser. It executes the .NET code using WebAssembly which is a web standard supported by all major browsers. Blazor can also run .NET code and build UI on the server and transfer only the updated DOM to clients over SignalR connections.
+<!-- Blazor is a free, open-source, single-page apps (SPA) development framework that enables developers to build interactive web apps using C# on both servers as well as client-side. Blazor does not require any plugin to be installed on the client to execute the C#/.NET code inside a browser. It executes the .NET code using WebAssembly which is a web standard supported by all major browsers. Blazor can also run .NET code and build UI on the server and transfer only the updated DOM to clients over SignalR connections. -->
 
-Blazor 是一个免费、开源的单页应用程序开发框架，
+Blazor 是一个免费、开源的单页应用程序（SPA）开发框架，使开发人员能够在服务端和客户端上使用 C# 构建交互式 Web 应用程序。Blazor 不需要在客户端上安装任何插件来在浏览器中执行 C#/.NET 代码。它使用 WebAssembly 执行 .NET 代码，WebAssembly 是所有主流浏览器都支持的 Web 标准。Blazor 还可以在服务端运行 .NET 代码并构建 UI，然后通过 SignalR 连接仅将更新的 DOM 传输到客户端。
+
+![BLAZOR](https://www.ezzylearning.net/wp-content/uploads/BLAZOR.png)
+
+## WebAssembly 是什么？
+
+WebAssembly (sometimes abbreviated **Wasm**) is a portable binary format (low-level instructions set) designed to run on any host capable of interpreting those instructions. The main goal of WebAssembly is to allow developers to build high-performance web apps but the format is designed to be executed and integrated into other environments as well. WebAssembly is currently supported by all major browsers such as Chrome, Chrome for Android, Edge, Firefox, Safari, Opera, and many more.
+
+WebAssembly（有时简写为 **Wasm**）是一种可移植的二进制格式（低级指令集），设计用于在任何能够解释这些指令的主机上运行。WebAssembly 的主要目标是允许开发人员构建高性能的 Web 应用程序，但其格式也被设计为可执行于和集成到其他环境中。WebAssembly 目前受到了所有主流浏览器的支持，比如 Chrome、Android 版 Chrome、Edge、Firefox、Safari、Opera 等。
+
+![WebAssembly](https://www.ezzylearning.net/wp-content/uploads/WebAssembly.png)
+
+## Blazor 托管模型
