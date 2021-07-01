@@ -181,7 +181,7 @@ public class Program
 
 <!-- This is the same file we use in standard ASP.NET Core projects. The important thing to note is that the ConfigureServices method is calling the AddServerSideBlazor method. This method adds services related to Blazor Server Apps. -->
 
-它与我们在标准 ASP.NET Core 项目中使用的文件相同。需要重点注意的是 `ConfigureServices` 方法调用了 `AddServerSideBlazor`，该方法添加与 Blazor Server Apps 相关的服务。
+它与我们在标准 ASP.NET Core 项目中使用的文件相同。需要重点注意的一点是 `ConfigureServices` 方法调用了 `AddServerSideBlazor`，该方法添加与 Blazor Server Apps 相关的服务。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -191,3 +191,19 @@ public void ConfigureServices(IServiceCollection services)
     services.AddSingleton<WeatherForecastService>();
 }
 ```
+
+<!-- We also have the following two important lines in Configure method. The MapBlazorHub method configures SignalR Hub endpoints required for Blazor Server App. The MapFallbackToPage method will map all those requests to _Host page which are not mapping with any controllers, razor pages, etc. This will allow all dynamic content requests to route to the SPA framework instead of throwing 404 Not Found. -->
+
+在 `Configure` 方法中我们还有以下两行重要的代码。`MapBlazorHub` 方法配置 Blazor Server App 所需的 SignalR Hub Endpoints。`MapFallbackToPage` 方法会将所有未与任何控制器、razor 等匹配的请求映射到 **_Host** 页面。这将允许所有动态内容请求路由到 SPA 框架，而不是抛出 404 Not Found。
+
+```csharp
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapBlazorHub();
+    endpoints.MapFallbackToPage("/_Host");
+});
+```
+
+### _Host.cshtml
+
+This is the root page of the application and every Razor component/page will render within this host page. It has basic HTML elements such as html, head and body, and some special elements. Please note that Blazor is a component-based framework and everything in Blazor is a component. The <component> specifies where we want to render the root component of the application.
