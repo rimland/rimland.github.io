@@ -90,7 +90,7 @@ When you want to build intranet or low demand public-facing apps  -->
 8. 当您想在 Visual Studio 中像普通 .NET 应用程序一样调试 .NET 代码时
 9. 当您想要构建内部网或低需求的面向公众的应用程序时
 
-### 何时不使用 Blazor Server
+### 何时不要使用 Blazor Server
 
 <!-- When your apps are running in high latency environments
 When you want your app to work offline without a constant SignalR connection to the server
@@ -99,3 +99,95 @@ When you don’t want to increase your server resources to handle a large amount
 1. 当您的应用程序在高延迟环境中运行时
 2. 当您希望您的应用程序离线工作，没有一个与服务器的固定 SignalR 连接时
 3. 当您不想增加服务器资源来处理大量连接的 SignalR 客户端时。
+
+## Blazor WebAssembly App 是什么？
+
+<!-- This hosting model is a direct competitor of modern and popular SPA frameworks such as Angular, Vue, and React and this is the main reason most developers are interested to learn Blazor. It allows developers to write all front-end UI logic in C# instead of JavaScript. In this hosting model, application DLLs, any dependencies, and a small size Mono .NET runtime are downloaded to the client in the first request. Once everything is available at the client, the Mono runtime loads and executes the application code. Blazor WebAssembly programs can be written in other languages such as C, C#, etc., and then they are compiled to WebAssembly bytecode. -->
+
+这种托管模型是现代流行的 SPA 框架（如 Angular、Vue 和 React）的直接竞争对手，也是大多数开发人员有兴趣学习 Blazor 的主要原因。它允许开发人员使用 C# 取代 JavaScript 编写所有前端 UI 逻辑。在此托管模型中，第一次请求时，会将应用程序的 DLL 及其所有依赖项和小尺寸的 Mono .NET 运行时下载到客户端。然后，客户端上的 Mono 运行时就会加载并执行应用程序代码。Blazor WebAssembly 程序可以用 C、C# 等其他语言编写，然后编译成 WebAssembly 字节码。
+
+![Blazor-WebAssembly-Apps](https://www.ezzylearning.net/wp-content/uploads/Blazor-WebAssembly-Apps.png)
+
+### 何时使用 Blazor WebAssembly
+
+<!-- When you want to compile your entire app into static files and serve them to clients with no need for a .NET runtime on the server. This means your back-end can be written in PHP, Node, or Rails and it can serve the front-end app written in Blazor.
+When you want to build apps that can run offline on the client without a constant connection to the server
+When you want to shift processing to the client and want to reduce the load on the server
+When you want to share code and libraries between client and server -->
+
+1. 当您想要将整个应用程序编译为静态文件，并将它们提供给客户端，而不需要服务器上的 .NET 运行时时。这意味着您的后端可以用 PHP、Node 或 Rails 编写，并服务于用 Blazor 编写的前端应用程序。
+2. 当您想要构建可以在客户端脱机运行而无需持续连接到服务端的应用程序时。
+3. 当您想要将处理转移到客户端并减少服务端的负载时。
+4. 当您想在客户端和服务端之间共享代码和库时。
+
+### 何时不要使用 Blazor WebAssembly
+
+<!-- When you can’t compromise on payload due to so many files/DLLs downloading to the client
+When you can’t compromise on slow start-up time especially on poor internet connections
+When you can’t compromise on the fact that the app has to operate in the browser sandbox with all security restrictions. -->
+
+1. 当由于下载到客户端的文件/DLL 太多而无法在有效负载上妥协时。
+2. 当您无法在缓慢的启动时间上（特别是在网络连接不佳的情况下）妥协时。
+3. 当您无法妥协于应用程序必须运行在具有全部的安全限制的浏览器沙箱中时。
+
+To understand more about Blazor hosting models let’s create Blazor Server and Blazor WebAssembly apps in Visual Studio 2019.
+
+为了更好地理解 Blazor 托管模型，让我们在 Visual Studio 2019 中分别创建一个 Blazor Server 和 Blazor WebAssembly 应用程序。
+
+## 在 Visual Studio 2019 中创建 Blazor Server 应用
+
+打开 Visual Studio 2019 并点击*创建新项目*。从可用地模板列表中选择 **Blazor App** 模板并点击*下一步*。
+
+![Create-New-Blazor-App-Project-in-Visual-Studio-2019](https://www.ezzylearning.net/wp-content/uploads/Create-New-Blazor-App-Project-in-Visual-Studio-2019.png)
+
+<!-- Provide the project name such as BlazorServerApp and click Next. You will the following dialog asking you to choose the type of Blazor app you want to create. We are creating the Blazor Server app so choose Blazor Server App and click Create button. -->
+
+指定项目名称（比如 BlazorServerApp）并点击*下一步*。您将看到下面的对话框，询问您选择要创建的 Blazor 应用程序的类型。我们要创建 Blazor Server 应用，所以请选择 **Blazor Server App** 并点击*创建*按钮。
+
+![Blazor-Server-App-in-Visual-Studio-2019](https://www.ezzylearning.net/wp-content/uploads/Blazor-Server-App-in-Visual-Studio-2019.png)
+
+Visual Studio 将为我们创建一个 Blazor Server App，其中在解决方案资源管理器中包含以下文件夹和文件。
+
+![Blazor-Server-App-in-Solution-Explorer](https://www.ezzylearning.net/wp-content/uploads/Blazor-Server-App-in-Solution-Explorer.png)
+
+<!-- Let’s discuss some of the important files and folders available in the Blazor Server App. -->
+
+让我们来讨论一下 Blazor Server App 中可用的一些重要文件和文件夹。
+
+### Program.cs
+
+<!-- This file contains the Main method which is the entry point of the project. The main method calls the CreateHostBuilder method which configures the Default ASP.NET Core Host for our app. -->
+
+这个文件包含 `Main` 方法，它是项目的入口点。`Main` 方法调用为我们配置默认 ASP.NET Core 宿主的 `CreateHostBuilder` 方法。
+
+```csharp
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        CreateHostBuilder(args).Build().Run();
+    }
+ 
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            });
+}
+```
+
+### Startup.cs
+
+<!-- This is the same file we use in standard ASP.NET Core projects. The important thing to note is that the ConfigureServices method is calling the AddServerSideBlazor method. This method adds services related to Blazor Server Apps. -->
+
+它与我们在标准 ASP.NET Core 项目中使用的文件相同。需要重点注意的是 `ConfigureServices` 方法调用了 `AddServerSideBlazor`，该方法添加与 Blazor Server Apps 相关的服务。
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddRazorPages();
+    services.AddServerSideBlazor();
+    services.AddSingleton<WeatherForecastService>();
+}
+```
