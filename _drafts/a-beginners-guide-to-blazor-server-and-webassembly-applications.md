@@ -56,6 +56,46 @@ Blazor 组件模型是 Blazor 的核心，它的设计方式使计算 UI 更改�
 3. Blazor Electron
 4. Mobile Blazor Bindings
 
-Blazor Electron and Mobile Blazor Bindings are currently at the experimental stage and Microsoft hasn’t yet committed to shipping these hosting models so I will not discuss them in this article.
+<!-- Blazor Electron and Mobile Blazor Bindings are currently at the experimental stage and Microsoft hasn’t yet committed to shipping these hosting models so I will not discuss them in this article. -->
 
 Blazor Electron 和 Mobile Blazor Bindings 目前处于实验阶段，Microsoft 尚未承诺提供这些托管模型，因此我不会在本文中讨论它们。
+
+## Blazor Server App 是什么？
+
+<!-- Blazor Server apps run on the server where they enjoy the support of full .NET Core runtime. All the processing is done on the server and UI/DOM changes are transmitted back to the client over the SignalR connection. This two-way SignalR connection is established when the user loads the application in the browser the very first time. As your .NET code is already running on the server, you don’t need to create APIs for your front-end. You can directly access services, databases, etc., and do anything you want to do on traditional server-side technology. -->
+
+Blazor Server 应用程序在服务器上运行，可享受完整的 .NET Core 运行时支持。所有处理都在服务器上完成，UI/DOM 更改通过 SignalR 连接回传给客户端。这种双向 SignalR 连接是在用户第一次在浏览器中加载应用程序时建立的。 由于 .NET 代码已经在服务器上运行，因此您无需为前端创建 API。您可以直接访问服务、数据库等，并在传统的服务端技术上做任何您想做的事情。
+
+![Blazor-Server-Apps](https://www.ezzylearning.net/wp-content/uploads/Blazor-Server-Apps.png)
+
+### 何时使用 Blazor Server
+
+<!-- When you want to run your apps on the full .NET Core runtime
+When you want to keep your apps initial download size very small
+When you want to keep your apps start-up time very fast
+When you want to keep your app’s code on the server and don’t want it to be downloaded to the client.
+When you want a fast development cycle for your apps with almost no learning curve for existing .NET developers
+When you want to make your apps search-engine friendly
+When you want your app to run on old browsers with no dependency on WebAssembly
+When you want to debug your .NET code in Visual Studio as any normal .NET app
+When you want to build intranet or low demand public-facing apps  -->
+
+1. 当您想在完整的 .NET Core 运行时上运行应用程序
+2. 当您想要保持应用程序的初始下载大小非常小
+3. 当您想保持应用启动时间非常快
+4. 当您想把应用程序的代码保留在服务器上，而不希望它被下载到客户端。
+5. 当您想要一个快速的应用开发周期，而现有的 .NET 开发人员几乎不需要学习曲线的时候
+6. 当您想让您的应用对搜索引擎友好时
+7. 当您希望您的应用程序在旧浏览器上运行，而不依赖于 WebAssembly 时
+8. 当您想在 Visual Studio 中像普通 .NET 应用程序一样调试 .NET 代码时
+9. 当您想要构建内部网或低需求的面向公众的应用程序时
+
+### 何时不使用 Blazor Server
+
+<!-- When your apps are running in high latency environments
+When you want your app to work offline without a constant SignalR connection to the server
+When you don’t want to increase your server resources to handle a large amount of connected SignalR clients. -->
+
+1. 当您的应用程序在高延迟环境中运行时
+2. 当您希望您的应用程序离线工作，没有一个与服务器的固定 SignalR 连接时
+3. 当您不想增加服务器资源来处理大量连接的 SignalR 客户端时。
