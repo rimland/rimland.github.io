@@ -146,7 +146,7 @@ To understand more about Blazor hosting models let’s create Blazor Server and 
 
 ![Blazor-Server-App-in-Visual-Studio-2019](https://www.ezzylearning.net/wp-content/uploads/Blazor-Server-App-in-Visual-Studio-2019.png)
 
-Visual Studio 将为我们创建一个 Blazor Server App，其中在解决方案资源管理器中包含以下文件夹和文件。
+Visual Studio 将为我们创建一个 Blazor Server 应用程序，其中在解决方案资源管理器中包含以下文件夹和文件。
 
 ![Blazor-Server-App-in-Solution-Explorer](https://www.ezzylearning.net/wp-content/uploads/Blazor-Server-App-in-Solution-Explorer.png)
 
@@ -327,3 +327,82 @@ Razor Server 应用程序还有一个包含共享组件的 Shared 文件夹。�
 现在是时候运行我们的 Blazor Server 应用程序并在浏览器中查看它的运行情况。在 Visual Studio 中按 `F5`，您将看到一个漂亮的默认 Blazor Server 应用程序。试试从侧边栏导航到不同的页面，并尝试在 Counter 页面上使用计数器，您会注意到没有页面刷新或回传到服务器。一切都像经典的 SPA 那样流畅和快速，浏览器和服务端的所有通信都是使用 SignalR 连接进行的。
 
 ![Default-Blazor-Server-App-Running-in-Browser](https://www.ezzylearning.net/wp-content/uploads/Default-Blazor-Server-App-Running-in-Browser.png)
+
+<!-- You can also open browser developer tools and you will notice that all standard CSS and JavaScript files including the blazor.server.js file are downloaded to the client and a SignalR connection is established over Web Sockets. -->
+
+您也可以打开浏览器开发者工具，您会注意到所有标准的 CSS 和 JavaScript 文件（包括 blazor.server.js 文件）都下载到客户端，并通过 Web Sockets 建立了 SignalR 连接。
+
+![Blazor-Server-App-Files-in-Browser-Developer-Tools](https://www.ezzylearning.net/wp-content/uploads/Blazor-Server-App-Files-in-Browser-Developer-Tools.png)
+
+## 在 Visual Studio 2019 中 创建 Blazor WebAssembly 应用
+
+<!-- We have learned the basics of the Blazor Server App and saw it in action in the browser. Let’s create a Blazor WebAssembly App now so that we can see the difference. Follow the same steps we mentioned above and create a new Blazor App in Visual Studio using the Blazor App template. When you will be asked to choose the type of Blazor App, you need to select Blazor WebAssembly App this time. -->
+
+我们已经了解了 Blazor Server App 的基础知识，并在浏览器中看到了它的运行情况。现在让我们创建一个 Blazor WebAssembly App，以便我们可以理解它们不同之处。按照我们上面提到的相同步骤，并使用 Blazor App 模板在 Visual Studio 中创建一个新的 Blazor 应用程序。当您被询问选择 Blazor App 的类型时，这次需要选择 Blazor WebAssembly App。
+
+![Create-Blazor-WebAssembly-App-in-Visual-Studio-2019](https://www.ezzylearning.net/wp-content/uploads/Create-Blazor-WebAssembly-App-in-Visual-Studio-2019.png)
+
+Visual Studio 将为我们创建一个 Blazor WebAssembly 应用程序，其中在解决方案资源管理器中包含以下文件夹和文件。
+
+![Blazor-Client-App-in-Solution-Explorer](https://www.ezzylearning.net/wp-content/uploads/Blazor-Client-App-in-Solution-Explorer.png)
+
+<!-- You can easily spot some of the differences between both types of apps. For example, we don’t have the following files in Blazor WebAssembly App. -->
+
+您可以轻松发现这两种类型的应用程序之间的一些差异。例如，在 Blazor WebAssembly 应用程序中没有以下文件：
+
+1. _Host.cshtml
+2. Error.cshtml
+3. Startup.cs
+4. appsettings.json
+
+### index.html
+
+<!-- 
+In Blazor WebAssembly App, we have an index.html file in wwwroot folder that serves as a root page. This file is injecting blazor.webassembly.js file at the end and this file is provided by the framework to handle download the .NET runtime, our Blazor app, and all the app dependencies. It also has code to initialize the runtime to run the app. -->
+
+在 Blazor WebAssembly 应用程序中，我们会在 wwwroot 文件夹中有一个 *index.html* 文件，作为主页面， 该文件在末尾注入了 *blazor.webassembly.js* 文件，此文件由框架提供以处理下载 .NET 运行时、Blazor 应用程序及其所有依赖项。它还包含为了运行应用而初始化运行时的代码。
+
+<h3 id="Program-2">Program.cs</h3>
+
+<!-- In the Blazor WebAssembly app, the root component of the app is specified in the Main method available in Program.cs file. The root component of the app is App.razor and you can see how it’s added in RootComponents collection. -->
+
+在 Blazor WebAssembly 应用程序中，应用程序的根组件在 *Program.cs* 文件中的 Main 方法中指定。应用程序的根组件是 **App.razor**，你可以看到它是如何被添加到 RootComponents 集合中的。
+
+```csharp
+public class Program
+{
+    public static async Task Main(string[] args)
+    {
+        var builder = WebAssemblyHostBuilder.CreateDefault(args);
+        builder.RootComponents.Add<App>("#app");
+ 
+        builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+ 
+        await builder.Build().RunAsync();
+    }
+}
+```
+
+<!-- Press F5 in Visual Studio and you will see a similar-looking Blazor WebAssembly app. Try to navigate to different pages from the sidebar and also try to play with the counter on the Counter page as you did before in Blazor Server App. Everything looks and feels the same and there are no server-side post-backs. -->
+
+在 Visual Studio 中按 `F5`，您将看到一个相似的 Blazor WebAssembly 应用程序。尝试从侧边栏导航到不同的页面，并尝试像之前在 Blazor Server App 中所做的那样在 Counter 页面上使用计数器。 一切看起来感觉一模一样，也没有服务器端回传。
+
+![Default-Blazor-Server-App-Running-in-Browser](https://www.ezzylearning.net/wp-content/uploads/Default-Blazor-Server-App-Running-in-Browser.png)
+
+<!-- As we already know that Blazor WebAssembly apps download the app and all their dependencies on the client so you can see lots of DLLs downloaded on the client if you open browser developer tools. -->
+
+正如我们已经知道的那样，Blazor WebAssembly 应用程序会在客户端下载应用程序及其所有依赖项，因此如果您打开浏览器开发者工具，会看到客户端下载了大量 DLL（只会在第一次浏览时下载）。
+
+![Blazor-Client-App-Files-in-Browser-Developer-Tools](https://www.ezzylearning.net/wp-content/uploads/Blazor-Client-App-Files-in-Browser-Developer-Tools.png)
+
+<!-- All of the above files will download only in the first request and then they will be cached in the browser. If you will refresh your page again, you will see only fewer files downloaded this time around. -->
+
+以上所有文件只会在第一次请求时下载，然后它们被缓存在浏览器中。如果您再次刷新页面，将会看到这次下载的文件很少。
+
+![Blazor-Client-App-Files-in-Browser-Developer-Tools-Second-Request](https://www.ezzylearning.net/wp-content/uploads/Blazor-Client-App-Files-in-Browser-Developer-Tools-Second-Request.png)
+
+## 总结
+
+In this post, I tried to give you a basic overview of the Blazor SPA framework and we have seen two Blazor apps hosted using two different hosting models. Most of the code and files were the same in both projects because the Blazor framework relies heavily on razor components. These components are the building blocks of Blazor apps and we can build these components in a similar manner no matter what hosting model we are using. Please share this post if you liked it and spread the knowledge.
+
+在本文中，我试图为您提供 Blazor SPA 框架的基本概述，我们已经看到两个 Blazor 应用程序使用两种不同的托管模型进行托管。两个项目中的大部分代码和文件都是相同的，因为 Blazor 框架严重依赖于 razor 组件。这些组件是 Blazor 应用程序的构建块，无论我们使用什么托管模型，我们都可以以类似的方式构建这些组件。 如果您喜欢本文，请分享它并传播知识。
