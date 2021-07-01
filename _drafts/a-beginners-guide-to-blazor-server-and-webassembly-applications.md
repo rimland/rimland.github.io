@@ -206,6 +206,65 @@ app.UseEndpoints(endpoints =>
 
 ### _Host.cshtml
 
-This is the root page of the application and every Razor component/page will render within this host page. It has basic HTML elements such as html, head and body, and some special elements. Please note that Blazor is a component-based framework and everything in Blazor is a component. The <component> specifies where we want to render the root component of the application.
+<!-- This is the root page of the application and every Razor component/page will render within this host page. It has basic HTML elements such as html, head and body, and some special elements. Please note that Blazor is a component-based framework and everything in Blazor is a component. The <component> specifies where we want to render the root component of the application. -->
 
 这是应用程序的根页面，每个 Razor 组件/页面都将在此 host 页面中呈现。它具有基本的 HTML 元素，例如 html、head 和 body，以及一些特殊元素。请注意，Blazor 是一个基于组件的框架，Blazor 中的每一内容都是一个组件。`<component>` 指定了我们想让应用程序根组件呈现的位置。
+
+```html
+<component type="typeof(App)" render-mode="ServerPrerendered" />
+```
+
+This file is also injecting the blazor.server.js file at the end and this JavaScript file has the code to setup SignalR connection to the server. This connection is established as soon as the app loads in the browser and then it is used for real-time communication between the server and the client browser. If you want to learn more about SignalR then please read my post Display Live Sports Updates using ASP.NET Core SignalR
+
+此文件还在末尾注入 **blazor.server.js** 文件，此 JavaScript 文件包含设置 SignalR 连接到服务端的代码。该连接在浏览器加载应用程序后立即建立，然后用于服务端和客户端浏览器之间的实时通信。如果您想了解有关 SignalR 的更多信息，请阅读我的文章 [Display Live Sports Updates using ASP.NET Core SignalR](https://www.ezzylearning.net/tutorial/display-live-sports-updates-using-asp-net-core-signalr)[^signalr]。
+
+[^signalr]: <https://www.ezzylearning.net/tutorial/display-live-sports-updates-using-asp-net-core-signalr> Display Live Sports Updates using ASP.NET Core SignalR
+
+```html
+<script src="_framework/blazor.server.js"></script>
+```
+
+### App.razor
+
+<!-- This is the main component of Blazor App and its main job is to intercept the route and render either Found or NotFound components. It renders Found component if it finds a component matching with the route and renders the NotFound component if no matching component is found. -->
+
+这是 Blazor App 的主要组件，其主要工作是拦截路由并呈现 **Found** 或 **NotFound** 组件。 如果找到与路由匹配的组件，则呈现 **Found** 组件，如果未找到匹配的组件，则呈现 **NotFound** 组件。
+
+```html
+<Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+    </Found>
+    <NotFound>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <p>Sorry, there's nothing at this address.</p>
+        </LayoutView>
+    </NotFound>
+</Router>
+```
+
+### MainLayout.cshtml
+
+MainLayout file contains the application’s main layout and its markup can be shared with multiple Razor components. This layout component normally contains the common UI elements of the application such as header, menu, footer, sidebar, etc. The default MainLayout generated for us has a sidebar that renders the NavMenu component and it is also using Razor syntax @Body to specify the location in the layout markup where the contents of other components will render.
+
+```html
+@inherits LayoutComponentBase
+ 
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+ 
+    <div class="main">
+        <div class="top-row px-4">
+            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+        </div>
+ 
+        <div class="content px-4">
+            @Body
+        </div>
+    </div>
+</div>
+```
+
+### wwwroot folder
