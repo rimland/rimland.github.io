@@ -247,6 +247,8 @@ app.UseEndpoints(endpoints =>
 
 MainLayout file contains the application’s main layout and its markup can be shared with multiple Razor components. This layout component normally contains the common UI elements of the application such as header, menu, footer, sidebar, etc. The default MainLayout generated for us has a sidebar that renders the NavMenu component and it is also using Razor syntax @Body to specify the location in the layout markup where the contents of other components will render.
 
+MainLayout 文件包含应用程序的主布局，其标记可以被多个 Razor 组件共享。这个布局组件通常包含应用程序的常用 UI 元素，例如页眉、菜单、页脚、侧边栏等。为我们生成的默认 MainLayout 有一个侧边栏，用来渲染 **NavMenu** 组件，它还使用 Razor 语法 **@Body** 来指定其他组件的内容将在布局标记中呈现的位置。
+
 ```html
 @inherits LayoutComponentBase
  
@@ -268,3 +270,60 @@ MainLayout file contains the application’s main layout and its markup can be s
 ```
 
 ### wwwroot folder
+
+<!-- This folder contains static files such as images, fonts, icons, CSS and JavaScript files, etc. -->
+
+该文件夹包含静态文件，例如图片、字体、图标、CSS 和 JavaScript 文件等。
+
+### Pages 和 Shared 文件夹
+
+<!-- This folder contains the _Host.cshtml file we discussed earlier as well as few Razor components. Blazor App is a collection of Razor components that have the .razor extension. Some of these components are called routable components because they are accessible using their routes. For example, the following Index.razor component will render when we will navigate to the application root URL. The URL is specified using the @page directive on top of the Index.razor component. -->
+
+该文件夹包含我们之前讨论过的 *_Host.cshtml* 文件以及一些 Razor 组件。Blazor 应用程序是具有 **.razor** 扩展名的 Razor 组件的集合。其中一些组件称为可路由组件，因为可以使用其路由访问它们。例如，当我们导航到应用程序根 URL 时，将呈现下面的 **Index.razor** 组件。URL 是使用 **Index.razor** 组件顶部的 **@page** 指令指定的。
+
+### Index.razor
+
+```html
+@page "/"
+ 
+<h1>Hello, world!</h1>
+ 
+Welcome to your new app.
+ 
+<SurveyPrompt Title="How is Blazor working for you?" />
+```
+
+<!-- Note that the above page is also using a child component SurveyPrompt which is called a child component because it doesn’t have @page directive in it and it can be embedded in other components.
+
+Pages folder also has some other razor components in it which are all accessible using their routes specified on top of the file. For example, the Counter component will render when we will navigate to /counter path. Similarly, the FetchData component will render using /fetchdata path.
+
+Razor Server app also has a Shared folder that contains the shared components. These components can be used by any component throughout the application just like the SurveyPrompt component we saw above. Another interesting shared component in the Shared folder is the NavMenu component that renders the top navigation bar of our Blazor Server App. -->
+
+请注意，上面的页面还使用了一个子组件 **SurveyPrompt**，之所以称它为子组件，是因为它没有 **@page** 指令，子组件可以嵌入到其他组件中。
+
+Pages 文件夹中还有一些其他的 razor 组件，这些组件都可以使用文件顶部指定的路径进行访问。例如，当我们导航到 */counter* 路径时，Counter 组件将呈现。类似地，FetchData 组件将使用 */fetchdata* 路径呈现。
+
+Razor Server 应用程序还有一个包含共享组件的 Shared 文件夹。这些组件可以被整个应用程序中的任何组件使用，就像我们上面看到的 SurveyPrompt 组件一样。Shared 文件夹中另一个有趣的共享组件是 NavMenu 组件，它呈现 Blazor Server 应用程序的顶部导航栏。
+
+### _Imports.razor
+
+<!-- This file is similar to the _ViewImports.cshtml file we have in ASP.NET MVC Web Applications and it contains the list of namespaces we can use in different razor components. The benefit of declaring all these namespaces in _Imports.razor file is that we don’t need to import them repeatedly in each razor component. -->
+
+该文件类似于我们在 ASP.NET MVC Web 应用程序中的 *_ViewImports.cshtml* 文件，它包含我们可以在不同 razor 组件中使用的命名空间列表。在 *_Imports.razor* 文件中声明所有这些命名空间的好处是我们不需要在每个 razor 组件中重复引入它们。
+
+```csharp
+@using System.Net.Http
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+@using Microsoft.JSInterop 
+```
+
+<!-- It is now time to run our Blazor Server App and see it in action in the browser. Press F5 in Visual Studio and you will see a nice looking default Blazor Server app. Try to navigate to different pages from the sidebar and also try to play with the counter on the Counter page and you will notice that there is no page refresh or post back to the server. Everything feels smooth and fast just like typical SPA and all the browser and server communication is happening using SignalR connections. -->
+
+现在是时候运行我们的 Blazor Server 应用程序并在浏览器中查看它的运行情况。在 Visual Studio 中按 `F5`，您将看到一个漂亮的默认 Blazor Server 应用程序。试试从侧边栏导航到不同的页面，并尝试在 Counter 页面上使用计数器，您会注意到没有页面刷新或回传到服务器。一切都像经典的 SPA 那样流畅和快速，浏览器和服务端的所有通信都是使用 SignalR 连接进行的。
+
+![Default-Blazor-Server-App-Running-in-Browser](https://www.ezzylearning.net/wp-content/uploads/Default-Blazor-Server-App-Running-in-Browser.png)
