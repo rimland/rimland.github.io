@@ -405,4 +405,4 @@ public class Program
 
 In this post, I tried to give you a basic overview of the Blazor SPA framework and we have seen two Blazor apps hosted using two different hosting models. Most of the code and files were the same in both projects because the Blazor framework relies heavily on razor components. These components are the building blocks of Blazor apps and we can build these components in a similar manner no matter what hosting model we are using. Please share this post if you liked it and spread the knowledge.
 
-在本文中，我试图为您提供 Blazor SPA 框架的基本概述，我们已经看到两个 Blazor 应用程序使用两种不同的托管模型进行托管。两个项目中的大部分代码和文件都是相同的，因为 Blazor 框架严重依赖于 razor 组件。这些组件是 Blazor 应用程序的构建块，无论我们使用什么托管模型，我们都可以以类似的方式构建这些组件。 如果您喜欢本文，请分享它并传播知识。
+在本文中，我试图为您提供 Blazor SPA 框架的基本概述，我们已经看到两个 Blazor 应用程序使用两种不同的托管模型进行托管。因为 Blazor 框架严重依赖于 razor 组件，所以两个项目中的大部分代码和文件都是相同的。这些组件是 Blazor 应用程序的构建块，无论使用什么托管模型，我们都可以以相似的方式构建这些组件。如果您喜欢本文，请分享它并传播知识。
