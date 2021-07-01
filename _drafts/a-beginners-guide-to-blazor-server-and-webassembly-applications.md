@@ -208,4 +208,4 @@ app.UseEndpoints(endpoints =>
 
 This is the root page of the application and every Razor component/page will render within this host page. It has basic HTML elements such as html, head and body, and some special elements. Please note that Blazor is a component-based framework and everything in Blazor is a component. The <component> specifies where we want to render the root component of the application.
 
-这是应用程序的根页面，每个 Razor 组件/页面都将在此 host 页面中呈现。它具有基本的 HTML 元素，例如 html、head 和 body，以及一些特殊元素。请注意，Blazor 是一个基于组件的框架，Blazor 中的所有内容都是一个组件。&lt;component&gt; 指定了我们想让应用程序根组件呈现的位置。
+这是应用程序的根页面，每个 Razor 组件/页面都将在此 host 页面中呈现。它具有基本的 HTML 元素，例如 html、head 和 body，以及一些特殊元素。请注意，Blazor 是一个基于组件的框架，Blazor 中的每一内容都是一个组件。<component> 指定了我们想让应用程序根组件呈现的位置。
