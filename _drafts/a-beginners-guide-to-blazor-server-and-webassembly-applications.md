@@ -214,9 +214,9 @@ app.UseEndpoints(endpoints =>
 <component type="typeof(App)" render-mode="ServerPrerendered" />
 ```
 
-This file is also injecting the blazor.server.js file at the end and this JavaScript file has the code to setup SignalR connection to the server. This connection is established as soon as the app loads in the browser and then it is used for real-time communication between the server and the client browser. If you want to learn more about SignalR then please read my post Display Live Sports Updates using ASP.NET Core SignalR
+<!-- This file is also injecting the blazor.server.js file at the end and this JavaScript file has the code to setup SignalR connection to the server. This connection is established as soon as the app loads in the browser and then it is used for real-time communication between the server and the client browser. If you want to learn more about SignalR then please read my post Display Live Sports Updates using ASP.NET Core SignalR -->
 
-此文件还在末尾注入 **blazor.server.js** 文件，此 JavaScript 文件包含设置 SignalR 连接到服务端的代码。该连接在浏览器加载应用程序后立即建立，然后用于服务端和客户端浏览器之间的实时通信。如果您想了解有关 SignalR 的更多信息，请阅读我的文章 [Display Live Sports Updates using ASP.NET Core SignalR](https://www.ezzylearning.net/tutorial/display-live-sports-updates-using-asp-net-core-signalr)[^signalr]。
+该文件还在末尾注入了 **blazor.server.js** 文件，此 JavaScript 文件包含设置 SignalR 连接到服务端的代码。该连接在浏览器加载应用程序后立即建立，然后用于服务端和客户端浏览器之间的实时通信。如果您想了解有关 SignalR 的更多信息，请阅读我的文章 [Display Live Sports Updates using ASP.NET Core SignalR](https://www.ezzylearning.net/tutorial/display-live-sports-updates-using-asp-net-core-signalr)[^signalr]。
 
 [^signalr]: <https://www.ezzylearning.net/tutorial/display-live-sports-updates-using-asp-net-core-signalr> Display Live Sports Updates using ASP.NET Core SignalR
 
