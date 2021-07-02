@@ -47,8 +47,5 @@ You can find the source code for Jekyll at GitHub:
 
 ---
 
-> 人生天地之间，若白驹之过隙，忽然而已。
-
-<br />
-
+> 人生天地之间，若白驹之过隙，忽然而已。  
 > 我本可以忍受黑暗，如果我不曾见过太阳
