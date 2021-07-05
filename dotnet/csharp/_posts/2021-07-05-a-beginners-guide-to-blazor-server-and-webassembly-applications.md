@@ -16,7 +16,7 @@ published: true
 /assets/images/202107/A-Beginner-Guide-To-Blazor-Server-and-WebAssembly-Applications.png
  -->
 
-![A-Beginner-Guide-To-Blazor-Server-and-WebAssembly-Applications](https://www.ezzylearning.net/wp-content/uploads/A-Beginner-Guide-To-Blazor-Server-and-WebAssembly-Applications.png)
+![A-Beginner-Guide-To-Blazor-Server-and-WebAssembly-Applications](/assets/images/202107/A-Beginner-Guide-To-Blazor-Server-and-WebAssembly-Applications.png)
 
 如果您一直紧跟 .NET 世界的最新发展趋势，那么现在您一定听说过 Blazor。目前在 .NET 社区中有很多关于 Blazor 的宣传，这种宣传最常见的原因是它引入了一些大多数 .NET 开发人员十几年来一直梦寐以求的东西，即：既可以在服务端又可以在浏览器中运行 C# 的能力。Blazor 允许我们使用 HTML、CSS 和 C#（而不是 JavaScript）来构建交互式 Web 应用程序。在本教程中，我将介绍 Blazor 的基本概念，并概述可用于 Blazor 的不同的托管模型。我还将介绍每种托管模型的优缺点，以便您可以为下一个 Blazor 项目托管模型做出最佳的决定。
 
@@ -26,7 +26,7 @@ published: true
 
 Blazor 是一个免费、开源的单页应用程序（SPA）开发框架，使开发人员能够在服务端和客户端上使用 C# 构建交互式 Web 应用程序。Blazor 不需要在客户端上安装任何插件来在浏览器中执行 C#/.NET 代码。它使用 WebAssembly 执行 .NET 代码，WebAssembly 是所有主流浏览器都支持的 Web 标准。Blazor 还可以在服务端运行 .NET 代码并构建 UI，然后通过 SignalR 连接仅将更新的 DOM 传输到客户端。
 
-![BLAZOR](https://www.ezzylearning.net/wp-content/uploads/BLAZOR.png)
+![BLAZOR](/assets/images/202107/BLAZOR.png)
 
 ## WebAssembly 是什么？
 
@@ -34,7 +34,7 @@ Blazor 是一个免费、开源的单页应用程序（SPA）开发框架，使�
 
 WebAssembly（有时简写为 **Wasm**）是一种可移植的二进制格式（低级指令集），被设计用于在任何能够解释这些指令的主机上运行。WebAssembly 的主要目标是允许开发人员构建高性能的 Web 应用程序，但其格式也被设计为可执行于和集成到其他环境中。WebAssembly 目前受到了所有主流浏览器的支持，比如 Chrome、Android 版 Chrome、Edge、Firefox、Safari、Opera 等。
 
-![WebAssembly](https://www.ezzylearning.net/wp-content/uploads/WebAssembly.png)
+![WebAssembly](/assets/images/202107/WebAssembly.png)
 
 ## Blazor 托管模型
 
@@ -57,7 +57,7 @@ Blazor Electron 和 Mobile Blazor Bindings 目前处于实验阶段，Microsoft 
 
 Blazor Server 应用程序在服务器上运行，可享受完整的 .NET Core 运行时支持。所有处理都在服务器上完成，UI/DOM 更改通过 SignalR 连接回传给客户端。这种双向 SignalR 连接是在用户第一次从浏览器中加载应用程序时建立的。 由于 .NET 代码已经在服务器上运行，因此您无需为前端创建 API。您可以直接访问服务、数据库等，并在传统的服务端技术上做任何您想做的事情。
 
-![Blazor-Server-Apps](https://www.ezzylearning.net/wp-content/uploads/Blazor-Server-Apps.png)
+![Blazor-Server-Apps](/assets/images/202107/Blazor-Server-Apps.png)
 
 ### 何时使用 Blazor Server
 
@@ -97,7 +97,7 @@ When you don’t want to increase your server resources to handle a large amount
 
 这种托管模型是现代流行的 SPA 框架（比如 Angular、Vue 和 React）的直接竞争对手，也是大多数开发人员有兴趣学习 Blazor 的主要原因。它允许开发人员使用 C# 取代 JavaScript 编写所有前端 UI 逻辑。在这种托管模型中，第一次请求时，会将应用程序的 DLL 及其所有依赖项和小尺寸的 Mono .NET 运行时下载到客户端。然后，客户端中的 Mono 运行时就会加载并执行应用程序代码。Blazor WebAssembly 程序可以用 C、C# 等其他语言编写，然后编译成 WebAssembly 字节码。
 
-![Blazor-WebAssembly-Apps](https://www.ezzylearning.net/wp-content/uploads/Blazor-WebAssembly-Apps.png)
+![Blazor-WebAssembly-Apps](/assets/images/202107/Blazor-WebAssembly-Apps.png)
 
 ### 何时使用 Blazor WebAssembly
 
@@ -129,17 +129,17 @@ When you can’t compromise on the fact that the app has to operate in the brows
 
 打开 Visual Studio 2019 并点击*创建新项目*。从可用的模板列表中选择 **Blazor App** 模板并点击*下一步*。
 
-![Create-New-Blazor-App-Project-in-Visual-Studio-2019](https://www.ezzylearning.net/wp-content/uploads/Create-New-Blazor-App-Project-in-Visual-Studio-2019.png)
+![Create-New-Blazor-App-Project-in-Visual-Studio-2019](/assets/images/202107/Create-New-Blazor-App-Project-in-Visual-Studio-2019.png)
 
 <!-- Provide the project name such as BlazorServerApp and click Next. You will the following dialog asking you to choose the type of Blazor app you want to create. We are creating the Blazor Server app so choose Blazor Server App and click Create button. -->
 
 指定项目名称（比如 BlazorServerApp）并点击*下一步*。您将看到下面的对话框，询问您选择要创建的 Blazor 应用程序的类型。我们要创建 Blazor Server 应用，所以请选择 **Blazor Server App** 并点击 *创建* 按钮。
 
-![Blazor-Server-App-in-Visual-Studio-2019](https://www.ezzylearning.net/wp-content/uploads/Blazor-Server-App-in-Visual-Studio-2019.png)
+![Blazor-Server-App-in-Visual-Studio-2019](/assets/images/202107/Blazor-Server-App-in-Visual-Studio-2019.png)
 
 Visual Studio 将为我们创建一个 Blazor Server 应用程序，其中在解决方案资源管理器中包含以下文件夹和文件。
 
-![Blazor-Server-App-in-Solution-Explorer](https://www.ezzylearning.net/wp-content/uploads/Blazor-Server-App-in-Solution-Explorer.png)
+![Blazor-Server-App-in-Solution-Explorer](/assets/images/202107/Blazor-Server-App-in-Solution-Explorer.png)
 
 <!-- Let’s discuss some of the important files and folders available in the Blazor Server App. -->
 
@@ -317,13 +317,13 @@ Razor Server 应用程序还有一个包含共享组件的 Shared 文件夹。�
 
 现在是时候运行我们的 Blazor Server 应用程序并在浏览器中查看它的运行情况了。在 Visual Studio 中按 `F5`，您将看到一个漂亮的默认 Blazor Server 应用程序。试试从侧边栏导航到不同的页面，并尝试在 Counter 页面上使用计数器，您会注意到没有页面刷新或回传到服务器。一切都像经典的 SPA 那样流畅和快速，浏览器和服务端的所有通信都是使用 SignalR 连接进行的。
 
-![Default-Blazor-Server-App-Running-in-Browser](https://www.ezzylearning.net/wp-content/uploads/Default-Blazor-Server-App-Running-in-Browser.png)
+![Default-Blazor-Server-App-Running-in-Browser](/assets/images/202107/Default-Blazor-Server-App-Running-in-Browser.png)
 
 <!-- You can also open browser developer tools and you will notice that all standard CSS and JavaScript files including the blazor.server.js file are downloaded to the client and a SignalR connection is established over Web Sockets. -->
 
 您也可以打开浏览器开发者工具，您会注意到所有标准的 CSS 和 JavaScript 文件（包括 blazor.server.js 文件）都下载到了客户端，并通过 Web Sockets 建立了一个 SignalR 连接。
 
-![Blazor-Server-App-Files-in-Browser-Developer-Tools](https://www.ezzylearning.net/wp-content/uploads/Blazor-Server-App-Files-in-Browser-Developer-Tools.png)
+![Blazor-Server-App-Files-in-Browser-Developer-Tools](/assets/images/202107/Blazor-Server-App-Files-in-Browser-Developer-Tools.png)
 
 ## 在 Visual Studio 2019 中 创建 Blazor WebAssembly 应用
 
@@ -331,11 +331,11 @@ Razor Server 应用程序还有一个包含共享组件的 Shared 文件夹。�
 
 我们已经了解了 Blazor Server App 的基础知识，并在浏览器中看到了它的运行情况。现在让我们创建一个 Blazor WebAssembly App，以便我们可以理解它们的不同之处。按照我们上面提到的相同步骤，并使用 **Blazor App** 模板在 Visual Studio 中创建一个新的 Blazor 应用程序。当您被询问选择 Blazor App 的类型时，这次需要选择 **Blazor WebAssembly App**。
 
-![Create-Blazor-WebAssembly-App-in-Visual-Studio-2019](https://www.ezzylearning.net/wp-content/uploads/Create-Blazor-WebAssembly-App-in-Visual-Studio-2019.png)
+![Create-Blazor-WebAssembly-App-in-Visual-Studio-2019](/assets/images/202107/Create-Blazor-WebAssembly-App-in-Visual-Studio-2019.png)
 
 Visual Studio 将为我们创建一个 Blazor WebAssembly 应用程序，其中在解决方案资源管理器中包含以下文件夹和文件。
 
-![Blazor-Client-App-in-Solution-Explorer](https://www.ezzylearning.net/wp-content/uploads/Blazor-Client-App-in-Solution-Explorer.png)
+![Blazor-Client-App-in-Solution-Explorer](/assets/images/202107/Blazor-Client-App-in-Solution-Explorer.png)
 
 <!-- You can easily spot some of the differences between both types of apps. For example, we don’t have the following files in Blazor WebAssembly App. -->
 
@@ -378,19 +378,19 @@ public class Program
 
 在 Visual Studio 中按 `F5`，您将看到一个相似的 Blazor WebAssembly 应用程序。尝试从侧边栏导航到不同的页面，并尝试像之前在 Blazor Server App 中所做的那样在 Counter 页面上使用计数器。 一切看起来感觉一模一样，也没有服务器端回传。
 
-![Default-Blazor-Server-App-Running-in-Browser](https://www.ezzylearning.net/wp-content/uploads/Default-Blazor-Server-App-Running-in-Browser.png)
+![Default-Blazor-Server-App-Running-in-Browser](/assets/images/202107/Default-Blazor-Server-App-Running-in-Browser.png)
 
 <!-- As we already know that Blazor WebAssembly apps download the app and all their dependencies on the client so you can see lots of DLLs downloaded on the client if you open browser developer tools. -->
 
 正如我们已经知道的那样，Blazor WebAssembly 应用程序会在客户端下载应用程序及其所有依赖项，因此如果您打开浏览器开发者工具，会看到客户端下载了大量 DLL（*只会在第一次浏览时下载*）。
 
-![Blazor-Client-App-Files-in-Browser-Developer-Tools](https://www.ezzylearning.net/wp-content/uploads/Blazor-Client-App-Files-in-Browser-Developer-Tools.png)
+![Blazor-Client-App-Files-in-Browser-Developer-Tools](/assets/images/202107/Blazor-Client-App-Files-in-Browser-Developer-Tools.png)
 
 <!-- All of the above files will download only in the first request and then they will be cached in the browser. If you will refresh your page again, you will see only fewer files downloaded this time around. -->
 
 以上所有文件只会在第一次请求时下载，然后它们被缓存在浏览器中。如果您再次刷新页面，将会看到这一次下载的文件很少。
 
-![Blazor-Client-App-Files-in-Browser-Developer-Tools-Second-Request](https://www.ezzylearning.net/wp-content/uploads/Blazor-Client-App-Files-in-Browser-Developer-Tools-Second-Request.png)
+![Blazor-Client-App-Files-in-Browser-Developer-Tools-Second-Request](/assets/images/202107/Blazor-Client-App-Files-in-Browser-Developer-Tools-Second-Request.png)
 
 ## 总结
 
