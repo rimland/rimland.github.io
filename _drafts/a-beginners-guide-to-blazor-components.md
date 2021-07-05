@@ -327,12 +327,209 @@ Run the app again and the Calculator should work in the same way as before.
 
 ## 创建和使用子组件
 
-Blazor Child Components are the components without @page directive. These components can be included inside other components using the standard HTML syntax. We can then build a complex UI by adding components on the page and we can even have multiple instances of the same child component on the same page. If a child component is supposed to be reused in multiple parent components or pages then it’s a good idea to place them inside the Shared folder. Let’s create a simple Heading.razor child component in the Shared folder and add the following code to it.
+<!-- Blazor Child Components are the components without @page directive. These components can be included inside other components using the standard HTML syntax. We can then build a complex UI by adding components on the page and we can even have multiple instances of the same child component on the same page. If a child component is supposed to be reused in multiple parent components or pages then it’s a good idea to place them inside the Shared folder. Let’s create a simple Heading.razor child component in the Shared folder and add the following code to it. -->
 
-Blazor 子组件是没有 @page 指令的组件。这些组件可以使用标准 HTML 语法包含在其他组件中。 然后我们可以通过在页面上添加组件来构建复杂的 UI，我们甚至可以在同一页面上拥有同一个子组件的多个实例。 如果一个子组件应该在多个父组件或页面中重复使用，那么最好将它们放在 Shared 文件夹中。 让我们在 Shared 文件夹中创建一个简单的 Heading.razor 子组件，并在其中添加以下代码。
+Blazor 子组件是没有 @page 指令的组件。这些组件可以使用标准 HTML 语法包含在其他组件中。然后，我们可以通过在页面上添加组件来构建复杂的 UI，我们甚至可以在同一个页面上添加同一子组件的多个实例。如果一个子组件可能在多个父组件或页面中重复使用，那么最好将它放在 Shared 文件夹中。让我们在 Shared 文件夹中创建一个简单的 *Heading.razor* 子组件，并在其中添加以下代码。
 
 <b>Heading.razor</b>
 
 ```html
 <h3>Calculator</h3>
 ```
+
+Next, replace the h3 element in the parent Calculator.razor file with `<Heading />` element. Run the app and you should see the h3 heading rendered on the page from within the child component.
+
+接下来，将父组件 **Calculator.razor** 中的 **h3** 元素替换为 `<Heading />` 元素。运行应用程序，您会看到 **h3** 标题从子组件中渲染到了页面上。
+
+<b>Calculator.razor</b>
+
+```html
+@page "/calculator"
+@inherits CalculatorBase
+ 
+<Heading />
+ 
+<div class="form-group">
+    <label for="number1">Number 1</label>
+    <input type="number" class="form-control" id="number1" @bind="number1">
+</div>
+<div class="form-group">
+    <label for="number2">Number 2</label>
+    <input type="number" class="form-control" id="number2"  @bind="number2">
+</div>
+<div class="form-group">
+    <label><b>Total: </b>@total</label> 
+</div>
+ 
+<button class="btn btn-primary" @onclick="Calculate">Calculate</button>
+```
+
+<!-- You can even use multiple instances of child components by just copying and pasting the same `<Heading />` element. -->
+
+您甚至可以通过复制和粘贴相同的 `<Heading />` 元素来添加子组件的多个实例。
+
+```html
+<Heading />
+<Heading />
+<Heading />
+```
+
+<!-- If you will run your app now, you will see three h3 headings rendered on the page. -->
+
+现在，如果您运行应用程序，您将会在页面上看到三个 `h3` 标题。
+
+![Multiple-Instances-of-Blazor-Components-in-Browser](https://www.ezzylearning.net/wp-content/uploads/Multiple-Instances-of-Blazor-Components-in-Browser.png)
+
+## Customizing Blazor Components with Parameters
+
+## 自定义带参数的 Blazor 组件
+
+A static component that always generates the same contents will not be very useful. It is better if we can pass some data to a component and customize not only the UI it generates but also its behavior or functionality. We can customize Blazor components using the Parameters. These parameters can be simple e.g. int, bool or they can also be more complex e.g. Customer, Order, etc. Once parameters are declared, we can pass data to components using attributes. Let’s learn this concept by declaring a simple **Title** parameter in our Heading component. To specify a parameter, we attach **[Parameter]** attribute with a property.
+
+只是生成具有相同内容的静态组件不是太有用。如果我们可以将一些数据传递给组件，而不仅仅是自定义它生成的 UI，还自定义其行为或功能，那就更好了。我们可以使用 Parameters 自定义 Blazor 组件。这些参数可以是简单的 `int`、`bool` 等，也可以是复杂的 `Customer`、`Order` 等。一旦声明了参数，我们便可以使用属性将数据传递给组件。让我们通过在 Heading 组件中声明一个简单的 **Title** 参数来学习一下这个概念。要指定一个参数，我们要将 **[Parameter]** 特性附加到一个属性上。
+
+<b>Heading.razor</b>
+
+```csharp
+<h3>@Title</h3>
+ 
+@code {
+    [Parameter]
+    public string Title { get; set; } = "Default Title";
+}
+```
+
+<!-- We also set the Title property with a default string Default Title which will be displayed if no Title is provided -->
+
+我们还为 **Title** 属性设置了一个默认值 *Default Title*，当未提供 Title 时，则显示该默认字符串。
+
+![Blazor-Component-with-Default-Property-Value](https://www.ezzylearning.net/wp-content/uploads/Blazor-Component-with-Default-Property-Value.png)
+
+<!-- Visual Studio IntelliSense also displays the component parameters which is helpful because we don’t need to memorize the parameters. -->
+
+Visual Studio 智能感知还可以显示组件参数，因此我们不需要记住这些参数，这很有用。
+
+![Blazor-Component-Property-Intellisense-in-Visual-Studio-2019](https://www.ezzylearning.net/wp-content/uploads/Blazor-Component-Property-Intellisense-in-Visual-Studio-2019.png)
+
+We can customize the Title from outside by passing any string as Title and the Heading component will automatically render different strings passed to it.
+
+我们可以通过传递任意字符串作为 Title 的值来从外部自定义 Title，Heading 组件将自动渲染传递给它的不同的字符串。
+
+```html
+<Heading Title="Calculator" /> 
+```
+
+![Blazor-Component-with-Custom-Property-Value](https://www.ezzylearning.net/wp-content/uploads/Blazor-Component-with-Custom-Property-Value.png)
+
+We can also pass data from parent-to-child components using expressions. Let’s create another child component CalculatorTotal.razor and add the following code to it.
+
+我们还可以使用表达式从父组件到子组件传递数据。让我们创建另外一个子组件 **CalculatorTotal.razor** 并向其添加以下代码。
+
+<b>CalculatorTotal.razor</b>
+
+```html
+<label><b>Total: </b>@Total</label>
+ 
+@code {
+    [Parameter]
+    public int Total { get; set; }
+}
+```
+
+Now you can pass the Total value using the @total field we declared and set in the parent Calculator controller.
+
+现在，您可以使用我们在父 Calculator 控制器中设置
+控制器中声明和设置的 @total 字段传递 Total 值。
+
+现在，您可以使用我们在父 Calculator 控制器中声明和设置的 @total 字段传递 Total 的值。
+
+<b>Calculator.razor</b>
+
+```html
+@page "/calculator"
+ 
+<Heading Title="Calculator" />
+ 
+<div class="form-group">
+    <label for="number1">Number 1</label>
+    <input type="number" class="form-control" id="number1" @bind="number1">
+</div>
+<div class="form-group">
+    <label for="number2">Number 2</label>
+    <input type="number" class="form-control" id="number2" @bind="number2">
+</div>
+<div class="form-group">
+    <CalculatorTotal Total="@total"/>
+</div>
+ 
+<button class="btn btn-primary" @onclick="Calculate">Calculate</button>
+```
+
+## Passing Route Parameters to Blazor Components
+
+## 将路由参数传递给 Blazor 组件
+
+Blazor components can also accept parameters from the route template provided in the **@page** directive. The router automatically populates the corresponding component parameters using the route parameters.
+
+Blazor 组件还可以接受来自 **@page** 指令中提供的路由模板的参数。 路由器使用路由参数自动填充相应的组件参数。
+
+<!-- Blazor 组件还可以接受来自 **@page** 指令中提供的路由模板的参数。 路由器使用路由参数自动填充相应的组件参数。 -->
+
+Let’s see an example of how to pass data to components from routes. Create a new Blazor component with the name **MathTable.razor** and add the following code.
+
+让我们看一个如何将数据从路由传递给组件的示例。 创建一个名为 **MathTable.razor** 的新 Blazor 组件并添加以下代码。
+
+<b>MathTable.razor</b>
+
+```html
+@page "/MathTable/{number:int}"
+ 
+<h3>Math Table</h3>
+ 
+<table class="table table-bordered w-25">
+    @for (int i = 1; i <= 10; i++)
+    {
+        <tr>
+            <td>@Number</td>
+            <td>x</td>
+            <td>@i</td>
+            <td>=</td>
+            <td>@(Number * i)</td>
+        </tr>
+    }
+</table>
+ 
+@code {
+    [Parameter]
+    public int Number { get; set; } 
+}
+```
+
+We specified a route template with an int parameter number
+
+我们指定了一个带有 int 参数数字的路由模板
+
+```csharp
+@page "/MathTable/{number:int}"
+```
+
+The route parameter will map with the following component parameter automatically.
+
+路由参数将自动映射到以下组件参数。
+
+```csharp
+[Parameter]
+public int Number { get; set; } 
+```
+
+In the HTML markup, I am generating a Math table using the number parameter. Run the project and try to pass different numbers in the route URL and you will see the updated Math table as per the parameter value.
+
+在 HTML 标记中，我使用 number 参数生成一个 Math 表。运行项目并尝试在路由 URL 中传递不同的数字，您将看到根据参数值更新的 Math 表。
+
+![Routing-Parameter-in-Blazor-Components](https://www.ezzylearning.net/wp-content/uploads/Routing-Parameter-in-Blazor-Components.png)
+
+## 总结
+
+In this tutorial, I tried to cover the fundamentals of Blazor components. I tried to demonstrate every concept with easy to understand examples so that you can learn the basic concept quickly. Blazor components offer a lot more functionality than what I covered in this tutorial and there are so many other advanced topics related to Blazor components. I will try to write more posts on Blazor in the upcoming weeks so keep visiting my website to learn more about Blazor.
+
+在本教程中，我尝试介绍 Blazor 组件的基础知识。我试图用易于理解的示例来演示每个概念，以便您可以快速学习基本概念。 Blazor 组件提供的功能比我在本教程中介绍的要多得多，而且还有许多其他与 Blazor 组件相关的高级主题。在接下来的几周里，我将尝试写更多关于 Blazor 的文章，因此请继续访问我的网站以学习有关 Blazor 的更多知识。
