@@ -6,7 +6,7 @@ categories: dotnet csharp
 published: true
 ---
 
-> 翻译自 Waqas Anwar 2021年3月12日的文章 [《A Beginner’s Guide To Blazor Server and WebAssembly Applications》](https://www.ezzylearning.net/tutorial/a-beginners-guide-to-blazor-components) [^1]
+> 翻译自 Waqas Anwar 2021年3月19日的文章 [《A Beginner’s Guide to Blazor Components》](https://www.ezzylearning.net/tutorial/a-beginners-guide-to-blazor-components) [^1]
 
 [^1]: <https://www.ezzylearning.net/tutorial/a-beginners-guide-to-blazor-components> A Beginner’s Guide to Blazor Components
 
