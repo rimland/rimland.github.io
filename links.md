@@ -29,6 +29,7 @@ permalink: /links/
   - <https://docs.microsoft.com/zh-cn/dotnet/>
 - Manual Collection
   - [Getting started with .NET on RHEL](https://access.redhat.com/documentation/en-us/net/5.0/)
+  - [Blazor](https://docs.microsoft.com/zh-cn/aspnet/core/blazor/)
 
 ## Programming Language
 
