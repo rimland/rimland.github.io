@@ -1,12 +1,12 @@
 ---
 layout: post
 title:  "Blazor 数据绑定开发指南"
-date:   2021-07-05 00:10:10 +0800
+date:   2021-07-16 00:10:10 +0800
 categories: dotnet csharp
 published: true
 ---
 
-> 翻译自 Waqas Anwar 2021年3月19日的文章 [《A Developer’s Guide to Blazor Data Binding》](https://www.ezzylearning.net/tutorial/a-developers-guide-to-blazor-data-binding) [^1]
+> 翻译自 Waqas Anwar 2021年3月21日的文章 [《A Developer’s Guide to Blazor Data Binding》](https://www.ezzylearning.net/tutorial/a-developers-guide-to-blazor-data-binding) [^1]
 
 [^1]: <https://www.ezzylearning.net/tutorial/a-developers-guide-to-blazor-data-binding> A Developer’s Guide to Blazor Data Binding
 
