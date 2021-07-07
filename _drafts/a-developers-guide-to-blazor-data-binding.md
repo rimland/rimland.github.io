@@ -16,6 +16,8 @@ Most web apps these days either display some sort of data on pages or they colle
 
 如今，大多数网络应用程序要么在页面上显示某种数据，要么使用表单从用户那里收集数据。 这意味着每个 SPA 框架都必须支持数据绑定，以便开发人员可以将数据与 labels、form 控件等元素进行绑定。Blazor 组件内置了对数据绑定的支持，而且它们使用多种技术同时支持单向和双向数据绑定。在本教程中，我将通过一个简单的卡片设计器示例介绍 Blazor 数据绑定功能的基础知识，在该示例中，用户将能够实时查看其卡片设计的更新情况。
 
+[Download Source Code](https://github.com/ezzylearning/BlazorDataBindingDemo)
+
 ## 单向绑定
 
 In one-way data binding, the data flows in one direction. The application code updates the value in response to some event or user action and when the value is updated, the corresponding UI is updated dynamically. In one-way data binding, the user is not allowed to change the value directly. In Blazor, we typically use @ symbol followed by the property, field, or even a method to implement one-way data binding. For example, if you have a Title property in your code and you want to bind it with an h1 element then you can write code similar to the following snippet.
