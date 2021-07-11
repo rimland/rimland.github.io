@@ -390,7 +390,7 @@ Blazor 子组件是没有 @page 指令的组件。这些组件可以使用标准
 
 <b>Heading.razor</b>
 
-```csharp
+```html
 <h3>@Title</h3>
  
 @code {
