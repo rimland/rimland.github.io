@@ -210,13 +210,13 @@ HTML 标记中有两个输入框，它们使用 **@bind** 属性来绑定 **numb
 
 <!-- If you are creating small components, then you may want to write all C# code in a single .razor file but if you have lots of logic and for better code maintenance, you want to keep your C# code separate from your HTML markup then you can adopt one of the following two approaches. -->
 
-如果您创建的是小的组件，那么您可能希望在单个 *.razor* 文件中编写所有 C# 代码，但如果您有大量的逻辑要写并且为了更好的代码维护，您希望将 C# 代码与 HTML 标签分开，那么您可以通过以下两种方法来实现。
+如果您创建的是小型组件，那么您可能希望在单个 *.razor* 文件中编写所有 C# 代码；但如果您有大量的逻辑要写并且为了更好的代码维护，您希望将 C# 代码与 HTML 标签分开，那么可以通过以下两种方式来实现。
 
 ### 使用基类拆分组件
 
 <!-- Using this approach, you can create a separate class that should derive from ComponentBase class. You can then move components properties and methods from the **@code** block to this newly created class and finally, you can use the **@inherits** directive to specify the base class of your component. Let’s apply this approach to the Calculator component we created above. Create a class **CalculatorBase** in the project and move the C# code from the Calculator.razor into this new class. -->
 
-使用这种方法，您可以创建一个独立的类，该类应该从 [ComponentBase](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.componentbase) 类派生。然后，您可以将组件中的属性和方法从 **@code** 块移动到这个新创建的类，最后，您可以使用 **@inherits** 指令来指定组件的基类。让我们将这种方法应用于我们上面创建的 Calculator 组件。在项目中创建一个 **CalculatorBase** 类，并将 C# 代码从 *Calculator.razor* 移动到这个新类中。
+使用这种方式，您可以创建一个独立的类，该类应该从 [ComponentBase](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.componentbase) 类派生。然后，您可以将组件中的属性和方法从 **@code** 块移动到这个新创建的类，最后，您可以使用 **@inherits** 指令来指定组件的基类。让我们将这种方式应用于我们上面创建的 Calculator 组件。在项目中创建一个 **CalculatorBase** 类，并将 C# 代码从 *Calculator.razor* 移动到这个新类中。
 
 <b>CalculatorBase.cs</b>
 
