@@ -197,9 +197,157 @@ Run the app again and try to click **Add Minutes** buttons for each To Do item. 
 
 Let’s facilitate the child to parent communication in our example using the steps I mentioned above so that every time we add **Minutes** in the child component, we will be able to update the parent UI accordingly.
 
-让我们使用我上面提到的步骤在我们的示例中促进子级与父级的通信，以便每次我们在子组件中添加 **Minutes** 时，我们都能够相应地更新父级 UI。
+让我们使用上面提到的步骤在我们的示例中改进子级到父级的通信，以便每次我们在子组件中增加 **Minutes** 时，能够相应地更新父组件 UI。
 
-在我们的示例中，让我们使用上面提到的步骤来促进子级到父级的通信，以便每次在子组件中添加**分钟**，我们都能够相应地更新父UI。
+<!-- Step 1: Declare an EventCallback or EventCallback<T> delegate in child component -->
+
+### 步骤1：在子组件中声明一个 `EventCallback` 或 `EventCallback<T>` 委托
+
+The first step is to declare the `EventCallback<T>` delegate in our child component. We are declaring a delegate **OnMinutesAdded** and using **MouseEventArgs** as T because this can provide us extra information about the button click event.
+
+第一步是在我们的子组件中声明 `EventCallback<T>` 委托。我们声明一个委托 **OnMinutesAdded**，并使用 **MouseEventArgs** 作为 `T`，因为这可以为我们提供有关按钮单击事件的额外信息。
+
+```csharp
+[Parameter]
+public EventCallback<MouseEventArgs> OnMinutesAdded { get; set; }
+```
+
+Step 2: Attach a callback method to child component’s EventCallback or EventCallback<T> in parent component
+
+### 步骤2：在父组件中附加一个到子组件的 `EventCallback` 或 `EventCallback<T>` 的回调方法
+
+In this step, we need to attach a callback method with the child component’s **OnMinutesAdded** EventCallback delegate we declared in Step 1 above.
+
+在这一步中，我们需要向我们在上面的步骤 1 中声明的子组件的 `EventCallback` 委托 **OnMinutesAdded** 附加一个回调方法。
+
+```csharp
+<ToDoItem Item="todo" OnMinutesAdded="OnMinutesAddedHandler" />
+```
+
+The callback method we are using in this example is **OnMinutesAddedHandler** and this method simply calls the same **UpdateTotalMinutes** method that updates the **TotalMinutes** property.
+
+我们在本例中使用的回调方法是 **OnMinutesAddedHandler**，该方法简单地调用同一个 **UpdateTotalMinutes** 方法，更新 **TotalMinutes** 属性。
+
+```csharp
+public void OnMinutesAddedHandler(MouseEventArgs e)
+{
+    UpdateTotalMinutes();
+}
+```
+
+Step 3: Whenever a child component wants to communicate with the parent component, it invokes the parent component’s callback method using InvokeAsync(Object) or InvokeAsync(T) methods.
+
+### 每当子组件想要与父组件通信时，它都会使用 InvokeAsync(Object) 或 InvokeAsync(T) 方法调用父组件的回调方法。
+
+In this step, we need to invoke the parent component callback method and the best place to do this is the **AddMinute** method because we want to update the parent component UI every time user clicks the Add Minute button.
+
+在这一步中，我们需要调用父组件回调方法，因为我们希望每次用户点击 **Add Minute** 按钮时都更新父组件 UI，所以最好的位置是在 **AddMinute** 方法中调用。
+
+```csharp
+public async Task AddMinute(MouseEventArgs e)
+{
+    Item.Minutes += 1;
+    await OnMinutesAdded.InvokeAsync(e);
+}
+```
+
+That’s all we need to facilitate communication from child component to parent component in Blazor. Following is the complete code of ToDoItem.razor child component.
+
+这就是我们在 Blazor 中实现从子组件到父组件通信所需做的全部事情。 以下是子组件 *ToDoItem.razor* 的完整代码。
+
+<b>ToDoItem.razor</b>
+
+```html
+@using BlazorEventHandlingDemo.Data
+<tr>
+    <td>@Item.Title</td>
+    <td>@Item.Minutes</td>
+    <td>
+        <button type="button" class="btn btn-success btn-sm float-right" @onclick="AddMinute">
+            + Add Minutes
+        </button>
+    </td>
+</tr>
+ 
+@code {
+ 
+  [Parameter]
+  public ToDo Item { get; set; }
+ 
+  [Parameter]
+  public EventCallback<MouseEventArgs> OnMinutesAdded { get; set; }
+ 
+  public async Task AddMinute(MouseEventArgs e)
+  {
+    Item.Minutes += 1;
+    await OnMinutesAdded.InvokeAsync(e);
+  }
+}
+```
+
+Following is the complete code of ToDoList.razor parent component
+
+以下是父组件 *ToDoList.razor* 的完整代码：
+
+<b>ToDoList.razor</b>
+
+```html
+@page "/todos"
+@using BlazorEventHandlingDemo.Data
+ 
+<div class="row">
+    <div class="col"><h3>To Do List</h3></div>
+    <div class="col"><h5 class="float-right">Total Minutes: @TotalCount</h5></div>
+</div>
+ 
+<br />
+<table class="table">
+    <tr>
+        <th>Title</th>
+        <th>Minutes</th>
+        <th></th>
+    </tr>
+    @foreach (var todo in ToDos)
+    {
+        <ToDoItem Item="todo" OnMinutesAdded="OnMinutesAddedHandler" />
+    }
+</table>
+ 
+@code {
+ 
+    public List<ToDo> ToDos { get; set; }
+    public int TotalCount { get; set; }
+ 
+    protected override void OnInitialized()
+    {
+        ToDos = new List<ToDo>()
+        {
+                new ToDo() { Title = "Analysis", Minutes = 40 },
+                new ToDo() { Title = "Design", Minutes = 30 },
+                new ToDo() { Title = "Implementation", Minutes = 75 },
+                new ToDo() { Title = "Testing", Minutes = 40 }
+        };
+ 
+        UpdateTotalMinutes();
+    }
+ 
+    public void UpdateTotalMinutes()
+    {
+        TotalCount = ToDos.Sum(x => x.Minutes);
+    }
+ 
+    public void OnMinutesAddedHandler(MouseEventArgs e)
+    {
+        UpdateTotalMinutes();
+    }
+}
+```
+
+Run the application in the browser and try to add minutes in any ToDo item and you will notice that the parent component is automatically updating the Total Minutes in real-time.
+
+![Blazor-Child-Component-Updating-Parent-Compoent-with-EventCallback](https://www.ezzylearning.net/wp-content/uploads/Blazor-Child-Component-Updating-Parent-Compoent-with-EventCallback.png)
+
+
 
 
 
