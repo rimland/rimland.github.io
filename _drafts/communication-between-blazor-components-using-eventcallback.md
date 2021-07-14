@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Blazor 事件处理开发指南"
+title:  "Blazor 组件之间使用 EventCallback 进行通信"
 date:   2021-07-19 00:10:10 +0800
 categories: dotnet csharp
 published: true
