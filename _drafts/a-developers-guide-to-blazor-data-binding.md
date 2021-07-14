@@ -10,7 +10,7 @@ published: true
 
 [^1]: <https://www.ezzylearning.net/tutorial/a-developers-guide-to-blazor-data-binding> A Developer’s Guide to Blazor Data Binding
 
-![A-Developer-Guide-to-Blazor-Data-Binding](/assets/images/202107/uploads/A-Developer-Guide-to-Blazor-Data-Binding-1.png)
+![A-Developer-Guide-to-Blazor-Data-Binding](/assets/images/202107/A-Developer-Guide-to-Blazor-Data-Binding-1.png)
 
 <!-- Most web apps these days either display some sort of data on pages or they collect data from users using forms. This means every SPA framework must need to support data binding so that developers can bind data with elements such as labels, form controls, etc. Blazor components have built-in support of data binding and they support both one-way and two-way data binding using multiple techniques. In this tutorial, I will cover the fundamentals of Blazor data binding features with a simple card designer example where the user will be able to see his card design updated in real-time. -->
 
@@ -18,7 +18,7 @@ published: true
 
 [下载源码](https://github.com/ezzylearning/BlazorDataBindingDemo)[^source]
 
-[^source]: <https://github.com/ezzylearning/BlazorDataBindingDemo>
+[^source]: <https://github.com/ezzylearning/BlazorDataBindingDemo> 下载源码
 
 ## 单向绑定
 
@@ -159,7 +159,7 @@ h3 {
 
 运行该应用程序，您应该能看到类似以下内容的页面。左手边是设计部分，允许用户设置卡片的 **Heading** 和 **Description**，右手边显示卡片预览。还有一个 **Reset** 按钮，可以将表单重置为默认值。
 
-![Blazor-Data-Binding-Demo-Form](https://www.ezzylearning.net/wp-content/uploads/Blazor-Data-Binding-Demo-Form.png)
+![Blazor-Data-Binding-Demo-Form](/assets/images/202107/Blazor-Data-Binding-Demo-Form.png)
 
 <!-- Let’s create a separate code-behind partial class for the implementation logic of our card designer. The class has two simple properties **Heading** and **Description** with some default values. There is also a method **ResetCard** that we will call when the user will click the **Reset** button and this method will reset both properties to their default values. -->
 
@@ -226,7 +226,7 @@ public partial class CardDesigner
 
 现在，如果您运行应用程序，您将会看到类似于下面的输出。尝试在设计区输入标题和描述，您会注意到，当您将焦点从输入框移开时，预览区会立即自动更新。
 
-![Blazor-One-Way-Data-Binding-using-Expressions](https://www.ezzylearning.net/wp-content/uploads/Blazor-One-Way-Data-Binding-using-Expressions.png)
+![Blazor-One-Way-Data-Binding-using-Expressions](/assets/images/202107/Blazor-One-Way-Data-Binding-using-Expressions.png)
 
 <!-- If you are not a fan of using Lambda expressions in HTML, you can also define **UpdateHeading** and **UpdateDescription** methods in your code and then these methods can be associated with **@onchange** events. -->
 
@@ -321,7 +321,7 @@ public partial class CardDesigner
 
 再次运行应用程序并在设计表单中输入标题和描述，看下卡片预览部分是如何自动更新的。
 
-![Blazor-Two-Way-Data-Binding](https://www.ezzylearning.net/wp-content/uploads/Blazor-Two-Way-Data-Binding.png)
+![Blazor-Two-Way-Data-Binding](/assets/images/202107/Blazor-Two-Way-Data-Binding.png)
 
 <!-- Let’s extend our example further and introduce a dropdown control in the Design area. This dropdown will display different card styles and the user will be able to select and apply any card style instantly using two-way data binding. Let’s add the following **StyleInfo** class in the **Data** folder. -->
 
@@ -389,30 +389,30 @@ public partial class CardDesigner
 </div>
 ```
 
-In the above code snippet, we are binding the **SelectedStyleCssClass** property with the select element using the **@bind** attribute and we have decided to use the **onchange** event with select so that every time the user selects an option from the dropdown the card style update automatically.
+<!-- In the above code snippet, we are binding the **SelectedStyleCssClass** property with the select element using the **@bind** attribute and we have decided to use the **onchange** event with select so that every time the user selects an option from the dropdown the card style update automatically. -->
 
-在上面的代码片段中，我们使用 **@bind** 特性将 **SelectedStyleCssClass** 属性与 select 元素绑定；然后指定使用 select 的 **onchange** 事件，以便每次用户从下拉列表中选择一个选项时，卡片样式自动更新。
+在上面的代码片段中，我们使用 **@bind** 特性将 **SelectedStyleCssClass** 属性与 `select` 元素绑定，并指定使用 `select` 的 **onchange** 事件，以便每次用户从下拉列表中选择一个选项时，卡片样式自动更新。
 
-If you will run the project now you will see the styles populated in the dropdown and a selected style is also applied to the card in the Preview section.
+<!-- If you will run the project now you will see the styles populated in the dropdown and a selected style is also applied to the card in the Preview section. -->
 
-现在，如果您运行此项目，您将看到下拉列表中填充的样式，并且选中的样式会应用于预览部分的卡片。
+现在，如果您运行项目，将会看到下拉列表中填充的样式，并且选中的样式会应用于预览部分的卡片。
 
-![Blazor-Data-Binding-with-Select](https://www.ezzylearning.net/wp-content/uploads/Blazor-Data-Binding-with-Select.png)
+![Blazor-Data-Binding-with-Select](/assets/images/202107/Blazor-Data-Binding-with-Select.png)
 
-Right-click on the select element and choose **Inspect** menu option to see how the options are rendered in the HTML and how the **value** of each **option** contains the **CssClass** property we initialized in our code.
+<!-- Right-click on the select element and choose **Inspect** menu option to see how the options are rendered in the HTML and how the **value** of each **option** contains the **CssClass** property we initialized in our code. -->
 
-右键单击 select 元素并选择 **检查(Inspect)** 菜单选项，以查看选项在 HTML 中是如何呈现的，以及每个 **option** 的 **value** 如何包含我们在代码中初始化的 **CssClass** 属性。
+右键点击 `select` 元素并选择 **检查(Inspect)** 菜单选项，可以查看 `option` 是如何渲染在 HTML 中的，以及每个 `option` 的 **value** 是如何包含我们在代码中初始化的 **CssClass** 属性的。
 
-![Bind-Select-with-Custom-Class-in-Blazor](https://www.ezzylearning.net/wp-content/uploads/Bind-Select-with-Custom-Class-in-Blazor.png)
+![Bind-Select-with-Custom-Class-in-Blazor](/assets/images/202107/Bind-Select-with-Custom-Class-in-Blazor.png)
 
-Try to select different styles from the dropdown and the card preview will update instantly.
+<!-- Try to select different styles from the dropdown and the card preview will update instantly. -->
 
-试一下从下拉列表中选择不同的样式，卡片预览将立即更新。
+试试从下拉列表中选择不同的样式，卡片预览会立即更新。
 
-![Blazor-Two-Way-Data-Binding-Demo](https://www.ezzylearning.net/wp-content/uploads/Blazor-Two-Way-Data-Binding-Demo.png)
+![Blazor-Two-Way-Data-Binding-Demo](/assets/images/202107/Blazor-Two-Way-Data-Binding-Demo.png)
 
 ## 总结
 
-In this tutorial, I covered the basics of Blazor data binding. We have learned how to use both one-way and two-data binding features and how to update values using data binding. We also learned how to use different events to specify when the value should be updated. There are some more advanced data binding concepts available in Blazor and I will try my best to write few more posts on this topic soon.
+<!-- In this tutorial, I covered the basics of Blazor data binding. We have learned how to use both one-way and two-data binding features and how to update values using data binding. We also learned how to use different events to specify when the value should be updated. There are some more advanced data binding concepts available in Blazor and I will try my best to write few more posts on this topic soon. -->
 
-在本教程中，我介绍了 Blazor 数据绑定的基础知识。我们学习了如何使用单向和双数据绑定功能，以及如何使用数据绑定更新值。我们还学习了如何使用不同的事件来指定何时更新值。 Blazor 中还有一些更高级的数据绑定概念，我将尽我最大的努力就这个主题再写几篇文章。
+在本教程中，我介绍了 Blazor 数据绑定的基础知识。我们学习了如何使用单向和双向数据绑定功能，以及如何使用数据绑定更新值。我们还学习了如何利用不同的事件来指定何时更新值。在 Blazor 中还有一些更高级的数据绑定概念，我将尽最大的努力就这个主题再写几篇文章。

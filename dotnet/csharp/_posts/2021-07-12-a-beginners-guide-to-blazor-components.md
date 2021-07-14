@@ -18,7 +18,7 @@ published: true
 
 [下载源码](https://github.com/ezzylearning/BlazorComponentsDemo)[^source]
 
-[^source]: <https://github.com/ezzylearning/BlazorComponentsDemo>
+[^source]: <https://github.com/ezzylearning/BlazorComponentsDemo> 下载源码
 
 ## Blazor 组件概述
 
