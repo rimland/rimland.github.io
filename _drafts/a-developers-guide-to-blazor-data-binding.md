@@ -14,7 +14,7 @@ published: true
 
 <!-- Most web apps these days either display some sort of data on pages or they collect data from users using forms. This means every SPA framework must need to support data binding so that developers can bind data with elements such as labels, form controls, etc. Blazor components have built-in support of data binding and they support both one-way and two-way data binding using multiple techniques. In this tutorial, I will cover the fundamentals of Blazor data binding features with a simple card designer example where the user will be able to see his card design updated in real-time. -->
 
-现如今，大多数 Web 应用程序要么是在页面上显示某种数据，要么是使用表单从用户那里收集数据。这意味着每个 SPA 框架都必须支持数据绑定，以便开发者可以将数据与 label、form 控件等元素进行绑定。Blazor 组件内置了对数据绑定的支持，而且使用了多种技术来同时支持单向和双向数据绑定。在本教程中，我将通过一个简单的卡片设计器示例来介绍 Blazor 数据绑定功能的基础知识，在该示例中，用户能够查看其卡片设计的实时更新情况。
+现如今，大多数 Web 应用程序要么是在页面上显示某种数据，要么是使用表单从用户那里收集数据。这意味着每个 SPA 框架都必须支持数据绑定，以便开发者可以将数据与 `label`、`form` 控件等元素进行绑定。Blazor 组件内置了对数据绑定的支持，还使用了多种技术来同时支持单向和双向数据绑定。在本教程中，我将通过一个简单的卡片设计器示例来介绍 Blazor 数据绑定功能的基础知识，在该示例中，用户能够查看其卡片设计的实时更新情况。
 
 [下载源码](https://github.com/ezzylearning/BlazorDataBindingDemo)[^source]
 
@@ -24,7 +24,7 @@ published: true
 
 <!-- In one-way data binding, the data flows in one direction. The application code updates the value in response to some event or user action and when the value is updated, the corresponding UI is updated dynamically. In one-way data binding, the user is not allowed to change the value directly. In Blazor, we typically use @ symbol followed by the property, field, or even a method to implement one-way data binding. For example, if you have a Title property in your code and you want to bind it with an h1 element then you can write code similar to the following snippet. -->
 
-在单向数据绑定中，数据沿一个方向传递。应用程序代码更新值以响应某些事件或用户操作，当值更新时，相应的 UI 也会动态更新。单向数据绑定中，不允许用户直接更改值。在 Blazor 中，我们通常使用 `@` 符号后跟属性、字段，甚至是一个方法来实现单向数据绑定。例如，如果您的代码中有一个 **Title** 属性，并且您想将它与一个 **h1** 元素绑定，那么您可以编写类似于以下代码段的代码。
+在单向数据绑定中，数据沿一个方向传递。应用程序代码更新值以响应某些事件或用户操作，当值更新时，相应的 UI 也会动态更新。单向数据绑定中，不允许用户直接更改值。在 Blazor 中，我们通常使用 `@` 符号后跟属性、字段，甚至是一个方法来实现单向数据绑定。例如，如果您的代码中有一个 **Title** 属性，并且您想将它与一个 **h1** 元素绑定，那么您可以编写类似以下代码段的代码。
 
 ```html
 <h1>@TItle</h1>
@@ -32,7 +32,7 @@ published: true
 
 <!-- Now to update the **Title** in the code you can use a simple button **onclick** event that can call a method **UpdateTitle** in the code to update the value of the **Title** property. As soon as, the user will click the button, the **h1** element text will update automatically because the updated value will automatically flow from the code to the user interface. -->
 
-现在，要更新上述代码中的 **Title**，您可以使用一个简单的按钮 **onclick** 事件，调用代码中的 **UpdateTitle** 方法来更新 **Title** 属性的值。一旦用户点击按钮，更新的值将自动从代码传递到用户界面，因此 **h1** 元素的文本便会自动更新。
+现在，要更新上述代码中的 **Title**，您可以使用一个简单的按钮 **onclick** 事件，调用代码中的 **UpdateTitle** 方法来更新 **Title** 属性的值。因为一旦用户点击按钮，更新的值便自动从代码传递到用户界面，所以 **h1** 元素的文本将会自动更新。
 
 ```html
 <button @onclick="UpdateTitle">Update Title</button>
@@ -65,7 +65,7 @@ published: true
 
 <!-- We can also bind a certain property to a specific event so that the property value only updates when that particular event occurs. The syntax of binding to a specific event is @bind:event=”EVENT NAME”. For example, in the following code snippet, I only want to change the Title property if the user moves the focus away from the input field. -->
 
-我们还可以将某一属性绑定到特定的事件，以便仅在特定的事件发生时才更新该属性的值。绑定到特定事件的语法是 **@bind:event="EVENT NAME"**。例如，在下面的代码段中，我希望仅在用户将焦点从输入框移开时才改变 Title 属性。
+我们还可以将某一属性绑定到特定的事件，以便仅在特定的事件触发时才更新该属性的值。绑定到特定事件的语法是 **@bind:event="EVENT NAME"**。例如，在下面的代码段中，我希望仅在用户将焦点从输入框移开时才改变 Title 属性。
 
 ```html
 <h1>@Title</h1>
@@ -79,9 +79,9 @@ published: true
 
 <!-- We now have a basic knowledge of Blazor data binding so, in the remaining tutorial, I will show you some real-world examples of using data binding. Before we start, please make sure that you are familiar with creating and using Blazor components. If you don’t know how to create a Blazor app or component, I will recommend you to read my previous post A Beginner’s Guide to Blazor Components. -->
 
-现在我们已经掌握了 Blazor 数据绑定的基础知识，那么，在接下来的教程中，我将向您展示一些使用数据绑定的真实示例。在我们开始之前，请确保您已熟悉创建和使用 Blazor 组件。如果您不了解如何创建 Blazor 应用程序或组件，我建议您阅读我之前的文章 [Blazor 组件入门指南](https://ittranslator.cn/dotnet/csharp/2021/07/12/a-beginners-guide-to-blazor-components.html)。
+现在我们已经掌握了 Blazor 数据绑定的基础知识，那么，在接下来的教程中，我将向您展示一些使用数据绑定的真实示例。在我们开始之前，请确保您已熟悉了创建和使用 Blazor 组件。如果您不了解如何创建 Blazor 应用程序或组件，我建议您阅读我之前的文章 [Blazor 组件入门指南](https://ittranslator.cn/dotnet/csharp/2021/07/12/a-beginners-guide-to-blazor-components.html)。
 
-## 新手入门 Getting Started
+## 入门实例
 
 <!-- Create a Blazor Server app in Visual Studio 2019 and add a new Blazor component **CardDesigner.razor** in the **Pages** folder. We want to build a simple card designer page that will allow the user to design and preview the card at the same time. Let’s add the following HTML markup in the razor view of our newly created component. -->
 
@@ -163,7 +163,7 @@ h3 {
 
 <!-- Let’s create a separate code-behind partial class for the implementation logic of our card designer. The class has two simple properties **Heading** and **Description** with some default values. There is also a method **ResetCard** that we will call when the user will click the **Reset** button and this method will reset both properties to their default values. -->
 
-让我们为卡片设计器的实现逻辑创建一个单独的代码隐藏部分(partial)类。该类有两个简单的带有默认值的属性 **Heading** 和 **Description**。还有一个 **ResetCard** 方法，当用户点击 **Reset** 按钮时会调用此方法，将两个属性重置为其默认值。
+让我们为卡片设计器的实现逻辑创建一个单独的代码隐藏部分类(partial class)。该类有两个简单的带有默认值的属性 **Heading** 和 **Description**。还有一个 **ResetCard** 方法，当用户点击 **Reset** 按钮时会调用此方法，将两个属性重置为其默认值。
 
 <b>CardDesigner.razor.cs</b>
 
@@ -183,7 +183,9 @@ public partial class CardDesigner
 
 <!-- We are now ready to see Blazor data binding capabilities in action. Let’s start with one-way data binding first. Let’s update the above `<form>` code slightly and add one-way binding using @ symbol with the property names. I am binding the **value** attribute of **input** and **textarea** elements with the **Heading** and **Description** properties and then I added the **@onchange** event to change the **Heading** property using the Lambda expression syntax. I also attached the **ResetCard** method with the **onclick** event of the Reset button. -->
 
-现在，我们已为查看 Blazor 数据绑定功能的实际应用做好了准备。让我们先从单向数据绑定开始。稍微更新一下上面的 `<form>` 代码，并使用 `@` 符号和属性名添加单向绑定。我将 **input** 和 **textarea** 元素的 **value** 特性(attribute)绑定到 **Heading** 和 **Description** 属性(property)，然后添加 **@onchange** 事件，使用 Lambda 表达式语法更改 **Heading** 属性。还将 **ResetCard** 方法附加到了 Reset 按钮的 **onclick** 事件。
+### 单向绑定实例
+
+现在，我们已为查看 Blazor 数据绑定功能的实际应用做好了准备。让我们先从单向数据绑定开始。稍微更新一下上面的 `<form>` 代码，并使用 `@` 符号和属性名添加单向绑定。我将 `input` 和 `textarea` 元素的 **value** 特性(attribute)绑定到 **Heading** 和 **Description** 属性(property)，然后添加 **@onchange** 事件，使用 Lambda 表达式语法更改 **Heading** 属性。还将 **ResetCard** 方法附加到了 Reset 按钮的 **onclick** 事件。
 
 <b>CardDesigner.razor</b>
 
@@ -279,7 +281,9 @@ public partial class CardDesigner
 
 <!-- So far, we are only using one-way binding in our application because the value of **Heading** and **Description** properties are updating inside our code and our code only executes if the user leaves focus from the form controls. Let’s update the code of our example and see how we can use two-way data binding with our example. Use the **@bind** attribute to bind the **Heading** and **Description** properties with the form controls. I also want the card Preview to be updated instantly as soon as the user starts typing in the form controls. To achieve this, add **@bind:event="oninput"** to the input and textarea controls. -->
 
-目前为止，我们只在应用程序中使用了单向绑定，因为 **Heading** 和 **Description** 属性的值是在我们的代码中更新的，而且我们的代码只在用户将焦点从表单控件移开时才执行。让我们更新一下示例的代码，看看如何在该示例中使用双向数据绑定。使用 **@bind** 特性将 **Heading** 和 **Description** 属性与表单控件绑定。我还希望当用户开始在表单控件中打字时立即更新卡片预览。为此，请将 **@bind:event="oninput"** 添加到了 `input` 和 `textarea` 控件。
+### 双向绑定实例
+
+截至目前，我们只在应用程序中使用了单向绑定，因为 **Heading** 和 **Description** 属性的值是在我们的代码中更新的，而且我们的代码只在用户将焦点从表单控件移开时才执行。让我们更新一下示例的代码，看看如何在该示例中使用双向数据绑定。使用 **@bind** 特性将 **Heading** 和 **Description** 属性与表单控件绑定。我还希望当用户开始在表单控件中打字时立即更新卡片预览。为此，请将 **@bind:event="oninput"** 添加到了 `input` 和 `textarea` 控件。
 
 <b>CardDesigner.razor</b>
 
@@ -319,7 +323,7 @@ public partial class CardDesigner
 
 <!-- Run the app again and input the heading and description in the Design form and see how the card preview is updating automatically. -->
 
-再次运行应用程序并在设计表单中输入标题和描述，看下卡片预览部分是如何自动更新的。
+再次运行应用程序并在设计表单中输入标题和描述，看下卡片预览是如何自动更新的。
 
 ![Blazor-Two-Way-Data-Binding](/assets/images/202107/Blazor-Two-Way-Data-Binding.png)
 
@@ -339,7 +343,7 @@ public class StyleInfo
 
 <!-- Let’s add two more properties in our CardDesigner.razor.cs file to store the list of available card styles and to store the reference of the selected style. We are initializing the **Styles** property in one of the component initialization methods named **OnInitialized**. The **OnInitialized** method is invoked when the component is initialized after having received its initial parameters from its parent component. -->
 
-让我们在 *CardDesigner.razor.cs* 文件中再添加两个属性来存储可用卡片样式的列表并存储所选样式的引用。我们在名为 **OnInitialized** 的组件初始化方法中初始化 **Styles** 属性。在从父组件接收到初始化参数后，组件会进行初始化，初始化完成时将调用 **OnInitialized** 方法。
+让我们在 *CardDesigner.razor.cs* 文件中再添加两个属性来存储可用卡片样式的列表，并存储所选样式的引用。我们在名为 **OnInitialized** 的组件初始化方法中初始化 **Styles** 属性。在从父组件接收到初始化参数后，组件会进行初始化，初始化完成时将调用 **OnInitialized** 方法。
 
 <b>CardDesigner.razor.cs</b>
 
@@ -395,7 +399,7 @@ public partial class CardDesigner
 
 <!-- If you will run the project now you will see the styles populated in the dropdown and a selected style is also applied to the card in the Preview section. -->
 
-现在，如果您运行项目，将会看到下拉列表中填充的样式，并且选中的样式会应用于预览部分的卡片。
+现在，如果您运行项目，将会看到下拉列表中填充的样式，并且选中的样式会应用到预览部分的卡片。
 
 ![Blazor-Data-Binding-with-Select](/assets/images/202107/Blazor-Data-Binding-with-Select.png)
 
