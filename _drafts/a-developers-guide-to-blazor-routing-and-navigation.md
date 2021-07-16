@@ -445,4 +445,43 @@ Run the app and try to click both buttons, you will be able to navigate to home 
 
 ![Blazor-App-NavigationManager-NavigateTo-Method](https://www.ezzylearning.net/wp-content/uploads/Blazor-App-NavigationManager-NavigateTo-Method.png)
 
-If you don’t want to handle navigation programmatically and want to generate hyperlinks in HTML then you can use Blazor NavLink component. The NavLink component is similar to HTML `<a>` element with some cool features. It automatically toggles the active class with the element if the href attribute value matches with the current URL. This allows us to apply different styles on the currently selected link. You can see the usage of this component in Shared/NavMenu.razor file
+If you don’t want to handle navigation programmatically and want to generate hyperlinks in HTML then you can use Blazor NavLink component. The NavLink component is similar to HTML `<a>` element with some cool features. It automatically toggles the **active** class with the element if the **href** attribute value matches with the current URL. This allows us to apply different styles on the currently selected link. You can see the usage of this component in **Shared/NavMenu.razor** file
+
+如果不想以编程方式处理导航，而想在 HTML 中生成超链接，则可以使用 Blazor [**NavLink**](https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.components.routing.navlink) 组件。 NavLink 组件类似于 HTML 中的 `<a>` 元素，具有一些很酷的功能。如果 NavLink 的 **href** 特性值与当前 URL 相匹配，则会自动切换该元素的 **active** CSS 类（class）。这就允许我们在当前选中的链接上应用不同的样式。您可以在 **Shared/NavMenu.razor** 文件中看到这个组件的用法。
+
+```html
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <ul class="nav flex-column">
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Home
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="counter">
+                <span class="oi oi-plus" aria-hidden="true"></span> Counter
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="fetchdata">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+            </NavLink>
+        </li> 
+    </ul>
+</div>
+```
+
+The component also has a Match property that can be set to one of the following:
+
+<!-- 获取或设置一个值，该值表示 URL 匹配行为。 -->
+
+[**NavLink**](https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.components.routing.navlink) 组件也有一个 Match 属性，可以设置为以下选项之一：
+
+- NavLinkMatch.All: 指定当 NavLink 与整个当前 URL 匹配时应处于活动状态。
+- NavLinkMatch.Prefix（默认值）: 指定当 NavLink 与当前 URL 的任意前缀匹配时应处于活动状态。
+
+## 总结
+
+In this tutorial, I tried to cover many routing features available in Blazor apps and also covered different routing related components and services available to developers. I hope you will be able to define routes, parameters, and constraints with more confidence now. If you liked this tutorial, please share it with others to spread the knowledge.
+
+在本教程中，我尝试介绍 Blazor 应用中可用的多种路由功能，还介绍了可供开发者使用的不同的路由相关的组件和服务。我希望您现在能够更熟练地定义路由、参数和约束。如果您喜欢本教程，请与他人分享以传播知识。
