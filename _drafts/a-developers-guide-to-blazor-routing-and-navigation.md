@@ -361,6 +361,88 @@ Multiple route parameters can also be defined as shown in the example below wher
 }
 ```
 
-Run the app and specified both start and increment values in the address URL as shown below and you will notice that not only the counter will start with the value 2 but it will also increment by 3 every time you will click the **Click me** button.
+Run the app and specified both `start` and `increment` values in the address URL as shown below and you will notice that not only the counter will start with the value `2` but it will also increment by `3` every time you will click the **Click me** button.
+
+运行应用程序并在地址 URL 中指定 `start` 和 `increment` 值，如下所示，你会注意到计数器不仅会从数字 `2` 开始计数，而且当您每次点击 **Click me** 按钮时都会递增 `3`。
 
 ![Blazor-App-with-Multiple-Route-Parameter-and-Constraints](https://www.ezzylearning.net/wp-content/uploads/Blazor-App-with-Multiple-Route-Parameter-and-Constraints.png)
+
+## Blazor NavigationManager 服务概述
+
+The *NavigationManager* service allows us to manage URIs and navigation in C# code. The NavigationManager class has the following common properties, methods, and events.
+
+[*NavigationManager*](https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.components.navigationmanager) 服务允许我们在 C# 代码中管理 URI 和导航。*NavigationManager* 类具有以下常见的属性、方法和事件。
+
+| 名称                 | 类型 | 说明                                                                                 |
+|--------------------|----|------------------------------------------------------------------------------------|
+| BaseUri            | 属性 | 获取或设置当前的基 URI。BaseUri 始终表示为字符串形式的绝对 URI，后跟斜杠。 通常，这与文档的 `<base>` 元素上的 "href" 特性相对应。 |
+| Uri                | 属性 | 获取或设置当前 URI。 Uri 始终以字符串形式表示为绝对 URI。                                                |
+| NavigateTo         | 方法 | 导航到指定 URI。                                                                         |
+| ToAbsoluteUri      | 方法 | 将相对 URI 转换为绝对 URI。                                                                 |
+| ToBaseRelativePath | 方法 | 给定基 URI (例如，之前由 BaseUri 返回)，将绝对 URI 转换为相对于基 URI 前缀的 URI。                           |
+| LocationChanged    | 事件 | 导航位置更改时触发的事件。                                                                      |
+
+Let’s create a page to see some of the above properties and methods in action. Create a new Blazor component and inject the NavigationManager service using the @inject directive. Try to print the Uri and BaseUri properties on the page to see what type of URIs they return.
+
+让我们创建一个页面，来查看一下以上属性和方法的一些实际行为。创建一个新的 Blazor 组件并使用 @inject 指令注入 NavigationManager 服务。 尝试在页面上打印 Uri 和 BaseUri 属性以查看它们返回的是什么类型的 URI。
+
+```html
+@page "/navigationmanager"
+@inject NavigationManager nvm
+ 
+<h3>Navigation Manager</h3>
+<br />
+ 
+<p>@nvm.Uri</p>
+<p>@nvm.BaseUri</p>
+```
+
+Run the app and you will see output similar to the following in the browser. The **Uri** property will display the current absolute URI of the page whereas the **BaseUri** property will display the current base URI.
+
+运行应用程序，您将在浏览器中看到类似于以下内容的输出。**Uri** 属性显示当前页面的绝对 URI，而 **BaseUri** 属性显示当前页面的基 URI。
+
+![Blazor-App-NavigationManager-Properties](https://www.ezzylearning.net/wp-content/uploads/Blazor-App-NavigationManager-Properties.png)
+
+Add two buttons **Home Page** and **Counter Page** on the page and add their onclick event handler methods in the **@code** block. Inside the event handler methods, we can use the **NavigateTo** method to redirect the user to different Blazor components from the C# code.
+
+在页面上添加两个按钮 **Home Page** 和 **Counter Page**，并在 **@code** 块中添加它们的 `onclick` 事件处理方法。在事件处理方法中，我们可以从 C# 代码中使用 **NavigateTo** 方法将用户重定向到不同的 Blazor 组件。
+
+```html
+@page "/navigationmanager"
+@inject NavigationManager nvm
+ 
+<h3>Navigation Manager</h3>
+<br />
+ 
+<p>@nvm.Uri</p>
+<p>@nvm.BaseUri</p>
+ 
+<button class="btn btn-primary" @onclick="GoToHome">
+    Home Page
+</button>
+ 
+<button class="btn btn-primary" @onclick="GoToCounter">
+    Counter Page
+</button>
+ 
+@code {
+ 
+    private void GoToHome()
+    {
+        nvm.NavigateTo("/");
+    }
+ 
+    private void GoToCounter()
+    {
+        nvm.NavigateTo("counter");
+    }
+}
+```
+
+Run the app and try to click both buttons, you will be able to navigate to home and counter pages as expected.
+
+运行应用程序并试着点击这两个按钮，您将能够按预期的那样导航到主页和计数器页面。
+
+![Blazor-App-NavigationManager-NavigateTo-Method](https://www.ezzylearning.net/wp-content/uploads/Blazor-App-NavigationManager-NavigateTo-Method.png)
+
+If you don’t want to handle navigation programmatically and want to generate hyperlinks in HTML then you can use Blazor NavLink component. The NavLink component is similar to HTML `<a>` element with some cool features. It automatically toggles the active class with the element if the href attribute value matches with the current URL. This allows us to apply different styles on the currently selected link. You can see the usage of this component in Shared/NavMenu.razor file
