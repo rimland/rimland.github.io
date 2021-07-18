@@ -534,6 +534,7 @@ public int Number { get; set; }
 
 - [Blazor Server 和 WebAssembly 应用程序入门指南](https://ittranslator.cn/dotnet/csharp/2021/07/05/a-beginners-guide-to-blazor-server-and-webassembly-applications.html)
 - [Blazor 组件入门指南](https://ittranslator.cn/dotnet/csharp/2021/07/12/a-beginners-guide-to-blazor-components.html)
+- [Blazor 数据绑定开发指南](https://ittranslator.cn/dotnet/csharp/2021/07/19/a-developers-guide-to-blazor-data-binding.html)
 
 > 作者 ： Waqas Anwar  
 > 翻译 ： [技术译站](https://ittranslator.cn/)  
