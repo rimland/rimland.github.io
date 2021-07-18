@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "Blazor 数据绑定开发指南"
-date:   2021-07-16 00:10:10 +0800
-categories: dotnet csharp
+date:   2021-07-19 00:10:10 +0800
+categories: dotnet blazor csharp
 published: true
 ---
 
@@ -420,3 +420,15 @@ public partial class CardDesigner
 <!-- In this tutorial, I covered the basics of Blazor data binding. We have learned how to use both one-way and two-data binding features and how to update values using data binding. We also learned how to use different events to specify when the value should be updated. There are some more advanced data binding concepts available in Blazor and I will try my best to write few more posts on this topic soon. -->
 
 在本教程中，我介绍了 Blazor 数据绑定的基础知识。我们学习了如何使用单向和双向数据绑定功能，以及如何使用数据绑定更新值。我们还学习了如何利用不同的事件来指定何时更新值。在 Blazor 中还有一些更高级的数据绑定概念，我将尽最大的努力就这个主题再写几篇文章。
+
+<br/>
+
+相关阅读：
+
+- [Blazor Server 和 WebAssembly 应用程序入门指南](https://ittranslator.cn/dotnet/csharp/2021/07/05/a-beginners-guide-to-blazor-server-and-webassembly-applications.html)
+- [Blazor 组件入门指南](https://ittranslator.cn/dotnet/csharp/2021/07/12/a-beginners-guide-to-blazor-components.html)
+- [Blazor 数据绑定开发指南](https://ittranslator.cn/dotnet/csharp/2021/07/19/a-developers-guide-to-blazor-data-binding.html)
+
+> 作者 ： Waqas Anwar  
+> 翻译 ： [技术译站](https://ittranslator.cn/)  
+> 链接 ： [英文原文](https://www.ezzylearning.net/tutorial/a-developers-guide-to-blazor-data-binding)

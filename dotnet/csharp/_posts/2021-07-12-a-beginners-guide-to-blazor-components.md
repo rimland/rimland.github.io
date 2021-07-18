@@ -2,7 +2,7 @@
 layout: post
 title:  "Blazor 组件入门指南"
 date:   2021-07-12 00:10:10 +0800
-categories: dotnet csharp
+categories: dotnet blazor csharp
 published: true
 ---
 

@@ -2,7 +2,7 @@
 layout: post
 title:  "Blazor Server 和 WebAssembly 应用程序入门指南"
 date:   2021-07-05 00:10:10 +0800
-categories: dotnet csharp
+categories: dotnet blazor csharp
 published: true
 ---
 
