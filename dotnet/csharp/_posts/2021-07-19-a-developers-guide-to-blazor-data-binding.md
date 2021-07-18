@@ -284,7 +284,7 @@ public partial class CardDesigner
 
 ### 双向绑定实例
 
-截至目前，我们只在应用程序中使用了单向绑定，因为 **Heading** 和 **Description** 属性的值是在我们的代码中更新的，而且我们的代码只在用户将焦点从表单控件移开时才执行。让我们更新一下示例的代码，看看如何在该示例中使用双向数据绑定。使用 **@bind** 特性将 **Heading** 和 **Description** 属性与表单控件绑定。我还希望当用户开始在表单控件中打字时立即更新卡片预览。为此，请将 **@bind:event="oninput"** 添加到了 `input` 和 `textarea` 控件。
+截至目前，我们仅在应用程序中使用了单向绑定，因为 **Heading** 和 **Description** 属性的值是在我们的代码中更新的，而且我们的代码只在用户将焦点从表单控件移开时才执行。让我们更新一下示例的代码，看看如何在该示例中使用双向数据绑定。使用 **@bind** 特性将 **Heading** 和 **Description** 属性与表单控件绑定。我还希望当用户开始在表单控件中打字时立即更新卡片预览。为此，请将 **@bind:event="oninput"** 添加到了 `input` 和 `textarea` 控件。
 
 <b>CardDesigner.razor</b>
 
@@ -378,7 +378,7 @@ public partial class CardDesigner
 
 <!-- Finally, we need to add an HTML select element in our CardDesigner.razor file. We are running a simple **@foreach** loop to iterate over the Styles property and creating `<option>` element inside the loop. The value attribute of the `<option>` element will render the **CssClass** property value and the text of each `<option>` element will render using the **Name** property. -->
 
-最后，我们需要在 *CardDesigner.razor* 文件中添加一个 HTML `select` 元素。我们运行一个简单的 **@foreach** 循环来迭代 **Styles** 属性，并在循环中创建 `<option>` 元素。每个 `<option>` 元素的 value 特性使用 **CssClass** 属性值呈现，每个 `<option>` 元素的文本使用 **Name** 属性值呈现。
+最后，我们需要在 *CardDesigner.razor* 文件中添加一个 HTML `select` 元素。我们运行一个简单的 **@foreach** 循环来迭代 **Styles** 属性，并在循环中创建 `<option>` 元素。每个 `<option>` 元素的 **value** 特性使用 **CssClass** 属性值呈现，每个 `<option>` 元素的文本使用 **Name** 属性值呈现。
 
 <b>CardDesigner.razor</b>
 
