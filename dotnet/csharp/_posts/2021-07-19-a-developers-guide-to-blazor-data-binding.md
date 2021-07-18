@@ -2,7 +2,8 @@
 layout: post
 title:  "Blazor 数据绑定开发指南"
 date:   2021-07-19 00:10:10 +0800
-categories: dotnet blazor csharp
+categories: dotnet csharp
+tags: [DotNet, Blazor]
 published: true
 ---
 
