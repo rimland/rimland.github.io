@@ -49,4 +49,24 @@ The examples of templated component include:
 
 When we create a parameter of any Blazor component, we commonly specify its type as string, int, or any other built-in .NET data type. To create a templated component, we create component parameters of type `RenderFragment` or `RenderFragment<T>`. RenderFragment allows us to provide a segment of UI that can be rendered by templated components.
 
-当我们创建一个 Blazor 组件的参数时，我们通常将其类型指定为 `string`、`int` 或其他任意内置 .NET 数据类型。为了创建模板化组件，我们创建了 `RenderFragment` 或 `RenderFragment<T>` 类型的组件参数。RenderFragment 允许我们提供可以由模板化组件呈现的一段 UI。
+当我们创建一个 Blazor 组件的参数时，我们通常将其类型指定为 `string`、`int` 或其他任意内置 .NET 数据类型。为了创建模板化组件，我们需要创建 `RenderFragment` 或 `RenderFragment<T>` 类型的组件参数。[RenderFragment](https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.components.renderfragment) 允许我们提供可以由模板化组件呈现的一个 UI 内容段（作为一个委托实现，将内容写入 RenderTreeBuilder）。
+
+```csharp
+[Parameter]
+public RenderFragment HeaderTemplate { get; set; }
+```
+
+`RenderFragment<T>` go one step further and allows us to pass the parameter of type T which can be used to customize the output of the templated component.
+
+`RenderFragment<T>` 更进一步，允许我们传递 `T` 类型的参数，该参数可用于自定义模板化组件的输出。
+
+```csharp
+[Parameter]
+public RenderFragment<T> RowTemplate { get; set; }
+```
+
+## 实例讲解 Getting Started with a Real World Example
+
+To understand the templated components in detail, I have decided to build a TableWidget templated component that will allow us to customize the table header, rows, and footer in different formats. Let’s create a new Blazor Server App and add the basic functionality to rendering some data in table format before we create our first templated component.
+
+为了详细了解模板化组件，我决定构建一个 TableWidget 模板化组件，它允许我们自定义不同格式的表头、行和页脚。 在创建第一个模板化组件之前，让我们创建一个新的 Blazor Server 应用程序并添加基本功能来以表格格式呈现一些数据。
