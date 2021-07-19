@@ -321,3 +321,154 @@ So far, we haven’t created any templated component but you can feel that we ne
 截至目前，我们尚没有创建任何模板化组件，但您会觉得我们很快就需要一个，因为上面显示的订单和产品表感觉上几乎具有相同的外观，并且我们在上面的 **foreach** 循环中复制了大量的 HTML 来生成这两个表。一个好注意是，创建一个模板化组件，然后重用该组件来生成上述两个表，并且仍然能够自定义由这些表显示的标题和数据行。让我们创建我们的第一个模板化组件，命名为 **TableWidget** 组件。
 
 ## 创建 Blazor 模板化组件
+
+Add a new Razor component TableWidget.razor in the Shared folder and add the following code in it.
+
+在 **Shared** 文件夹中新建一个 Razor 组件 *TableWidget.razor*，并在其中添加以下代码：
+
+<b>TableWidget.razor</b>
+
+```html
+@typeparam TItem
+<br />
+<h3>@Title</h3>
+<table class="table table-striped table-bordered">
+   <thead class="thead-dark">
+      <tr>
+         @HeaderTemplate
+      </tr>
+   </thead>
+   <tbody>
+      @foreach (var item in Items)
+      {
+      <tr>
+         @RowTemplate(item)
+      </tr>
+      }
+   </tbody>
+   <tfoot>
+      <tr>
+         @FooterTemplate
+      </tr>
+   </tfoot>
+</table>
+@code {
+    [Parameter]
+    public string Title { get; set; }
+ 
+    [Parameter]
+    public RenderFragment HeaderTemplate { get; set; }
+ 
+    [Parameter]
+    public RenderFragment<TItem> RowTemplate { get; set; }
+ 
+    [Parameter]
+    public RenderFragment FooterTemplate { get; set; }
+ 
+    [Parameter]
+    public IReadOnlyList<TItem> Items { get; set; }
+}
+```
+
+Our TableWidget component has the following three templates.
+
+我们的 TableWidget 组件包含以下三个模板。
+
+```csharp
+[Parameter]
+public RenderFragment HeaderTemplate { get; set; }
+ 
+[Parameter]
+public RenderFragment<TItem> RowTemplate { get; set; }
+ 
+[Parameter]
+public RenderFragment FooterTemplate { get; set; }
+```
+
+The **HeaderTemplate** will allow users to render any UI template in the header of the table. This template is used to render the table header cells within **thead** element.
+
+**HeaderTemplate** 允许用户在表格的标题中呈现任何 UI 模板。此模板用于呈现 **thead** 元素内的表格标题单元格。
+
+```html
+<thead class="thead-dark">
+   <tr>
+      @HeaderTemplate
+   </tr>
+</thead>
+```
+
+The **FooterTemplate** is similar to HeaderTemplate and it will allow users to render any UI template in the footer of the table. This template is used to render the table footer cells within **tfoot** element.
+
+**FooterTemplate** 与 **HeaderTemplate** 类似，它允许用户在表格的页脚中呈现任何 UI 模板。此模板用于呈现 **tfoot** 元素内的表格页脚单元格。
+
+```html
+<tfoot>
+   <tr>
+      @FooterTemplate
+   </tr>
+</tfoot>
+```
+
+The **RowTemplate** is of type `RanderFragment<TItem>` and it will allow users to render the UI template using any .NET type. The type is not fixed and declared as a generic type using the **@typeparam** directives on top of the component.
+
+**RowTemplate** 的类型为 `RanderFragment<TItem>`，它允许用户使用任意 .NET 类型渲染 UI 模板。该类型不是固定的，而是使用组件顶部的 **@typeparam** 指令声明为泛型类型。
+
+```html
+@typeparam TItem
+```
+
+We also created a collection of TItem objects in our component so that we can iterate over the collection and generate our table rows
+
+我们还在组件中创建了一个 `TItem` 对象的集合，以便我们可以迭代该集合并生成表格的行。
+
+```csharp
+[Parameter]
+public IReadOnlyList<TItem> Items { get; set; }
+```
+
+The type of objects we will pass in our UI template will render using the following **foreach** loop. You will shortly see how this will help us to render both Products and Order tables using the same TableWidget component.
+
+我们将传入 UI 模板中的对象类型将使用以下 **foreach** 循环呈现。您很快就会看到这将如何帮助我们使用相同的 TableWidget 组件同时渲染 Products 和 Order 表格。
+
+```html
+<tbody>
+   @foreach (var item in Items)
+   {
+       <tr>
+          @RowTemplate(item)
+       </tr>
+   }
+</tbody>
+```
+
+Different Ways to Use Blazor Templated Component
+
+## 使用 Blazor 模板化组件的不同方式
+
+It is now time to see our TableWidget component in action and there are different ways we can use this component. Replace the Recent Orders table we generated above with the following TableWidget component.
+
+现在是时候看看我们的 TableWidget 组件的运行情况了，我们可以通过不同的方式使用这个组件。用下面的 TableWidget 组件替换我们上面生成的最近订单表格。
+
+```html
+<div class="col">
+   @if (Orders != null)
+   {
+       <TableWidget Title="Recent Orders" Items="Orders">
+          <HeaderTemplate>
+             <th scope="col">Order</th>
+             <th scope="col">Date</th>
+             <th scope="col">Status</th>
+             <th scope="col">Total</th>
+          </HeaderTemplate>
+          <RowTemplate>
+             <td>@context.OrderNo</td>
+             <td>@context.OrderDate.ToShortDateString()</td>
+             <td>@context.Status</td>
+             <td>@context.OrderTotal</td>
+          </RowTemplate>
+       </TableWidget>
+   }
+</div>
+```
+
+In the above code snippet, the **Items** property is initialized with the **Orders** list we received from our service. Then we decided to use **HeaderTemplate** and **RowTemplate** to generate the header and footer of the table. You may be thinking from where the **context** came from. The **context** is an implicit parameter available to all component arguments of Type `RenderFragment<T>`. We can use **context** to access the properties of the object we are dealing with. In the above example, **context** will supply the order information to the template.
