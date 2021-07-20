@@ -472,3 +472,153 @@ It is now time to see our TableWidget component in action and there are differen
 ```
 
 In the above code snippet, the **Items** property is initialized with the **Orders** list we received from our service. Then we decided to use **HeaderTemplate** and **RowTemplate** to generate the header and footer of the table. You may be thinking from where the **context** came from. The **context** is an implicit parameter available to all component arguments of Type `RenderFragment<T>`. We can use **context** to access the properties of the object we are dealing with. In the above example, **context** will supply the order information to the template.
+
+在上面的代码片段中，**Items** 属性是使用从我们的服务收到的 **Orders** 列表初始化的。然后我们决定使用 **HeaderTemplate** 和 **RowTemplate** 来生成表格的页眉和页脚。您可能在想 **context** 是从哪里来的。**context** 是一个隐式参数，可用于所有类型为 `RenderFragment<T>` 的组件参数。我们可以使用 **context** 来访问我们正在处理的对象的属性。在上面的示例中，**context** 将向模板提供订单信息。
+
+If you will run the project, you will see the following two tables rendered on the page. The Recent Orders table is now generated using our TableWidget component.
+
+如果您运行该项目，您将在页面上看到以下两个表格。现在，最近的订单表格使用我们的 TableWidget 组件生成了。
+
+![Display-Data-without-Templated-Components](https://www.ezzylearning.net/wp-content/uploads/Display-Data-without-Templated-Components.png)
+
+Let’s reuse our **TableWidget** component and this time generate the Top Selling Products table. This time, we are passing it Products list and we also specified our own **Context="product"** which means we can now access product properties using **product** instead of implicit parameter **context**.
+
+让我们重用 **TableWidget** 组件，这次生成热卖产品（Top Selling Products）表格。这一次，我们传递了 Products 列表给它，还指定了我们自己的 **Context="product"**，这意味着现在我们可以使用 **product** 来取代隐式参数 **context** 访问产品属性。
+
+```html
+<div class="col">
+   @if (Products != null)
+   {
+       <TableWidget Title="Top Selling Products" Items="Products" Context="product">
+          <HeaderTemplate>
+             <th scope="col">Title</th>
+             <th scope="col">Price</th>
+             <th scope="col">Quantity</th>
+          </HeaderTemplate>
+          <RowTemplate>
+             <td>@product.Title</td>
+             <td>@product.Price</td>
+             <td>@product.Quantity</td>
+          </RowTemplate>
+       </TableWidget>
+   }
+</div>
+```
+
+You are allow allowed to specify the Context at template level as shown in the example where the **Context="product"** is added to **RowTemplate**.
+
+您还可以在模板级别指定上下文（Context），如下面的示例所示，其中将 **Context="product"** 添加到了 **RowTemplate**。
+
+```html
+<TableWidget Title="Top Selling Products" Items="Products">
+   <HeaderTemplate>
+      <th scope="col">Title</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
+   </HeaderTemplate>
+   <RowTemplate Context="product">
+      <td>@product.Title</td>
+      <td>@product.Price</td>
+      <td>@product.Quantity</td>
+   </RowTemplate>
+</TableWidget>
+```
+
+If you will run the project, you will see the following two tables rendered on the page but this time we know that these two tables are rendered using our TableWidget templated component. This example clearly shows that the same templated component can be used to generate different types of UI and it can render the different types of objects as per our app requirement.
+
+现在如果您运行该项目，您将看到页面上显示了以下两个表格，但我们知道这次这两个表是使用我们的 TableWidget 模板化组件呈现的。此示例清楚地表明，同一模板化组件可用于生成不同类型的 UI，并且可以根据我们的应用程序需求渲染不同类型的对象。
+
+![Display-Data-without-Templated-Components](https://www.ezzylearning.net/wp-content/uploads/Display-Data-without-Templated-Components.png)
+
+Let’s reuse our TableWidget component with two more examples that will show the same Recent Orders and Top Selling Products with slightly different layouts
+
+下面让我们用另外两个示例来重用一下我们的 TableWidget 组件，这些示例将显示相同的最近订单和热销产品，但布局略有改变。
+
+```html
+<div class="row">
+   <div class="col">
+      @if (Orders != null)
+      {
+          <TableWidget Title="Recent Orders" Items="Orders">
+             <HeaderTemplate>
+                <th scope="col" colspan="2">Order Details</th>
+                <th scope="col">Status</th>
+                <th scope="col">Total</th>
+             </HeaderTemplate>
+             <RowTemplate Context="order">
+                <td colspan="2">
+                   <b>Order No: </b>@order.OrderNo
+                   <br />
+                   <b>Order Date: </b>@order.OrderDate.ToShortDateString()
+                </td>
+                <td>@order.Status</td>
+                <td>@order.OrderTotal</td>
+             </RowTemplate>
+          </TableWidget>
+      }
+   </div>
+   <div class="col">
+      @if (Products != null)
+      {
+          <TableWidget Title="Top Selling Products" Items="Products" TItem=”Product”>
+             <RowTemplate Context="product">
+                <td>
+                   <h2>@product.Title</h2>
+                   <h4><b>@product.Price.ToString("C")</b></h4>
+                </td>
+             </RowTemplate>
+             <FooterTemplate>
+                <td class="text-right"><b>Last 30 Days</b></td>
+             </FooterTemplate>
+          </TableWidget>
+      }
+   </div>
+</div>
+```
+
+When using generic-typed components, the type parameter is inferred if possible. However, we have the option to explicitly specify the type with an attribute that has a name matching the type parameter, which is **TItem** in the above example.
+
+在使用泛型类型化组件时，会尽可能推断类型参数。不过，我们可以选择使用一个特性(attribute)来显式指定类型，该特性的名称与类型参数相同，在上例中是 **TItem**。
+
+<!-- 使用泛型类型组件时，如果可能，将推断类型参数。 但是，我们可以选择使用名称与类型参数匹配的属性显式指定类型，在上面的示例中为 **TItem**。
+
+在使用泛型类型化组件时，如果可能，将推断类型参数。但是，我们可以选择显式指定一个属性的类型，该属性的名称与类型参数匹配，在上面的示例中是**TItem**。 -->
+
+If you will run the project, you will see all four tables rendered on the page using the same TableWidget templated component.
+
+如果您运行该项目，您将在页面上看到使用相同的 TableWidget 模板化组件呈现的所有四个表格。
+
+![Display-Data-with-Blazor-Templated-Component](https://www.ezzylearning.net/wp-content/uploads/Display-Data-with-Blazor-Templated-Component.jpg)
+
+Creating a Generic Templated Component
+
+## 创建通用模板组件
+
+<!-- Our **TableWidget** component is good and we have already seen different examples it can be reused but the problem with that component is that it only generates HTML tables. What if we want to create an even more generic component that can be reused to generate any type of UI e.g. tables, cards, bullets, etc. We can create such a component easily by removing all markup from the templated component. Let’s create a generic **ListWidget** component to see one such component in action. -->
+
+我们的 **TableWidget** 组件很好，我们已经看到了重用它的多个示例，但该组件的问题是它只生成 HTML 表格。如果我们想创建一个更通用的组件，可以重用它来生成任何类型的 UI（例如 表格、卡片、项目符号等）。我们可以通过从模板化组件中删除所有标签来轻松地创建这样一个组件。让我们来创建一个通用的 **ListWidget** 组件来查看这样一个组件的运行情况。
+
+Create a new ListWidget.razor component in the **Shared** folder and add the following code in it. This time, we have no markup in the component and we just have an **ItemTemplate** in the **foreach** loop. This means we are free to generate any type of list using this ListWidget component.
+
+在 **Shared** 文件夹中创建一个新的 *ListWidget.razor* 组件，并在其中添加以下代码。 这次在组件中没有 HTML 标签，在 **foreach** 循环中只有一个 **ItemTemplate**。这意味着我们可以使用这个 ListWidget 组件自由地生成任意类型的列表。
+
+<b>ListWidget.razor</b>
+
+```html
+@typeparam TItem
+ 
+@foreach (var item in Items)
+{
+    @ItemTemplate(item)
+}
+ 
+@code {
+    [Parameter]
+    public RenderFragment<TItem> ItemTemplate { get; set; }
+ 
+    [Parameter]
+    public IReadOnlyList<TItem> Items { get; set; }
+}
+```
+
+Let’s say we want to generate the bootstrap list using this ListWidget component so we can do this using the following code snippet.
