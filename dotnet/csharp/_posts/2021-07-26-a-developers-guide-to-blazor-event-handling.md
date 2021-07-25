@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Blazor 事件处理开发指南"
-date:   2021-07-25 00:10:10 +0800
+date:   2021-07-26 00:10:10 +0800
 categories: dotnet csharp
 tags: [DotNet, Blazor]
 published: true
