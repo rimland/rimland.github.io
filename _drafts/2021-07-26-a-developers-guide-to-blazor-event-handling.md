@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Blazor 事件处理开发指南"
-date:   2021-07-19 00:10:10 +0800
+date:   2021-07-25 00:10:10 +0800
 categories: dotnet csharp
 tags: [DotNet, Blazor]
 published: true
@@ -283,3 +283,15 @@ Run the app once again and try to click both **Add** and **Subtract** methods an
 再次运行应用程序，并尝试点击 **Add** 和 **Subtract** 方法，您会看到相同的 **Calculate** 方法会给我们带来了不同的结果。
 
 ![Passing-Additional-Arguments-to-Blazor-Event-Handler-using-Lambda-Expression](https://www.ezzylearning.net/wp-content/uploads/Passing-Additional-Arguments-to-Blazor-Event-Handler-using-Lambda-Expression.png)
+
+<br/>
+
+相关阅读：
+
+- [Blazor Server 和 WebAssembly 应用程序入门指南](https://ittranslator.cn/dotnet/csharp/2021/07/05/a-beginners-guide-to-blazor-server-and-webassembly-applications.html)
+- [Blazor 组件入门指南](https://ittranslator.cn/dotnet/csharp/2021/07/12/a-beginners-guide-to-blazor-components.html)
+- [Blazor 数据绑定开发指南](https://ittranslator.cn/dotnet/csharp/2021/07/19/a-developers-guide-to-blazor-data-binding.html)
+
+> 作者 ： Waqas Anwar  
+> 翻译 ： [技术译站](https://ittranslator.cn/)  
+> 链接 ： [英文原文](https://www.ezzylearning.net/tutorial/a-developers-guide-to-blazor-data-binding)
