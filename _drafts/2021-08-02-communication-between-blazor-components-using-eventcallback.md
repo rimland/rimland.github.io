@@ -288,7 +288,7 @@ public async Task AddMinute(MouseEventArgs e)
 }
 ```
 
-Following is the complete code of ToDoList.razor parent component
+<!-- Following is the complete code of ToDoList.razor parent component -->
 
 以下是父组件 *ToDoList.razor* 的完整代码：
 
@@ -346,9 +346,9 @@ Following is the complete code of ToDoList.razor parent component
 }
 ```
 
-Run the application in the browser and try to add minutes in any ToDo item and you will notice that the parent component is automatically updating the Total Minutes in real-time.
+<!-- Run the application in the browser and try to add minutes in any ToDo item and you will notice that the parent component is automatically updating the Total Minutes in real-time. -->
 
-在浏览器中运行应用程序，并尝试在任一 ToDo 项中增加分钟数，您会注意到父组件将自动实时更新总分钟数。
+在浏览器中运行应用程序，并尝试增加任一 ToDo 项的分钟数，您会注意到父组件将自动地实时更新总分钟数。
 
 ![Blazor-Child-Component-Updating-Parent-Compoent-with-EventCallback](https://www.ezzylearning.net/wp-content/uploads/Blazor-Child-Component-Updating-Parent-Compoent-with-EventCallback.png)
 
