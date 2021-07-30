@@ -208,7 +208,7 @@ public async Task AddMinute(MouseEventArgs e)
 
 <!-- The first step is to declare the `EventCallback<T>` delegate in our child component. We are declaring a delegate **OnMinutesAdded** and using **MouseEventArgs** as T because this can provide us extra information about the button click event. -->
 
-第一步是在我们的子组件中声明 `EventCallback<T>` 委托。我们声明一个委托 **OnMinutesAdded**，并使用 **MouseEventArgs** 作为 `T`，因为它可以为我们提供有关按钮单击事件的额外信息。
+第一步是在我们的子组件中声明 `EventCallback<T>` 委托。我们声明一个委托 **OnMinutesAdded**，并使用 **MouseEventArgs** 作为 `T`，因为它可以为我们提供有关按钮点击事件的额外信息。
 
 ```csharp
 [Parameter]
@@ -221,7 +221,7 @@ Step 2: Attach a callback method to child component’s EventCallback or EventCa
 
 In this step, we need to attach a callback method with the child component’s **OnMinutesAdded** EventCallback delegate we declared in Step 1 above.
 
-在这一步中，我们需要向在上面的步骤 1 中声明的子组件的 `EventCallback` 委托 **OnMinutesAdded** 附加一个回调方法。
+在这一步中，我们需要向在前面的步骤 1 中声明的子组件的 `EventCallback` 委托 **OnMinutesAdded** 附加一个回调方法。
 
 ```csharp
 <ToDoItem Item="todo" OnMinutesAdded="OnMinutesAddedHandler" />
@@ -238,13 +238,13 @@ public void OnMinutesAddedHandler(MouseEventArgs e)
 }
 ```
 
-Step 3: Whenever a child component wants to communicate with the parent component, it invokes the parent component’s callback method using InvokeAsync(Object) or InvokeAsync(T) methods.
+<!-- Step 3: Whenever a child component wants to communicate with the parent component, it invokes the parent component’s callback method using InvokeAsync(Object) or InvokeAsync(T) methods. -->
 
-### 每当子组件想要与父组件通信时，它都会使用 InvokeAsync(Object) 或 InvokeAsync(T) 方法调用父组件的回调方法。
+### 步骤3：当子组件需要与父组件通信时，使用 `InvokeAsync(Object)` 或 `InvokeAsync(T)` 方法调用父组件的回调方法。
 
-In this step, we need to invoke the parent component callback method and the best place to do this is the **AddMinute** method because we want to update the parent component UI every time user clicks the Add Minute button.
+<!-- In this step, we need to invoke the parent component callback method and the best place to do this is the **AddMinute** method because we want to update the parent component UI every time user clicks the Add Minute button. -->
 
-在这一步中，我们需要调用父组件回调方法，因为我们希望每次用户点击 **Add Minute** 按钮时都更新父组件 UI，所以最好的位置是在 **AddMinute** 方法中调用。
+在这一步中，我们需要调用父组件回调方法，因为我们希望每次用户点击 **Add Minute** 按钮时都会更新父组件 UI，所以最好的位置是在 **AddMinute** 方法中调用。
 
 ```csharp
 public async Task AddMinute(MouseEventArgs e)
@@ -254,9 +254,9 @@ public async Task AddMinute(MouseEventArgs e)
 }
 ```
 
-That’s all we need to facilitate communication from child component to parent component in Blazor. Following is the complete code of ToDoItem.razor child component.
+<!-- That’s all we need to facilitate communication from child component to parent component in Blazor. Following is the complete code of ToDoItem.razor child component. -->
 
-这就是我们在 Blazor 中实现从子组件到父组件通信所需做的全部事情。 以下是子组件 *ToDoItem.razor* 的完整代码。
+这就是在 Blazor 中实现从子组件到父组件通信我们所需要做的全部事情。以下是子组件 *ToDoItem.razor* 的完整代码：
 
 <b>ToDoItem.razor</b>
 
