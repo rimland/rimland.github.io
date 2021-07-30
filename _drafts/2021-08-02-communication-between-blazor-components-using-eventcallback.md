@@ -192,9 +192,9 @@ public async Task AddMinute(MouseEventArgs e)
 }
 ```
 
-Run the app again and try to click **Add Minutes** buttons for each To Do item. You will notice that the minutes displayed with every To Do Item will start to increment but the Total Minutes property on the top will stay the same. This is because the **TotalMinutes** property is calculated in the parent component and the parent component has no idea that the **Minutes** are incrementing in the child components.
+<!-- Run the app again and try to click **Add Minutes** buttons for each To Do item. You will notice that the minutes displayed with every To Do Item will start to increment but the Total Minutes property on the top will stay the same. This is because the **TotalMinutes** property is calculated in the parent component and the parent component has no idea that the **Minutes** are incrementing in the child components. -->
 
-再次运行应用程序并尝试点击每个待办事项的 **Add Minutes** 按钮。您会注意到每个待办事项显示的分钟数将会增加，但顶部的总分钟数属性将保持不变。这是由于 **TotalMinutes** 属性是在父组件中计算的，而父组件不知道 **Minutes** 属性在子组件中增加了。
+再次运行应用程序并尝试点击每个待办事项的 **Add Minutes** 按钮。您将注意到每个待办事项显示的分钟数会增加，但是顶部的总分钟数属性将保持不变。这是由于 **TotalMinutes** 属性是在父组件中计算的，而父组件并不知道子组件中的 **Minutes** 属性增加了。
 
 ![Blazor-Child-Component-Not-Updating-Parent-Component](https://www.ezzylearning.net/wp-content/uploads/Blazor-Child-Component-Not-Updating-Parent-Component.png)
 
