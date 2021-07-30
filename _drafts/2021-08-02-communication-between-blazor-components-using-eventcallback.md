@@ -198,17 +198,17 @@ public async Task AddMinute(MouseEventArgs e)
 
 ![Blazor-Child-Component-Not-Updating-Parent-Component](https://www.ezzylearning.net/wp-content/uploads/Blazor-Child-Component-Not-Updating-Parent-Component.png)
 
-Let’s facilitate the child to parent communication in our example using the steps I mentioned above so that every time we add **Minutes** in the child component, we will be able to update the parent UI accordingly.
+<!-- Let’s facilitate the child to parent communication in our example using the steps I mentioned above so that every time we add **Minutes** in the child component, we will be able to update the parent UI accordingly. -->
 
-让我们使用上面提到的步骤在我们的示例中改进子级到父级的通信，以便每次我们在子组件中增加 **Minutes** 时，能够相应地更新父组件 UI。
+让我们使用上面提到的步骤在我们的示例中改进一下子组件到父组件的通信，以便每次增加子组件中的 **Minutes** 时，能够相应地更新父组件的 UI。
 
 <!-- Step 1: Declare an EventCallback or EventCallback<T> delegate in child component -->
 
 ### 步骤1：在子组件中声明一个 `EventCallback` 或 `EventCallback<T>` 委托
 
-The first step is to declare the `EventCallback<T>` delegate in our child component. We are declaring a delegate **OnMinutesAdded** and using **MouseEventArgs** as T because this can provide us extra information about the button click event.
+<!-- The first step is to declare the `EventCallback<T>` delegate in our child component. We are declaring a delegate **OnMinutesAdded** and using **MouseEventArgs** as T because this can provide us extra information about the button click event. -->
 
-第一步是在我们的子组件中声明 `EventCallback<T>` 委托。我们声明一个委托 **OnMinutesAdded**，并使用 **MouseEventArgs** 作为 `T`，因为这可以为我们提供有关按钮单击事件的额外信息。
+第一步是在我们的子组件中声明 `EventCallback<T>` 委托。我们声明一个委托 **OnMinutesAdded**，并使用 **MouseEventArgs** 作为 `T`，因为它可以为我们提供有关按钮单击事件的额外信息。
 
 ```csharp
 [Parameter]
@@ -221,13 +221,13 @@ Step 2: Attach a callback method to child component’s EventCallback or EventCa
 
 In this step, we need to attach a callback method with the child component’s **OnMinutesAdded** EventCallback delegate we declared in Step 1 above.
 
-在这一步中，我们需要向我们在上面的步骤 1 中声明的子组件的 `EventCallback` 委托 **OnMinutesAdded** 附加一个回调方法。
+在这一步中，我们需要向在上面的步骤 1 中声明的子组件的 `EventCallback` 委托 **OnMinutesAdded** 附加一个回调方法。
 
 ```csharp
 <ToDoItem Item="todo" OnMinutesAdded="OnMinutesAddedHandler" />
 ```
 
-The callback method we are using in this example is **OnMinutesAddedHandler** and this method simply calls the same **UpdateTotalMinutes** method that updates the **TotalMinutes** property.
+<!-- The callback method we are using in this example is **OnMinutesAddedHandler** and this method simply calls the same **UpdateTotalMinutes** method that updates the **TotalMinutes** property. -->
 
 我们在本例中使用的回调方法是 **OnMinutesAddedHandler**，该方法简单地调用同一个 **UpdateTotalMinutes** 方法，更新 **TotalMinutes** 属性。
 
@@ -354,8 +354,7 @@ Run the application in the browser and try to add minutes in any ToDo item and y
 
 
 
-
-
+<!-- 
 [Router 组件](https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.components.routing.router)[^router] 的属性：
 
 | 属性                   | 说明                                      |
@@ -368,4 +367,4 @@ Run the application in the browser and try to add minutes in any ToDo item and y
 | OnNavigateAsync      | 获取或设置在导航到新页之前应调用的处理程序。                  |
 
 [^router]: <https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.components.routing.router>
-
+ -->
