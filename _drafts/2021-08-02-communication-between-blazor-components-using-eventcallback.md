@@ -27,9 +27,9 @@ Blazor 应用程序是相互交互的多个 Blazor 组件的集合，我们可�
    - InvokeAsync(Object) – 如果使用的是 `EventCallback`
    - InvokeAsync(T) – 如果使用的是 `EventCallback<T>`
 
-To understand the above steps, let’s create a simple To Do List example. First, create the following **ToDo.cs** class in the Data folder. It is a simple class that will store the **Title** and **Minutes** properties for each To Do Item. The **Minutes** property specifies how long a particular ToDo item will take to complete.
+<!-- To understand the above steps, let’s create a simple To Do List example. First, create the following **ToDo.cs** class in the Data folder. It is a simple class that will store the **Title** and **Minutes** properties for each To Do Item. The **Minutes** property specifies how long a particular ToDo item will take to complete. -->
 
-为了理解上述步骤，让我们创建一个简单的待办事项列表(To Do List)示例。 首先，在 *Data* 文件夹中创建以下 **ToDo.cs** 类。这是一个简单类，用于存储每个待办事项的 **Title** 和 **Minutes** 属性。**Minutes** 属性指定完成特定待办事项所需的时间。
+为了理解上述步骤，让我们创建一个简单的待办事项列表(To Do List)示例。首先，在 *Data* 文件夹中创建以下 **ToDo.cs** 类。这是一个简单类，用于存储每个待办事项的 **Title** 和 **Minutes** 属性。**Minutes** 属性指定完成特定待办事项所需的时间。
 
 <b>ToDo.cs</b>
 
@@ -41,9 +41,9 @@ public class ToDo
 }
 ```
 
-Add the following ToDoList.razor component in the project and write the following code in it.
+<!-- Add the following ToDoList.razor component in the project and write the following code in it. -->
 
-在项目中添加下面的 *ToDoList.razor* 组件，并在其中编写以下代码：
+在项目中添加以下 *ToDoList.razor* 组件，并在其中编写以下代码：
 
 <b>ToDoList.razor</b>
 
