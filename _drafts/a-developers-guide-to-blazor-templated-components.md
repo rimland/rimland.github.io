@@ -622,3 +622,65 @@ Create a new ListWidget.razor component in the **Shared** folder and add the fol
 ```
 
 Let’s say we want to generate the bootstrap list using this ListWidget component so we can do this using the following code snippet.
+
+假设我们要想使用这个 ListWidget 组件生成引导程序（bootstrap）列表，那么我们可以使用下面的代码段来完成这一操作。
+
+```html
+<ul class="list-group">
+   <li class="list-group-item d-flex justify-content-between align-items-center active">
+      Latest Products
+   </li>
+   <ListWidget Items="Products" Context="product">
+      <ItemTemplate>
+         <li class="list-group-item d-flex justify-content-between align-items-center">
+            @product.Title
+            <b>@product.Price.ToString("C")</b>
+            <span class="badge badge-primary badge-pill">
+            @product.Quantity
+            </span>
+         </li>
+      </ItemTemplate>
+   </ListWidget>
+</ul>
+```
+
+Run the project and you will see the same list of products are now generated as bootstrap list component.
+
+运行该项目，您将看到现在生成的相同产品列表作为引导列表组件。
+
+![Blazor-Generic-Templated-Component-Example 1](https://www.ezzylearning.net/wp-content/uploads/Blazor-Generic-Templated-Component-Example-1.jpg)
+
+Now let’s say you have another page where the list of products need to be displayed differently using the **div** and **a** tags so once again you can reuse same ListWidget component and this time generate markup like the following:
+
+现在假设您有另一个页面，其中需要使用 **div** 和 **a** 标签以不同方式显示产品列表，那么您可以再次重用相同的 ListWidget 组件，这次生成如下标记：
+
+```html
+<div class="list-group">
+   <a class="list-group-item d-flex justify-content-between align-items-center active">
+   Latest Products
+   </a>
+   <ListWidget Items="Products" Context="product" TItem="Product">
+      <ItemTemplate>
+         <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+               <h5 class="mb-1"><b>@product.Title</b></h5>
+               <small class="text-muted">@product.Quantity units left</small>
+            </div>
+            <p class="mb-1">@product.Price.ToString("C")</p>
+         </a>
+      </ItemTemplate>
+   </ListWidget>
+</div>
+```
+
+Run the project and you will see output similar to the following.
+
+运行该项目，您将看到类似于以下内容的输出。
+
+![Blazor-Generic-Templated-Component-Example 2](https://www.ezzylearning.net/wp-content/uploads/Blazor-Generic-Templated-Component-Example-2.jpg)
+
+## 总结
+
+In this tutorial, I gave you an overview of the Blazor templated component and we created two types of templated components. Next, we have seen several examples of reusing both the TableWidget and ListWidget components to generate different types of markup. I have to admit that the templated components are a wonderful addition to the Blazor developer’s toolbox and using these components we can create some amazing reusable components.
+
+在本教程中，我概述了 Blazor 模板化组件，并创建了两种类型的模板化组件。然后，我们看到了几个重用 TableWidget 和 ListWidget 组件来生成不同类型标记的示例。我不得不承认，模板化组件是 Blazor 开发者工具箱的一个很好的补充，我们可以使用这些组件来创建一些惊人的可重用组件。
