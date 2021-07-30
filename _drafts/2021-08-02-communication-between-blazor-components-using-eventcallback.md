@@ -94,18 +94,18 @@ public class ToDo
 }
 ```
 
-In the above **@code** block, we declared two properties **ToDos** and **TotalMinutes**. The ToDos property will store the list of ToDo items and the **TotalMinutes** will store the sum of all ToDo Items minutes.
+<!-- In the above **@code** block, we declared two properties **ToDos** and **TotalMinutes**. The ToDos property will store the list of ToDo items and the **TotalMinutes** will store the sum of all ToDo Items minutes. -->
 
-在上面的 **@code** 块中，我们声明了两个属性 **ToDos** 和 **TotalMinutes**。 ToDos 属性将存储待办项目的列表，**TotalMinutes** 将存储所有 ToDo 项目花费分钟数的总和。
+在上面的 **@code** 代码块中，我们声明了两个属性 **ToDos** 和 **TotalMinutes**。 其中 **ToDos** 属性存储待办事项的列表，**TotalMinutes** 存储所有待办事项花费分钟数的总和。
 
 ```csharp
 public List<ToDo> ToDos { get; set; }
 public int TotalMinutes { get; set; }
 ```
 
-Next, we are initializing our **ToDos** list with some **ToDo** item objects in one of the Blazor component life cycle methods called **OnInitialized**. We are also calling the **UpdateTotalMinutes** method that simply calculates the Sum of **Minutes** property of all ToDo objects in the ToDos list.
+<!-- Next, we are initializing our **ToDos** list with some **ToDo** item objects in one of the Blazor component life cycle methods called **OnInitialized**. We are also calling the **UpdateTotalMinutes** method that simply calculates the Sum of **Minutes** property of all ToDo objects in the ToDos list. -->
 
-接下来，我们在 Blazor 组件生命周期方法之一的名为 **OnInitialized** 的方法中使用一些 **ToDo** 项目对象初始化我们的 **ToDos** 列表。我们还调用了 **UpdateTotalMinutes** 方法，该方法简单地计算 ToDos 列表中所有 ToDo 对象的 **Minutes** 属性的总和。
+接下来，我们在 Blazor 组件生命周期方法之一的名为 **OnInitialized** 的方法中使用一些待办事项对象来初始化我们的 **ToDos** 列表。我们还调用了 **UpdateTotalMinutes** 方法，该方法简单地计算 ToDos 列表中所有 ToDo 对象的 **Minutes** 属性的总和。
 
 ```csharp
 protected override void OnInitialized()
@@ -122,9 +122,11 @@ protected override void OnInitialized()
 }
 ```
 
-The HTML code is also very straightforward. We are displaying the TotalMinutes property on top of the page with the page heading.
+<!-- The HTML code is also very straightforward. We are displaying the TotalMinutes property on top of the page with the page heading.
 
-HTML 代码也非常简单。 我们在带有页面标题的页面顶部显示 **TotalMinutes** 属性。
+HTML 代码也非常简单。我们在带有页面标题的页面顶部显示 **TotalMinutes** 属性。 -->
+
+HTML 代码也非常简单。我们将 **TotalMinutes** 属性显示在带有页面标题的页面顶部。
 
 ```html
 <h5 class="float-right">Total Minutes: @TotalMinutes</h5>
