@@ -132,9 +132,9 @@ HTML 代码也非常简单。我们将 **TotalMinutes** 属性显示在带有页
 <h5 class="float-right">Total Minutes: @TotalMinutes</h5>
 ```
 
-We are also generating an HTML table on the page and the following **foreach** loop iterates over the **ToDos** list and renders a child component called **ToDoItem**. We are also passing each **ToDo** object inside the child component using the **Item** property.
+<!-- We are also generating an HTML table on the page and the following **foreach** loop iterates over the **ToDos** list and renders a child component called **ToDoItem**. We are also passing each **ToDo** object inside the child component using the **Item** property. -->
 
-我们还在页面上生成了一个 HTML 表格，接下来的 **foreach** 循环遍历 **ToDos** 列表并渲染一个名为 **ToDoItem** 的子组件。我们还使用 **Item** 属性将每个 **ToDo** 对象传入子组件中。
+我们还在页面上生成了一个 HTML 表格，接下来的 **foreach** 循环遍历 **ToDos** 列表并渲染一个名为 **ToDoItem** 的子组件，我们还使用其 **Item** 属性将每个 **ToDo** 对象传入子组件中。
 
 ```csharp
 @foreach (var todo in ToDos)
@@ -143,9 +143,9 @@ We are also generating an HTML table on the page and the following **foreach** l
 }
 ```
 
-Let’s create a child component **ToDoItem.razor** in the **Shared** folder and add the following code to it. The child component has an **Item** property which we are setting in the parent component inside **foreach** loop. The child component simply generates a table row using `<tr>` element and displays the **Title** and **Minutes** properties in table cells.
+<!-- Let’s create a child component **ToDoItem.razor** in the **Shared** folder and add the following code to it. The child component has an **Item** property which we are setting in the parent component inside **foreach** loop. The child component simply generates a table row using `<tr>` element and displays the **Title** and **Minutes** properties in table cells. -->
 
-让我们在 **Shared** 文件夹中创建一个子组件 **ToDoItem.razor** 并在其中添加以下代码。该子组件有一个 **Item** 属性，我们在父组件的 **foreach** 循环内设置了属性。子组件简单地使用 `<tr>` 元素生成一个表格行，并在表格单元格中显示 **Title** 和 **Minutes** 属性。
+让我们在 **Shared** 文件夹中创建一个子组件 **ToDoItem.razor** 并在其中添加以下代码。该子组件有一个 **Item** 属性（我们在父组件的 **foreach** 循环中设置了属性）。该子组件简单地使用 `<tr>` 元素生成一个表格行，并在表格单元格中显示 **Title** 和 **Minutes** 属性。
 
 <b>ToDoItem.razor</b>
 
@@ -167,13 +167,13 @@ Let’s create a child component **ToDoItem.razor** in the **Shared** folder and
 }
 ```
 
-运行该应用程序，您将看到类似于以下内容的页面：
+运行该应用程序，您会看到一个类似于如下的页面：
 
 ![Blazor-Child-Component-that-will-Raise-Event](https://www.ezzylearning.net/wp-content/uploads/Blazor-Child-Component-that-will-Raise-Event.png)
 
-If you will click **Add Minutes** button in the child component nothing will happen because we haven’t attached the click event with the **Add Minutes** button yet. Let’s update the **Add Minutes** button code and add the **@onclick** attribute that will call the **AddMinute** method.
+<!-- If you will click **Add Minutes** button in the child component nothing will happen because we haven’t attached the click event with the **Add Minutes** button yet. Let’s update the **Add Minutes** button code and add the **@onclick** attribute that will call the **AddMinute** method. -->
 
-如果您单击子组件中的 **Add Minutes** 按钮，则不会发生任何事情，因为我们还没有将 click 事件与 **Add Minutes** 按钮关联。让我们更新一下 **Add Minutes** 按钮的代码，添加调用 **AddMinute** 方法的 **@onclick** 属性。
+如果此时您点击子组件中的 **Add Minutes** 按钮，则不会有任何反应，因为我们还没有将 click 事件与 **Add Minutes** 按钮关联起来。让我们更新一下 **Add Minutes** 按钮的代码，添加调用 **AddMinute** 方法的 **@onclick** 特性。
 
 ```html
 <button type="button" class="btn btn-success btn-sm float-right" @onclick="AddMinute">
@@ -183,7 +183,7 @@ If you will click **Add Minutes** button in the child component nothing will hap
 
 <!-- The **AddMinute** event handler method will simply add 1 minute in the Minutes property every time user will click the Add Minutes button. -->
 
-事件处理程序 **AddMinute** 方法在用户每次单击 Add Minutes 按钮时简单地将 Minutes 属性加 1。
+当用户每次点击 Add Minutes 按钮时，事件处理方法 **AddMinute** 简单地将 Minutes 属性加 1。
 
 ```csharp
 public async Task AddMinute(MouseEventArgs e)
