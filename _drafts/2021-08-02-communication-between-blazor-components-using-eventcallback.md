@@ -13,13 +13,13 @@ published: true
 
 ![Communication-between-Blazor-Components-using-EventCallback](https://www.ezzylearning.net/wp-content/uploads/Communication-between-Blazor-Components-using-EventCallback.jpg)
 
-Blazor apps are the collection of multiple Blazor components interacting with each other and we are also allowed to use child components inside other parent components. In real-world apps, it is a very common scenario to pass data or event information from one component to another component. Maybe you have a page in which user actions occurred in one component need to update some UI in other components. This type of communication is normally handled using an [EventCallback](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.eventcallback) delegate. In this tutorial, we will cover how to use EventCallback to communicate between a parent and a child component.
+<!-- Blazor apps are the collection of multiple Blazor components interacting with each other and we are also allowed to use child components inside other parent components. In real-world apps, it is a very common scenario to pass data or event information from one component to another component. Maybe you have a page in which user actions occurred in one component need to update some UI in other components. This type of communication is normally handled using an [EventCallback](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.eventcallback) delegate. In this tutorial, we will cover how to use EventCallback to communicate between a parent and a child component. -->
 
-Blazor 应用程序是多个相互交互的 Blazor 组件的集合，我们还可以在其他父组件中使用子组件。 在现实世界的应用程序中，将数据或事件信息从一个组件传递到另一个组件是一种非常常见的场景。 也许您有一个页面，其中一个组件中发生的用户操作需要更新其他组件中的某些 UI。 这种类型的通信通常使用 [EventCallback](https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.components.eventcallback) 委托进行处理。 在本教程中，我们将介绍如何使用 EventCallback 在父组件和子组件之间进行通信。
+Blazor 应用程序是相互交互的多个 Blazor 组件的集合，我们可以在其他父组件中使用子组件。在实际的应用程序中，将数据或事件信息从一个组件传递到另一组件是一种十分常见的场景。可能您有一个页面，其中一个组件中发生的用户操作需要更新其他组件中的某些 UI。通常使用 [EventCallback](https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.components.eventcallback) 委托来处理这种类型的通信。在本教程中，我们将介绍如何使用 EventCallback 在父组件和子组件之间进行通信。
 
-Following are the common steps involved to communicate from child component to parent component using EventCallback.
+<!-- Following are the common steps involved to communicate from child component to parent component using EventCallback. -->
 
-下面是使用 EventCallback 从子组件到父组件进行通信所涉及的常见步骤。
+下面是使用 EventCallback 从子组件到父组件进行通信所涉及的通用步骤。
 
 1. 在子组件中声明一个 `EventCallback` 或 `EventCallback<T>` 委托
 2. 在父组件中附加一个到子组件的 `EventCallback` 或 `EventCallback<T>` 的回调方法
