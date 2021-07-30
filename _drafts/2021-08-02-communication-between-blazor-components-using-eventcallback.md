@@ -244,7 +244,7 @@ public void OnMinutesAddedHandler(MouseEventArgs e)
 
 <!-- In this step, we need to invoke the parent component callback method and the best place to do this is the **AddMinute** method because we want to update the parent component UI every time user clicks the Add Minute button. -->
 
-在这一步中，我们需要调用父组件回调方法，因为我们希望每次用户点击 **Add Minute** 按钮时都会更新父组件 UI，所以最好的位置是在 **AddMinute** 方法中调用。
+在这一步中，我们需要调用父组件中的回调方法，因为我们希望每次用户点击 **Add Minute** 按钮时都会更新父组件 UI，所以最好的位置是在 **AddMinute** 方法中调用。
 
 ```csharp
 public async Task AddMinute(MouseEventArgs e)
