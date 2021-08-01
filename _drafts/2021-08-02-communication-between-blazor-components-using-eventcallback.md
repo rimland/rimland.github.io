@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Blazor 组件之间使用 EventCallback 进行通信"
-date:   2021-07-31 00:10:10 +0800
+date:   2021-08-02 00:10:10 +0800
 categories: dotnet csharp
 tags: [DotNet, Blazor]
 published: true
@@ -15,7 +15,7 @@ published: true
 
 <!-- Blazor apps are the collection of multiple Blazor components interacting with each other and we are also allowed to use child components inside other parent components. In real-world apps, it is a very common scenario to pass data or event information from one component to another component. Maybe you have a page in which user actions occurred in one component need to update some UI in other components. This type of communication is normally handled using an [EventCallback](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.eventcallback) delegate. In this tutorial, we will cover how to use EventCallback to communicate between a parent and a child component. -->
 
-Blazor 应用程序是相互交互的多个 Blazor 组件的集合，我们可以在其他父组件中使用子组件。在实际的应用程序中，将数据或事件信息从一个组件传递到另一组件是一种十分常见的场景。可能您有一个页面，其中一个组件中发生的用户操作需要更新其他组件中的某些 UI。通常使用 [EventCallback](https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.components.eventcallback) 委托来处理这种类型的通信。在本教程中，我们将介绍如何使用 EventCallback 在父组件和子组件之间进行通信。
+Blazor 应用程序是相互交互的多个 Blazor 组件的集合，我们可以在其他父组件中使用子组件。在实际的应用程序中，将数据或事件信息从一个组件传递到另一组件是一种十分常见的场景。您可能会有一个页面，其中一个组件中发生的用户操作需要更新其他组件中的某些 UI。通常使用 [EventCallback](https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.components.eventcallback) 委托来处理这种类型的通信。在本教程中，我将介绍如何使用 EventCallback 在父组件和子组件之间进行通信。
 
 <!-- Following are the common steps involved to communicate from child component to parent component using EventCallback. -->
 
@@ -167,7 +167,7 @@ HTML 代码也非常简单，我们将 **TotalMinutes** 属性显示在带有页
 }
 ```
 
-运行该应用程序，您会看到一个类似于如下的页面：
+运行该应用程序，您会看到一个类似于如下内容的页面：
 
 ![Blazor-Child-Component-that-will-Raise-Event](/assets/images/202108/Blazor-Child-Component-that-will-Raise-Event.png)
 
@@ -351,6 +351,20 @@ public async Task AddMinute(MouseEventArgs e)
 在浏览器中运行应用程序，并尝试增加任一待办事项的分钟数，您会注意到父组件将自动地实时更新总分钟数。
 
 ![Blazor-Child-Component-Updating-Parent-Compoent-with-EventCallback](/assets/images/202108/Blazor-Child-Component-Updating-Parent-Compoent-with-EventCallback.png)
+
+<br/>
+
+相关阅读：
+
+- [Blazor Server 和 WebAssembly 应用程序入门指南](https://ittranslator.cn/dotnet/csharp/2021/07/05/a-beginners-guide-to-blazor-server-and-webassembly-applications.html)
+- [Blazor 组件入门指南](https://ittranslator.cn/dotnet/csharp/2021/07/12/a-beginners-guide-to-blazor-components.html)
+- [Blazor 数据绑定开发指南](https://ittranslator.cn/dotnet/csharp/2021/07/19/a-developers-guide-to-blazor-data-binding.html)
+- [Blazor 事件处理开发指南](https://ittranslator.cn/dotnet/csharp/2021/07/26/a-developers-guide-to-blazor-event-handling.html)
+- [Blazor 组件之间使用 EventCallback 进行通信](https://www.ezzylearning.net/tutorial/communication-between-blazor-components-using-eventcallback)
+
+> 作者 ： Waqas Anwar  
+> 翻译 ： [技术译站](https://ittranslator.cn/)  
+> 链接 ： [英文原文](https://www.ezzylearning.net/tutorial/communication-between-blazor-components-using-eventcallback)
 
 
 
