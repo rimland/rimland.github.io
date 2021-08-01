@@ -11,7 +11,7 @@ published: true
 
 [^1]: <https://www.ezzylearning.net/tutorial/communication-between-blazor-components-using-eventcallback> Communication between Blazor Components using EventCallback
 
-![Communication-between-Blazor-Components-using-EventCallback](https://www.ezzylearning.net/wp-content/uploads/Communication-between-Blazor-Components-using-EventCallback.jpg)
+![Communication-between-Blazor-Components-using-EventCallback](/assets/images/202108/Communication-between-Blazor-Components-using-EventCallback.jpg)
 
 <!-- Blazor apps are the collection of multiple Blazor components interacting with each other and we are also allowed to use child components inside other parent components. In real-world apps, it is a very common scenario to pass data or event information from one component to another component. Maybe you have a page in which user actions occurred in one component need to update some UI in other components. This type of communication is normally handled using an [EventCallback](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.eventcallback) delegate. In this tutorial, we will cover how to use EventCallback to communicate between a parent and a child component. -->
 
@@ -24,8 +24,8 @@ Blazor 应用程序是相互交互的多个 Blazor 组件的集合，我们可�
 1. 在子组件中声明一个 `EventCallback` 或 `EventCallback<T>` 委托
 2. 在父组件中附加一个到子组件的 `EventCallback` 或 `EventCallback<T>` 的回调方法
 3. 当子组件想要与父组件通信时，可以使用以下方法之一调用父组件的回调方法。
-   - InvokeAsync(Object) – 如果使用的是 `EventCallback`
-   - InvokeAsync(T) – 如果使用的是 `EventCallback<T>`
+   - **InvokeAsync(Object)** – 如果使用的是 `EventCallback`
+   - **InvokeAsync(T)** – 如果使用的是 `EventCallback<T>`
 
 <!-- To understand the above steps, let’s create a simple To Do List example. First, create the following **ToDo.cs** class in the Data folder. It is a simple class that will store the **Title** and **Minutes** properties for each To Do Item. The **Minutes** property specifies how long a particular ToDo item will take to complete. -->
 
@@ -126,7 +126,7 @@ protected override void OnInitialized()
 
 HTML 代码也非常简单。我们在带有页面标题的页面顶部显示 **TotalMinutes** 属性。 -->
 
-HTML 代码也非常简单。我们将 **TotalMinutes** 属性显示在带有页面标题的页面顶部。
+HTML 代码也非常简单，我们将 **TotalMinutes** 属性显示在带有页面标题的页面顶部。
 
 ```html
 <h5 class="float-right">Total Minutes: @TotalMinutes</h5>
@@ -169,7 +169,7 @@ HTML 代码也非常简单。我们将 **TotalMinutes** 属性显示在带有页
 
 运行该应用程序，您会看到一个类似于如下的页面：
 
-![Blazor-Child-Component-that-will-Raise-Event](https://www.ezzylearning.net/wp-content/uploads/Blazor-Child-Component-that-will-Raise-Event.png)
+![Blazor-Child-Component-that-will-Raise-Event](/assets/images/202108/Blazor-Child-Component-that-will-Raise-Event.png)
 
 <!-- If you will click **Add Minutes** button in the child component nothing will happen because we haven’t attached the click event with the **Add Minutes** button yet. Let’s update the **Add Minutes** button code and add the **@onclick** attribute that will call the **AddMinute** method. -->
 
@@ -196,7 +196,7 @@ public async Task AddMinute(MouseEventArgs e)
 
 再次运行应用程序并尝试点击每个待办事项的 **Add Minutes** 按钮。您将注意到每个待办事项显示的分钟数会增加，但是顶部的总分钟数属性将保持不变。这是由于 **TotalMinutes** 属性是在父组件中计算的，而父组件并不知道子组件中的 **Minutes** 属性增加了。
 
-![Blazor-Child-Component-Not-Updating-Parent-Component](https://www.ezzylearning.net/wp-content/uploads/Blazor-Child-Component-Not-Updating-Parent-Component.png)
+![Blazor-Child-Component-Not-Updating-Parent-Component](/assets/images/202108/Blazor-Child-Component-Not-Updating-Parent-Component.png)
 
 <!-- Let’s facilitate the child to parent communication in our example using the steps I mentioned above so that every time we add **Minutes** in the child component, we will be able to update the parent UI accordingly. -->
 
@@ -215,11 +215,11 @@ public async Task AddMinute(MouseEventArgs e)
 public EventCallback<MouseEventArgs> OnMinutesAdded { get; set; }
 ```
 
-Step 2: Attach a callback method to child component’s EventCallback or EventCallback<T> in parent component
+<!-- Step 2: Attach a callback method to child component’s EventCallback or EventCallback<T> in parent component -->
 
 ### 步骤2：在父组件中附加一个到子组件的 `EventCallback` 或 `EventCallback<T>` 的回调方法
 
-In this step, we need to attach a callback method with the child component’s **OnMinutesAdded** EventCallback delegate we declared in Step 1 above.
+<!-- In this step, we need to attach a callback method with the child component’s **OnMinutesAdded** EventCallback delegate we declared in Step 1 above. -->
 
 在这一步中，我们需要向在前面的步骤 1 中声明的子组件的 `EventCallback` 委托 **OnMinutesAdded** 附加一个回调方法。
 
@@ -229,7 +229,7 @@ In this step, we need to attach a callback method with the child component’s *
 
 <!-- The callback method we are using in this example is **OnMinutesAddedHandler** and this method simply calls the same **UpdateTotalMinutes** method that updates the **TotalMinutes** property. -->
 
-我们在本例中使用的回调方法是 **OnMinutesAddedHandler**，该方法简单地调用同一个 **UpdateTotalMinutes** 方法，更新 **TotalMinutes** 属性。
+在本例中我们使用的回调方法是 **OnMinutesAddedHandler**，该方法简单地调用同一个 **UpdateTotalMinutes** 方法，更新 **TotalMinutes** 属性。
 
 ```csharp
 public void OnMinutesAddedHandler(MouseEventArgs e)
@@ -244,7 +244,7 @@ public void OnMinutesAddedHandler(MouseEventArgs e)
 
 <!-- In this step, we need to invoke the parent component callback method and the best place to do this is the **AddMinute** method because we want to update the parent component UI every time user clicks the Add Minute button. -->
 
-在这一步中，我们需要调用父组件中的回调方法，因为我们希望每次用户点击 **Add Minute** 按钮时都会更新父组件 UI，所以最好的位置是在 **AddMinute** 方法中调用。
+在这一步中，我们需要调用父组件中的回调方法，因为我们希望每次用户点击 **Add Minute** 按钮时都会更新父组件 UI，所以最好的调用位置是在 **AddMinute** 方法中。
 
 ```csharp
 public async Task AddMinute(MouseEventArgs e)
@@ -256,7 +256,7 @@ public async Task AddMinute(MouseEventArgs e)
 
 <!-- That’s all we need to facilitate communication from child component to parent component in Blazor. Following is the complete code of ToDoItem.razor child component. -->
 
-这就是在 Blazor 中实现从子组件到父组件通信我们所需要做的全部事情。以下是子组件 *ToDoItem.razor* 的完整代码：
+这就是在 Blazor 中实现从子组件到父组件通信我们所要做的所有事情。以下是子组件 *ToDoItem.razor* 的完整代码：
 
 <b>ToDoItem.razor</b>
 
@@ -348,9 +348,9 @@ public async Task AddMinute(MouseEventArgs e)
 
 <!-- Run the application in the browser and try to add minutes in any ToDo item and you will notice that the parent component is automatically updating the Total Minutes in real-time. -->
 
-在浏览器中运行应用程序，并尝试增加任一 ToDo 项的分钟数，您会注意到父组件将自动地实时更新总分钟数。
+在浏览器中运行应用程序，并尝试增加任一待办事项的分钟数，您会注意到父组件将自动地实时更新总分钟数。
 
-![Blazor-Child-Component-Updating-Parent-Compoent-with-EventCallback](https://www.ezzylearning.net/wp-content/uploads/Blazor-Child-Component-Updating-Parent-Compoent-with-EventCallback.png)
+![Blazor-Child-Component-Updating-Parent-Compoent-with-EventCallback](/assets/images/202108/Blazor-Child-Component-Updating-Parent-Compoent-with-EventCallback.png)
 
 
 
