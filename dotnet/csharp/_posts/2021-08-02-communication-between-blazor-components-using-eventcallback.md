@@ -145,7 +145,7 @@ HTML 代码也非常简单，我们将 **TotalMinutes** 属性显示在带有页
 
 <!-- Let’s create a child component **ToDoItem.razor** in the **Shared** folder and add the following code to it. The child component has an **Item** property which we are setting in the parent component inside **foreach** loop. The child component simply generates a table row using `<tr>` element and displays the **Title** and **Minutes** properties in table cells. -->
 
-让我们在 **Shared** 文件夹中创建一个子组件 **ToDoItem.razor** 并在其中添加以下代码。该子组件有一个 **Item** 属性（我们在父组件的 **foreach** 循环中设置了属性）。该子组件简单地使用 `<tr>` 元素生成一个表格行，并在表格单元格中显示 **Title** 和 **Minutes** 属性。
+让我们在 **Shared** 文件夹中创建一个子组件 **ToDoItem.razor** 并在其中添加以下代码。该子组件有一个 **Item** 属性（我们在父组件的 **foreach** 循环中设置了此属性）。该子组件简单地使用 `<tr>` 元素生成一个表格行，并在表格单元格中显示 **Title** 和 **Minutes** 属性。
 
 <b>ToDoItem.razor</b>
 
