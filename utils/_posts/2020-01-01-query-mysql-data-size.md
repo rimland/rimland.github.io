@@ -3,7 +3,7 @@ layout: post
 title:  "用 SQL 查询 MySQL 数据库和表的大小"
 date:   2020-01-01 00:00:00 +0800
 categories: utils
-permalink: /utils/docker-commands-collection
+permalink: /utils/query-mysql-data-size
 published: true
 ---
 
