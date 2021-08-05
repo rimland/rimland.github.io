@@ -31,4 +31,10 @@ select table_schema as `数据库`,concat(round(sum(DATA_LENGTH/1024/1024/1024),
 select table_name as `表名`,concat(round(DATA_LENGTH/1024/1024,2),'MB') as `大小` from information_schema.TABLES where table_schema='database_name';
 ```
 
-> 使用时请将 `database_name` 改为实际的数据库名称。
+```sql
+select concat(round(DATA_LENGTH/1024/1024,2),'MB') as `大小` from information_schema.TABLES where table_schema='database_name' and table_name='tbl_name';
+```
+
+> 💡 提示：  
+> `database_name` 为实际的数据库名称。  
+> `tbl_name` 改为实际的表名称。
