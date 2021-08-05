@@ -59,7 +59,7 @@ using System.Text.RegularExpressions;
 /// <returns></returns>
 public string QueryDbSize(string mysqlDbConn)
 {
-    string dbName = GetDbNameFromConnStr(_logDbConn);
+    string dbName = GetDbNameFromConnStr(mysqlDbConn);
 
     string sql = "select sum(DATA_LENGTH) from information_schema.TABLES where table_schema=@db_name;";
     var parameters = new { db_name = dbName };
