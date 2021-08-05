@@ -1,13 +1,13 @@
 ---
 layout: post
 title:  "Blazor 路由及导航开发指南"
-date:   2021-07-16 00:10:10 +0800
+date:   2021-08-05 00:10:10 +0800
 categories: dotnet csharp
 tags: [DotNet, Blazor]
 published: true
 ---
 
-> 翻译自 Waqas Anwar 2021年3月21日的文章 [《A Developer’s Guide To Blazor Routing and Navigation》](https://www.ezzylearning.net/tutorial/a-developers-guide-to-blazor-routing-and-navigation) [^1]
+> 翻译自 Waqas Anwar 2021年4月2日的文章 [《A Developer’s Guide To Blazor Routing and Navigation》](https://www.ezzylearning.net/tutorial/a-developers-guide-to-blazor-routing-and-navigation) [^1]
 
 [^1]: <https://www.ezzylearning.net/tutorial/a-developers-guide-to-blazor-routing-and-navigation> A Developer’s Guide To Blazor Routing and Navigation
 
