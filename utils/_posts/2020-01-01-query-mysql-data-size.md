@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "用 SQL 查询 MySQL 数据库和表的大小"
+title:  "查询 MySQL 数据库和表的大小"
 date:   2020-01-01 00:00:00 +0800
 categories: utils
 permalink: /utils/query-mysql-data-size
@@ -8,6 +8,26 @@ published: true
 ---
 
 ## MySQL 查询语句
+
+### 基础知识
+
+在 MySQL 中，`INFORMATION_SCHEMA` 库提供对数据库的元数据以及 MySQL 服务器的相关信息（例如，数据库或表的名称、列的数据类型或访问权限）的访问。[^schema]
+
+`INFORMATION_SCHEMA` 是每个 MySQL 实例中的一个数据库，用于存储 MySQL 服务器维护的所有其他数据库的相关信息。`INFORMATION_SCHEMA` 数据库包含一些只读表，它们实际上是视图，而不是基表，因此没有与之相关联的文件，您也不能在这些只读表上设置触发器。另外，没有具有该名称的数据库目录。
+
+尽管您可以使用 `USE` 语句选定 `INFORMATION_SCHEMA` 作为默认数据库，但您只能读取表的内容，而不能对其执行 INSERT、UPDATE 或 DELETE 操作。
+
+[^schema]: <https://dev.mysql.com/doc/refman/8.0/en/information-schema-introduction.html>
+
+`INFORMATION_SCHEMA` 数据库中的 `TABLES` 表提供数据库中表的相关信息。[^tables]
+
+`TABLES` 表中的列 `DATA_LENGTH` 表示该表的大小。
+
+- 对于 MyISAM，DATA_LENGTH 是数据文件的长度，以字节为单位。
+
+- 对于 InnoDB，DATA_LENGTH 是为聚集索引分配的近似空间大小，以字节为单位。具体来说，它是聚集索引大小（以页为单位）乘以 InnoDB 页大小。
+
+[^tables]: <https://dev.mysql.com/doc/refman/8.0/en/information-schema-tables-table.html>
 
 ### 查询一个 MySQL 服务实例中所有数据库的总大小
 
