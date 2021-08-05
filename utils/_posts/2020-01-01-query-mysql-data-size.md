@@ -154,7 +154,7 @@ public string QueryTableSize(string mysqlDbConn, string dbName, string tblName)
 
 在本文中，我总结了查询 MySQL 数据库和表的大小的 SQL 语句，还使用 C# 结合 Dapper 实现了两个查询数据库和表大小的实例。
 
-如果您觉得本文对您有用，请分享给更多的人。
+如果您觉得本文有用，请分享给更多的人。
 
 > 作者 ： 技术译民  
 > 出品 ： [技术译站](https://ittranslator.cn/)
