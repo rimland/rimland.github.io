@@ -19,7 +19,7 @@ published: true
 
 [^schema]: <https://dev.mysql.com/doc/refman/8.0/en/information-schema-introduction.html>
 
-`INFORMATION_SCHEMA` 数据库中的 `TABLES` 表提供数据库中表的相关信息。[^tables]
+`INFORMATION_SCHEMA` 库中的 `TABLES` 表提供数据库中表的相关信息。[^tables]
 
 `TABLES` 表中的列 `DATA_LENGTH` 表示该表的大小。
 
@@ -29,7 +29,9 @@ published: true
 
 [^tables]: <https://dev.mysql.com/doc/refman/8.0/en/information-schema-tables-table.html>
 
-### 查询一个 MySQL 服务实例中所有数据库的总大小
+有了以上的基础知识，我们不难总结出以下查询语句。
+
+### 查询一个 MySQL 实例中所有数据库的总大小
 
 ```sql
 select concat(round(sum(DATA_LENGTH/1024/1024/1024),3),'GB') as `所有数据库的总大小` from information_schema.TABLES;
@@ -64,6 +66,8 @@ select concat(round(DATA_LENGTH/1024/1024,2),'MB') as `大小` from information_
 > `tbl_name` 为实际的表名称。
 
 ## C# 应用实例
+
+为了便于查询，我使用了 Dapper ORM，它小巧、方便、好用，我太喜欢它了。
 
 ### C# 查询某一个数据库的大小
 
@@ -145,3 +149,9 @@ public string QueryTableSize(string mysqlDbConn, string dbName, string tblName)
     }
 }
 ```
+
+## 总结
+
+在本文中，我总结了查询 MySQL 数据库和表的大小的 SQL 语句，还使用 C# 结合 Dapper 实现了两个查询数据库和表大小的实例。
+
+如果您觉得本文对您有用，请分享给更多的人。
