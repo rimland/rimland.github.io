@@ -105,7 +105,7 @@ public string QueryDbSize(string mysqlDbConn)
 /// <summary>
 /// 从MySQL链接字符串中找出数据库名称，比如：从“"server=192.168.1.25;port=3306;userid=myuid;password=z89ld895;database=mydbname;charset=utf8;"” 中找出 mydbname
 /// </summary>
-/// <param name="connStr"></param>
+/// <param name="connStr">MySQL 链接字符串</param>
 /// <returns></returns>
 public string GetDbNameFromConnStr(string connStr)
 {
