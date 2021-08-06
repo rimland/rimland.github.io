@@ -77,7 +77,7 @@ The default configuration routes all requests to a Razor page which acts as the 
 
 <!-- If you will open any of the compiled files you will notice that after compilation, all the components with an **@page** directive have generated a class with the RouteAttribute attribute. -->
 
-如果您打开任一已编译的文件，将会注意到在编译之后，所有带有 **@page** 指令的组件都生成了一个带有 [RouteAttribute](https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.components.routeattribute) 特性的类。
+如果您打开任意一个已编译的文件，将会注意到在编译之后，所有带有 **@page** 指令的组件都生成了一个带有 [RouteAttribute](https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.components.routeattribute) 特性的类。
 
 ![RouteAttribute-added-to-all-Blazor-Components-generated-classes](https://www.ezzylearning.net/wp-content/uploads/RouteAttribute-added-to-all-Blazor-Components-generated-classes.png)
 
@@ -97,7 +97,7 @@ The default configuration routes all requests to a Razor page which acts as the 
 
 <!-- Here is an example of loading route information from two routable components Component1 and Component2 defined in component class libraries. -->
 
-下面是一个从定义在组件类库中的两个可路由组件 *Component1* 和 *Component2* 加载路由信息的示例。
+下面是一个从定义在组件类库中的两个可路由组件（*Component1* 和 *Component2*）加载路由信息的示例。
 
 ```html
 <Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true"
@@ -107,27 +107,27 @@ The default configuration routes all requests to a Razor page which acts as the 
 
 <!-- At runtime, the **RouteView** component receives the **RouteData** from the **Router** along with any route parameters and renders the specified component with the layout defined in the component. If no layout is defined, then it uses the layout specified by the **DefaultLayout** property. The default layout is normally the **MainLayout** component available in the **Shared** folder but you can also create and specify a custom layout. -->
 
-在运行时，[**RouteView**](https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.components.routeview) 组件从 [**Router**](https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.components.routing.router) 接收 [**RouteData**](https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.components.routedata) 以及任意路由参数，并使用组件中定义的布局渲染指定的组件。如果未定义布局，则它使用 **DefaultLayout** 属性指定的布局。默认的布局通常是 **Shared** 文件夹中的 **MainLayout** 组件，不过您也可以创建并指定一个自定义布局。
+在运行时，[**RouteView**](https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.components.routeview) 组件从 [**Router**](https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.components.routing.router) 接收 [**RouteData**](https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.components.routedata) 以及任意路由参数，并使用组件中定义的布局渲染指定的组件。如果未定义布局，则使用 **DefaultLayout** 属性指定的布局。默认的布局通常是 **Shared** 文件夹中的 **MainLayout** 组件，不过您也可以创建并指定一个自定义布局。
 
 ```html
 <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
 ```
 
-The **Found** template is used to display the contents of the matching route is found as you can see in the example below where a matching route is found and a Counter page is rendered in the browser.
+<!-- The **Found** template is used to display the contents of the matching route is found as you can see in the example below where a matching route is found and a Counter page is rendered in the browser. -->
 
-**Found** 模板用于显示已找到的匹配路由的内容，正如您在下例中所看到的那样，其中找到了匹配路由，并在浏览器中呈现了一个 Counter 页面。
+**Found** 模板用于在找到匹配的路由时显示其内容，正如您在下图中所看到的那样，其中找到了一个匹配路由，并在浏览器中呈现了一个 Counter 页面。
 
 ![Blazor-App-Counter-Page-Route](https://www.ezzylearning.net/wp-content/uploads/Blazor-App-Counter-Page-Route.png)
 
-The **NotFound** template is used to display the contents if no matching route is found. By default, the NotFound template is just displaying a message as shown in the screenshot below.
+<!-- The **NotFound** template is used to display the contents if no matching route is found. By default, the NotFound template is just displaying a message as shown in the screenshot below. -->
 
 **NotFound** 模板用于在没有找到匹配的路由时显示内容。默认情况下，NotFound 模板仅显示一条消息，如下面的截图所示。
 
 ![Blazor-App-Default-Error-Page-Contents](https://www.ezzylearning.net/wp-content/uploads/Blazor-App-Default-Error-Page-Contents.png)
 
-We can also create a custom error layout and page and display a custom error page. Let’s create a new custom Layout with the name **ErrorLayout.razor** in the **Shared** folder.
+<!-- We can also create a custom error layout and page and display a custom error page. Let’s create a new custom Layout with the name **ErrorLayout.razor** in the **Shared** folder. -->
 
-我们还可以创建自定义错误布局和页面来显示自定义错误页面。让我们在 **Shared** 文件夹中创建一个新的名为 **ErrorLayout.razor** 的自定义布局。
+我们还可以创建自定义错误的布局和页面，以显示自定义错误页面。让我们在 **Shared** 文件夹中创建一个新的名为 **ErrorLayout.razor** 的自定义布局。
 
 <b>ErrorLayout.razor</b>
 
@@ -143,7 +143,7 @@ We can also create a custom error layout and page and display a custom error pag
 
 <!-- <b>ErrorLayout.razor</b> -->
 
-Then change the **Layout** property of the **LayoutView** component to **ErrorLayout** and change the contents inside the **LayoutView** as follows
+<!-- Then change the **Layout** property of the **LayoutView** component to **ErrorLayout** and change the contents inside the **LayoutView** as follows -->
 
 然后将 **LayoutView** 组件的 **Layout** 属性改为 **ErrorLayout**，并将 **LayoutView** 里的内容修改如下：
 
@@ -164,27 +164,27 @@ Then change the **Layout** property of the **LayoutView** component to **ErrorLa
 </Router>
 ```
 
-If you will run the app in the browser and will try to access a URL that is not specified anywhere in the application then you will see a custom 404 error page as shown below.
+<!-- If you will run the app in the browser and will try to access a URL that is not specified anywhere in the application then you will see a custom 404 error page as shown below. -->
 
-现在，如果您在浏览器中运行应用程序，并尝试访问未在应用中任何位置指定过的 URL，那么您将会看到一个自定义 404 错误页面，如下所示。
+现在，如果您在浏览器中运行应用程序，并尝试访问一个未在应用中任何位置指定过的 URL，那么您将会看到一个自定义的 404 错误页面，如下所示。
 
 ![Blazor-App-Custom-Error-Page-Layout](https://www.ezzylearning.net/wp-content/uploads/Blazor-App-Custom-Error-Page-Layout.png)
 
-All Blazor apps should explicitly set the **PreferExactMatches** attribute to @true so that route matching prefers exact matches rather than wildcards. As per Microsoft official docs, this attribute will not be available from .NET 6 onward and the router will always prefer exact matches.
+<!-- All Blazor apps should explicitly set the **PreferExactMatches** attribute to @true so that route matching prefers exact matches rather than wildcards. As per Microsoft official docs, this attribute will not be available from .NET 6 onward and the router will always prefer exact matches. -->
 
-所有 Blazor 应用程序都应将 **PreferExactMatches** 特性显式地设置为 `@true`，以便路由匹配更倾向于精确匹配，而不是通配符匹配。根据 Microsoft 官方文档，此属性从 .NET 6 开始将不可用，路由器将总是更倾向于精确匹配。
+所有 Blazor 应用程序都应将 **PreferExactMatches** 特性显式地设置为 `@true`，以便路由匹配更倾向于精确匹配，而不是通配符匹配。根据 Microsoft 官方文档，此特性从 .NET 6 开始将不可用，路由器将总是更倾向于精确匹配。
 
 ## 定义路由、参数和约束
 
-Before we learn how to define routes for Blazor components, we need to make sure that we have the following `base` tag available on every page to resolve the URLs correctly. If you are creating Blazor Server App then you can add this tag in the head section of **Pages/_Host.cshtml** file and for Blazor WebAssembly apps this tag can be added in **wwwroot/index.html** file.
+<!-- Before we learn how to define routes for Blazor components, we need to make sure that we have the following `base` tag available on every page to resolve the URLs correctly. If you are creating Blazor Server App then you can add this tag in the head section of **Pages/_Host.cshtml** file and for Blazor WebAssembly apps this tag can be added in **wwwroot/index.html** file. -->
 
-在我们学习如何为 Blazor 组件定义路由之前，我们需要确保下面的 `base` 标签在每个页面都可用，以便正确地解析 URL。如果创建的是 Blazor Server 应用程序，那么您可以将此标签添加到 **Pages/_Host.cshtml** 文件的 `head` 部分，如果是 Blazor WebAssembly 应用程序，则可以将此标签添加到 **wwwroot/index.html** 文件。
+在我们学习如何为 Blazor 组件定义路由之前，我们需要确保下面的 `base` 标签在每个页面都可用，以便正确地解析 URL。如果创建的是 Blazor Server 应用程序，那么您可以将此标签添加到 **Pages/_Host.cshtml** 文件的 `head` 部分，如果是 Blazor WebAssembly 应用程序，则可以将此标签添加到 **wwwroot/index.html** 文件中。
 
 ```html
 <base href="~/" />
 ```
 
-To define routes, we can use the @page directive as shown in the Counter component example below.
+<!-- To define routes, we can use the @page directive as shown in the Counter component example below. -->
 
 要定义路由，我们可以使用 **@page** 指令，如下面的 Counter 组件示例所示。
 
@@ -213,9 +213,9 @@ To define routes, we can use the @page directive as shown in the Counter compone
 
 ![Blazor-App-Counter-Page-Route](https://www.ezzylearning.net/wp-content/uploads/Blazor-App-Counter-Page-Route.png)
 
-We are also allowed to define multiple route templates using multiple **@page** directives as shown in the example below.
+<!-- We are also allowed to define multiple route templates using multiple **@page** directives as shown in the example below. -->
 
-我们还可以使用多个 **@page** 指令定义多个路由模板，如下例所示。
+我们还可以使用多个 **@page** 指令定义多个路由模板，如下面例所示。
 
 ```html
 @page "/counter"
@@ -224,13 +224,13 @@ We are also allowed to define multiple route templates using multiple **@page** 
 
 <!-- This means that now the same Counter component can also be accessed using **/mycounter** URL: -->
 
-这意味着现在也可以使用 **/mycounter** URL 访问相同的 Counter 组件：
+这意味着现在也可以使用 **/mycounter** URL 访问同一个 Counter 组件：
 
 ![Blazor-App-Counter-Page-with-Second-Route](https://www.ezzylearning.net/wp-content/uploads/Blazor-App-Counter-Page-with-Second-Route.png)
 
 <!-- It is very common practice to pass data from one page to another page using the route parameters and Blazor route templates support parameters. The route parameter names are case insensitive and once we have the route parameter defined the router automatically populates the corresponding component property with the same name. For example, in the following code snippet, we define a route parameter **title** and also created a corresponding property **Title** in the component. This property will populate with the value of route parameter text automatically. We are then displaying the Title property as a heading of the page inside the **h1** element. -->
 
-使用路由参数将数据从一个页面传递到另一个页面是非常常见的做法，Blazor 路由模板支持路由参数。路由参数名称不区分大小写，一旦我们定义了路由参数，路由器就会自动填充相应的具有相同名称的组件属性。例如，在下面的代码片段中，我们定义了一个路由参数 **title**，并在组件中创建了一个相应的属性 **Title**。此属性将自动使用路由参数文本的值填充。然后，我们在 `h1` 元素中显示 Title 属性作为页面的标题。
+使用路由参数将数据从一个页面传递到另一个页面是十分常见的做法，Blazor 路由模板支持路由参数。路由参数名称不区分大小写，一旦我们定义了路由参数，路由器就会自动填充对应的具有相同名称的组件属性。例如，在下面的代码片段中，我们在组件中定义了一个路由参数 **title**，并创建了一个对应的属性 **Title**。此属性将自动使用路由参数文本的值填充。然后，我们在 `h1` 元素中显示 Title 属性作为页面的标题。
 
 ```html
 @page "/counter/{title}"
@@ -256,7 +256,7 @@ We are also allowed to define multiple route templates using multiple **@page** 
 
 <!-- Run the app and try to specify any string in the address bar after the /counter/ and you will see the route parameter value displayed as page heading. -->
 
-运行应用程序，尝试在地址栏中 **/counter/** 之后指定任意字符串，您将看到路由参数值显示为页面标题。
+运行应用程序，并尝试在地址栏中 **/counter/** 之后指定任意的字符串，您将看到路由参数的值会显示为页面标题。
 
 ![Blazor-App-with-Route-Parameter](https://www.ezzylearning.net/wp-content/uploads/Blazor-App-with-Route-Parameter.png)
 
