@@ -21,7 +21,7 @@ published: true
 
 <!-- Before we start creating routes for different Blazor components/pages we need to see how the Blazor Server apps are integrated into ASP.NET Core Endpoint Routing. Blazor Server apps communicate with the clients over SignalR connections and to accept incoming connections for Blazor components we call the **MapBlazorHub** method in **Startup.cs** file **Configure** method as follows: -->
 
-在开始为不同的 Blazor 组件/页面创建路由之前，我们需要了解如何将 Blazor Server 应用程序集成到 [ASP.NET Core Endpoint 路由](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/routing?view=aspnetcore-5.0)中。Blazor Server 应用程序通过 SignalR 连接与客户端通信，为了接受 Blazor 组件传入的连接，我们在 **Startup.cs** 文件的 **Configure** 方法中调用 **MapBlazorHub** 方法，如下所示：
+在开始为不同的 Blazor 组件/页面创建路由之前，我们需要了解如何将 Blazor Server 应用程序集成到 [ASP.NET Core Endpoint 路由](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/routing?view=aspnetcore-5.0)中。Blazor Server 应用程序通过 SignalR 连接与客户端进行通信，为了接受 Blazor 组件传入的连接，我们在 **Startup.cs** 文件的 **Configure** 方法中调用了 **MapBlazorHub** 方法，如下所示：
 
 ```csharp
 app.UseEndpoints(endpoints =>
@@ -33,13 +33,13 @@ app.UseEndpoints(endpoints =>
 
 The default configuration routes all requests to a Razor page which acts as the host for the server-side part of the Blazor Server app. By convention, this host page is **_Host.cshtml** and it is available in the **Pages** folder of the app. The route specified in the host file is called a fallback route and has very low priority in route matching which means this route is used when no other route matches.
 
-默认配置将所有请求都转发到一个 Razor 页面，该页面扮演 Blazor Server 应用程序服务端角色的主机。按照惯例，此主机页面是 **_Host.cshtml**，它位于应用程序的 **Pages** 文件夹中。主机文件中指定的路由被称之为应急路由，并且在路由匹配中具有非常低的优先级，这意味着当没有其他路由匹配时，才会使用此路由。
+默认配置将所有请求都转发到一个 Razor 页面，该页面扮演 Blazor Server 应用程序服务端主机的角色。按照惯例，该主页面是 **_Host.cshtml**，它位于应用程序的 **Pages** 文件夹中。该主机文件中指定的路由称之为应急路由，在路由匹配中具有极低的优先级，这意味着当没有其他路由匹配时，才会使用此路由。
 
 ## Blazor 路由组件介绍
 
-The **Router** component is one of the built-in components in Blazor and it is used in the **App** component of Blazor apps. This component enables routing in Blazor apps and supplies route data corresponding to the current navigation state. This component intercepts the incoming requests and renders the page that matches the requested URL.
+<!-- The **Router** component is one of the built-in components in Blazor and it is used in the **App** component of Blazor apps. This component enables routing in Blazor apps and supplies route data corresponding to the current navigation state. This component intercepts the incoming requests and renders the page that matches the requested URL. -->
 
-[Router](https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.components.routing.router)[^router] 组件是 Blazor 中的内置组件之一，用于 Blazor 应用程序的 **App** 组件之中。此组件启用 Blazor 应用程序中的路由，并提供与当前导航状态相对应的路由数据。它拦截传入的请求并呈现与请求的 URL 相匹配的页面。
+[Router](https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.components.routing.router)[^router] 组件是 Blazor 中的内置组件之一，用在 Blazor 应用程序的 **App** 组件之中。该组件启用了 Blazor 应用程序中的路由，并提供与当前导航状态相对应的路由数据。它拦截传入的请求并呈现与请求 URL 相匹配的页面。
 
 [^router]: <https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.components.routing.router>
 
@@ -56,7 +56,7 @@ The **Router** component is one of the built-in components in Blazor and it is u
 </Router>
 ```
 
-The following tables show the properties of the Router component.
+<!-- The following tables show the properties of the Router component. -->
 
 下表显示了 [Router 组件](https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.components.routing.router)的属性。
 
@@ -69,13 +69,13 @@ The following tables show the properties of the Router component.
 | NotFound             | 获取或设置当没有为请求的路由找到匹配项时要显示的内容。             |
 | OnNavigateAsync      | 获取或设置在导航到新页之前应调用的处理程序。                  |
 
-When Blazor components (.razor) are compiled their generated C# classes are saved in **obj\Debug\net5.0\Razor\Pages** folder
+<!-- When Blazor components (.razor) are compiled their generated C# classes are saved in **obj\Debug\net5.0\Razor\Pages** folder -->
 
-当编译 Blazor 组件 (.razor) 时，它们生成的 C# 类会保存在 **obj\Debug\net5.0\Razor\Pages** 文件夹中
+当编译 Blazor 组件 (.razor) 时，它们生成的 C# 类会保存在 **obj\Debug\net5.0\Razor\Pages** 文件夹中。
 
 ![Blazor-Componnts-Compiled-into-Classes](https://www.ezzylearning.net/wp-content/uploads/Blazor-Componnts-Compiled-into-Classes.png)
 
-If you will open any of the compiled files you will notice that after compilation, all the components with an **@page** directive have generated a class with the RouteAttribute attribute.
+<!-- If you will open any of the compiled files you will notice that after compilation, all the components with an **@page** directive have generated a class with the RouteAttribute attribute. -->
 
 如果您打开任一已编译的文件，将会注意到在编译之后，所有带有 **@page** 指令的组件都生成了一个带有 [RouteAttribute](https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.components.routeattribute) 特性的类。
 
@@ -83,13 +83,13 @@ If you will open any of the compiled files you will notice that after compilatio
 
 <!-- When the app starts, the assembly specified by the **AppAssembly** property is scanned to gather the route information from all classes that have RouteAttribute specified on them. -->
 
-当应用程序启动时，会扫描 **AppAssembly** 属性指定的程序集，从所有指定了 [RouteAttribute](https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.components.routeattribute) 特性的类中收集路由信息。
+当应用程序启动时，会扫描通过 **AppAssembly** 属性指定的程序集，从所有指定了 [RouteAttribute](https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.components.routeattribute) 特性的类中收集路由信息。
 
 ```html
 <Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
 ```
 
-If you have created separate component class libraries and you want the app to scan and load routes from those assemblies, then you can use **AdditionalAssemblies** property that accepts a collection of [Assembly](https://docs.microsoft.com/zh-cn/dotnet/api/system.reflection.assembly) objects.
+<!-- If you have created separate component class libraries and you want the app to scan and load routes from those assemblies, then you can use **AdditionalAssemblies** property that accepts a collection of [Assembly](https://docs.microsoft.com/zh-cn/dotnet/api/system.reflection.assembly) objects. -->
 
 如果您创建了独立的组件类库，并希望应用程序从这些程序集中扫描和加载路由，那么您可以使用 **AdditionalAssemblies** 属性来接受一个 [Assembly](https://docs.microsoft.com/zh-cn/dotnet/api/system.reflection.assembly) 对象集合。
 
@@ -97,7 +97,7 @@ If you have created separate component class libraries and you want the app to s
 
 <!-- Here is an example of loading route information from two routable components Component1 and Component2 defined in component class libraries. -->
 
-下面是一个从组件类库中定义的两个可路由组件 *Component1* 和 *Component2* 加载路由信息的示例。
+下面是一个从定义在组件类库中的两个可路由组件 *Component1* 和 *Component2* 加载路由信息的示例。
 
 ```html
 <Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true"
