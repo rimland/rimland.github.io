@@ -489,3 +489,18 @@ Blazor 还支持路由约束，在路由上强制类型匹配。在下面的代�
 <!-- In this tutorial, I tried to cover many routing features available in Blazor apps and also covered different routing related components and services available to developers. I hope you will be able to define routes, parameters, and constraints with more confidence now. If you liked this tutorial, please share it with others to spread the knowledge. -->
 
 在本教程中，我尝试介绍 Blazor 应用程序中的多种路由功能，还介绍了开发者可用的与路由相关的一些组件和服务。我希望您现在能够更熟练地定义路由、参数和约束。如果您喜欢本教程，请与他人分享以传播知识。
+
+<br/>
+
+相关阅读：
+
+- [Blazor Server 和 WebAssembly 应用程序入门指南](https://ittranslator.cn/dotnet/csharp/2021/07/05/a-beginners-guide-to-blazor-server-and-webassembly-applications.html)
+- [Blazor 组件入门指南](https://ittranslator.cn/dotnet/csharp/2021/07/12/a-beginners-guide-to-blazor-components.html)
+- [Blazor 数据绑定开发指南](https://ittranslator.cn/dotnet/csharp/2021/07/19/a-developers-guide-to-blazor-data-binding.html)
+- [Blazor 事件处理开发指南](https://ittranslator.cn/dotnet/csharp/2021/07/26/a-developers-guide-to-blazor-event-handling.html)
+- [Blazor 组件之间使用 EventCallback 进行通信](https://ittranslator.cn/dotnet/csharp/2021/08/02/communication-between-blazor-components-using-eventcallback.html)
+- [Blazor 路由及导航开发指南](https://ittranslator.cn/dotnet/csharp/2021/08/09/a-developers-guide-to-blazor-routing-and-navigation.html)
+
+> 作者 ： Waqas Anwar  
+> 翻译 ： [技术译站](https://ittranslator.cn/)  
+> 链接 ： [英文原文](https://www.ezzylearning.net/tutorial/a-developers-guide-to-blazor-routing-and-navigation)
