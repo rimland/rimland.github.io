@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Blazor 路由及导航开发指南"
-date:   2021-08-05 00:10:10 +0800
+date:   2021-08-09 00:10:10 +0800
 categories: dotnet csharp
 tags: [DotNet, Blazor]
 published: true

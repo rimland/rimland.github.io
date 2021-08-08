@@ -365,20 +365,3 @@ public async Task AddMinute(MouseEventArgs e)
 > 作者 ： Waqas Anwar  
 > 翻译 ： [技术译站](https://ittranslator.cn/)  
 > 链接 ： [英文原文](https://www.ezzylearning.net/tutorial/communication-between-blazor-components-using-eventcallback)
-
-
-
-<!-- 
-[Router 组件](https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.components.routing.router)[^router] 的属性：
-
-| 属性                   | 说明                                      |
-|----------------------|-----------------------------------------|
-| AdditionalAssemblies | 获取或设置其他程序集的集合，这些程序集应在搜索可与 URI 匹配的组件时搜索。 |
-| AppAssembly          | 获取或设置应在其中搜索与 URI 匹配的组件的程序集。             |
-| Found                | 获取或设置当为请求的路由找到匹配项时要显示的内容。               |
-| Navigating           | 获取或设置异步导航正在进行时显示的内容。                    |
-| NotFound             | 获取或设置当找不到请求的路由的匹配项时要显示的内容。              |
-| OnNavigateAsync      | 获取或设置在导航到新页之前应调用的处理程序。                  |
-
-[^router]: <https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.components.routing.router>
- -->
