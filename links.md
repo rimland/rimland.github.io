@@ -24,7 +24,7 @@ permalink: /links/
 - [IdentityServer](https://duendesoftware.com/)
 - [Serilog](https://serilog.net/)
 - [Key Bindings for Visual Studio Code](https://code.visualstudio.com/docs/getstarted/keybindings#_keyboard-shortcuts-reference)
-- .NET documentation
+- .NET Documentation
   - <https://docs.microsoft.com/en-us/dotnet/core/>
   - <https://docs.microsoft.com/zh-cn/dotnet/>
 - Manual Collection
@@ -33,7 +33,7 @@ permalink: /links/
 
 ## Programming Language
 
-- [C# documentation](https://docs.microsoft.com/en-us/dotnet/csharp/)
+- [C# Documentation](https://docs.microsoft.com/en-us/dotnet/csharp/)
 - [HTML](https://developer.mozilla.org/zh-CN/docs/Web/HTML)
 - [CSS](https://developer.mozilla.org/zh-CN/docs/Web/CSS)
 - [JavaScript](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript)
@@ -105,3 +105,7 @@ permalink: /links/
 - Emoji
   - [emojipedia.org](https://emojipedia.org/)
   - [github markdown emoji](https://gist.github.com/rxaviers/7360908)
+
+## Easy to understand knowledge
+
+- [使用 Async 和 Await 的异步编程](https://docs.microsoft.com/zh-cn/dotnet/csharp/programming-guide/concepts/async/)
