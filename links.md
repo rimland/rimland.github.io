@@ -91,7 +91,7 @@ permalink: /links/
 - Eric Lippert
   - [ericlippert.com](https://ericlippert.com/)
   - [microsoft ericlippert](https://docs.microsoft.com/zh-cn/archive/blogs/ericlippert/)
-- [Waqas Anwar]
+- Waqas Anwar
   - [ezzylearning.net](https://www.ezzylearning.net/)
 - John Demetriou
   - [devsanon.com](https://www.devsanon.com/)
