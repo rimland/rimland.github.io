@@ -270,3 +270,7 @@ public class HolidaysApiService : IHolidaysApiService
 ```
 
 In the GetHolidays method above, we first created a URL for a third party API and appended the country code and year parameters in the URL.
+
+```csharp
+var url = string.Format("https://date.nager.at/api/v2/PublicHolidays/{0}/{1}", holidaysRequest.Year, holidaysRequest.CountryCode);
+```
