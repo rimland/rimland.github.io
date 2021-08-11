@@ -605,4 +605,6 @@ Run the application once again and provide the country code and year values and 
 
 ## 总结
 
-In this tutorial, I covered different techniques of creating and using HTTP clients in Blazor Server Apps. Most of the techniques mentioned here can also be used in ASP.NET Core applications because Blazor Server Apps are built on top of ASP.NET Core infrastructure. In my next post Making HTTP Requests in Blazor WebAssembly Apps, I will try to cover the creation and usage of HTTP clients in Blazor WebAssembly Apps.
+In this tutorial, I covered different techniques of creating and using HTTP clients in Blazor Server Apps. Most of the techniques mentioned here can also be used in ASP.NET Core applications because Blazor Server Apps are built on top of ASP.NET Core infrastructure. In my next post 《Making HTTP Requests in Blazor WebAssembly Apps》, I will try to cover the creation and usage of HTTP clients in Blazor WebAssembly Apps.
+
+在本教程中，我介绍了在 Blazor Server 应用程序中创建和使用 HTTP 客户端的不同技术。这里提到的大多数技术也可以在 ASP.NET Core 应用程序使用，因为 Blazor Server 应用程序是构建在 ASP.NET Core 基础架构之上的。在我的下一篇文章 [《Making HTTP Requests in Blazor WebAssembly Apps》](https://www.ezzylearning.net/tutorial/making-http-requests-in-blazor-webassembly-apps) 中，我将尝试介绍 HTTP 客户端在 Blazor WebAssembly 应用程序中的创建和使用。
