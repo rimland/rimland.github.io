@@ -591,7 +591,7 @@ public IReadOnlyList<TItem> Items { get; set; }
 
 ![Display-Data-with-Blazor-Templated-Component](https://www.ezzylearning.net/wp-content/uploads/Display-Data-with-Blazor-Templated-Component.jpg)
 
-Creating a Generic Templated Component
+<!-- Creating a Generic Templated Component -->
 
 ## 创建通用模板化组件
 
