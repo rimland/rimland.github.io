@@ -651,7 +651,7 @@ public IReadOnlyList<TItem> Items { get; set; }
 
 ![Blazor-Generic-Templated-Component-Example 1](https://www.ezzylearning.net/wp-content/uploads/Blazor-Generic-Templated-Component-Example-1.jpg)
 
-Now let’s say you have another page where the list of products need to be displayed differently using the **div** and **a** tags so once again you can reuse same ListWidget component and this time generate markup like the following:
+<!-- Now let’s say you have another page where the list of products need to be displayed differently using the **div** and **a** tags so once again you can reuse same ListWidget component and this time generate markup like the following: -->
 
 现在，假设您有另一个页面，其中需要使用 **div** 和 **a** 标签以不同形式展示产品列表，那么您可以再次重用相同的 ListWidget 组件，这次生成如下标记：
 
