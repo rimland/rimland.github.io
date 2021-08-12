@@ -535,9 +535,9 @@ public IReadOnlyList<TItem> Items { get; set; }
 
 ![Display-Data-without-Templated-Components](https://www.ezzylearning.net/wp-content/uploads/Display-Data-without-Templated-Components.png)
 
-Let’s reuse our TableWidget component with two more examples that will show the same Recent Orders and Top Selling Products with slightly different layouts
+<!-- Let’s reuse our TableWidget component with two more examples that will show the same Recent Orders and Top Selling Products with slightly different layouts -->
 
-下面让我们用另外两个示例来重用一下我们的 TableWidget 组件，这些示例将显示相同的最近订单和热销产品，但布局略有改变。
+下面让我们通过另外两个例子重用一下我们的 TableWidget 组件，它们将显示同样的最近订单（Recent Orders）和热销产品（Top Selling Products），但布局略有改变。
 
 ```html
 <div class="row">
@@ -581,17 +581,13 @@ Let’s reuse our TableWidget component with two more examples that will show th
 </div>
 ```
 
-When using generic-typed components, the type parameter is inferred if possible. However, we have the option to explicitly specify the type with an attribute that has a name matching the type parameter, which is **TItem** in the above example.
+<!-- When using generic-typed components, the type parameter is inferred if possible. However, we have the option to explicitly specify the type with an attribute that has a name matching the type parameter, which is **TItem** in the above example. -->
 
-在使用泛型类型化组件时，会尽可能推断类型参数。不过，我们可以选择使用一个特性(attribute)来显式指定类型，该特性的名称与类型参数相同，在上例中是 **TItem**。
+在使用泛型类型化组件时，会尽可能推断类型参数。不过，我们可以选择使用一个特性来显式指定类型，该特性的名称与类型参数相同，在上面的示例中是 **TItem**。
 
-<!-- 使用泛型类型组件时，如果可能，将推断类型参数。 但是，我们可以选择使用名称与类型参数匹配的属性显式指定类型，在上面的示例中为 **TItem**。
+<!-- If you will run the project, you will see all four tables rendered on the page using the same TableWidget templated component. -->
 
-在使用泛型类型化组件时，如果可能，将推断类型参数。但是，我们可以选择显式指定一个属性的类型，该属性的名称与类型参数匹配，在上面的示例中是**TItem**。 -->
-
-If you will run the project, you will see all four tables rendered on the page using the same TableWidget templated component.
-
-如果您运行该项目，您将在页面上看到使用相同的 TableWidget 模板化组件呈现的所有四个表格。
+此时如果您运行该项目，您将在页面上看到使用同一个 TableWidget 模板化组件渲染的全部四个表格。
 
 ![Display-Data-with-Blazor-Templated-Component](https://www.ezzylearning.net/wp-content/uploads/Display-Data-with-Blazor-Templated-Component.jpg)
 
