@@ -450,9 +450,9 @@ public IReadOnlyList<TItem> Items { get; set; }
 
 ## 使用 Blazor 模板化组件的不同方式
 
-It is now time to see our TableWidget component in action and there are different ways we can use this component. Replace the Recent Orders table we generated above with the following TableWidget component.
+<!-- It is now time to see our TableWidget component in action and there are different ways we can use this component. Replace the Recent Orders table we generated above with the following TableWidget component. -->
 
-现在是时候看看我们的 TableWidget 组件的运行情况了，我们可以通过不同的方式使用这个组件。用下面的 TableWidget 组件替换我们上面生成的最近订单表格。
+现在是时候看一下我们的 TableWidget 组件的运行情况了，我们可以通过不同的方式使用这个组件。用下面的 TableWidget 组件替换我们前面生成的 Recent Orders 表格。
 
 ```html
 <div class="col">
@@ -476,19 +476,19 @@ It is now time to see our TableWidget component in action and there are differen
 </div>
 ```
 
-In the above code snippet, the **Items** property is initialized with the **Orders** list we received from our service. Then we decided to use **HeaderTemplate** and **RowTemplate** to generate the header and footer of the table. You may be thinking from where the **context** came from. The **context** is an implicit parameter available to all component arguments of Type `RenderFragment<T>`. We can use **context** to access the properties of the object we are dealing with. In the above example, **context** will supply the order information to the template.
+<!-- In the above code snippet, the **Items** property is initialized with the **Orders** list we received from our service. Then we decided to use **HeaderTemplate** and **RowTemplate** to generate the header and footer of the table. You may be thinking from where the **context** came from. The **context** is an implicit parameter available to all component arguments of Type `RenderFragment<T>`. We can use **context** to access the properties of the object we are dealing with. In the above example, **context** will supply the order information to the template. -->
 
-在上面的代码片段中，**Items** 属性是使用从我们的服务收到的 **Orders** 列表初始化的。然后我们决定使用 **HeaderTemplate** 和 **RowTemplate** 来生成表格的页眉和页脚。您可能在想 **context** 是从哪里来的。**context** 是一个隐式参数，可用于所有类型为 `RenderFragment<T>` 的组件参数。我们可以使用 **context** 来访问我们正在处理的对象的属性。在上面的示例中，**context** 将向模板提供订单信息。
+在上面的代码片段中，**Items** 属性是使用我们的从服务获取的 **Orders** 列表初始化的。然后我们决定使用 **HeaderTemplate** 和 **RowTemplate** 来生成表格的表头和数据行。您可能在想 **context** 是从哪里来的？**context** 是一个隐式参数，所有类型为 `RenderFragment<T>` 的组件参数都可以使用。我们可以使用 **context** 来访问我们正在处理的对象的属性。在上面的示例中，**context** 将向模板提供订单信息。
 
-If you will run the project, you will see the following two tables rendered on the page. The Recent Orders table is now generated using our TableWidget component.
+<!-- If you will run the project, you will see the following two tables rendered on the page. The Recent Orders table is now generated using our TableWidget component. -->
 
-如果您运行该项目，您将在页面上看到以下两个表格。现在，最近的订单表格使用我们的 TableWidget 组件生成了。
+如果此时您运行项目，您将在页面上看到以下两个表格。现在，最近的订单（Recent Orders）表格是使用我们的 TableWidget 组件生成的了。
 
 ![Display-Data-without-Templated-Components](https://www.ezzylearning.net/wp-content/uploads/Display-Data-without-Templated-Components.png)
 
-Let’s reuse our **TableWidget** component and this time generate the Top Selling Products table. This time, we are passing it Products list and we also specified our own **Context="product"** which means we can now access product properties using **product** instead of implicit parameter **context**.
+<!-- Let’s reuse our **TableWidget** component and this time generate the Top Selling Products table. This time, we are passing it Products list and we also specified our own **Context="product"** which means we can now access product properties using **product** instead of implicit parameter **context**. -->
 
-让我们重用 **TableWidget** 组件，这次生成热卖产品（Top Selling Products）表格。这一次，我们传递了 Products 列表给它，还指定了我们自己的 **Context="product"**，这意味着现在我们可以使用 **product** 来取代隐式参数 **context** 访问产品属性。
+让我们重用 **TableWidget** 组件来生成热卖产品（Top Selling Products）表格。这一次，我们传递了 Products 列表给它，还指定了我们自己的 **Context="product"**，这意味着现在我们可以使用 **product** 取代隐式参数 **context** 来访问产品属性。
 
 ```html
 <div class="col">
@@ -510,7 +510,7 @@ Let’s reuse our **TableWidget** component and this time generate the Top Selli
 </div>
 ```
 
-You are allow allowed to specify the Context at template level as shown in the example where the **Context="product"** is added to **RowTemplate**.
+<!-- You are allow allowed to specify the Context at template level as shown in the example where the **Context="product"** is added to **RowTemplate**. -->
 
 您还可以在模板级别指定上下文（Context），如下面的示例所示，其中将 **Context="product"** 添加到了 **RowTemplate**。
 
@@ -529,9 +529,9 @@ You are allow allowed to specify the Context at template level as shown in the e
 </TableWidget>
 ```
 
-If you will run the project, you will see the following two tables rendered on the page but this time we know that these two tables are rendered using our TableWidget templated component. This example clearly shows that the same templated component can be used to generate different types of UI and it can render the different types of objects as per our app requirement.
+<!-- If you will run the project, you will see the following two tables rendered on the page but this time we know that these two tables are rendered using our TableWidget templated component. This example clearly shows that the same templated component can be used to generate different types of UI and it can render the different types of objects as per our app requirement. -->
 
-现在如果您运行该项目，您将看到页面上显示了以下两个表格，但我们知道这次这两个表是使用我们的 TableWidget 模板化组件呈现的。此示例清楚地表明，同一模板化组件可用于生成不同类型的 UI，并且可以根据我们的应用程序需求渲染不同类型的对象。
+现在如果您运行该项目，您将看到页面上显示了以下两个表格，但是我们知道这次这两个表格是使用我们的模板化组件 TableWidget 渲染的。该示例清楚地演示了，同一个模板化组件可用于生成不同类型的 UI，并且可以根据我们的应用程序需求渲染不同类型的对象。
 
 ![Display-Data-without-Templated-Components](https://www.ezzylearning.net/wp-content/uploads/Display-Data-without-Templated-Components.png)
 
