@@ -684,4 +684,4 @@ public IReadOnlyList<TItem> Items { get; set; }
 
 In this tutorial, I gave you an overview of the Blazor templated component and we created two types of templated components. Next, we have seen several examples of reusing both the TableWidget and ListWidget components to generate different types of markup. I have to admit that the templated components are a wonderful addition to the Blazor developer’s toolbox and using these components we can create some amazing reusable components.
 
-在本教程中，我概述了 Blazor 模板化组件，并创建了两种类型的模板化组件。然后，我们看到了几个重用 TableWidget 和 ListWidget 组件来生成不同类型标记的示例。我不得不承认，模板化组件是 Blazor 开发者工具箱中的一个很好的补充，我们可以使用这些组件来创建一些令人惊叹的可重用组件。
+在本教程中，我概述了 Blazor 模板化组件，并创建了两种类型的模板化组件。然后，我们看到了几个重用 TableWidget 和 ListWidget 组件来生成不同类型标记的示例。我不得不承认，模板化组件是 Blazor 开发者工具箱中的一个很好的补充，我们可以使用这些组件创建一些令人惊叹的可重用组件。
