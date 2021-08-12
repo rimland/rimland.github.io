@@ -593,15 +593,15 @@ public IReadOnlyList<TItem> Items { get; set; }
 
 Creating a Generic Templated Component
 
-## 创建通用模板组件
+## 创建通用模板化组件
 
 <!-- Our **TableWidget** component is good and we have already seen different examples it can be reused but the problem with that component is that it only generates HTML tables. What if we want to create an even more generic component that can be reused to generate any type of UI e.g. tables, cards, bullets, etc. We can create such a component easily by removing all markup from the templated component. Let’s create a generic **ListWidget** component to see one such component in action. -->
 
-我们的 **TableWidget** 组件很好，我们已经看到了重用它的多个示例，但该组件的问题是它只生成 HTML 表格。如果我们想创建一个更通用的组件，可以重用它来生成任何类型的 UI（例如 表格、卡片、项目符号等）。我们可以通过从模板化组件中删除所有标签来轻松地创建这样一个组件。让我们来创建一个通用的 **ListWidget** 组件来查看这样一个组件的运行情况。
+我们的 **TableWidget** 组件很好，我们已经看到了重用它的多个示例，但该组件的问题是它只生成 HTML 表格。如果我们想要创建一个更通用的组件，可以重用它来生成任何类型的 UI（比如：表格、卡片、项目符号等）。我们可以通过从模板化组件中删除所有标签来轻松地创建这样一个组件。让我们来创建一个通用的 **ListWidget** 组件，来查看一下这种组件的运行情况。
 
-Create a new ListWidget.razor component in the **Shared** folder and add the following code in it. This time, we have no markup in the component and we just have an **ItemTemplate** in the **foreach** loop. This means we are free to generate any type of list using this ListWidget component.
+<!-- Create a new ListWidget.razor component in the **Shared** folder and add the following code in it. This time, we have no markup in the component and we just have an **ItemTemplate** in the **foreach** loop. This means we are free to generate any type of list using this ListWidget component. -->
 
-在 **Shared** 文件夹中创建一个新的 *ListWidget.razor* 组件，并在其中添加以下代码。 这次在组件中没有 HTML 标签，在 **foreach** 循环中只有一个 **ItemTemplate**。这意味着我们可以使用这个 ListWidget 组件自由地生成任意类型的列表。
+在 **Shared** 文件夹中创建一个新的 *ListWidget.razor* 组件，并在其中添加以下代码。这次在组件中没有 HTML 标签，在 **foreach** 循环中仅有一个 **ItemTemplate**。这意味着我们可以使用这个 ListWidget 组件自由地生成任意类型的列表。
 
 <b>ListWidget.razor</b>
 
@@ -622,9 +622,9 @@ Create a new ListWidget.razor component in the **Shared** folder and add the fol
 }
 ```
 
-Let’s say we want to generate the bootstrap list using this ListWidget component so we can do this using the following code snippet.
+<!-- Let’s say we want to generate the bootstrap list using this ListWidget component so we can do this using the following code snippet. -->
 
-假设我们要想使用这个 ListWidget 组件生成引导程序（bootstrap）列表，那么我们可以使用下面的代码段来完成这一操作。
+假如我们想要使用这个 ListWidget 组件生成 bootstrap 列表，那么我们可以使用下面的代码段来实现这一操作。
 
 ```html
 <ul class="list-group">
@@ -645,15 +645,15 @@ Let’s say we want to generate the bootstrap list using this ListWidget compone
 </ul>
 ```
 
-Run the project and you will see the same list of products are now generated as bootstrap list component.
+<!-- Run the project and you will see the same list of products are now generated as bootstrap list component. -->
 
-运行该项目，您将看到现在生成的相同产品列表作为引导列表组件。
+运行该项目，您将看到以 bootstrap 列表方式生成的相同的产品列表。
 
 ![Blazor-Generic-Templated-Component-Example 1](https://www.ezzylearning.net/wp-content/uploads/Blazor-Generic-Templated-Component-Example-1.jpg)
 
 Now let’s say you have another page where the list of products need to be displayed differently using the **div** and **a** tags so once again you can reuse same ListWidget component and this time generate markup like the following:
 
-现在假设您有另一个页面，其中需要使用 **div** 和 **a** 标签以不同方式显示产品列表，那么您可以再次重用相同的 ListWidget 组件，这次生成如下标记：
+现在，假设您有另一个页面，其中需要使用 **div** 和 **a** 标签以不同形式展示产品列表，那么您可以再次重用相同的 ListWidget 组件，这次生成如下标记：
 
 ```html
 <div class="list-group">
@@ -674,9 +674,9 @@ Now let’s say you have another page where the list of products need to be disp
 </div>
 ```
 
-Run the project and you will see output similar to the following.
+<!-- Run the project and you will see output similar to the following. -->
 
-运行该项目，您将看到类似于以下内容的输出。
+运行该项目，您将看到类似以下内容的输出。
 
 ![Blazor-Generic-Templated-Component-Example 2](https://www.ezzylearning.net/wp-content/uploads/Blazor-Generic-Templated-Component-Example-2.jpg)
 
@@ -684,4 +684,4 @@ Run the project and you will see output similar to the following.
 
 In this tutorial, I gave you an overview of the Blazor templated component and we created two types of templated components. Next, we have seen several examples of reusing both the TableWidget and ListWidget components to generate different types of markup. I have to admit that the templated components are a wonderful addition to the Blazor developer’s toolbox and using these components we can create some amazing reusable components.
 
-在本教程中，我概述了 Blazor 模板化组件，并创建了两种类型的模板化组件。然后，我们看到了几个重用 TableWidget 和 ListWidget 组件来生成不同类型标记的示例。我不得不承认，模板化组件是 Blazor 开发者工具箱的一个很好的补充，我们可以使用这些组件来创建一些惊人的可重用组件。
+在本教程中，我概述了 Blazor 模板化组件，并创建了两种类型的模板化组件。然后，我们看到了几个重用 TableWidget 和 ListWidget 组件来生成不同类型标记的示例。我不得不承认，模板化组件是 Blazor 开发者工具箱中的一个很好的补充，我们可以使用这些组件来创建一些令人惊叹的可重用组件。
