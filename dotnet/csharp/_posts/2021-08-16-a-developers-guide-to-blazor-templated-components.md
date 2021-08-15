@@ -11,7 +11,7 @@ published: true
 
 [^1]: <https://www.ezzylearning.net/tutorial/a-developers-guide-to-blazor-templated-components> A Developer’s Guide To Blazor Templated Components
 
-![A-Developers-Guide-To-Blazor-Templated-Components](https://www.ezzylearning.net/wp-content/uploads/A-Developers-Guide-To-Blazor-Templated-Components.jpg)
+![A-Developers-Guide-To-Blazor-Templated-Components](/assets/images/202108/A-Developers-Guide-To-Blazor-Templated-Components.jpg)
 
 <!-- In one of my previous posts A Beginner’s Guide to Blazor Components, I covered the component parameters and showed you how to pass data to Blazor components as parameters to customize their functionality. In this post, I will go one step further and will show you how to pass one or more UI templates as parameters into a different type of Blazor components called Templated components. -->
 
@@ -29,7 +29,7 @@ published: true
 
 Blazor 模板化组件是一种接受将一个或多个 UI 模板作为参数的组件。这有助于组件的可重用性，因为您只需要创建一次模板化组件，然后使用该组件的每个页面都可以提供其 UI 模板，模板化组件可以根据页面需求渲染此 UI 模板。
 
-![Blazor-Templated-Component](https://www.ezzylearning.net/wp-content/uploads/Blazor-Templated-Component.png)
+![Blazor-Templated-Component](/assets/images/202108/Blazor-Templated-Component.png)
 
 <!-- The examples of templated component include: -->
 
@@ -315,7 +315,7 @@ Razor 组件视图文件将简单地在 **Orders** 和 **Products** 上运行 **
 
 此时如果您运行项目，将在页面上看到以下两个表格。
 
-![Display-Data-without-Templated-Components](https://www.ezzylearning.net/wp-content/uploads/Display-Data-without-Templated-Components.png)
+![Display-Data-without-Templated-Components](/assets/images/202108/Display-Data-without-Templated-Components.png)
 
 <!-- So far, we haven’t created any templated component but you can feel that we need one soon because both orders and products tables are shown above have almost the same look and feel and we are duplicating lots of HTML in the **foreach** loops above to generate these two tables. It is a good idea to create a templated component and then reuse that component to generate both of the above tables and still be able to customize the headers and data rows rendered by those tables. Let’s create our first templated component called the **TableWidget** component. -->
 
@@ -480,7 +480,7 @@ public IReadOnlyList<TItem> Items { get; set; }
 
 如果此时您运行项目，会在页面上看到以下两个表格。现在，最近的订单（Recent Orders）表格是使用我们的 TableWidget 组件生成的了。
 
-![Display-Data-without-Templated-Components](https://www.ezzylearning.net/wp-content/uploads/Display-Data-without-Templated-Components.png)
+![Display-Data-without-Templated-Components](/assets/images/202108/Display-Data-without-Templated-Components.png)
 
 <!-- Let’s reuse our **TableWidget** component and this time generate the Top Selling Products table. This time, we are passing it Products list and we also specified our own **Context="product"** which means we can now access product properties using **product** instead of implicit parameter **context**. -->
 
@@ -529,7 +529,7 @@ public IReadOnlyList<TItem> Items { get; set; }
 
 现在如果您运行该项目，您将看到页面上显示了以下两个表格，但是我们知道这次这两个表格是使用我们的模板化组件 TableWidget 渲染的。该示例清楚地演示了，同一个模板化组件可用于生成不同类型的 UI，并且可以根据我们的应用程序需求渲染不同类型的对象。
 
-![Display-Data-without-Templated-Components](https://www.ezzylearning.net/wp-content/uploads/Display-Data-without-Templated-Components.png)
+![Display-Data-without-Templated-Components](/assets/images/202108/Display-Data-without-Templated-Components.png)
 
 <!-- Let’s reuse our TableWidget component with two more examples that will show the same Recent Orders and Top Selling Products with slightly different layouts -->
 
@@ -585,7 +585,7 @@ public IReadOnlyList<TItem> Items { get; set; }
 
 此时如果您运行该项目，您将在页面上看到使用同一个 TableWidget 模板化组件渲染的全部四个表格。
 
-![Display-Data-with-Blazor-Templated-Component](https://www.ezzylearning.net/wp-content/uploads/Display-Data-with-Blazor-Templated-Component.jpg)
+![Display-Data-with-Blazor-Templated-Component](/assets/images/202108/Display-Data-with-Blazor-Templated-Component.jpg)
 
 <!-- Creating a Generic Templated Component -->
 
@@ -645,7 +645,7 @@ public IReadOnlyList<TItem> Items { get; set; }
 
 运行该项目，您将看到以 bootstrap 列表方式生成的相同产品的列表。
 
-![Blazor-Generic-Templated-Component-Example 1](https://www.ezzylearning.net/wp-content/uploads/Blazor-Generic-Templated-Component-Example-1.jpg)
+![Blazor-Generic-Templated-Component-Example 1](/assets/images/202108/Blazor-Generic-Templated-Component-Example-1.jpg)
 
 <!-- Now let’s say you have another page where the list of products need to be displayed differently using the **div** and **a** tags so once again you can reuse same ListWidget component and this time generate markup like the following: -->
 
@@ -674,7 +674,7 @@ public IReadOnlyList<TItem> Items { get; set; }
 
 运行该项目，您将看到类似以下内容的输出。
 
-![Blazor-Generic-Templated-Component-Example 2](https://www.ezzylearning.net/wp-content/uploads/Blazor-Generic-Templated-Component-Example-2.jpg)
+![Blazor-Generic-Templated-Component-Example 2](/assets/images/202108/Blazor-Generic-Templated-Component-Example-2.jpg)
 
 ## 总结
 
