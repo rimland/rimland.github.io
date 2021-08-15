@@ -40,10 +40,10 @@ Blazor 模板化组件是一种接受将一个或多个 UI 模板作为参数的
 - A list component that allows the user to specify a template for rendering the list items like bullets or numbers.
 - A list component that allows user to display data in list, grid, or cards view -->
 
-- 一个允许用户指定表格表头、行和页脚模板的表格组件。
-- 一个允许用户呈现具有相同外观和体验而具有不同内容的小部件组件。
-- 一个允许用户指定一个模板来呈现项目符号或编号等列表项的列表组件。
-- 一个允许用户以列表、网格或卡片视图来显示数据的列表组件。
+1. 一个允许用户指定表格表头、行和页脚模板的表格组件。
+2. 一个允许用户呈现具有相同外观和体验而具有不同内容的小部件组件。
+3. 一个允许用户指定一个模板来呈现项目符号或编号等列表项的列表组件。
+4. 一个允许用户以列表、网格或卡片视图来显示数据的列表组件。
 
 <!-- When we create a parameter of any Blazor component, we commonly specify its type as string, int, or any other built-in .NET data type. To create a templated component, we create component parameters of type `RenderFragment` or `RenderFragment<T>`. RenderFragment allows us to provide a segment of UI that can be rendered by templated components. -->
 
@@ -250,7 +250,7 @@ public partial class Dashboard
 
 <!-- The razor component view file will simply run **foreach** loops on **Orders** and **Products** and will generate the HTML tables. -->
 
-razor 组件视图文件将简单地在 **Orders** 和 **Products** 上运行 **foreach** 循环，并生成 HTML 表格。
+Razor 组件视图文件将简单地在 **Orders** 和 **Products** 上运行 **foreach** 循环，并生成 HTML 表格。
 
 ```html
 @page "/dashboard"
