@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Blazor 模板化组件开发指南"
-date:   2021-07-19 00:10:10 +0800
+date:   2021-08-16 00:10:10 +0800
 categories: dotnet csharp
 tags: [DotNet, Blazor]
 published: true
@@ -31,52 +31,48 @@ Blazor 模板化组件是一种接受将一个或多个 UI 模板作为参数的
 
 ![Blazor-Templated-Component](https://www.ezzylearning.net/wp-content/uploads/Blazor-Templated-Component.png)
 
-The examples of templated component include:
+<!-- The examples of templated component include: -->
 
-（下面的）模板化组件示例包括：
+本文中的模板化组件示例包括：
 
-- A table component that allows a user to specify the templates for a table header, rows, and footer.
+<!-- - A table component that allows a user to specify the templates for a table header, rows, and footer.
 - A widget component that allows a user to render different widgets with the same look and feel but different contents.
 - A list component that allows the user to specify a template for rendering the list items like bullets or numbers.
-- A list component that allows user to display data in list, grid, or cards view
+- A list component that allows user to display data in list, grid, or cards view -->
 
-<!-- - 一个表格组件，允许用户指定表格标题、行和页脚的模板。
-- 一个小部件组件，允许用户呈现具有相同外观和体验而具有不同内容的小部件。
-- 一个列表组件，允许用户指定一个模板来呈现项目符号或编号等列表项。
-- 一个允许用户以列表、网格或卡片视图来显示数据的列表组件。 -->
-
-- 一个允许用户指定表格标题、行和页脚的模板的表格组件。
+- 一个允许用户指定表格表头、行和页脚模板的表格组件。
 - 一个允许用户呈现具有相同外观和体验而具有不同内容的小部件组件。
 - 一个允许用户指定一个模板来呈现项目符号或编号等列表项的列表组件。
 - 一个允许用户以列表、网格或卡片视图来显示数据的列表组件。
 
 <!-- When we create a parameter of any Blazor component, we commonly specify its type as string, int, or any other built-in .NET data type. To create a templated component, we create component parameters of type `RenderFragment` or `RenderFragment<T>`. RenderFragment allows us to provide a segment of UI that can be rendered by templated components. -->
 
-当我们创建 Blazor 组件的一个参数时，我们通常将其类型指定为 `string`、`int` 或者其他任意内置 .NET 数据类型。为了创建一个模板化组件，我们需要创建类型为 `RenderFragment` 或 `RenderFragment<T>` 的组件参数。[RenderFragment](https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.components.renderfragment) 允许我们提供一个可以由模板化组件渲染的 UI 内容片段（作为一个委托实现，将其内容写入到 RenderTreeBuilder）。
+当我们创建 Blazor 组件的一个参数时，我们通常将其类型指定为 `string`、`int` 或者其他内置 .NET 数据类型。为了创建一个模板化组件，我们需要创建类型为 `RenderFragment` 或 `RenderFragment<T>` 的组件参数。[RenderFragment](https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.components.renderfragment) 允许我们提供一个可以由模板化组件渲染的 UI 内容片段（作为一个委托实现，将其内容写入到 RenderTreeBuilder）。
 
 ```csharp
 [Parameter]
 public RenderFragment HeaderTemplate { get; set; }
 ```
 
-`RenderFragment<T>` go one step further and allows us to pass the parameter of type T which can be used to customize the output of the templated component.
+<!-- `RenderFragment<T>` go one step further and allows us to pass the parameter of type T which can be used to customize the output of the templated component. -->
 
-`RenderFragment<T>` 更进一步，允许我们传入参数的类型 `T`，它可以被用来自定义模板化组件的输出。
+`RenderFragment<T>` 更进一步，允许我们传入参数的类型 `T`，可以用它来自定义模板化组件的输出。
 
 ```csharp
 [Parameter]
 public RenderFragment<T> RowTemplate { get; set; }
 ```
+<!-- Getting Started with a Real World Example -->
 
-## 实例讲解 Getting Started with a Real World Example
+## 从一个实例开始
 
 <!-- To understand the templated components in detail, I have decided to build a TableWidget templated component that will allow us to customize the table header, rows, and footer in different formats. Let’s create a new Blazor Server App and add the basic functionality to rendering some data in table format before we create our first templated component. -->
 
-为了详细了解模板化组件，我决定构建一个 TableWidget 模板化组件，它允许我们自定义不同格式的表头、行和页脚。在创建第一个模板化组件之前，让我们创建一个新的 Blazor Server 应用程序并添加其基本功能，以表格格式呈现一些数据。
+为了详细了解模板化组件，我决定构建一个 **TableWidget** 模板化组件，它允许我们自定义不同格式的表头、行和页脚。在创建第一个模板化组件之前，我们先来创建一个新的 Blazor Server 应用程序并添加其基本功能，以表格格式呈现一些数据。
 
 <!-- Create a **Data** folder in Blazor Server App and add the following two model classes in the **Data** folder. -->
 
-在 Blazor Server 应用程序中创建一个 **Data** 文件夹，并在 **Data** 文件夹中添加以下两个模型类。
+在 Blazor Server 应用程序中创建一个 *Data* 文件夹，并在 *Data* 文件夹中添加以下两个模型类。
 
 <b>Product.cs</b>
 
@@ -153,7 +149,7 @@ public class ProductService : IProductService
 
 <!-- Next, create IOrderService and OrderService in the same Services folder and add some fake order data to generate a table. -->
 
-接下来，在同一 *Services* 文件夹中创建 `IOrderService` 和 `OrderService` 并添加一些用于生成表格的伪造订单数据。
+接下来，在同一 *Services* 文件夹中创建 `IOrderService` 和 `OrderService` 并添加一些用于生成表格的模拟订单数据。
 
 <b>IOrderService.cs</b>
 
@@ -204,7 +200,7 @@ public class OrderService : IOrderService
 
 <!-- We need to inject the above services in Blazor components using the dependency injection and for that purpose, we need to register the above services in Startup.cs file. If you want to learn more about dependency injection you can read my article A Step by Step Guide to ASP.NET Core Dependency Injection -->
 
-我们需要使用依赖注入将上述服务注入到 Blazor 组件中，为此，我们需要在 *Startup.cs* 文件中注册上述服务。如果您想了解更多关于依赖注入的知识，可以阅读我的文章 [A Step by Step Guide to ASP.NET Core Dependency Injection](https://www.ezzylearning.net/tutorial/a-step-by-step-guide-to-asp-net-core-dependency-injection)[^DI]。
+我们需要使用依赖注入将上述服务注入到 Blazor 组件中，为此，我们需要在 *Startup.cs* 文件中注册上述服务。如果您想了解关于依赖注入的更多知识，可以阅读我的文章 [A Step by Step Guide to ASP.NET Core Dependency Injection](https://www.ezzylearning.net/tutorial/a-step-by-step-guide-to-asp-net-core-dependency-injection)[^DI]。
 
 [^DI]: <https://www.ezzylearning.net/tutorial/a-step-by-step-guide-to-asp-net-core-dependency-injection> A Step by Step Guide to ASP.NET Core Dependency Injection
 
@@ -323,7 +319,7 @@ razor 组件视图文件将简单地在 **Orders** 和 **Products** 上运行 **
 
 <!-- So far, we haven’t created any templated component but you can feel that we need one soon because both orders and products tables are shown above have almost the same look and feel and we are duplicating lots of HTML in the **foreach** loops above to generate these two tables. It is a good idea to create a templated component and then reuse that component to generate both of the above tables and still be able to customize the headers and data rows rendered by those tables. Let’s create our first templated component called the **TableWidget** component. -->
 
-截至目前，我们尚没有创建任何模板化组件，但您会感觉到我们很快会需要一个，因为上面显示的订单和产品表格几乎都具有相同的外观和体验，并且我们在上面的 **foreach** 循环中复制了大量的 HTML 来生成这两张表格。一个好注意是，创建一个模板化组件，然后重用该组件来生成上述两个表，并且仍然能够自定义由这些表显示的表头和数据行。让我们来创建我们的第一个模板化组件，命名为 **TableWidget** 组件。
+截至目前，我们尚没有创建任何模板化组件，但您会感觉到我们很快将需要一个，因为上面显示的订单和产品表格几乎都具有相同的外观和体验，并且我们在上面的 **foreach** 循环中复制了大量的 HTML 来生成这两张表格。一个好注意是，创建一个模板化组件，然后重用该组件来生成上述两张表格，并且仍然能够自定义它们显示的表头和数据行。让我们来创建我们的第一个模板化组件，命名为 **TableWidget** 组件。
 
 ## 创建 Blazor 模板化组件
 
@@ -452,7 +448,7 @@ public IReadOnlyList<TItem> Items { get; set; }
 
 <!-- It is now time to see our TableWidget component in action and there are different ways we can use this component. Replace the Recent Orders table we generated above with the following TableWidget component. -->
 
-现在是时候看一下我们的 TableWidget 组件的运行情况了，我们可以通过不同的方式使用这个组件。用下面的 TableWidget 组件替换我们前面生成的 Recent Orders 表格。
+现在是时候来实践一下我们的 TableWidget 组件了，我们可以通过不同的方式使用这个组件。用下面的 TableWidget 组件替换我们前面生成的 *Recent Orders* 表格。
 
 ```html
 <div class="col">
@@ -478,17 +474,17 @@ public IReadOnlyList<TItem> Items { get; set; }
 
 <!-- In the above code snippet, the **Items** property is initialized with the **Orders** list we received from our service. Then we decided to use **HeaderTemplate** and **RowTemplate** to generate the header and footer of the table. You may be thinking from where the **context** came from. The **context** is an implicit parameter available to all component arguments of Type `RenderFragment<T>`. We can use **context** to access the properties of the object we are dealing with. In the above example, **context** will supply the order information to the template. -->
 
-在上面的代码片段中，**Items** 属性是使用我们的从服务获取的 **Orders** 列表初始化的。然后我们决定使用 **HeaderTemplate** 和 **RowTemplate** 来生成表格的表头和数据行。您可能在想 **context** 是从哪里来的？**context** 是一个隐式参数，所有类型为 `RenderFragment<T>` 的组件参数都可以使用。我们可以使用 **context** 来访问我们正在处理的对象的属性。在上面的示例中，**context** 将向模板提供订单信息。
+在上面的代码片段中，**Items** 属性是使用我们的从服务获取的 **Orders** 列表进行初始化的。然后我们选择使用 **HeaderTemplate** 和 **RowTemplate** 来生成表格的表头和数据行。您可能在想 **context** 是从哪里来的？**context** 是一个隐式参数，所有类型为 `RenderFragment<T>` 的组件参数都可以使用。我们可以使用 **context** 访问我们正在处理对象的属性。在上面的示例中，**context** 将向模板提供订单信息。
 
 <!-- If you will run the project, you will see the following two tables rendered on the page. The Recent Orders table is now generated using our TableWidget component. -->
 
-如果此时您运行项目，您将在页面上看到以下两个表格。现在，最近的订单（Recent Orders）表格是使用我们的 TableWidget 组件生成的了。
+如果此时您运行项目，会在页面上看到以下两个表格。现在，最近的订单（Recent Orders）表格是使用我们的 TableWidget 组件生成的了。
 
 ![Display-Data-without-Templated-Components](https://www.ezzylearning.net/wp-content/uploads/Display-Data-without-Templated-Components.png)
 
 <!-- Let’s reuse our **TableWidget** component and this time generate the Top Selling Products table. This time, we are passing it Products list and we also specified our own **Context="product"** which means we can now access product properties using **product** instead of implicit parameter **context**. -->
 
-让我们重用 **TableWidget** 组件来生成热卖产品（Top Selling Products）表格。这一次，我们传递了 Products 列表给它，还指定了我们自己的 **Context="product"**，这意味着现在我们可以使用 **product** 取代隐式参数 **context** 来访问产品属性。
+让我们重用 **TableWidget** 组件来生成热卖产品（Top Selling Products）表格。这一次，我们传递了 Products 列表给它，还指定了我们自己的 **Context="product"**，这意味着现在我们可以使用 **product** 取代隐式参数 **context** 来访问产品的属性。
 
 ```html
 <div class="col">
@@ -583,7 +579,7 @@ public IReadOnlyList<TItem> Items { get; set; }
 
 <!-- When using generic-typed components, the type parameter is inferred if possible. However, we have the option to explicitly specify the type with an attribute that has a name matching the type parameter, which is **TItem** in the above example. -->
 
-在使用泛型类型化组件时，会尽可能推断类型参数。不过，我们可以选择使用一个特性来显式指定类型，该特性的名称与类型参数相同，在上面的示例中是 **TItem**。
+在使用泛型类型组件时，会尽可能推断类型参数。不过，我们可以选择使用一个特性来显式指定类型，该特性的名称与类型参数相同，在上面的示例中是 **TItem**。
 
 <!-- If you will run the project, you will see all four tables rendered on the page using the same TableWidget templated component. -->
 
@@ -597,7 +593,7 @@ public IReadOnlyList<TItem> Items { get; set; }
 
 <!-- Our **TableWidget** component is good and we have already seen different examples it can be reused but the problem with that component is that it only generates HTML tables. What if we want to create an even more generic component that can be reused to generate any type of UI e.g. tables, cards, bullets, etc. We can create such a component easily by removing all markup from the templated component. Let’s create a generic **ListWidget** component to see one such component in action. -->
 
-我们的 **TableWidget** 组件很好，我们已经看到了重用它的多个示例，但该组件的问题是它只生成 HTML 表格。如果我们想要创建一个更通用的组件，可以重用它来生成任何类型的 UI（比如：表格、卡片、项目符号等）。我们可以通过从模板化组件中删除所有标签来轻松地创建这样一个组件。让我们来创建一个通用的 **ListWidget** 组件，来查看一下这种组件的运行情况。
+我们的 **TableWidget** 组件很好，我们已见识了重用它的多个示例，但该组件的问题是它只生成了 HTML 表格。如果我们想要创建一个更通用的组件，可以重用它来生成任何类型的 UI（比如：表格、卡片、项目符号等）。我们可以通过从模板化组件中删除所有的标签来轻松地创建这样一个组件。让我们来创建一个通用的 **ListWidget** 组件，来实战练习一下这种组件。
 
 <!-- Create a new ListWidget.razor component in the **Shared** folder and add the following code in it. This time, we have no markup in the component and we just have an **ItemTemplate** in the **foreach** loop. This means we are free to generate any type of list using this ListWidget component. -->
 
@@ -647,7 +643,7 @@ public IReadOnlyList<TItem> Items { get; set; }
 
 <!-- Run the project and you will see the same list of products are now generated as bootstrap list component. -->
 
-运行该项目，您将看到以 bootstrap 列表方式生成的相同的产品列表。
+运行该项目，您将看到以 bootstrap 列表方式生成的相同产品的列表。
 
 ![Blazor-Generic-Templated-Component-Example 1](https://www.ezzylearning.net/wp-content/uploads/Blazor-Generic-Templated-Component-Example-1.jpg)
 
@@ -682,6 +678,6 @@ public IReadOnlyList<TItem> Items { get; set; }
 
 ## 总结
 
-In this tutorial, I gave you an overview of the Blazor templated component and we created two types of templated components. Next, we have seen several examples of reusing both the TableWidget and ListWidget components to generate different types of markup. I have to admit that the templated components are a wonderful addition to the Blazor developer’s toolbox and using these components we can create some amazing reusable components.
+<!-- In this tutorial, I gave you an overview of the Blazor templated component and we created two types of templated components. Next, we have seen several examples of reusing both the TableWidget and ListWidget components to generate different types of markup. I have to admit that the templated components are a wonderful addition to the Blazor developer’s toolbox and using these components we can create some amazing reusable components. -->
 
-在本教程中，我概述了 Blazor 模板化组件，并创建了两种类型的模板化组件。然后，我们看到了几个重用 TableWidget 和 ListWidget 组件来生成不同类型标记的示例。我不得不承认，模板化组件是 Blazor 开发者工具箱中的一个很好的补充，我们可以使用这些组件创建一些令人惊叹的可重用组件。
+在本教程中，我概述了 Blazor 模板化组件，并创建了两种类型的模板化组件。然后，我们实践了几个重用 TableWidget 和 ListWidget 组件来生成不同类型标记的例子。我不得不承认，模板化组件是 Blazor 开发者工具箱中的一个很好的补充，我们可以使用这些组件创建一些令人惊叹的可重用组件。
