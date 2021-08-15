@@ -681,3 +681,18 @@ public IReadOnlyList<TItem> Items { get; set; }
 <!-- In this tutorial, I gave you an overview of the Blazor templated component and we created two types of templated components. Next, we have seen several examples of reusing both the TableWidget and ListWidget components to generate different types of markup. I have to admit that the templated components are a wonderful addition to the Blazor developer’s toolbox and using these components we can create some amazing reusable components. -->
 
 在本教程中，我概述了 Blazor 模板化组件，并创建了两种类型的模板化组件。然后，我们实践了几个重用 TableWidget 和 ListWidget 组件来生成不同类型标记的例子。我不得不承认，模板化组件是 Blazor 开发者工具箱中的一个很好的补充，我们可以使用这些组件创建一些令人惊叹的可重用组件。
+
+<br/>
+
+相关阅读：
+
+- [Blazor Server 和 WebAssembly 应用程序入门指南](https://ittranslator.cn/dotnet/csharp/2021/07/05/a-beginners-guide-to-blazor-server-and-webassembly-applications.html)
+- [Blazor 组件入门指南](https://ittranslator.cn/dotnet/csharp/2021/07/12/a-beginners-guide-to-blazor-components.html)
+- [Blazor 数据绑定开发指南](https://ittranslator.cn/dotnet/csharp/2021/07/19/a-developers-guide-to-blazor-data-binding.html)
+- [Blazor 事件处理开发指南](https://ittranslator.cn/dotnet/csharp/2021/07/26/a-developers-guide-to-blazor-event-handling.html)
+- [Blazor 组件之间使用 EventCallback 进行通信](https://ittranslator.cn/dotnet/csharp/2021/08/02/communication-between-blazor-components-using-eventcallback.html)
+- [Blazor 路由及导航开发指南](https://ittranslator.cn/dotnet/csharp/2021/08/09/a-developers-guide-to-blazor-routing-and-navigation.html)
+
+> 作者 ： Waqas Anwar  
+> 翻译 ： [技术译站](https://ittranslator.cn/)  
+> 链接 ： [英文原文](https://www.ezzylearning.net/tutorial/a-developers-guide-to-blazor-routing-and-navigation)
