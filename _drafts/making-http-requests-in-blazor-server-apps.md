@@ -17,7 +17,9 @@ Blazor server apps use the standard ASP.NET Core application and they execute .N
 
 Blazor Server 应用使用标准的 ASP.NET Core 应用程序，在服务器端执行 .NET 代码。我们可以像在 ASP.NET Core Web 应用程序中那样，使用的相同方式访问这些应用程序中的任何 .NET 库或服务器端功能。这其中的一项功能是，使用 HTTP Client 实例向第三方 Web API 发送 HTTP 请求。在本教程中，我将向您展示创建 HTTP Client 实例的不同方法。另外，我还会向您展示如何在 Blazor Server 应用程序中使用第三方 API 来获取和显示数据。
 
-[下载源码](https://github.com/ezzylearning/BlazorServerWebAPIsDemo)
+[下载源码](https://github.com/ezzylearning/BlazorServerWebAPIsDemo)[^download]
+
+[^download]: <https://github.com/ezzylearning/BlazorServerWebAPIsDemo>
 
 ## 第三方 Web API 概述
 
