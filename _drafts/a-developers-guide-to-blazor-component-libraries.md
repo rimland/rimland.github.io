@@ -303,7 +303,7 @@ We can also add stylesheets in Razor class libraries and the styles defined in t
 
 For the demonstration purpose, let’s add some styles related to **img** tag
 
-出于演示的目的，让我们添加一些与 **img** 标签相关的样式。
+出于演示目的，让我们添加一些与 **img** 标签相关的样式。
 
 <b>components.css</b>
 
@@ -315,3 +315,35 @@ img
     border: 1px solid black;
 }
 ```
+
+To include the **components.css** file in our Blazor app, we can use the same special syntax we saw above. Open the **_Host.cshtml** file available in our Blazor server app and include the **components.css** file inside the **head** tag using the following **link** tag.
+
+要在我们的 Blazor 应用程序中包含 **components.css** 文件，我们可以使用与上面看到的相同的特殊语法。 打开 Blazor Server 应用程序中的 **_Host.cshtml** 文件，并使用以下 **link** 标签将 **components.css** 文件包含在 **head** 标签内。
+
+<b>_Host.cshtml</b>
+
+```html
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    ...
+     
+    <link href="~/_content/MyComponentsLibrary/css/components.css" rel="stylesheet" />
+</head>
+```
+
+Run the project and you will notice that the styles related to **img** tag we defined in the **components.css** file are applied to all the images of the projects.
+
+运行项目，您会发现我们在 **components.css** 文件中定义的与 **img** 标签相关的样式被应用到了项目的所有图片上。
+
+![Apply-CSS-Styles-from-Razor-Class-Library](https://www.ezzylearning.net/wp-content/uploads/Apply-CSS-Styles-from-Razor-Class-Library.jpg)
+
+## 总结
+
+I have covered very basic examples of reusable components in this post but you can see the power of the Razor class library. Developers can create some cool and amazing libraries of reusable Blazor components that can not only add some advanced features to your project but also increase the development speed. Many component vendors already developed some open source and commercial libraries such as MatBlazor, Radzen, Syncfusion, etc.
+
+我在本文中介绍了可重用组件的非常基础的示例，但您可以领会到 Razor 类库的强大功能。开发者可以创建一些又酷又炫的可重用 Blazor 组件库，这些库不仅可以为您的项目添加一些高级功能，还可以提高开发速度。 许多组件供应商已经开发了一些开源和商业库，例如 [MatBlazor](https://www.matblazor.com/)[^Mat]、[Radzen](https://blazor.radzen.com/)[^Rad]、[Syncfusion](https://www.syncfusion.com/blazor-components)[^Syn] 等。
+
+[^Mat]: <https://www.matblazor.com/>
+[^Rad]: <https://blazor.radzen.com/>
+[^Syn]: <https://www.syncfusion.com/blazor-components>
