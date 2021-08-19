@@ -45,9 +45,9 @@ Blazor Server 应用使用标准的 ASP.NET Core 应用程序，在服务端执�
 
 ## Getting Started with Blazor Sever App
 
-Create a Blazor Server App in Visual Studio 2019 and create a folder named Models. Add the following two model classes in the Models folder to map Holidays API request and response shown above.
+<!-- Create a Blazor Server App in Visual Studio 2019 and create a folder named Models. Add the following two model classes in the Models folder to map Holidays API request and response shown above. -->
 
-在 Visual Studio 2019 中创建一个 Blazor Server 应用程序，新建一个名为 **Models** 的文件夹。在 **Models** 文件夹中添加以下两个模型类以映射上面显示的 Holidays API 请求和响应。
+在 Visual Studio 2019 中创建一个 Blazor Server 应用程序，并新建一个名为 **Models** 的文件夹。在 **Models** 文件夹中添加以下两个模型类，以映射上述 Holidays API 的请求和响应。
 
 <b>HolidayRequestModel.cs</b>
 
@@ -72,7 +72,7 @@ public class HolidayResponseModel
 }
 ```
 
-Next, create a new Razor component HolidaysExplorer.razor in the Pages folder along with its code-behind file HolidaysExplorer.razor.cs. If you want to learn more about Razor components and code-behind files then you can read my post A Beginner’s Guide to Blazor Components.
+<!-- Next, create a new Razor component HolidaysExplorer.razor in the Pages folder along with its code-behind file HolidaysExplorer.razor.cs. If you want to learn more about Razor components and code-behind files then you can read my post A Beginner’s Guide to Blazor Components. -->
 
 接下来，在 **Pages** 文件夹中创建一个新的 Razor 组件 **HolidaysExplorer.razor** 及其代码隐藏文件 **HolidaysExplorer.razor.cs**。如果您想了解有关 Razor 组件和代码隐藏文件的更多知识，可以阅读我的文章[《Blazor 组件入门指南》](https://ittranslator.cn/dotnet/csharp/2021/07/12/a-beginners-guide-to-blazor-components.html)。
 
@@ -94,9 +94,9 @@ public partial class HolidaysExplorer
 }
 ```
 
-The **HolidaysModel** field is an instance of the **HolidayRequestModel** class that will help us in creating a simple form to ask the user the Country Code and the Year. The following code snippet shows the Blazor form created using the **HolidaysModel** object. The **HandleValidSubmit** method is configured with the Blazor Form’s **OnValidSubmit** event and it will be called when the user will submit the form.
+<!-- The **HolidaysModel** field is an instance of the **HolidayRequestModel** class that will help us in creating a simple form to ask the user the Country Code and the Year. The following code snippet shows the Blazor form created using the **HolidaysModel** object. The **HandleValidSubmit** method is configured with the Blazor Form’s **OnValidSubmit** event and it will be called when the user will submit the form. -->
 
-**HolidaysModel** 字段是 **HolidayRequestModel** 类的一个实例，它将帮助我们创建一个简单的表单来询问用户国家代码和年份。下面的代码片段显示了使用 **HolidaysModel** 对象创建的 Blazor 表单。**HandleValidSubmit** 方法是使用 Blazor Form 的 **OnValidSubmit** 事件配置的，它在用户提交表单时被调用。
+**HolidaysModel** 字段是 **HolidayRequestModel** 类的一个实例，它将帮助我们创建一个简单的表单来询问用户国家代码和年份。下面的代码片段显示了使用 **HolidaysModel** 对象创建的 Blazor 表单。其中 **HandleValidSubmit** 方法是使用 Blazor Form 的 **OnValidSubmit** 事件配置的，用户提交表单时该方法将被调用。
 
 ```html
 <EditForm Model="@HolidaysModel" OnValidSubmit="@HandleValidSubmit" class="form-inline">
