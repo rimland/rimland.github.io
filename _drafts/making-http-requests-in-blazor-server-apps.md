@@ -13,9 +13,9 @@ published: true
 
 ![Making-HTTP-Requests-in-Blazor-Server-Apps](https://www.ezzylearning.net/wp-content/uploads/Making-HTTP-Requests-in-Blazor-Server-Apps.jpg)
 
-Blazor server apps use the standard ASP.NET Core application and they execute .NET code on the server. We can access any .NET library or server-side feature in these apps in the same way as we use in ASP.NET Core web applications. One such feature is to use HTTP Client instances to make HTTP requests to third-party Web APIs. In this tutorial, I will show you different ways to create HTTP Client instances. I will also show you how to consume a third-party API to fetch and display data in Blazor Server Apps.
+<!-- Blazor server apps use the standard ASP.NET Core application and they execute .NET code on the server. We can access any .NET library or server-side feature in these apps in the same way as we use in ASP.NET Core web applications. One such feature is to use HTTP Client instances to make HTTP requests to third-party Web APIs. In this tutorial, I will show you different ways to create HTTP Client instances. I will also show you how to consume a third-party API to fetch and display data in Blazor Server Apps. -->
 
-Blazor Server 应用使用标准的 ASP.NET Core 应用程序，在服务器端执行 .NET 代码。我们可以像在 ASP.NET Core Web 应用程序中那样，使用的相同方式访问这些应用程序中的任何 .NET 库或服务器端功能。这其中的一项功能是，使用 HTTP Client 实例向第三方 Web API 发送 HTTP 请求。在本教程中，我将向您展示创建 HTTP Client 实例的不同方法。另外，我还会向您展示如何在 Blazor Server 应用程序中使用第三方 API 来获取和显示数据。
+Blazor Server 应用使用标准的 ASP.NET Core 应用程序，在服务端执行 .NET 代码。在这些应用程序中，我们可以像在 ASP.NET Core Web 应用程序中那样，使用相同的方式访问任意 .NET 库或服务端功能。这其中的一项功能是，使用 HTTP Client 实例向第三方 Web API 发送 HTTP 请求。在本教程中，我将向您展示创建 HTTP Client 实例的不同方法。另外，我还会向您展示如何在 Blazor Server 应用程序中使用第三方 API 来获取和显示数据。
 
 [下载源码](https://github.com/ezzylearning/BlazorServerWebAPIsDemo)[^download]
 
