@@ -342,7 +342,7 @@ Run the project and you will notice that the styles related to **img** tag we de
 
 I have covered very basic examples of reusable components in this post but you can see the power of the Razor class library. Developers can create some cool and amazing libraries of reusable Blazor components that can not only add some advanced features to your project but also increase the development speed. Many component vendors already developed some open source and commercial libraries such as MatBlazor, Radzen, Syncfusion, etc.
 
-我在本文中介绍了可重用组件的非常基础的示例，但您可以领会到 Razor 类库的强大功能。开发者可以创建一些又酷又炫的可重用 Blazor 组件库，这些库不仅可以为您的项目添加一些高级功能，还可以提高开发速度。 许多组件供应商已经开发了一些开源和商业库，例如 [MatBlazor](https://www.matblazor.com/)[^Mat]、[Radzen](https://blazor.radzen.com/)[^Rad]、[Syncfusion](https://www.syncfusion.com/blazor-components)[^Syn] 等。
+我在本文中介绍了可重用组件的非常基础的示例，但您可以领会到 Razor 类库的强大功能。开发者可以创建一些又酷又炫的可重用 Blazor 组件库，这些库不仅可以为您的项目添加一些高级功能，还可以提高开发速度。许多组件供应商已经开发了一些开源和商业库，例如 [MatBlazor](https://www.matblazor.com/)[^Mat]、[Radzen](https://blazor.radzen.com/)[^Rad]、[Syncfusion](https://www.syncfusion.com/blazor-components)[^Syn] 等。
 
 [^Mat]: <https://www.matblazor.com/>
 [^Rad]: <https://blazor.radzen.com/>
