@@ -23,9 +23,9 @@ Blazor Server 应用使用标准的 ASP.NET Core 应用程序，在服务端执�
 
 ## 第三方 Web API 概述
 
-We will develop a Blazor server app that will allow the user to input a country code and a year on a Blazor page component and then we will call a third party API to fetch the list of public holidays of that particular country in that particular year. The third-party API we will consume is Nager.Date which is a worldwide public holidays API.
+<!-- We will develop a Blazor server app that will allow the user to input a country code and a year on a Blazor page component and then we will call a third party API to fetch the list of public holidays of that particular country in that particular year. The third-party API we will consume is Nager.Date which is a worldwide public holidays API. -->
 
-我们将开发一个 Blazor Server 应用程序，该应用允许用户在 Blazor 页面组件上输入国家代码和年份，然后我们将调用第三方 API 以获取指定的国家和年份的公共假期列表。我们将使用的第三方 API 是 [Nager.Date](https://date.nager.at/)，它是一个全球公共假期 API。
+我们将开发一个 Blazor Server 应用程序，该应用允许用户在 Blazor 页面组件上输入国家代码和年份，然后我们将调用第三方 API 以获取指定国家和年份的公共假期列表。我们使用的第三方 API 是 [Nager.Date](https://date.nager.at/)，它是一个全球公共假期 API。
 
 <p style="text-align:center">
 <a href="https://date.nager.at/" target="_blank"><img style="background-color:#fff;" loading="lazy" src="https://www.ezzylearning.net/wp-content/uploads/Nager.Date-World-Wide-Public-Holidays-API.png" alt="Nager.Date-World-Wide-Public-Holidays-API"></a>
@@ -37,7 +37,7 @@ We will develop a Blazor server app that will allow the user to input a country 
 
 [https://date.nager.at/api/v2/PublicHolidays/2021/CN](https://date.nager.at/api/v2/PublicHolidays/2021/CN)
 
-The response of this API is the list of public holidays in JSON format as shown below:
+<!-- The response of this API is the list of public holidays in JSON format as shown below: -->
 
 该 API 的响应是 JSON 格式的公共假期列表，如下所示：
 
