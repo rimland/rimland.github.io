@@ -96,7 +96,7 @@ public partial class HolidaysExplorer
 
 <!-- The **HolidaysModel** field is an instance of the **HolidayRequestModel** class that will help us in creating a simple form to ask the user the Country Code and the Year. The following code snippet shows the Blazor form created using the **HolidaysModel** object. The **HandleValidSubmit** method is configured with the Blazor Form’s **OnValidSubmit** event and it will be called when the user will submit the form. -->
 
-**HolidaysModel** 字段是 **HolidayRequestModel** 类的一个实例，它将帮助我们创建一个简单的表单来询问用户国家代码和年份。下面的代码片段显示了使用 **HolidaysModel** 对象创建的 Blazor 表单。其中 **HandleValidSubmit** 方法是使用 Blazor Form 的 **OnValidSubmit** 事件配置的，用户提交表单时该方法将被调用。
+**HolidaysModel** 字段是 **HolidayRequestModel** 类的一个实例，它将帮助我们创建一个简单的表单来询问用户国家代码和年份。下面的代码片段显示了使用 **HolidaysModel** 对象创建的 Blazor 表单，其中 **HandleValidSubmit** 方法是使用 Blazor Form 的 **OnValidSubmit** 事件配置的，用户提交表单时该方法将被调用。
 
 ```html
 <EditForm Model="@HolidaysModel" OnValidSubmit="@HandleValidSubmit" class="form-inline">
@@ -112,9 +112,9 @@ public partial class HolidaysExplorer
 </EditForm>
 ```
 
-The **Holidays** list will be used to display the holidays returned from the third-party API. We need to generate a simple bootstrap table by iterating the holidays with a simple `@foreach` loop.  
+<!-- The **Holidays** list will be used to display the holidays returned from the third-party API. We need to generate a simple bootstrap table by iterating the holidays with a simple `@foreach` loop. -->
 
-**Holidays** 列表用来显示从第三方 API 返回的假期。我们需要通过一个 `@foreach` 循环迭代假期来生成一个简单的 bootstrap 表格。
+**Holidays** 列表用来显示从第三方 API 返回的假期。我们需要使用一个 `@foreach` 循环迭代返回的假期来生成一个简单的 bootstrap 表格。
 
 ```html
 @if (Holidays.Count > 0)
@@ -145,7 +145,7 @@ The **Holidays** list will be used to display the holidays returned from the thi
 }
 ```
 
-The complete code of HolidaysExplorer.razor view is shown below.
+<!-- The complete code of HolidaysExplorer.razor view is shown below. -->
 
 **HolidaysExplorer.razor** 视图的完整代码如下：
 
@@ -197,9 +197,9 @@ The complete code of HolidaysExplorer.razor view is shown below.
 }
 ```
 
-If you will run the app at this point, you will see a simple HTML form without any holidays. This is because the method **HandleValidSubmit** is empty and we are not calling any API to fetch holiday data yet.
+<!-- If you will run the app at this point, you will see a simple HTML form without any holidays. This is because the method **HandleValidSubmit** is empty and we are not calling any API to fetch holiday data yet. -->
 
-此时如果您运行该应用程序，您将看到一个不显示任何假期的简单 HTML 表单。这是因为 **HandleValidSubmit** 方法是空的，我们还没有调用任何 API 来获取假期数据。
+此时如果您运行该应用程序，您将看到一个不显示任何假期的简单 HTML 表单。这是因为方法 **HandleValidSubmit** 是空的，我们还未调用任何 API 来获取假期数据。
 
 ![Simple-Form-using-Blazor-Form-Component](https://www.ezzylearning.net/wp-content/uploads/Simple-Form-using-Blazor-Form-Component.jpg)
 
@@ -207,13 +207,13 @@ If you will run the app at this point, you will see a simple HTML form without a
 
 ## 在 Blazor Server 应用中使用 IHttpClientFactory 创建 HttpClient
 
-There are different ways to consume third-party APIs in Blazor server apps using HttpClient so let’s start with a basic example in which we will create HttpClient object using IHttpClientFactory.
+<!-- There are different ways to consume third-party APIs in Blazor server apps using HttpClient so let’s start with a basic example in which we will create HttpClient object using IHttpClientFactory. -->
 
-在 Blazor Server 中使用 HttpClient 请求第三方 API 有多种不同的方式，因此让我们从一个基础的示例开始，在该示例中我们使用 [IHttpClientFactory](https://docs.microsoft.com/zh-cn/dotnet/api/system.net.http.ihttpclientfactory) 创建 [HttpClient](https://docs.microsoft.com/zh-cn/dotnet/api/system.net.http.httpclient) 对象。
+在 Blazor Server 应用程序中使用 HttpClient 请求第三方 API 有多种不同的方式，让我们从一个基础的示例开始，在该示例中我们使用 [`IHttpClientFactory`](https://docs.microsoft.com/zh-cn/dotnet/api/system.net.http.ihttpclientfactory) 创建 [`HttpClient`](https://docs.microsoft.com/zh-cn/dotnet/api/system.net.http.httpclient) 对象。
 
-Create a **Services** folder in the project and create the following **IHolidaysApiService** interface.  The interface has just one method **GetHolidays** that takes **HolidayRequestModel** as a parameter and returns the list of **HolidayResponseModel** objects.
+<!-- Create a **Services** folder in the project and create the following **IHolidaysApiService** interface.  The interface has just one method **GetHolidays** that takes **HolidayRequestModel** as a parameter and returns the list of **HolidayResponseModel** objects. -->
 
-在项目中创建一个 **Services** 文件夹，并创建如下的 **IHolidaysApiService** 接口。该接口只有一个方法 **GetHolidays**，它将 **HolidayRequestModel** 作为参数并返回 **HolidayResponseModel** 对象的列表。
+在项目中创建一个 **Services** 文件夹，并创建如下的 **IHolidaysApiService** 接口。该接口只有一个方法 **GetHolidays**，它以 **HolidayRequestModel** 作为参数并返回 **HolidayResponseModel** 对象的列表。
 
 <b>IHolidaysApiService.cs</b>
 
@@ -224,7 +224,7 @@ public interface IHolidaysApiService
 }
 ```
 
-Next, create a class **HolidaysApiService** in the **Services** folder and implement the above interface.
+<!-- Next, create a class **HolidaysApiService** in the **Services** folder and implement the above interface. -->
 
 接下来，在 **Services** 文件夹中创建一个 **HolidaysApiService** 类，实现上面的接口。
 
@@ -279,26 +279,26 @@ public class HolidaysApiService : IHolidaysApiService
 var url = string.Format("https://date.nager.at/api/v2/PublicHolidays/{0}/{1}", holidaysRequest.Year, holidaysRequest.CountryCode);
 ```
 
-Next, we created HttpRequestMessage object and configured it to send HTTP GET request to third part API URL.
+<!-- Next, we created HttpRequestMessage object and configured it to send HTTP GET request to third part API URL. -->
 
-接下来，我们创建了 HttpRequestMessage 对象并将其配置为向第三方 API URL 发送 HTTP GET 请求。
+接下来，我们创建了 HttpRequestMessage 对象并配置它以向第三方 API URL 发送 HTTP GET 请求。
 
 ```csharp
 var request = new HttpRequestMessage(HttpMethod.Get, url);
 request.Headers.Add("Accept", "application/vnd.github.v3+json");
 ```
 
-An IHttpClientFactory can be requested using dependency injection (DI) and this is why we are injecting it in the constructor of the above class. The following line is using IHttpClientFactory to create an HttpClient instance.
+<!-- An IHttpClientFactory can be requested using dependency injection (DI) and this is why we are injecting it in the constructor of the above class. The following line is using IHttpClientFactory to create an HttpClient instance. -->
 
-可以使用依赖注入 (DI) 请求 IHttpClientFactory，这正是我们将其注入上面类的构造函数的原因。下面这行代码使用 IHttpClientFactory 创建一个 HttpClient 实例。
+可以使用依赖注入 (DI) 请求 IHttpClientFactory，这正是我们将其注入到前面类的构造函数的原因。下面这行代码使用 IHttpClientFactory 创建了一个 HttpClient 实例。
 
 ```csharp
 var client = _clientFactory.CreateClient();
 ```
 
-Once we have the HttpClient object available, we are simply calling its **SendAsync** method to send an HTTP GET request to
+<!-- Once we have the HttpClient object available, we are simply calling its **SendAsync** method to send an HTTP GET request to -->
 
-有了 HttpClient 对象之后，我们只需调用它的 **SendAsync** 方法来发送一个 HTTP GET 请求。
+有了 HttpClient 对象之后，我们简单地调用它的 **SendAsync** 方法来发送一个 HTTP GET 请求。
 
 ```csharp
 var response = await client.SendAsync(request);
@@ -312,7 +312,7 @@ var response = await client.SendAsync(request);
 var stringResponse = await response.Content.ReadAsStringAsync();
 ```
 
-Finally, we are deserializing the response using the **Deserialize** method of **JsonSerializer** class.
+<!-- Finally, we are deserializing the response using the **Deserialize** method of **JsonSerializer** class. -->
 
 最后，我们使用 **JsonSerializer** 类的 **Deserialize** 方法反序列化该响应。
 
@@ -321,9 +321,9 @@ result = JsonSerializer.Deserialize<List<HolidayResponseModel>>(stringResponse,
    new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
 ```
 
-Before we test our app, we need to register HolidaysApiService in the **Startup.cs** file. We also need to register **IHttpClientFactory** using the **AddHttpClient** method.
+<!-- Before we test our app, we need to register HolidaysApiService in the **Startup.cs** file. We also need to register **IHttpClientFactory** using the **AddHttpClient** method. -->
 
-在测试应用程序之前，我们需要在 **Startup.cs** 文件中注册 HolidaysApiService 服务。我们还需要调用 **AddHttpClient** 方法注册 **IHttpClientFactory**。
+在测试该应用程序之前，我们需要在 **Startup.cs** 文件中注册 HolidaysApiService 服务。我们还需要调用 **AddHttpClient** 方法注册 **IHttpClientFactory**。
 
 <b>Startup.cs</b>
 
@@ -339,7 +339,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Run the application and provide any country code and year in the text fields. Clicking the Submit button should invoke our **GetHolidays** method in the background and you should be able to see the list of public holidays as shown below.
+<!-- Run the application and provide any country code and year in the text fields. Clicking the Submit button should invoke our **GetHolidays** method in the background and you should be able to see the list of public holidays as shown below. -->
 
 运行应用程序并在文本框中提供任意国家代码和年份。点击 **Submit** 按钮就会在后台调用我们的 **GetHolidays** 方法，然后您应该能看到如下所示的公共假期列表。
 
