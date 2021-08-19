@@ -1,13 +1,13 @@
 ---
 layout: post
 title:  "Blazor Server 应用程序中进行 HTTP 请求"
-date:   2021-07-19 00:10:10 +0800
+date:   2021-08-19 00:10:10 +0800
 categories: dotnet csharp
 tags: [DotNet, Blazor]
 published: true
 ---
 
-> 翻译自 Waqas Anwar 2021年5月4日的文章 [《A Developer’s Guide To Blazor Component Libraries》](https://www.ezzylearning.net/tutorial/a-developers-guide-to-blazor-component-libraries) [^1]
+> 翻译自 Waqas Anwar 2021年5月21日的文章 [《A Developer’s Guide To Blazor Component Libraries》](https://www.ezzylearning.net/tutorial/a-developers-guide-to-blazor-component-libraries) [^1]
 
 [^1]: <https://www.ezzylearning.net/tutorial/a-developers-guide-to-blazor-component-libraries> A Developer’s Guide To Blazor Component Libraries
 
