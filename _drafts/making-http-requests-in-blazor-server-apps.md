@@ -347,25 +347,25 @@ public void ConfigureServices(IServiceCollection services)
 
 <!-- Creating Named HttpClient objects in Blazor Server Apps -->
 
-## 在 Blazor Server 应用程序中创建命名 HttpClient 对象
+## 在 Blazor Server 应用程序中创建*命名 HttpClient* 对象
 
-The above example is good for scenarios where you are refactoring an existing application and you want to create HttpClient objects in some methods using IHttpClientFactory without affecting the entire application. If you are creating a new application or you want to centralize the way HttpClient objects are created, then you have to use named HTTP clients.
+<!-- The above example is good for scenarios where you are refactoring an existing application and you want to create HttpClient objects in some methods using IHttpClientFactory without affecting the entire application. If you are creating a new application or you want to centralize the way HttpClient objects are created, then you have to use named HTTP clients. -->
 
-上面的示例适用于您正在重构现有的应用程序，并且希望在不影响整体应用程序的情况下，在某些方法中使用 IHttpClientFactory 创建 HttpClient 对象的场景。如果您正在创建一个全新的应用程序，或者您想要将创建 HttpClient 对象的方式集中化，那么您必须使用命名的 HttpClient。
+上面的示例适用于您正在重构现有的应用程序，希望在不影响整个应用程序的情况下，在某些方法中使用 IHttpClientFactory 创建 HttpClient 对象的场景。如果您要创建一个全新的应用程序，或者您想要将创建 HttpClient 对象的方式集中化，那么您必须使用**命名 HttpClient**。
 
-Following are the benefits of creating named HTTP clients:
+<!-- Following are the benefits of creating named HTTP clients: -->
 
 下面是创建命名 HTTP 客户端的好处：
 
-We can give each HttpClient a name and specify all configurations related to HttpClient at the application startup instead of having configurations scattered throughout the application.
+<!-- We can give each HttpClient a name and specify all configurations related to HttpClient at the application startup instead of having configurations scattered throughout the application.
 We can configure the named HttpClient once and reuse it multiple times for calling APIs of a particular API provider.
-We can configure multiple named HttpClient objects with different configurations depending upon the usage of these clients in different areas of the application.
+We can configure multiple named HttpClient objects with different configurations depending upon the usage of these clients in different areas of the application. -->
 
 1. 我们可以为每个 HttpClient 命名，并在应用程序启动时指定与 HttpClient 相关的所有配置，而不是将配置分散在整个应用程序当中。
-2. 我们可以只配置一次命名的 HttpClient，并多次重用它来调用一个特定 API 提供商的 API。
-3. 我们可以根据这些客户端在应用程序的不同区域的使用情况，配置多个具有不同配置的命名 HttpClient 对象。
+2. 我们可以只配置一次命名的 HttpClient，并多次重用它调用一个特定 API 提供者的所有 API。
+3. 我们可以根据这些客户端在应用程序不同区域的使用情况，配置多个不同配置的命名 HttpClient 对象。
 
-We can specify a named client in the **ConfigureServices** method of **Startup.cs** file using the name **AddHttpClient** method we used above.
+<!-- We can specify a named client in the **ConfigureServices** method of **Startup.cs** file using the name **AddHttpClient** method we used above. -->
 
 我们可以在 **Startup.cs** 文件的 **ConfigureServices** 方法中，使用上面用过的名为 **AddHttpClient** 方法指定一个命名的 HttpClient。
 
@@ -387,11 +387,11 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-We need to specify the name of the client e.g. **HolidaysApi** and we can also configure the **BaseAddress**, **DefaultRequestHeaders**, and other properties as shown above.
+<!-- We need to specify the name of the client e.g. **HolidaysApi** and we can also configure the **BaseAddress**, **DefaultRequestHeaders**, and other properties as shown above. -->
 
-我们需要指定客户端的名称（例如 **HolidaysApi**），我们还可以配置 **BaseAddress**、**DefaultRequestHeaders** 和其他属性，如上所示。
+我们需要指定客户端的名称（例如 **HolidaysApi**），我们还可以配置如上所示的 **BaseAddress**、**DefaultRequestHeaders** 和其他属性。
 
-Once the named HttpClient is configured, we can now create HttpClient objects throughout the application by using the same **CreateClient** method but this time we need to specify which named client e.g. **HolidaysApi** we want to create.
+<!-- Once the named HttpClient is configured, we can now create HttpClient objects throughout the application by using the same **CreateClient** method but this time we need to specify which named client e.g. **HolidaysApi** we want to create. -->
 
 配置了命名 HttpClient 之后，我们可以使用相同的 **CreateClient** 方法在整个应用程序中创建 HttpClient 对象，不过这次我们需要指定想要创建哪个已命名的客户端（例如 **HolidaysApi**）。
 
@@ -437,15 +437,15 @@ public class HolidaysApiService : IHolidaysApiService
 }
 ```
 
-The name e.g. **HolidaysApi** we mentioned in the **CreateClient** method must match with the name we configured in **Startup.cs** file. Each time a CreateClient method is called, a new instance of HttpClient is created for us.
+<!-- The name e.g. **HolidaysApi** we mentioned in the **CreateClient** method must match with the name we configured in **Startup.cs** file. Each time a CreateClient method is called, a new instance of HttpClient is created for us. -->
 
 我们在 **CreateClient** 方法中传递的名称（比如 **HolidaysApi**）必须与我们在 **Startup.cs** 文件中配置的名称一致。每次调用 **CreateClient** 方法时，都会为我们创建一个新的 **HttpClient** 实例。
 
-We also don’t need to specify the API hostname in the Request URL because we already specified the based address in Startup.cs file.
+<!-- We also don’t need to specify the API hostname in the Request URL because we already specified the based address in Startup.cs file. -->
 
-另外，我们不需要在请求 URL 中指定 API 主机名称，因为我们已经在 *Startup.cs* 文件中指定过基地址。
+另外，我们不需要在请求的 URL 中指定 API 主机名称，因为我们在 *Startup.cs* 文件中已经指定过基地址了。
 
-Run the application once again and provide the country code and year values and you should be able to see the list of public holidays.
+<!-- Run the application once again and provide the country code and year values and you should be able to see the list of public holidays. -->
 
 再次运行应用程序并提供国家代码和年份值，您应该能看到以下公共假期列表。
 
