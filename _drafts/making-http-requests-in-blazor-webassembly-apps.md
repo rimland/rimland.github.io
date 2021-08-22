@@ -7,7 +7,7 @@ tags: [DotNet, Blazor]
 published: true
 ---
 
-> 翻译自 Waqas Anwar 2021年5月4日的文章 [《Making HTTP Requests in Blazor WebAssembly Apps》](https://www.ezzylearning.net/tutorial/making-http-requests-in-blazor-webassembly-apps) [^1]
+> 翻译自 Waqas Anwar 2021年5月13日的文章 [《Making HTTP Requests in Blazor WebAssembly Apps》](https://www.ezzylearning.net/tutorial/making-http-requests-in-blazor-webassembly-apps) [^1]
 
 [^1]: <https://www.ezzylearning.net/tutorial/making-http-requests-in-blazor-webassembly-apps> Making HTTP Requests in Blazor WebAssembly Apps
 
