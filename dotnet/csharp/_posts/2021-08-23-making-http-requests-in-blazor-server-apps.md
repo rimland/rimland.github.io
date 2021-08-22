@@ -76,7 +76,7 @@ public class HolidayResponseModel
 
 接下来，在 **Pages** 文件夹中创建一个新的 Razor 组件 **HolidaysExplorer.razor** 及其代码隐藏文件 **HolidaysExplorer.razor.cs**。如果您想了解有关 Razor 组件和代码隐藏文件的更多知识，可以阅读我的文章[《Blazor 组件入门指南》](https://ittranslator.cn/dotnet/csharp/2021/07/12/a-beginners-guide-to-blazor-components.html)。
 
-<b>HolidayResponseModel.cs</b>
+<b>HolidaysExplorer.razor.cs</b>
 
 ```csharp
 public partial class HolidaysExplorer
@@ -450,8 +450,6 @@ public class HolidaysApiService : IHolidaysApiService
 再次运行应用程序并提供国家代码和年份值，您应该能看到以下公共假期列表。
 
 ![Making-HTTP-Requests-in-Blazor-Server-Apps-1](https://www.ezzylearning.net/wp-content/uploads/Making-HTTP-Requests-in-Blazor-Server-Apps-1.jpg)
-
-Creating Typed HttpClient objects in Blazor Server Apps
 
 ## 在 Blazor Server 应用程序中创建*类型化 HttpClient* 对象
 
