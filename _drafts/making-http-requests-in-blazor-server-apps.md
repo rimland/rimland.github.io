@@ -453,25 +453,25 @@ public class HolidaysApiService : IHolidaysApiService
 
 Creating Typed HttpClient objects in Blazor Server Apps
 
-## 在 Blazor Server 应用程序中创建类型化 HttpClient 对象
+## 在 Blazor Server 应用程序中创建*类型化 HttpClient* 对象
 
-The third option for creating and using HttpClient objects is to use Typed clients. These clients have the following benefits:
+<!-- The third option for creating and using HttpClient objects is to use Typed clients. These clients have the following benefits: -->
 
-创建和使用 HttpClient 对象的第三个选项是使用类型化客户端。这种客户端具有以下好处：
+创建和使用 HttpClient 对象的第三种选择是使用类型化客户端。这种客户端具有以下好处：
 
 <!-- 1. They provide the same capabilities as named clients without the need to use strings as keys.
 2. They provide IntelliSense and compiler help when consuming clients.
 3. They provide a single location to configure and interact with a particular HttpClient. For example, we can configure a typed HttpClient specific to a particular endpoint of Facebook API, and that HttpClient can encapsulate all the logic required to use that particular endpoint.
 4. They work with Dependency Inject (DI) and can be injected where required. -->
 
-1. 它们提供与命名客户端相同的功能，而无需使用字符串作为键。
+1. 它们提供与命名客户端同样的功能，但无需使用字符串作为键。
 2. 它们在使用客户端时提供智能感知和编译器帮助。
-3. 它们提供了一个位置来配置特定的 HttpClient 并与之交互。 例如，我们可以配置特定于 Facebook API 指定端点的类型化 HttpClient，并且该 HttpClient 可以封装使用该特定端点所需的所有逻辑。
-4. 它们与依赖注入 (DI) 一起使用，并且可以在需要时注入。
+3. 它们提供了一个单独的位置来配置特定的 HttpClient 并与之交互。例如，我们可以配置针对 Facebook API 的一个特定终端的一个类型化 HttpClient，而且该 HttpClient 可以封装使用该特定终端所需的所有逻辑。
+4. 它们与依赖注入 (DI) 一起使用，然后可以在需要的地方注入。
 
-To configure a typed HTTPClient, we need to register it in **Startup.cs** file using the same **AddHttpClient** method but this time, we need to pass our service name **HolidaysApiService** as the type.
+<!-- To configure a typed HTTPClient, we need to register it in **Startup.cs** file using the same **AddHttpClient** method but this time, we need to pass our service name **HolidaysApiService** as the type. -->
 
-要配置类型化的 HTTPClient，我们需要在 **Startup.cs** 文件中使用相同的 **AddHttpClient** 方法注册它，但这一次，我们需要传递服务名称 **HolidaysApiService** 作为类型。
+要配置类型化的 HTTPClient，我们需要在 **Startup.cs** 文件中使用相同的 **AddHttpClient** 方法注册它，但这一次，我们需要传递我们的服务名称 **HolidaysApiService** 作为它的类型。
 
 <b>Startup.cs</b>
 
@@ -487,9 +487,9 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-In the code snippet above, the HTTP client and our service HolidaysApiService both will be registered as transient client and service. This will allow us to pass the HttpClient in the constructor of the service as shown in the following code snippet. Notice, how the HttpClient is exposed as the public property of the service.
+<!-- In the code snippet above, the HTTP client and our service HolidaysApiService both will be registered as transient client and service. This will allow us to pass the HttpClient in the constructor of the service as shown in the following code snippet. Notice, how the HttpClient is exposed as the public property of the service. -->
 
-在上面的代码片段中，HTTP 客户端和我们的服务 HolidaysApiService 都将注册为临时客户端和服务。这将允许我们在服务的构造函数中传递 HttpClient，如以下代码片段所示。 请注意，HttpClient 如何公开为服务的公共属性。
+在上面的代码片段中，HTTP 客户端和我们的服务 HolidaysApiService 都将注册为瞬时客户端和服务。这将允许我们在服务的构造函数中传递 HttpClient，如以下代码片段所示。请注意，HttpClient 是如何公开为服务的 `public` 属性的。
 
 <b>HolidaysApiService.cs</b>
 
@@ -531,9 +531,9 @@ public class HolidaysApiService : IHolidaysApiService
 }
 ```
 
-The configuration for a typed client can be specified during registration in the **ConfigureServices** method of **Startup.cs** file, rather than in the typed client’s constructor.
+<!-- The configuration for a typed client can be specified during registration in the **ConfigureServices** method of **Startup.cs** file, rather than in the typed client’s constructor. -->
 
-类型化客户端的配置可以在注册期间在 **Startup.cs** 文件的 **ConfigureServices** 方法中指定，而不是在类型化客户端的构造函数中。
+类型化客户端的配置也可以不在类型化客户端的构造函数中指定，而在注册期间在 **Startup.cs** 文件的 **ConfigureServices** 方法中指定。
 
 <b>Startup.cs</b>
 
@@ -551,17 +551,17 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-If you are using this technique, then you don’t need to register your service separately. You can remove the following line from the ConfigureServices method.
+<!-- If you are using this technique, then you don’t need to register your service separately. You can remove the following line from the ConfigureServices method. -->
 
-如果您正在使用这种方式，则无需单独注册您的服务。您可以从 ConfigureServices 方法中删除下面的行。
+如果您使用的是这种方式，则无需单独注册您的服务。您可以从 ConfigureServices 方法中删除下面这行代码。
 
 ```csharp
 services.AddSingleton<IHolidaysApiService, HolidaysApiService>();
 ```
 
-The HttpClient object can be encapsulated within a typed client rather than exposed as a public property. We can then use this client internally in any method of service.
+<!-- The HttpClient object can be encapsulated within a typed client rather than exposed as a public property. We can then use this client internally in any method of service. -->
 
-可以将 HttpClient 对象封装在类型化客户端中，而不是作为公共属性公开。然后，我们可以在服务的任意方法内使用这个客户端。
+可以将 HttpClient 对象密封在一个类型化客户端中，而不公开为 `public` 属性。然后，我们可以在服务的任意方法内使用这个客户端。
 
 ```csharp
 public class HolidaysApiService : IHolidaysApiService
@@ -599,7 +599,7 @@ public class HolidaysApiService : IHolidaysApiService
 }
 ```
 
-Run the application once again and provide the country code and year values and you should be able to see the list of public holidays.
+<!-- Run the application once again and provide the country code and year values and you should be able to see the list of public holidays. -->
 
 再次运行应用程序，并提供国家代码和年份值，您应该能够看到以下公共假期列表。
 
@@ -607,6 +607,6 @@ Run the application once again and provide the country code and year values and 
 
 ## 总结
 
-In this tutorial, I covered different techniques of creating and using HTTP clients in Blazor Server Apps. Most of the techniques mentioned here can also be used in ASP.NET Core applications because Blazor Server Apps are built on top of ASP.NET Core infrastructure. In my next post 《Making HTTP Requests in Blazor WebAssembly Apps》, I will try to cover the creation and usage of HTTP clients in Blazor WebAssembly Apps.
+<!-- In this tutorial, I covered different techniques of creating and using HTTP clients in Blazor Server Apps. Most of the techniques mentioned here can also be used in ASP.NET Core applications because Blazor Server Apps are built on top of ASP.NET Core infrastructure. In my next post 《Making HTTP Requests in Blazor WebAssembly Apps》, I will try to cover the creation and usage of HTTP clients in Blazor WebAssembly Apps. -->
 
 在本文中，我介绍了在 Blazor Server 应用程序中创建和使用 HTTP 客户端的不同技术。这里提到的大部分技术也可以在 ASP.NET Core 应用程序中使用，因为 Blazor Server 应用程序是构建在 ASP.NET Core 基础架构之上的。在我的下篇文章 [《Making HTTP Requests in Blazor WebAssembly Apps》](https://www.ezzylearning.net/tutorial/making-http-requests-in-blazor-webassembly-apps) 中，我将尝试介绍 HTTP 客户端在 Blazor WebAssembly 应用程序中的创建和使用。
