@@ -11,7 +11,7 @@ published: true
 
 [^1]: <https://www.ezzylearning.net/tutorial/making-http-requests-in-blazor-server-apps> Making HTTP Requests in Blazor Server Apps
 
-![Making-HTTP-Requests-in-Blazor-Server-Apps](https://www.ezzylearning.net/wp-content/uploads/Making-HTTP-Requests-in-Blazor-Server-Apps.jpg)
+![Making-HTTP-Requests-in-Blazor-Server-Apps](/assets/images/202108/Making-HTTP-Requests-in-Blazor-Server-Apps.jpg)
 
 <!-- Blazor server apps use the standard ASP.NET Core application and they execute .NET code on the server. We can access any .NET library or server-side feature in these apps in the same way as we use in ASP.NET Core web applications. One such feature is to use HTTP Client instances to make HTTP requests to third-party Web APIs. In this tutorial, I will show you different ways to create HTTP Client instances. I will also show you how to consume a third-party API to fetch and display data in Blazor Server Apps. -->
 
@@ -30,7 +30,7 @@ Blazor Server 应用使用标准的 ASP.NET Core 应用程序，在服务端执�
 [^nager]: <https://date.nager.at/>
 
 <p style="text-align:center">
-<a href="https://date.nager.at/" target="_blank"><img style="background-color:#fff;" loading="lazy" src="https://www.ezzylearning.net/wp-content/uploads/Nager.Date-World-Wide-Public-Holidays-API.png" alt="Nager.Date-World-Wide-Public-Holidays-API"></a>
+<a href="https://date.nager.at/" target="_blank"><img style="background-color:#fff;" loading="lazy" src="/assets/images/202108/Nager.Date-World-Wide-Public-Holidays-API.png" alt="Nager.Date-World-Wide-Public-Holidays-API"></a>
 </p>
 
 <!-- It is a very simple API and you can easily test this API in Postman by entering the following URL. -->
@@ -43,7 +43,7 @@ Blazor Server 应用使用标准的 ASP.NET Core 应用程序，在服务端执�
 
 该 API 的响应是 JSON 格式的公共假期列表，如下所示：
 
-![World-Wide-Public-Holidays-API-in-Postman](https://www.ezzylearning.net/wp-content/uploads/World-Wide-Public-Holidays-API-in-Postman.png)
+![World-Wide-Public-Holidays-API-in-Postman](/assets/images/202108/World-Wide-Public-Holidays-API-in-Postman.png)
 
 ## 从 Blazor Sever 应用程序开始
 
@@ -203,7 +203,7 @@ public partial class HolidaysExplorer
 
 此时如果您运行该应用程序，您将看到一个不显示任何假期的简单 HTML 表单。这是因为方法 **HandleValidSubmit** 是空的，我们还未调用任何 API 来获取假期数据。
 
-![Simple-Form-using-Blazor-Form-Component](https://www.ezzylearning.net/wp-content/uploads/Simple-Form-using-Blazor-Form-Component.jpg)
+![Simple-Form-using-Blazor-Form-Component](/assets/images/202108/Simple-Form-using-Blazor-Form-Component.jpg)
 
 <!-- Creating HttpClient using IHttpClientFactory in Blazor Server Apps -->
 
@@ -345,7 +345,7 @@ public void ConfigureServices(IServiceCollection services)
 
 运行应用程序并在文本框中提供任意国家代码和年份。点击 **Submit** 按钮就会在后台调用我们的 **GetHolidays** 方法，然后您应该能看到如下所示的公共假期列表。
 
-![Making-HTTP-Requests-in-Blazor-Server-Apps-1](https://www.ezzylearning.net/wp-content/uploads/Making-HTTP-Requests-in-Blazor-Server-Apps-1.jpg)
+![Making-HTTP-Requests-in-Blazor-Server-Apps-1](/assets/images/202108/Making-HTTP-Requests-in-Blazor-Server-Apps-1.jpg)
 
 <!-- Creating Named HttpClient objects in Blazor Server Apps -->
 
@@ -451,7 +451,7 @@ public class HolidaysApiService : IHolidaysApiService
 
 再次运行应用程序并提供国家代码和年份值，您应该能看到以下公共假期列表。
 
-![Making-HTTP-Requests-in-Blazor-Server-Apps-1](https://www.ezzylearning.net/wp-content/uploads/Making-HTTP-Requests-in-Blazor-Server-Apps-1.jpg)
+![Making-HTTP-Requests-in-Blazor-Server-Apps-1](/assets/images/202108/Making-HTTP-Requests-in-Blazor-Server-Apps-1.jpg)
 
 ## 在 Blazor Server 应用程序中创建*类型化 HttpClient* 对象
 
@@ -603,7 +603,7 @@ public class HolidaysApiService : IHolidaysApiService
 
 再次运行应用程序，并提供国家代码和年份值，您应该能够看到以下公共假期列表。
 
-![Using-HTTP-Client-to-Call-Third-Party-APIs-in-Blazor](https://www.ezzylearning.net/wp-content/uploads/Using-HTTP-Client-to-Call-Third-Party-APIs-in-Blazor.jpg)
+![Using-HTTP-Client-to-Call-Third-Party-APIs-in-Blazor](/assets/images/202108/Using-HTTP-Client-to-Call-Third-Party-APIs-in-Blazor.jpg)
 
 ## 总结
 
