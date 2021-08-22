@@ -15,17 +15,19 @@ published: true
 
 <!-- Blazor server apps use the standard ASP.NET Core application and they execute .NET code on the server. We can access any .NET library or server-side feature in these apps in the same way as we use in ASP.NET Core web applications. One such feature is to use HTTP Client instances to make HTTP requests to third-party Web APIs. In this tutorial, I will show you different ways to create HTTP Client instances. I will also show you how to consume a third-party API to fetch and display data in Blazor Server Apps. -->
 
-Blazor Server 应用使用标准的 ASP.NET Core 应用程序，在服务端执行 .NET 代码。在这些应用程序中，我们可以像在 ASP.NET Core Web 应用程序中那样，使用相同的方式访问任意 .NET 库或服务端功能。这其中的一项功能是，使用 HTTP Client 实例向第三方 Web API 发送 HTTP 请求。在本教程中，我将向您展示创建 HTTP Client 实例的不同方法。另外，我还会向您展示如何在 Blazor Server 应用程序中使用第三方 API 来获取和显示数据。
+Blazor Server 应用使用标准的 ASP.NET Core 应用程序，在服务端执行 .NET 代码。在 Blazor Server 应用程序中，我们可以像在 ASP.NET Core Web 应用程序中那样，使用相同的方式访问任意 .NET 库或服务端功能。这其中的一项功能是，使用 HTTP Client 实例向第三方 Web API 发送 HTTP 请求。在本教程中，我将向您展示创建 HTTP Client 实例的不同方法。另外，我还会向您展示如何在 Blazor Server 应用程序中使用第三方 API 来获取和显示数据。
 
 [下载源码](https://github.com/ezzylearning/BlazorServerWebAPIsDemo)[^download]
 
 [^download]: <https://github.com/ezzylearning/BlazorServerWebAPIsDemo>
 
-## 第三方 Web API 概述
+## 第三方 Web API 概览
 
 <!-- We will develop a Blazor server app that will allow the user to input a country code and a year on a Blazor page component and then we will call a third party API to fetch the list of public holidays of that particular country in that particular year. The third-party API we will consume is Nager.Date which is a worldwide public holidays API. -->
 
-我们将开发一个 Blazor Server 应用程序，该应用允许用户在 Blazor 页面组件上输入国家代码和年份，然后我们将调用第三方 API 以获取指定国家和年份的公共假期列表。我们使用的第三方 API 是 [Nager.Date](https://date.nager.at/)，它是一个全球公共假期 API。
+我们将开发一个 Blazor Server 应用程序，该应用允许用户在 Blazor 页面组件上输入国家代码和年份，然后我们将调用第三方 API 以获取指定国家和年份的公共假期列表。我们使用的第三方 API 是 [Nager.Date](https://date.nager.at/)[^nager]，它是一个全球公共假期 API。
+
+[^nager]: <https://date.nager.at/>
 
 <p style="text-align:center">
 <a href="https://date.nager.at/" target="_blank"><img style="background-color:#fff;" loading="lazy" src="https://www.ezzylearning.net/wp-content/uploads/Nager.Date-World-Wide-Public-Holidays-API.png" alt="Nager.Date-World-Wide-Public-Holidays-API"></a>
@@ -43,7 +45,7 @@ Blazor Server 应用使用标准的 ASP.NET Core 应用程序，在服务端执�
 
 ![World-Wide-Public-Holidays-API-in-Postman](https://www.ezzylearning.net/wp-content/uploads/World-Wide-Public-Holidays-API-in-Postman.png)
 
-## Getting Started with Blazor Sever App
+## 从 Blazor Sever 应用程序开始
 
 <!-- Create a Blazor Server App in Visual Studio 2019 and create a folder named Models. Add the following two model classes in the Models folder to map Holidays API request and response shown above. -->
 
@@ -96,7 +98,7 @@ public partial class HolidaysExplorer
 
 <!-- The **HolidaysModel** field is an instance of the **HolidayRequestModel** class that will help us in creating a simple form to ask the user the Country Code and the Year. The following code snippet shows the Blazor form created using the **HolidaysModel** object. The **HandleValidSubmit** method is configured with the Blazor Form’s **OnValidSubmit** event and it will be called when the user will submit the form. -->
 
-**HolidaysModel** 字段是 **HolidayRequestModel** 类的一个实例，它将帮助我们创建一个简单的表单来询问用户国家代码和年份。下面的代码片段显示了使用 **HolidaysModel** 对象创建的 Blazor 表单，其中 **HandleValidSubmit** 方法是使用 Blazor Form 的 **OnValidSubmit** 事件配置的，用户提交表单时该方法将被调用。
+**HolidaysModel** 字段是 **HolidayRequestModel** 类的一个实例，它将帮助我们创建一个简单的表单来向用户询问国家代码和年份。下面的代码片段显示了使用 **HolidaysModel** 对象创建的 Blazor 表单，其中 **HandleValidSubmit** 方法是使用 Blazor Form 的 **OnValidSubmit** 事件配置的，用户提交表单时该方法将被调用。
 
 ```html
 <EditForm Model="@HolidaysModel" OnValidSubmit="@HandleValidSubmit" class="form-inline">
@@ -205,7 +207,7 @@ public partial class HolidaysExplorer
 
 <!-- Creating HttpClient using IHttpClientFactory in Blazor Server Apps -->
 
-## 在 Blazor Server 应用中使用 IHttpClientFactory 创建 HttpClient
+## 在 Blazor Server 应用程序中使用 IHttpClientFactory 创建 HttpClient
 
 <!-- There are different ways to consume third-party APIs in Blazor server apps using HttpClient so let’s start with a basic example in which we will create HttpClient object using IHttpClientFactory. -->
 
@@ -290,7 +292,7 @@ request.Headers.Add("Accept", "application/vnd.github.v3+json");
 
 <!-- An IHttpClientFactory can be requested using dependency injection (DI) and this is why we are injecting it in the constructor of the above class. The following line is using IHttpClientFactory to create an HttpClient instance. -->
 
-可以使用依赖注入 (DI) 请求 IHttpClientFactory，这正是我们将其注入到前面类的构造函数的原因。下面这行代码使用 IHttpClientFactory 创建了一个 HttpClient 实例。
+可以使用[依赖注入 (DI)](https://www.ezzylearning.net/tutorial/a-step-by-step-guide-to-asp-net-core-dependency-injection) 请求一个 IHttpClientFactory，这正是我们将其注入到前面类的构造函数的原因。下面这行代码使用 IHttpClientFactory 创建了一个 HttpClient 实例。
 
 ```csharp
 var client = _clientFactory.CreateClient();
@@ -367,7 +369,7 @@ We can configure multiple named HttpClient objects with different configurations
 
 <!-- We can specify a named client in the **ConfigureServices** method of **Startup.cs** file using the name **AddHttpClient** method we used above. -->
 
-我们可以在 **Startup.cs** 文件的 **ConfigureServices** 方法中，使用上面用过的名为 **AddHttpClient** 方法指定一个命名的 HttpClient。
+我们可以在 **Startup.cs** 文件的 **ConfigureServices** 方法中，使用前面用过的名为 **AddHttpClient** 方法指定一个命名的 HttpClient。
 
 <b>Startup.cs</b>
 
@@ -464,8 +466,8 @@ public class HolidaysApiService : IHolidaysApiService
 
 1. 它们提供与命名客户端同样的功能，但无需使用字符串作为键。
 2. 它们在使用客户端时提供智能感知和编译器帮助。
-3. 它们提供了一个单独的位置来配置特定的 HttpClient 并与之交互。例如，我们可以配置针对 Facebook API 的一个特定终端的一个类型化 HttpClient，而且该 HttpClient 可以封装使用该特定终端所需的所有逻辑。
-4. 它们与依赖注入 (DI) 一起使用，然后可以在需要的地方注入。
+3. 它们提供了一个单一的存储单元来配置特定的 HttpClient 并与之交互。例如，我们可以配置针对 Facebook API 的一个特定终端的一个类型化 HttpClient，而且该 HttpClient 可以封装使用该特定终端所需的所有逻辑。
+4. 它们与依赖注入 (DI) 一起使用，可以在需要的地方注入。
 
 <!-- To configure a typed HTTPClient, we need to register it in **Startup.cs** file using the same **AddHttpClient** method but this time, we need to pass our service name **HolidaysApiService** as the type. -->
 
@@ -559,7 +561,7 @@ services.AddSingleton<IHolidaysApiService, HolidaysApiService>();
 
 <!-- The HttpClient object can be encapsulated within a typed client rather than exposed as a public property. We can then use this client internally in any method of service. -->
 
-可以将 HttpClient 对象密封在一个类型化客户端中，而不公开为 `public` 属性。然后，我们可以在服务的任意方法内使用这个客户端。
+可以将 HttpClient 对象密封在一个类型化客户端中，而不公开为 `public` 属性。然后，我们可以在服务内部的任意方法中使用这个客户端。
 
 ```csharp
 public class HolidaysApiService : IHolidaysApiService
