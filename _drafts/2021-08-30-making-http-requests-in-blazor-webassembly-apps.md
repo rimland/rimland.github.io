@@ -13,41 +13,41 @@ published: true
 
 ![Making-HTTP-Requests-in-Blazor-WebAssembly-Apps](https://www.ezzylearning.net/wp-content/uploads/Making-HTTP-Requests-in-Blazor-WebAssembly-Apps.jpg)
 
-In my previous post Making HTTP Requests in Blazor Server Apps, I covered different techniques of making HTTP requests in Blazor Server apps where you have access to all .NET libraries and components. If you are creating a Blazor WebAssembly App, then your code is running on the client within the browser sandbox and your options are somehow limited. In this tutorial, I will show you how you can make HTTP requests from Blazor WebAssembly Apps.
+<!--In my previous post Making HTTP Requests in Blazor Server Apps, I covered different techniques of making HTTP requests in Blazor Server apps where you have access to all .NET libraries and components. If you are creating a Blazor WebAssembly App, then your code is running on the client within the browser sandbox and your options are somehow limited. In this tutorial, I will show you how you can make HTTP requests from Blazor WebAssembly Apps.-->
 
-在我的前篇文章《Blazor Server 应用程序中进行 HTTP 请求》中，我介绍了在 Blazor Server 应用程序中进行 HTTP 请求的相关技术，在 Blazor Server App 中您可以访问所有的 .NET 类库和组件。假如您创建的是 Blazor WebAssembly 应用程序，那么您的代码在客户端的浏览器沙箱中运行，您的选择在某种程度上受到限制。在本教程中，我将向您展示如何从 Blazor WebAssembly 应用程序进行 HTTP 请求。
+在我的前篇文章[《Blazor Server 应用程序中进行 HTTP 请求》](https://ittranslator.cn/dotnet/csharp/2021/08/23/making-http-requests-in-blazor-server-apps.html)中，我介绍了在 Blazor Server 应用程序中进行 HTTP 请求的相关技术，在 Blazor Server App 中您可以访问所有的 .NET 类库和组件。但如果您创建的是 Blazor WebAssembly 应用程序，那么您的代码将在客户端的浏览器沙箱中运行，您的选择在某种程度上会受到限制。在本教程中，我将向您展示如何在 Blazor WebAssembly 应用程序进行 HTTP 请求。
 
 <!-- Overview of HttpClient in Blazor WebAssembly Apps -->
 
 ## Blazor WebAssembly 应用程序中的 HttpClient 概述
 
-Blazor WebAssembly apps call web APIs using a preconfigured HttpClient service. This preconfigured HttpClient is implemented using the use browser Fetch API  and has some limitations. HttpClient can also use Blazor JSON helpers or HttpRequestMessage object to make API calls. By default, the API call requests can only be made to the same server of origin but you can call third-party APIs available on other servers if they support Cross-origin resource sharing (CORS).
+<!--Blazor WebAssembly apps call web APIs using a preconfigured HttpClient service. This preconfigured HttpClient is implemented using the use browser Fetch API  and has some limitations. HttpClient can also use Blazor JSON helpers or HttpRequestMessage object to make API calls. By default, the API call requests can only be made to the same server of origin but you can call third-party APIs available on other servers if they support Cross-origin resource sharing (CORS).-->
 
-Blazor WebAssembly 应用程序使用预置的 [HttpClient](https://docs.microsoft.com/zh-cn/dotnet/api/system.net.http.httpclient) 服务调用 Web API。这个预置的 HttpClient 是使用浏览器的 [Fetch API](https://developer.mozilla.org/docs/Web/API/Fetch_API) 实现的，它有一些限制。HttpClient 还可以使用 Blazor JSON 帮助程序或 [HttpRequestMessage](https://docs.microsoft.com/zh-cn/dotnet/api/system.net.http.httprequestmessage) 对象进行 API 调用。默认情况下，API 调用只能向同源服务器发送请求，但如果第三方 API 支持跨域资源共享(CORS)的话，您也可以调用其他服务器上的 API。
+Blazor WebAssembly 应用程序使用预置的 [HttpClient](https://docs.microsoft.com/zh-cn/dotnet/api/system.net.http.httpclient) 服务调用 Web API。这个预置的 HttpClient 是使用浏览器的 [Fetch API](https://developer.mozilla.org/docs/Web/API/Fetch_API) 实现的，会有一些限制。HttpClient 还可以使用 Blazor JSON 帮助程序或 [HttpRequestMessage](https://docs.microsoft.com/zh-cn/dotnet/api/system.net.http.httprequestmessage) 对象进行 API 调用。默认情况下，您只能向同源服务器发送 API 调用请求，不过如果第三方 API 支持跨域资源共享(CORS)的话，您也可以调用其他服务器上的 API。
 
-The System.Net.Http.Json namespace provides extension methods for HttpClient that perform automatic serialization and deserialization using System.Text.Json. These extension methods send requests to a Web API URI and process the response accordingly. The common methods include:
+<!--The System.Net.Http.Json namespace provides extension methods for HttpClient that perform automatic serialization and deserialization using System.Text.Json. These extension methods send requests to a Web API URI and process the response accordingly. The common methods include:-->
 
-[System.Net.Http.Json](https://docs.microsoft.com/zh-cn/dotnet/api/system.net.http.json) 命名空间为使用 System.Text.Json 执行自动序列化和反序列化的 HttpClient 提供扩展方法。这些扩展方法将请求发送到 Web API URI 并处理相应的响应。常用的方法有：
+[System.Net.Http.Json](https://docs.microsoft.com/zh-cn/dotnet/api/system.net.http.json) 命名空间为使用 System.Text.Json 执行自动序列化和反序列化的 HttpClient 提供了扩展方法。这些扩展方法将请求发送到一个 Web API URI 并处理相应的响应。常用的方法有：
 
-GetFromJsonAsync: Sends an HTTP GET request and parses the JSON response body to create an object.
-PostAsJsonAsync: Sends a POST request to the specified URI containing the value serialized as JSON in the request body.
-PutAsJsonAsync: Sends an HTTP PUT request, including JSON-encoded content.
+<!--GetFromJsonAsync: Sends an HTTP GET request and parses the JSON response body to create an object.-->
+<!--PostAsJsonAsync: Sends a POST request to the specified URI containing the value serialized as JSON in the request body.-->
+<!--PutAsJsonAsync: Sends an HTTP PUT request, including JSON-encoded content.-->
 
-- **GetFromJsonAsync**：发送 HTTP GET 请求，并解析 JSON 响应正文以创建对象。
-- **PostAsJsonAsync**：将 POST 请求发送到指定 URI，该 URI 包含请求正文中序列化为 JSON 的 `value`。
+- **GetFromJsonAsync**：发送 HTTP GET 请求，并将 JSON 响应正文解析成一个对象。
+- **PostAsJsonAsync**：将 POST 请求发送到指定的 URI，并在请求正文中载有序列化为 JSON 的 `value`。
 - **PutAsJsonAsync**：发送 HTTP PUT 请求，其中包含 JSON 编码的内容。
 
-To understand how to use these methods along with HttpClient, we need to create two projects. The first project will be a Web API project that will expose a Web API for clients. The second project will be Blazor WebAssembly App that will make HTTP requests to a Web API created in the first project.
+<!--To understand how to use these methods along with HttpClient, we need to create two projects. The first project will be a Web API project that will expose a Web API for clients. The second project will be Blazor WebAssembly App that will make HTTP requests to a Web API created in the first project.-->
 
-要了解如何将这些方法与 HttpClient 一起使用，我们需要创建两个项目。第一个项目是一个 Web API 项目，它向客户端公开一个 Web API。第二个项目是 Blazor WebAssembly 应用程序，它将向在第一个项目中创建的 Web API 发送 HTTP 请求。
+要理解如何将这些方法与 HttpClient 一起使用，我们需要创建两个项目。第一个项目是一个 Web API 项目，它向客户端公开一个 Web API。第二个项目是 Blazor WebAssembly 应用程序，它向第一个项目中创建的 Web API 发送 HTTP 请求。
 
 <!-- Implementing an ASP.NET Core Web API -->
 
 ## 实现一个 ASP.NET Core Web API
 
-In this section, we will implement a Web API with Cross-origin resource sharing (CORS) support so that this API can be called by Blazor WebAssembly apps. Create a new Web API project **BlazorClientWebAPI** in Visual Studio 2019. We will create a simple API that will return the list of products so let’s first create a **Models** folder in the project and add the following **Product** class to it.
+<!--In this section, we will implement a Web API with Cross-origin resource sharing (CORS) support so that this API can be called by Blazor WebAssembly apps. Create a new Web API project **BlazorClientWebAPI** in Visual Studio 2019. We will create a simple API that will return the list of products so let’s first create a **Models** folder in the project and add the following **Product** class to it.-->
 
-在本节中，我们将实现一个支持跨域资源共享 (CORS) 的 Web API，以便 Blazor WebAssembly 应用程序可以调用此 API。在 Visual Studio 2019 中创建一个新的 Web API 项目 **BlazorClientWebAPI**。我们将创建一个简单的 API 来返回产品列表，所以让我们首先在项目中创建一个 **Models** 文件夹并添加以下 **Product** 类。
+在本节中，我们将实现一个支持跨域资源共享 (CORS) 的 Web API，以便 Blazor WebAssembly 应用程序可以调用此 API。在 Visual Studio 2019 中创建一个新的 Web API 项目 **BlazorClientWebAPI**。我们将创建一个简单的 API 来返回产品列表，所以首先要在项目中创建一个 **Models** 文件夹，并在其中添加如下的 **Product** 类。
 
 <b>Product.cs</b>
 
@@ -60,9 +60,9 @@ public class Product
 }
 ```
 
-Next, create a **Controllers** folder and add the following **ProductsController** in it. The controller is simply returning some fake product data from the **GetProducts** method.
+<!--Next, create a **Controllers** folder and add the following **ProductsController** in it. The controller is simply returning some fake product data from the **GetProducts** method.-->
 
-接下来，创建一个 **Controllers** 文件夹并在其中添加下面的 **ProductsController**。该控制器只是从 **GetProducts** 方法返回一些模拟的产品数据。
+接下来，创建一个 **Controllers** 文件夹并在其中添加下面的 **ProductsController**。该控制器简单地从 **GetProducts** 方法返回一些模拟的产品数据。
 
 <b>ProductsController.cs</b>
 
