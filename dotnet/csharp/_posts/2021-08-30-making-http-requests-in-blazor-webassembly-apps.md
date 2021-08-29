@@ -11,7 +11,7 @@ published: true
 
 [^1]: <https://www.ezzylearning.net/tutorial/making-http-requests-in-blazor-webassembly-apps> Making HTTP Requests in Blazor WebAssembly Apps
 
-![Making-HTTP-Requests-in-Blazor-WebAssembly-Apps](https://www.ezzylearning.net/wp-content/uploads/Making-HTTP-Requests-in-Blazor-WebAssembly-Apps.jpg)
+![Making-HTTP-Requests-in-Blazor-WebAssembly-Apps](/assets/images/202108/Making-HTTP-Requests-in-Blazor-WebAssembly-Apps.jpg)
 
 <!--In my previous post Making HTTP Requests in Blazor Server Apps, I covered different techniques of making HTTP requests in Blazor Server apps where you have access to all .NET libraries and components. If you are creating a Blazor WebAssembly App, then your code is running on the client within the browser sandbox and your options are somehow limited. In this tutorial, I will show you how you can make HTTP requests from Blazor WebAssembly Apps.-->
 
@@ -23,11 +23,13 @@ published: true
 
 <!--Blazor WebAssembly apps call web APIs using a preconfigured HttpClient service. This preconfigured HttpClient is implemented using the use browser Fetch API  and has some limitations. HttpClient can also use Blazor JSON helpers or HttpRequestMessage object to make API calls. By default, the API call requests can only be made to the same server of origin but you can call third-party APIs available on other servers if they support Cross-origin resource sharing (CORS).-->
 
-Blazor WebAssembly 应用程序使用预置的 [HttpClient](https://docs.microsoft.com/zh-cn/dotnet/api/system.net.http.httpclient) 服务调用 Web API。这个预置的 HttpClient 是使用浏览器的 [Fetch API](https://developer.mozilla.org/docs/Web/API/Fetch_API) 实现的，会有一些限制。HttpClient 还可以使用 Blazor JSON 帮助程序或 [HttpRequestMessage](https://docs.microsoft.com/zh-cn/dotnet/api/system.net.http.httprequestmessage) 对象进行 API 调用。默认情况下，您只能向同源服务器发送 API 调用请求，不过如果第三方 API 支持跨域资源共享(CORS)的话，您也可以调用其他服务器上的 API。
+Blazor WebAssembly 应用程序使用预置的 [HttpClient](https://docs.microsoft.com/zh-cn/dotnet/api/system.net.http.httpclient) 服务调用 Web API。这个预置的 HttpClient 是使用浏览器的 [Fetch API](https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API)[^fetch] 实现的，会有一些限制。HttpClient 还可以使用 Blazor JSON 帮助程序或 [HttpRequestMessage](https://docs.microsoft.com/zh-cn/dotnet/api/system.net.http.httprequestmessage) 对象进行 API 调用。默认情况下，您只能向同源服务器发送 API 调用请求，不过如果第三方 API 支持跨域资源共享(CORS)的话，您也可以调用其他服务器上的 API。
+
+[^fetch]: <https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API> Fetch API
 
 <!--The System.Net.Http.Json namespace provides extension methods for HttpClient that perform automatic serialization and deserialization using System.Text.Json. These extension methods send requests to a Web API URI and process the response accordingly. The common methods include:-->
 
-[System.Net.Http.Json](https://docs.microsoft.com/zh-cn/dotnet/api/system.net.http.json) 命名空间为使用 System.Text.Json 执行自动序列化和反序列化的 HttpClient 提供了扩展方法。这些扩展方法将请求发送到一个 Web API URI 并处理相应的响应。常用的方法有：
+命名空间 [System.Net.Http.Json](https://docs.microsoft.com/zh-cn/dotnet/api/system.net.http.json) 为使用 System.Text.Json 执行自动序列化和反序列化的 HttpClient 提供了扩展方法。这些扩展方法将请求发送到一个 Web API URI 并处理相应的响应。常用的方法有：
 
 <!--GetFromJsonAsync: Sends an HTTP GET request and parses the JSON response body to create an object.-->
 <!--PostAsJsonAsync: Sends a POST request to the specified URI containing the value serialized as JSON in the request body.-->
@@ -105,9 +107,9 @@ public class ProductsController : ControllerBase
 
 现在如果您运行该项目，并尝试在浏览器中使用 URI **api/products** 访问该 API，您应该能看到以 JSON 格式返回的产品数据。
 
-![Products-API-Response-for-Blazor-WebAssembly-HttpClient](https://www.ezzylearning.net/wp-content/uploads/Products-API-Response-for-Blazor-WebAssembly-HttpClient.jpg)
+![Products-API-Response-for-Blazor-WebAssembly-HttpClient](/assets/images/202108/Products-API-Response-for-Blazor-WebAssembly-HttpClient.jpg)
 
-## 在 ASP.NET Core Web API 中启用跨域资源共享（CORS）
+## 在 ASP.NET Core Web API 中启用 CORS
 
 <!--By default, browser security doesn’t allow a web page to make requests to a different domain other than the one from where the web page is served. This restriction is called the same-origin policy. If we want Blazor WebAssembly Apps or other client apps to consume the above Web API then we have to enable cross-origin resource sharing (CORS). Open the **Startup.cs** file and call the **AddCors** method in the **ConfigureServices** method.-->
 
@@ -263,7 +265,7 @@ public class Product
 
 运行该项目，您将看到从后端 Web API 加载了产品的页面。
 
-![Makking-HTTP-Requests-to-Web-API-from-Blazor-WebAssembly-App](https://www.ezzylearning.net/wp-content/uploads/Makking-HTTP-Requests-to-Web-API-from-Blazor-WebAssembly-App.jpg)
+![Makking-HTTP-Requests-to-Web-API-from-Blazor-WebAssembly-App](/assets/images/202108/Makking-HTTP-Requests-to-Web-API-from-Blazor-WebAssembly-App.jpg)
 
 <br/>
 
