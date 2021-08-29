@@ -101,17 +101,17 @@ public class ProductsController : ControllerBase
 }
 ```
 
-If you will run your project and try to access the API using the URI **api/products** in the browser, you should be able to see the product data returned in JSON format.
+<!--If you will run your project and try to access the API using the URI **api/products** in the browser, you should be able to see the product data returned in JSON format.-->
 
-现在如果您运行该项目，并尝试在浏览器中使用 URI **api/products** 访问此 API，您应该能看到以 JSON 格式返回的产品数据。
+现在如果您运行该项目，并尝试在浏览器中使用 URI **api/products** 访问该 API，您应该能看到以 JSON 格式返回的产品数据。
 
 ![Products-API-Response-for-Blazor-WebAssembly-HttpClient](https://www.ezzylearning.net/wp-content/uploads/Products-API-Response-for-Blazor-WebAssembly-HttpClient.jpg)
 
 ## 在 ASP.NET Core Web API 中启用跨域资源共享（CORS）
 
-By default, browser security doesn’t allow a web page to make requests to a different domain other than the one from where the web page is served. This restriction is called the same-origin policy. If we want Blazor WebAssembly Apps or other client apps to consume the above Web API then we have to enable cross-origin resource sharing (CORS). Open the **Startup.cs** file and call the **AddCors** method in the **ConfigureServices** method.
+<!--By default, browser security doesn’t allow a web page to make requests to a different domain other than the one from where the web page is served. This restriction is called the same-origin policy. If we want Blazor WebAssembly Apps or other client apps to consume the above Web API then we have to enable cross-origin resource sharing (CORS). Open the **Startup.cs** file and call the **AddCors** method in the **ConfigureServices** method.-->
 
-默认情况下，浏览器安全性不允许网页向除提供网页的域之外的其他域发送请求。这种限制称为同源策略。如果我们希望 Blazor WebAssembly 应用程序或其他客户端应用程序使用上述 Web API，那么我们必须启用跨域资源共享 (CORS)。打开 **Startup.cs** 文件，并在 **ConfigureServices** 方法中调用 **AddCors** 方法。
+默认情况下，浏览器安全性不允许一个网页向除提供该网页的域之外的其他域发送请求。这种约束称之为同源策略。如果我们希望 Blazor WebAssembly 应用程序或其他客户端应用程序使用上述 Web API，那么我们必须启用跨域资源共享 (CORS)。打开 *Startup.cs* 文件，并在 **ConfigureServices** 方法中调用 **AddCors** 方法。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -128,7 +128,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Also add the following line in the Configure method of Startup.cs file
+<!--Also add the following line in the Configure method of Startup.cs file-->
 
 同时，在 *Startup.cs* 文件的 **Configure** 方法中添加以下代码行。
 
@@ -136,7 +136,7 @@ Also add the following line in the Configure method of Startup.cs file
 app.UseCors("CorsPolicy");
 ```
 
-For detailed information on CORS with ASP.NET Core apps, see Enable Cross-Origin Requests (CORS) in ASP.NET Core.
+<!--For detailed information on CORS with ASP.NET Core apps, see Enable Cross-Origin Requests (CORS) in ASP.NET Core.-->
 
 有关使用 ASP.NET Core 应用程序的 CORS 的详细信息，请参阅 [《Enable Cross-Origin Requests (CORS) in ASP.NET Core》](https://docs.microsoft.com/zh-cn/aspnet/core/security/cors)[^CORS]。
 
@@ -144,13 +144,13 @@ For detailed information on CORS with ASP.NET Core apps, see Enable Cross-Origin
 
 ## 实现 Blazor WebAssembly 应用程序
 
-Add a new Blazor WebAssembly App project **BlazorClientWebAPIsDemo** in the same solution in which you created the above Web API project.
+<!--Add a new Blazor WebAssembly App project **BlazorClientWebAPIsDemo** in the same solution in which you created the above Web API project.-->
 
 在创建上述 Web API 项目的同一解决方案中添加一个新的 Blazor WebAssembly 应用程序项目 **BlazorClientWebAPIsDemo**。
 
-The first thing we need to make sure of is that we have the reference of **System.Net.Http.Json** in the project file. If it’s not available then you can add the reference.
+<!--The first thing we need to make sure of is that we have the reference of **System.Net.Http.Json** in the project file. If it’s not available then you can add the reference.-->
 
-我们需要确保的第一件事是，在项目文件中有 **System.Net.Http.Json** 的引用。如果它不可用，那么您可以添加该引用。
+我们需要确保的第一件事是，在项目文件中有 **System.Net.Http.Json** 的引用。如果没有，那么您可以添加该引用。
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
@@ -165,9 +165,9 @@ The first thing we need to make sure of is that we have the reference of **Syste
 </Project>
 ```
 
-Next, we need to configure the HttpClient service in **Program.cs** file. Make sure to provide the base address of the Web APIs you want to call from Blazor WebAssembly Apps
+<!--Next, we need to configure the HttpClient service in **Program.cs** file. Make sure to provide the base address of the Web APIs you want to call from Blazor WebAssembly Apps-->
 
-接下来，我们需要在 **Program.cs** 文件中配置 HttpClient 服务。确保提供了要从 Blazor WebAssembly 应用程序调用的 Web API 的基地址。
+接下来，我们需要在 *Program.cs* 文件中配置 HttpClient 服务。确保提供了要从 Blazor WebAssembly 应用程序调用的 Web API 的基地址。
 
 <b>Program.cs</b>
 
@@ -186,9 +186,9 @@ public static async Task Main(string[] args)
 }
 ```
 
-To consume the products API, let’s create a **Products.razor** component in the **Pages** folder. The view is very straightforward as it is simply iterating the list of products and displaying them using a simple HTML table.
+<!--To consume the products API, let’s create a **Products.razor** component in the **Pages** folder. The view is very straightforward as it is simply iterating the list of products and displaying them using a simple HTML table.-->
 
-为了使用产品 API，我们在 **Pages** 文件夹中创建一个 **Products.razor** 组件。该视图非常简单，因为它只是迭代产品列表并使用简单的 HTML 表示显示它们。
+为了使用产品 API，我们在 **Pages** 文件夹中创建一个 **Products.razor** 组件。该视图非常简单，因为它只是迭代产品列表并使用简单的 HTML 表格来显示它们。
 
 <b>Products.razor</b>
 
@@ -225,7 +225,7 @@ else
 }
 ```
 
-Create a **Products.razor.cs** code-behind file and inject the configured **HttpClient** instance in the class as a private member. Finally, use the **GetFromJsonAsync** method to call the products API.
+<!--Create a **Products.razor.cs** code-behind file and inject the configured **HttpClient** instance in the class as a private member. Finally, use the **GetFromJsonAsync** method to call the products API.-->
 
 创建一个代码隐藏文件 **Products.razor.cs**，并将配置的 **HttpClient** 实例作为私有成员注入到该类中。最后，使用 **GetFromJsonAsync** 方法调用产品 API。
 
@@ -246,7 +246,7 @@ public partial class Products
 }
 ```
 
-You also need to create a local copy of the **Product** class in the Blazor WebAssembly project to deserialized the results of the products API into a list of product objects.
+<!--You also need to create a local copy of the **Product** class in the Blazor WebAssembly project to deserialized the results of the products API into a list of product objects.-->
 
 您还需要在 Blazor WebAssembly 项目中创建一个 **Product** 类的本地副本，以将产品 API 的结果反序列化为产品对象列表。
 
@@ -259,8 +259,8 @@ public class Product
 }
 ```
 
-Run the project and you will see the page with products loaded from a backend Web API.
+<!--Run the project and you will see the page with products loaded from a backend Web API.-->
 
-运行该项目，您将看到含有从后端 Web API 加载了产品的页面。
+运行该项目，您将看到从后端 Web API 加载了产品的页面。
 
 ![Makking-HTTP-Requests-to-Web-API-from-Blazor-WebAssembly-App](https://www.ezzylearning.net/wp-content/uploads/Makking-HTTP-Requests-to-Web-API-from-Blazor-WebAssembly-App.jpg)
