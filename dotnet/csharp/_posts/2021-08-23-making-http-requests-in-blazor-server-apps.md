@@ -627,4 +627,3 @@ public class HolidaysApiService : IHolidaysApiService
 > 作者 ： Waqas Anwar  
 > 翻译 ： [技术译站](https://ittranslator.cn/)  
 > 链接 ： [英文原文](https://www.ezzylearning.net/tutorial/making-http-requests-in-blazor-server-apps)
-
