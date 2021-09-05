@@ -501,6 +501,9 @@ Blazor 还支持路由约束，在路由上强制类型匹配。在下面的代�
 - [Blazor 组件之间使用 EventCallback 进行通信](https://ittranslator.cn/dotnet/csharp/2021/08/02/communication-between-blazor-components-using-eventcallback.html)
 - [Blazor 路由及导航开发指南](https://ittranslator.cn/dotnet/csharp/2021/08/09/a-developers-guide-to-blazor-routing-and-navigation.html)
 - [Blazor 模板化组件开发指南](https://ittranslator.cn/dotnet/csharp/2021/08/16/a-developers-guide-to-blazor-templated-components.html)
+- [Blazor Server 应用程序中进行 HTTP 请求](https://ittranslator.cn/dotnet/csharp/2021/08/23/making-http-requests-in-blazor-server-apps.html)
+- [Blazor WebAssembly 应用程序中进行 HTTP 请求](https://ittranslator.cn/dotnet/csharp/2021/08/30/making-http-requests-in-blazor-webassembly-apps.html)
+- [Blazor 组件库开发指南](https://ittranslator.cn/dotnet/csharp/2021/09/06/a-developers-guide-to-blazor-component-libraries.html)
 
 > 作者 ： Waqas Anwar  
 > 翻译 ： [技术译站](https://ittranslator.cn/)  
