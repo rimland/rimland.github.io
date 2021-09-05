@@ -19,7 +19,7 @@ Blazor 的核心是组件，我们创建不同类型的组件并在整个项目�
 
 [下载源码](https://github.com/ezzylearning/BlazorClassLibraryDemo)[^download]
 
-[^download]: <https://github.com/ezzylearning/BlazorClassLibraryDemo>
+[^download]: <https://github.com/ezzylearning/BlazorClassLibraryDemo> 下载源码
 
 ## 创建一个 Razor 组件库
 
