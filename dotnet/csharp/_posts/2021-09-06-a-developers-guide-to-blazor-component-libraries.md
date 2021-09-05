@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Blazor Server 应用程序中进行 HTTP 请求"
+title:  "Blazor 组件库开发指南"
 date:   2021-09-06 00:10:10 +0800
 categories: dotnet csharp
 tags: [DotNet, Blazor]
