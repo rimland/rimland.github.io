@@ -11,7 +11,7 @@ published: true
 
 [^1]: <https://www.ezzylearning.net/tutorial/a-developers-guide-to-blazor-component-libraries> A Developer’s Guide To Blazor Component Libraries
 
-![A-Developers-Guide-To-Blazor-Component-Libraries](https://www.ezzylearning.net/wp-content/uploads/A-Developers-Guide-To-Blazor-Component-Libraries.jpg)
+![A-Developers-Guide-To-Blazor-Component-Libraries](/assets/images/202109/A-Developers-Guide-To-Blazor-Component-Libraries.jpg)
 
 <!--Blazor is all about components. We create different types of components and reuse them throughout the project. Nobody wants to reinvent the wheel so it is always a good idea to create a library of reusable Blazor components that can not only be shared across multiple projects but can also be shared with others as a NuGet package. Blazor allows us to create such component libraries with the help of a new project template called Razor Class Library and in this post, I will show you how to create such a library and share not only components but also static contents such as images, stylesheets, etc.-->
 
@@ -31,19 +31,17 @@ Blazor 的核心是组件，我们创建不同类型的组件并在整个项目�
 
 要在 Blazor 项目中添加一个新组件库，请右键点击解决方案并选择 **添加 > 新建项目...** 选项。从项目模板列表中选择 **Razor 类库（Razor Class Library）** 项目模板。
 
-![Add-New-Razor-Class-Library-in-Blazor-Project](https://www.ezzylearning.net/wp-content/uploads/Add-New-Razor-Class-Library-in-Blazor-Project.jpg)
+![Add-New-Razor-Class-Library-in-Blazor-Project](/assets/images/202109/Add-New-Razor-Class-Library-in-Blazor-Project.jpg)
 
 <!--Give the project any suitable name, I have chosen the name **MyComponentsLibrary**.-->
 
 为项目提供任意合适的名称，我这里将其命名为 **MyComponentsLibrary**。
 
-![Provide-Name-of-Razor-Class-Library](https://www.ezzylearning.net/wp-content/uploads/Provide-Name-of-Razor-Class-Library.jpg)
+![Provide-Name-of-Razor-Class-Library](/assets/images/202109/Provide-Name-of-Razor-Class-Library.jpg)
 
 <!--You will be asked to select the Project template once again with some additional options shown in the following dialog. There is only one item to select in this dialog so make sure Razor Class Library is selected and click Create button.-->
 
 然后，会询问您选择一些其他设置项，直接点击 **创建** 按钮就好。
-
-![Choose-Razor-Class-Library-Template](https://www.ezzylearning.net/wp-content/uploads/Choose-Razor-Class-Library-Template.jpg)
 
 ![Choose-Razor-Class-Library-Template](/assets/images/202109/Choose-Razor-Class-Library-Template.png)
 
@@ -56,8 +54,6 @@ Blazor 的核心是组件，我们创建不同类型的组件并在整个项目�
 <!--Let’s create our first reusable/shared components in the Razor class library project **MyComponentsLibrary**. Right-click on the class library project and choose **Add > New Item…** option. Select **Razor Component** template and give the component name **TableWidget.razor**.-->
 
 让我们在 Razor 类库项目 **MyComponentsLibrary** 中创建我们的第一个可重用的共享组件。右键点击类库项目并选择 **添加 > 新建项…** 选项。 选择 **Razor 组件** 模板并指定组件名称 **TableWidget.razor**。
-
-![Create-New-Blazor-Component-in-Razor-Class-Library]([/assets/images/202109/Create-New-Blazor-Component-in-Razor-Class-Library.png](https://www.ezzylearning.net/wp-content/uploads/Create-New-Blazor-Component-in-Razor-Class-Library.jpg))
 
 ![Create-New-Blazor-Component-in-Razor-Class-Library](/assets/images/202109/Create-New-Blazor-Component-in-Razor-Class-Library.png)
 
@@ -143,7 +139,7 @@ namespace MyComponentsLibrary
 
 现在我们已经在类库项目中定义了我们的 TableWidget 组件，是时候在我们的 Blazor 项目中使用这个组件了。右键单击解决方案资源管理器中的 **依赖项（Dependencies）** 节点，然后从上下文菜单中选择 **添加项目引用...（Add Project Reference...）** 选项。选中 **MyComponentsLibrary** 项目并点击确定。
 
-![Add-Razor-Class-Library-in-Blazor-Project](https://www.ezzylearning.net/wp-content/uploads/Add-Razor-Class-Library-in-Blazor-Project.jpg)
+![Add-Razor-Class-Library-in-Blazor-Project](/assets/images/202109/Add-Razor-Class-Library-in-Blazor-Project.jpg)
 
 <!--If you want to use the TableWidget component on multiple pages then it is recommended to add the reference of the library in **_Imports.razor** file.-->
 
@@ -199,11 +195,11 @@ else
 }
 ```
 
-Run the project and you should see the weather forecast grid generated using our TableWidget component. You can now reuse the TableWidget component in multiple pages or projects and you will always see the same grid generated for you.
+<!-- Run the project and you should see the weather forecast grid generated using our TableWidget component. You can now reuse the TableWidget component in multiple pages or projects and you will always see the same grid generated for you. -->
 
 运行该项目，您会看到使用我们的 TableWidget 组件生成的天气预报表格。现在，您可以在多个页面或项目中重用该 TableWidget 组件，并且将会看到始终为您生成相同的表格。
 
-![Blazor-Component-Rendered-from-Class-Library](https://www.ezzylearning.net/wp-content/uploads/Blazor-Component-Rendered-from-Class-Library.jpg)
+![Blazor-Component-Rendered-from-Class-Library](/assets/images/202109/Blazor-Component-Rendered-from-Class-Library.jpg)
 
 <!--Consuming Images from Razor Class Library-->
 
@@ -213,7 +209,7 @@ Run the project and you should see the weather forecast grid generated using our
 
 Razor 类库可以公开静态资源（比如图片），并且这些资源可以由使用该库的 Blazor 应用程序使用。让我们在 **MyComponentsLibrary** 项目的 **wwwroot/images** 文件夹中添加一个图片 **blazor_logo.jpg**。为了在 Blazor 组件中使用此图片，请在 **MyComponentsLibrary** 项目中添加一个名为 **BlazorLogo.razor** 的组件。
 
-![Add-an-Image-in-Razor-Class-Library](https://www.ezzylearning.net/wp-content/uploads/Add-an-Image-in-Razor-Class-Library.jpg)
+![Add-an-Image-in-Razor-Class-Library](/assets/images/202109/Add-an-Image-in-Razor-Class-Library.jpg)
 
 <!--Add the **blazor_logo.jpg** image inside the **BlazorLogo.razor** component using the simple **img** tag.-->
 
@@ -241,6 +237,8 @@ Razor 类库可以公开静态资源（比如图片），并且这些资源可�
 
 运行该项目，您会注意到图片并未如预期那样显示出来。这是因为无法从类库项目外访问图片的相对路径 **images/blazor_logo.jpg**。
 
+![Fail-to-Access-Static-Contents-from-Razor-Class-Library](/assets/images/202109/Fail-to-Access-Static-Contents-from-Razor-Class-Library.jpg)
+
 <!--To fix the above problem, you need to use a special path syntax given below:-->
 
 要解决上述问题，您需要使用下面给出的特殊路径语法：
@@ -267,7 +265,7 @@ _content/{Razor Class Library Name}/{Path to file}
 
 再次运行项目，这次您会注意到图片按预期显示了。
 
-![Correct-Way-to-Access-Static-Contents-from-Razor-Class-Library](https://www.ezzylearning.net/wp-content/uploads/Correct-Way-to-Access-Static-Contents-from-Razor-Class-Library.jpg)
+![Correct-Way-to-Access-Static-Contents-from-Razor-Class-Library](/assets/images/202109/Correct-Way-to-Access-Static-Contents-from-Razor-Class-Library.jpg)
 
 <!--We can also access the images from Razor class libraries directly using the above special syntax. For example, the code snippet below will display images from the Razor class library using the **BlazorLogo** component as well as using the **img** tag. Notice the same special syntax is used with **img** tag in the Blazor app to access the image available in **MyComponentsLibrary**-->
 
@@ -291,7 +289,7 @@ _content/{Razor Class Library Name}/{Path to file}
 
 再次运行该项目，这次您应该会看到相同的图片使用了两种不同的方式显示两次。
 
-![Different-Ways-to-Access-Static-Contents-from-Razor-Class-Library](https://www.ezzylearning.net/wp-content/uploads/Different-Ways-to-Access-Static-Contents-from-Razor-Class-Library.jpg)
+![Different-Ways-to-Access-Static-Contents-from-Razor-Class-Library](/assets/images/202109/Different-Ways-to-Access-Static-Contents-from-Razor-Class-Library.jpg)
 
 ## 使用 Razor 类库中样式表
 
@@ -299,7 +297,7 @@ _content/{Razor Class Library Name}/{Path to file}
 
 我们还可以在 Razor 类库中添加样式表，并且 Blazor 应用程序可以使用这些样式表中定义的样式。 让我们在 **wwwroot/css** 文件夹中添加一个样式表 **components.css**。
 
-![Add-Stylesheet-in-Razor-Class-Library](https://www.ezzylearning.net/wp-content/uploads/Add-Stylesheet-in-Razor-Class-Library.jpg)
+![Add-Stylesheet-in-Razor-Class-Library](/assets/images/202109/Add-Stylesheet-in-Razor-Class-Library.jpg)
 
 <!--For the demonstration purpose, let’s add some styles related to **img** tag-->
 
@@ -336,7 +334,7 @@ img
 
 运行项目，您会发现我们在 **components.css** 文件中定义的与 **img** 标签相关的样式被应用到了项目中的所有图片上。
 
-![Apply-CSS-Styles-from-Razor-Class-Library](https://www.ezzylearning.net/wp-content/uploads/Apply-CSS-Styles-from-Razor-Class-Library.jpg)
+![Apply-CSS-Styles-from-Razor-Class-Library](/assets/images/202109/Apply-CSS-Styles-from-Razor-Class-Library.jpg)
 
 ## 总结
 
