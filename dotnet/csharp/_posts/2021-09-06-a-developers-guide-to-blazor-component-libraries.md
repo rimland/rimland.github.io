@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Blazor Server 应用程序中进行 HTTP 请求"
-date:   2021-08-19 00:10:10 +0800
+date:   2021-09-06 00:10:10 +0800
 categories: dotnet csharp
 tags: [DotNet, Blazor]
 published: true
@@ -345,3 +345,21 @@ img
 [^Mat]: <https://www.matblazor.com/>
 [^Rad]: <https://blazor.radzen.com/>
 [^Syn]: <https://www.syncfusion.com/blazor-components>
+
+<br/>
+
+相关阅读：
+
+- [Blazor Server 和 WebAssembly 应用程序入门指南](https://ittranslator.cn/dotnet/csharp/2021/07/05/a-beginners-guide-to-blazor-server-and-webassembly-applications.html)
+- [Blazor 组件入门指南](https://ittranslator.cn/dotnet/csharp/2021/07/12/a-beginners-guide-to-blazor-components.html)
+- [Blazor 数据绑定开发指南](https://ittranslator.cn/dotnet/csharp/2021/07/19/a-developers-guide-to-blazor-data-binding.html)
+- [Blazor 事件处理开发指南](https://ittranslator.cn/dotnet/csharp/2021/07/26/a-developers-guide-to-blazor-event-handling.html)
+- [Blazor 组件之间使用 EventCallback 进行通信](https://ittranslator.cn/dotnet/csharp/2021/08/02/communication-between-blazor-components-using-eventcallback.html)
+- [Blazor 路由及导航开发指南](https://ittranslator.cn/dotnet/csharp/2021/08/09/a-developers-guide-to-blazor-routing-and-navigation.html)
+- [Blazor 模板化组件开发指南](https://ittranslator.cn/dotnet/csharp/2021/08/16/a-developers-guide-to-blazor-templated-components.html)
+- [Blazor Server 应用程序中进行 HTTP 请求](https://ittranslator.cn/dotnet/csharp/2021/08/23/making-http-requests-in-blazor-server-apps.html)
+- [Blazor WebAssembly 应用程序中进行 HTTP 请求](https://ittranslator.cn/dotnet/csharp/2021/08/30/making-http-requests-in-blazor-webassembly-apps.html)
+
+> 作者 ： Waqas Anwar  
+> 翻译 ： [技术译站](https://ittranslator.cn/)  
+> 链接 ： [英文原文](https://www.ezzylearning.net/tutorial/making-http-requests-in-blazor-webassembly-apps)
