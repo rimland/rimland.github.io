@@ -74,6 +74,7 @@ permalink: /links/
   - <https://regex101.com/>
   - <http://c.runoob.com/front-end/854>
 - [Typora](https://typora.io/)
+- [DDL 转 PO（Persistence Object）](https://codverter.com/src/sqltoclass)
 
 ## Front End
 
