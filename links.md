@@ -78,6 +78,8 @@ permalink: /links/
   - <http://c.runoob.com/front-end/854>
 - [Typora](https://typora.io/)
 - [DDL 转 PO（Persistence Object）](https://codverter.com/src/sqltoclass)
+- [Fiddler](https://www.telerik.com/fiddler)
+- [Postman](https://www.getpostman.com/)
 
 ## Front End
 
