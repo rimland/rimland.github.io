@@ -27,9 +27,12 @@ permalink: /links/
 - .NET Documentation
   - <https://docs.microsoft.com/en-us/dotnet/core/>
   - <https://docs.microsoft.com/zh-cn/dotnet/>
+- ASP.NET Core
+  - [ASP.NET Core 基础](https://docs.microsoft.com/zh-cn/aspnet/core/fundamentals/)
+  - [ASP.NET Core Blazor](https://docs.microsoft.com/zh-cn/aspnet/core/blazor/)
+  - [ASP.NET Core 安全](https://docs.microsoft.com/zh-cn/aspnet/core/security/)
 - Manual Collection
   - [Getting started with .NET on RHEL](https://access.redhat.com/documentation/en-us/net/5.0/)
-  - [Blazor](https://docs.microsoft.com/zh-cn/aspnet/core/blazor/)
 
 ## Programming Language
 
