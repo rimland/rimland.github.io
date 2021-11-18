@@ -93,6 +93,8 @@ permalink: /links/
   - [webpack 中文](https://www.webpackjs.com/)
   - [webpack cli](https://webpack.js.org/api/cli/)
 - [CodeSandbox](https://codesandbox.io/)
+- [JavaScript 调用 ASP.NET Core Web API](https://docs.microsoft.com/zh-cn/aspnet/core/tutorials/web-api-javascript)
+  - [Fetch API](https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API)
 
 ## Favorite Blogs
 <!-- Most Valuable Pepoles -->
