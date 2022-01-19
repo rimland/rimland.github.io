@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "面向对象编程中的 SOLID 原则"
+title:  "C# 实例解释面向对象编程中的单一功能原则"
 date:   2022-03-10 00:10:00 +0800
 categories: dotnet csharp
 published: true
