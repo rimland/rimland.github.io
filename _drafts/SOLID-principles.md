@@ -67,6 +67,8 @@ class Circle
 
 接下来，创建 *AreaCalculator* 类，然后编写逻辑以计算所有提供的形状的面积。正方形的面积是用边长的平方计算的，圆的面积由 `π` 乘以半径的平方来计算的。
 
+### 糟糕的示范
+
 ```csharp
 class AreaCalculator
 {
@@ -131,11 +133,48 @@ static void Main(string[] args)
 
 输出正常，但这并不符合*单一功能原则*。因为 *AreaCalculator* 类既计算了所有形状的面积之和，又处理了输出数据的格式。
 
+### 正确的示范
+
 考虑这样一个场景，假如想要输出转换为另一种格式呢，如 JSON。我们就需要去修改 *AreaCalculator* 类，这样本来是为了修改输出数据的格式，却可能会影响到计算的逻辑，这明显违背了*单一功能原则*。
 
 *AreaCalculator* 类应该只关心计算提供的形状的面积之和，不应该关心输出什么格式。
 
-下面我们来做一些修改，删除 *AreaCalculator* 类中的 `Output` 方法，新增一个 *SumCalculatorOutputter* 类来专门处理输出格式的逻辑。
+下面我们来做一些修改，删除 *AreaCalculator* 类中的 `Output` 方法，并新增一个 *SumCalculatorOutputter* 类来专门处理输出格式的逻辑。
+
+```csharp
+class AreaCalculator
+{
+    private List<object> _shapes;
+
+    public AreaCalculator(List<object> shapes)
+    {
+        _shapes = shapes;
+    }
+
+    /// <summary>
+    /// 计算所有形状的面积总和
+    /// </summary>
+    /// <returns></returns>
+    public double Sum()
+    {
+        List<double> areas = new List<double>();
+
+        foreach (var item in _shapes)
+        {
+            if (item is Square s)
+            {
+                areas.Add(Math.Pow(s.SideLength, 2));
+            }
+            else if (item is Circle c)
+            {
+                areas.Add(Math.PI * Math.Pow(c.Radius, 2));
+            }
+        }
+
+        return areas.Sum();
+    }
+}
+```
 
 ```csharp
 class SumCalculatorOutputter
@@ -160,7 +199,7 @@ class SumCalculatorOutputter
 }
 ```
 
-此时我们再来修改一下 `Main` 中的逻辑：
+此时我们再来修改一下 `Main` 中的调用：
 
 ```csharp
 static void Main(string[] args)
@@ -185,7 +224,7 @@ static void Main(string[] args)
 Sum of the areas of provided shapes: 73.56637061435917
 ```
 
-现在，*AreaCalculator* 类处理计算逻辑，*SumCalculatorOutputter* 类处理输出格式，它们各司其职，符合*单一功能原则*。
+现在，*AreaCalculator* 类处理计算逻辑，*SumCalculatorOutputter* 类处理输出格式，它们各司其职，遵循了*单一功能原则*。
 
 ## 总结
 
