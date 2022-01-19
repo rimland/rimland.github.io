@@ -6,7 +6,7 @@ categories: dotnet csharp
 published: true
 ---
 
-在软件工程中，**SOLID** 是五个设计原则的首字母缩写，旨在使软件设计更易于理解、灵活和可维护。这些原则是由美国软件工程师和讲师罗伯特·C·马丁(Robert C. Martin)提出的许多原则的子集，在他2000年的论文《设计原则与设计模式》中首次提出。
+在软件工程中，**SOLID** 是五个设计原则的首字母缩写，旨在使软件设计更易于理解、灵活和可维护。这些原则是由美国软件工程师和讲师罗伯特·C·马丁(Robert Cecil Martin)提出的许多原则的子集，在他2000年的论文《设计原则与设计模式》中首次提出。
 
 SOLID 原则包含：
 
@@ -15,6 +15,8 @@ SOLID 原则包含：
 - **L**：里氏替换原则（Liskov substitution principle）
 - **I**：接口隔离原则（Interface segregation principle）
 - **D**：依赖反转原则（Dependency inversion principle）
+
+本文我们来介绍*单一功能原则*。
 
 ## 单一功能原则
 
@@ -26,7 +28,7 @@ SOLID 原则包含：
 
 保持一个类专注于单一功能点上的一个重要的原因是，它可以使类更加的健壮。继续上面的例子，如果有一个对于报表“编辑”流程的修改，那么将存在极大的危险性，因为假设这两个功能存在于同一个类中，修改报表的“编辑”流程会导致公共状态或者依赖关系的改变，“打印”功能的代码会因此不工作。
 
-## 示例
+## C# 示例
 
 例如，考虑这样一个应用程序，它接受一组形状（圆形和正方形），并计算该集合中所有形状的面积之和。
 
@@ -133,13 +135,13 @@ static void Main(string[] args)
 
 输出正常，但这并不符合*单一功能原则*。因为 *AreaCalculator* 类既计算了所有形状的面积之和，又处理了输出数据的格式。
 
-### 正确的示范
-
 考虑这样一个场景，假如想要输出转换为另一种格式呢，如 JSON。我们就需要去修改 *AreaCalculator* 类，这样本来是为了修改输出数据的格式，却可能会影响到计算的逻辑，这明显违背了*单一功能原则*。
+
+### 正确的示范
 
 *AreaCalculator* 类应该只关心计算提供的形状的面积之和，不应该关心输出什么格式。
 
-下面我们来做一些修改，删除 *AreaCalculator* 类中的 `Output` 方法，并新增一个 *SumCalculatorOutputter* 类来专门处理输出格式的逻辑。
+下面我们来做一些修改，删除 *AreaCalculator* 类中的 `Output` 方法：
 
 ```csharp
 class AreaCalculator
@@ -175,6 +177,8 @@ class AreaCalculator
     }
 }
 ```
+
+并新增一个 *SumCalculatorOutputter* 类来专门处理输出格式的逻辑：
 
 ```csharp
 class SumCalculatorOutputter
@@ -228,7 +232,14 @@ Sum of the areas of provided shapes: 73.56637061435917
 
 ## 总结
 
+本文我介绍了 SOLID 原则中的单一功能原则（single-responsibility principle），并通过 C# 代码示例简明地诠释了它的含意和实现，希望对您有所帮助。
 
+<br />
+
+参考文档：
 
 - <https://en.wikipedia.org/wiki/SOLID>
 - <https://www.digitalocean.com/community/conceptual_articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design>
+
+> 作者 ： 技术译民  
+> 出品 ： [技术译站](https://ittranslator.cn/)
