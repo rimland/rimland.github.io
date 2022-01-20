@@ -119,7 +119,7 @@ class Circle : IShape
 }
 ```
 
-对应的 *AreaCalculator* 类也要做一定的修改：
+*AreaCalculator* 类也要对应做一些修改：
 
 ```csharp
 class AreaCalculator
