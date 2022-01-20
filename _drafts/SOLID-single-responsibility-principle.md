@@ -234,12 +234,12 @@ Sum of the areas of provided shapes: 73.56637061435917
 
 本文我介绍了 SOLID 原则中的单一功能原则（single-responsibility principle），并通过 C# 代码示例简明地诠释了它的含意和实现，希望对您有所帮助。
 
+> 作者 ： 技术译民  
+> 出品 ： [技术译站](https://ittranslator.cn/)
+
 <br />
 
 参考文档：
 
 - <https://en.wikipedia.org/wiki/SOLID>
 - <https://www.digitalocean.com/community/conceptual_articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design>
-
-> 作者 ： 技术译民  
-> 出品 ： [技术译站](https://ittranslator.cn/)
