@@ -229,7 +229,7 @@ Sum of the areas of provided shapes: 43.56637061435917
 
 ## 总结
 
-本文我介绍了 SOLID 原则中的开闭原则 (open-closed principle)，并通过 C# 代码示例简明地诠释了它的含意和实现，希望对您有所帮助。
+本文我介绍了 SOLID 原则中的**开闭原则** (open-closed principle)，并通过 C# 代码示例简明地诠释了它的含意和实现，希望对您有所帮助。
 
 > 作者 ： 技术译民  
 > 出品 ： [技术译站](https://ittranslator.cn/)
