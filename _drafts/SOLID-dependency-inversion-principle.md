@@ -24,7 +24,7 @@ SOLID 原则包含：
 
 ![dependency inversion](/assets/images/2022/Dependency_inversion.png#center)
 
-图1 中，高层 对象A 依赖于底层 对象B 的实现；图2 中，把高层 对象A 对底层对象的需求抽象为一个 接口A，底层 对象B 实现了 接口A，这就是依赖反转。
+（图1 中，高层 对象A 依赖于底层 对象B 的实现；图2 中，把高层 对象A 对底层对象的需求抽象为一个 接口A，底层 对象B 实现了 接口A，这就是依赖反转。）
 
 依赖反转原则规定：
 
@@ -34,3 +34,90 @@ SOLID 原则包含：
 该原则颠倒了一部分人对于面向对象设计的认识方式（如高层次和低层次对象都应该依赖于相同的抽象接口）。
 
 依赖注入是该原则的一种实现方式。
+
+## C# 示例
+
+先定义一个商品信息类：
+
+```csharp
+public class ProductInfo
+{
+    public int ID { get; set; }
+    public string ProductName { get; set; }
+    public string ProductSpec { get; set; }
+    public int Stock { get; set; }
+}
+```
+
+### 糟糕的示范
+
+新建一个数据访问类 *ProductDataAccess* 和业务逻辑类 *ProductBusinessLogic*：
+
+```csharp
+public class ProductDataAccess
+{
+    public ProductInfo GetDetail(int id)
+    {
+        ProductInfo product = new()
+        {
+            ID = id,
+            ProductName = "白糖",
+            ProductSpec = "500g",
+            Stock = 100
+        };
+        return product;
+    }
+}
+
+public class ProductBusinessLogic
+{
+    private readonly ProductDataAccess _productDataAccess;
+    public ProductBusinessLogic()
+    {
+        _productDataAccess = new ProductDataAccess();
+    }
+
+    public ProductInfo GetProductDetails(int id)
+    {
+        return _productDataAccess.GetDetail(id);
+    }
+}
+```
+
+### 正确的示范
+
+```csharp
+public interface IProductDataAccess
+{
+    ProductInfo GetDetail(int id);
+}
+
+public class ProductDataAccess : IProductDataAccess
+{
+    public ProductInfo GetDetail(int id)
+    {
+        ProductInfo product = new()
+        {
+            ID = id,
+            ProductName = "白糖",
+            ProductSpec = "500g",
+            Stock = 100
+        };
+        return product;
+    }
+}
+
+public class ProductBusinessLogic
+{
+    private readonly IProductDataAccess _productDataAccess;
+    public ProductBusinessLogic(IProductDataAccess productDataAccess)
+    {
+        _productDataAccess = productDataAccess;
+    }
+
+    public ProductInfo GetProductDetails(int id)
+    {
+        return _productDataAccess.GetDetail(id);
+    }
+}
+```
