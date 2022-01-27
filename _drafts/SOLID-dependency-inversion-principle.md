@@ -147,3 +147,4 @@ public class ProductBusinessLogic
 
 - <https://en.wikipedia.org/wiki/SOLID>
 - <https://www.c-sharpcorner.com/blogs/dependency-inversion-principle-in-c-sharp>
+- <https://flylib.com/books/en/4.444.1.71/1/>
