@@ -84,14 +84,22 @@ public class ProductBusinessLogic
 }
 ```
 
+高层次的类 *ProductBusinessLogic* 直接依赖于低层次的类 *ProductDataAccess*，这明显违反了 *依赖反转原则*。
+
 ### 正确的示范
+
+根据 *依赖反转原则* 的要求，我们把高层对象 *ProductBusinessLogic* 对底层对象的需求抽象为一个接口 *IProductDataAccess*：
 
 ```csharp
 public interface IProductDataAccess
 {
     ProductInfo GetDetail(int id);
 }
+```
 
+在底层对象 *ProductDataAccess* 中实现接口 *IProductDataAccess*，然后在高层对象 *ProductBusinessLogic* 中引用（注入）接口 *IProductDataAccess*：
+
+```csharp
 public class ProductDataAccess : IProductDataAccess
 {
     public ProductInfo GetDetail(int id)
@@ -121,3 +129,21 @@ public class ProductBusinessLogic
     }
 }
 ```
+
+这样，这些类的设计便遵守了*依赖反转原则*。
+
+其实，ASP.NET Core 中服务的依赖注入正是遵循了*依赖反转原则*。
+
+## 总结
+
+本文我介绍了 SOLID 原则中的**依赖反转原则**（Dependency inversion principle），并通过 C# 代码示例简明地诠释了它的含意和实现，希望对您有所帮助。
+
+> 作者 ： 技术译民  
+> 出品 ： [技术译站](https://ittranslator.cn/)
+
+<br />
+
+参考文档：
+
+- <https://en.wikipedia.org/wiki/SOLID>
+- <https://www.c-sharpcorner.com/blogs/dependency-inversion-principle-in-c-sharp>
