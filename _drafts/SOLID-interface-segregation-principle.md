@@ -70,7 +70,7 @@ class ACompany : ICompanyDepartment
 
 也就是说，为了使用 *ICompanyDepartment* 接口，我们不得不在 *ACompany* 类上实现不必要的 `ManufacturingDepartment` 方法，在 *BCompany* 类上实现不必要的 *ITDepartment* 方法。这明显违反了*接口隔离原则*。
 
-为了使其符合*接口隔离原则*，我们需要进行修改。
+为了使其符合*接口隔离原则*，我们需要进行一些修改。
 
 ### 正确的示范
 
@@ -142,7 +142,7 @@ class BCompany : ICompanyDepartment, IBCompanyUniqueFeature
 }
 ```
 
-这样，这些子类的设计便遵守了*接口隔离原则*。
+这样，以上的接口设计便遵守了*接口隔离原则*。
 
 ## 总结
 
