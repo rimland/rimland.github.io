@@ -109,7 +109,7 @@ static void Main(string[] args)
 
 ### 正确的示范
 
-我们看到，每种员工都有基本信息 `Name` 属性，但是由于临时工 *TemporaryEmployee* 没有奖金，所以不需要计算奖金。因此我们应该把计算奖金的方法 `CalculateBonus` 单独抽象出去，而不是它们都继承同一个基类而 *TemporaryEmployee* 类中的 `CalculateBonus` 方法抛出一个异常。
+我们看到，每种员工都有基本信息 `Name` 属性，但是由于临时工 *TemporaryEmployee* 没有奖金，所以不需要计算奖金。因此我们应该把计算奖金的方法 `CalculateBonus` 单独抽象出去，而不是让它们都继承于同一个基类，并将 *TemporaryEmployee* 类中的 `CalculateBonus` 方法抛出一个异常。
 
 改进后的代码：
 
