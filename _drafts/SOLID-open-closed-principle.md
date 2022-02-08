@@ -10,7 +10,7 @@ published: true
 
 SOLID 原则包含：
 
-- **S**：单一功能原则（single-responsibility principle）
+- **S**：[单一功能原则（single-responsibility principle）](https://ittranslator.cn/dotnet/csharp/2022/02/07/SOLID-single-responsibility-principle.html)
 - **O**：开闭原则（open-closed principle）
 - **L**：里氏替换原则（Liskov substitution principle）
 - **I**：接口隔离原则（Interface segregation principle）
@@ -26,7 +26,7 @@ SOLID 原则包含：
 
 ## C# 示例
 
-让我们回顾一下上一篇文章*单一功能原则*中提到的 *AreaCalculator* 类，
+让我们回顾一下上一篇文章[*单一功能原则*](https://ittranslator.cn/dotnet/csharp/2022/02/07/SOLID-single-responsibility-principle.html)中提到的 *AreaCalculator* 类，
 
 ```csharp
 class AreaCalculator
