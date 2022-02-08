@@ -103,7 +103,7 @@ static void Main(string[] args)
 }
 ```
 
-运行一下可以观察到，当使用 *PermanentEmployee* 和 *ContractEmployee* 类创建的对象替换 *Employee* 类型的变量 `e` 时，调用 `CalculateBonus()` 方法可以正常运行，但是使用 *TemporaryEmployee* 类创建的对象替换变量 `e` 时，调用 `CalculateBonus()` 方法抛出了异常，导致程序无法正常运行。这明显违反了*里氏替换原则*。
+运行一下可以观察到，当使用 *PermanentEmployee* 和 *ContractEmployee* 类创建的对象替换基类型 *Employee* 的变量 `e` 时，调用 `CalculateBonus()` 方法可以正常运行，但是使用 *TemporaryEmployee* 类创建的对象替换变量 `e` 时，调用 `CalculateBonus()` 方法抛出了异常，导致程序无法正常运行。这明显违反了*里氏替换原则*。
 
 那么，如何改进它一下呢？
 
