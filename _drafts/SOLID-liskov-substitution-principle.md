@@ -28,7 +28,7 @@ SOLID 原则包含：
 
 ## C# 示例
 
-我们看这样一个示例，假设一个企业有三种员工，一种拿铁饭碗的永久雇员，一种是合同工，一种是临时工。我们设计几个类来表示这三种员工。
+我们看这样一个示例，假设一个企业有三种员工，一种是拿铁饭碗的永久雇员，一种是合同工，一种是临时工。我们设计几个类来表示这三种员工。
 
 ### 糟糕的示范
 
@@ -52,7 +52,7 @@ public abstract class Employee
 /// <summary>
 /// 永久雇员
 /// </summary>
-public class PermamentEmployee : Employee
+public class PermanentEmployee : Employee
 {
     public override decimal CalculateBonus()
     {
@@ -85,14 +85,14 @@ public class TemporaryEmployee : Employee
 
 在 `Main` 方法中调用它们。
 
-先定义一个类型为基类 *Employee* 的变量 `e`，然后分别使用其子类 *PermamentEmployee*、*ContractEmployee* 和 *TemporaryEmployee* 创建对象赋值给变量 `e`，然后调用 `e` 的 `CalculateBonus()` 方法。
+先定义一个类型为基类 *Employee* 的变量 `e`，然后分别使用其子类 *PermanentEmployee*、*ContractEmployee* 和 *TemporaryEmployee* 创建对象赋值给变量 `e`，然后调用 `e` 的 `CalculateBonus()` 方法。
 
 ```csharp
 static void Main(string[] args)
 {
     Employee e;
 
-    e = new PermamentEmployee() { Name = "张三" };
+    e = new PermanentEmployee() { Name = "张三" };
     Console.WriteLine($"{e.Name} 的年终奖是 {e.CalculateBonus()} 元");
 
     e = new ContractEmployee() { Name = "李四" };
@@ -103,7 +103,7 @@ static void Main(string[] args)
 }
 ```
 
-运行一下可以观察到，当使用 *PermamentEmployee* 和 *ContractEmployee* 类创建的对象替换 *Employee* 类型的变量 `e` 时，调用 `CalculateBonus()` 方法可以正常运行，但是使用 *TemporaryEmployee* 类创建的对象替换变量 `e` 时，调用 `CalculateBonus()` 方法抛出了异常，导致程序无法正常运行。这明显违反了*里氏替换原则*。
+运行一下可以观察到，当使用 *PermanentEmployee* 和 *ContractEmployee* 类创建的对象替换 *Employee* 类型的变量 `e` 时，调用 `CalculateBonus()` 方法可以正常运行，但是使用 *TemporaryEmployee* 类创建的对象替换变量 `e` 时，调用 `CalculateBonus()` 方法抛出了异常，导致程序无法正常运行。这明显违反了*里氏替换原则*。
 
 那么，如何改进它一下呢？
 
@@ -131,7 +131,7 @@ public abstract class Employee
 /// <summary>
 /// 永久雇员
 /// </summary>
-public class PermamentEmployee : Employee, IEmployee
+public class PermanentEmployee : Employee, IEmployee
 {
     public decimal CalculateBonus()
     {
@@ -166,7 +166,7 @@ static void Main(string[] args)
     Employee e;
     IEmployee ie;
 
-    var p = new PermamentEmployee() { Name = "张三" };
+    var p = new PermanentEmployee() { Name = "张三" };
     e = p;
     ie = p;
     Console.WriteLine($"{e.Name} 的年终奖是 {ie.CalculateBonus()} 元");
