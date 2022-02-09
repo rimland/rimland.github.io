@@ -95,7 +95,7 @@ permalink: /links/
 - [CodeSandbox](https://codesandbox.io/)
 - [JavaScript 调用 ASP.NET Core Web API](https://docs.microsoft.com/zh-cn/aspnet/core/tutorials/web-api-javascript)
   - [Fetch API](https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API)
-- [SheetJS](https://oss.sheetjs.com/)
+- [SheetJS](https://sheetjs.com/)
 - [Canvas Datagrid](https://canvas-datagrid.js.org/)
 - [AlertifyJS](https://alertifyjs.com/)
 
