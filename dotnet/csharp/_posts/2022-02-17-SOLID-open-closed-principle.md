@@ -151,7 +151,7 @@ class AreaCalculator
 }
 ```
 
-此时，如果我们有一个新的形状需要进行计算，我们可以直接添加一个实现了接口 *IShape* 的新类，而无需修改 *AreaCalculator* 类的代码，比如长方形：
+此时，如果我们有一个新的形状需要进行计算，我们可以直接添加一个实现了接口 *IShape* 的新类，而无需修改 *AreaCalculator* 类的代码，比如添加一个长方形类：
 
 ```csharp
 /// <summary>
