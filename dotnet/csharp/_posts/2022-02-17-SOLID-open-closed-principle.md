@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "C# 实例解释面向对象编程中的开闭原则"
-date:   2022-02-09 00:10:00 +0800
+date:   2022-02-17 00:10:00 +0800
 categories: dotnet csharp
 published: true
 ---
@@ -175,7 +175,7 @@ class Rectangle : IShape
 }
 ```
 
-处理输出格式的 *SumCalculatorOutputter* 类同样保持不变：
+处理输出格式的 *SumCalculatorOutputter* 类同样无需修改：
 
 ```csharp
 class SumCalculatorOutputter
