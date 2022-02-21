@@ -109,7 +109,7 @@ static void Main(string[] args)
 
 ### 正确的示范
 
-我们看到，每种员工都有基本信息 `Name` 属性，但是由于临时工 *TemporaryEmployee* 没有奖金，所以不需要计算奖金。因此我们应该把计算奖金的方法 `CalculateBonus` 单独抽象出去，而不是让它们都继承于同一个基类，并将 *TemporaryEmployee* 类中的 `CalculateBonus` 方法抛出一个异常。
+我们看到，每种员工都有基本信息 `Name` 属性，但是由于临时工 *TemporaryEmployee* 没有奖金，所以不需要计算奖金。因此我们应该把计算奖金的方法 `CalculateBonus` 单独抽象出去，而不是让它们都继承于同一个基类，并将 *TemporaryEmployee* 子类中的 `CalculateBonus` 方法抛出一个异常。
 
 改进后的代码：
 
@@ -158,7 +158,7 @@ public class TemporaryEmployee : Employee
 }
 ```
 
-在 `Main` 方法中调用它们的测试代码改为：
+在 `Main` 方法中，将调用它们的测试代码改为：
 
 ```csharp
 static void Main(string[] args)
@@ -183,7 +183,7 @@ static void Main(string[] args)
 
 程序运行正常。
 
-这样，这些子类的设计便遵守了*里氏替换原则*。
+这样，这些子类的设计便遵循了*里氏替换原则*。
 
 ## 总结
 
