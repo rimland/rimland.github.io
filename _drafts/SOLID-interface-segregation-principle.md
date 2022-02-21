@@ -22,7 +22,7 @@ SOLID 原则包含：
 
 接口隔离原则（Interface segregation principle，ISP）认为“**多个特定用户接口要好于一个宽泛用途的接口**”。
 
-它指明用户（client）不应被迫使用对其而言无用的方法或功能。*接口隔离原则*拆分庞大臃肿的接口成为更小、更具体的接口，使得用户仅需知道他们感兴趣的方法。这种缩小了的接口也被称为**角色接口**（role interfaces）。*接口隔离原则*的目的是将系统解耦，从而使其易于重构、更改和重新部署。
+它指明用户（client）不应被迫使用对其而言无用的方法或功能。*接口隔离原则*将庞大臃肿的接口拆分成为更小、更具体的接口，让用户仅需知道他们感兴趣的方法。这种缩小了的接口也被称为**角色接口**（role interfaces）。*接口隔离原则*的目的是将系统解耦，从而使其易于重构、更改和重新部署。
 
 ## C# 示例
 
@@ -74,7 +74,7 @@ class ACompany : ICompanyDepartment
 
 ### 正确的示范
 
-根据*接口隔离原则*，我们将 `ITDepartment` 和 `ManufacturingDepartment` 方法从接口 *ICompanyDepartment* 拆分出来，形成两个独立的**角色接口**：
+根据*接口隔离原则*，我们要将 `ITDepartment` 和 `ManufacturingDepartment` 方法从接口 *ICompanyDepartment* 拆分出来，形成两个独立的**角色接口**：
 
 1. IACompanyUniqueFeature
 2. IBCompanyUniqueFeature
