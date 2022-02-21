@@ -142,7 +142,7 @@ class BCompany : ICompanyDepartment, IBCompanyUniqueFeature
 }
 ```
 
-这样，以上的接口设计便遵守了*接口隔离原则*。
+这样，以上的接口设计便遵循了*接口隔离原则*。
 
 ## 总结
 
