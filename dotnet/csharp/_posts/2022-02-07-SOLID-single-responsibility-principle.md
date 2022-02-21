@@ -10,8 +10,8 @@ published: true
 
 SOLID 原则包含：
 
-- **S**：单一功能原则（single-responsibility principle）
-- **O**：开闭原则（open-closed principle）
+- **S**：[单一功能原则（single-responsibility principle）](https://ittranslator.cn/dotnet/csharp/2022/02/07/SOLID-single-responsibility-principle.html)
+- **O**：[开闭原则（open-closed principle）](https://ittranslator.cn/dotnet/csharp/2022/02/17/SOLID-open-closed-principle.html)
 - **L**：里氏替换原则（Liskov substitution principle）
 - **I**：接口隔离原则（Interface segregation principle）
 - **D**：依赖反转原则（Dependency inversion principle）
