@@ -20,7 +20,7 @@ SOLID 原则包含：
 
 ## 里氏替换原则
 
-在面向对象的程序设计中，里氏替换原则（Liskov Substitution principle）是对子类型的特别定义。它由芭芭拉·利斯科夫（Barbara Liskov）在1987年的一次会议上，在名为“数据的抽象与层次”的演说中首先提出。
+在面向对象的程序设计中，里氏替换原则（Liskov Substitution principle）是对子类型的特别定义。它由芭芭拉·利斯科夫（Barbara Liskov）在1987年的一次会议上，在名为“数据的抽象与层次”的演说中首次提出。
 
 里氏替换原则的内容可以描述为：“**派生类（子类）对象可以在程序中代替其基类（超类）对象。**”
 
@@ -46,7 +46,7 @@ public abstract class Employee
 }
 ```
 
-再定义它的三个子类：
+再定义该基类的三个子类：
 
 ```csharp
 /// <summary>
@@ -85,7 +85,7 @@ public class TemporaryEmployee : Employee
 
 在 `Main` 方法中调用它们。
 
-先定义一个类型为基类 *Employee* 的变量 `e`，然后分别使用其子类 *PermanentEmployee*、*ContractEmployee* 和 *TemporaryEmployee* 创建对象赋值给变量 `e`，然后调用 `e` 的 `CalculateBonus()` 方法。
+先定义一个类型为基类 *Employee* 的变量 `e`，再分别使用其子类 *PermanentEmployee*、*ContractEmployee* 和 *TemporaryEmployee* 创建对象赋值给基类变量 `e`，然后调用 `e` 的 `CalculateBonus()` 方法。
 
 ```csharp
 static void Main(string[] args)
@@ -103,9 +103,9 @@ static void Main(string[] args)
 }
 ```
 
-运行一下可以观察到，当使用 *PermanentEmployee* 和 *ContractEmployee* 类创建的对象替换基类型 *Employee* 的变量 `e` 时，调用 `CalculateBonus()` 方法可以正常运行，但是使用 *TemporaryEmployee* 类创建的对象替换变量 `e` 时，调用 `CalculateBonus()` 方法抛出了异常，导致程序无法正常运行。这明显违反了*里氏替换原则*。
+运行一下可以观察到（显而易见的），当使用 *PermanentEmployee* 和 *ContractEmployee* 类创建的对象替换基类型 *Employee* 的变量 `e` 时，调用 `CalculateBonus()` 方法可以正常运行，但是使用 *TemporaryEmployee* 类创建的对象替换变量 `e` 时，调用 `CalculateBonus()` 方法抛出了异常，导致程序无法正常运行。这就明显违反了*里氏替换原则*。
 
-那么，如何改进它一下呢？
+那么，应该如何改进一下呢？
 
 ### 正确的示范
 
