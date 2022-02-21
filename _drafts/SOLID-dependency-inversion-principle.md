@@ -22,7 +22,7 @@ SOLID 原则包含：
 
 在面向对象编程领域中，**依赖反转原则**（Dependency inversion principle，DIP）**是指一种特定的解耦形式，使得高层次的模块不依赖于低层次模块的实现细节，依赖关系被颠倒（反转），从而使低层次模块依赖于高层次模块的需求抽象。**（*传统的依赖关系创建在高层次上，而具体的策略设置则应用在低层次的模块上*）
 
-![dependency inversion](/assets/images/2022/Dependency_inversion.png_2#center)
+![dependency inversion](/assets/images/2022/Dependency_inversion_2.png#center)
 
 ![dependency inversion](/assets/images/2022/Dependency_inversion.png#center)
 
