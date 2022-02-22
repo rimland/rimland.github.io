@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "C# 实例解释面向对象编程中的里氏替换原则"
-date:   2022-02-22 00:10:00 +0800
+date:   2022-02-23 00:10:00 +0800
 categories: dotnet csharp
 published: true
 ---
