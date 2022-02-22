@@ -22,7 +22,7 @@ SOLID 原则包含：
 
 在面向对象的程序设计中，里氏替换原则（Liskov Substitution principle）是对子类型的特别定义。它由芭芭拉·利斯科夫（Barbara Liskov）在1987年的一次会议上，在名为“数据的抽象与层次”的演说中首次提出。
 
-里氏替换原则的内容可以描述为：“**派生类（子类）对象可以在程序中代替其基类（超类）对象。**”
+**里氏替换原则**的内容**可以描述为：**“**派生类（子类）对象可以在程序中代替其基类（超类）对象。**”
 
 也就是说，**程序中的对象不管出现在什么地方，都应该可以使用其派生类（子类）的对象进行替换，而不影响程序运行的正确性。**
 
@@ -83,7 +83,7 @@ public class TemporaryEmployee : Employee
 }
 ```
 
-在 `Main` 方法中调用它们。
+接下来在 `Main` 方法中调用它们。
 
 先定义一个类型为基类 *Employee* 的变量 `e`，再分别使用其子类 *PermanentEmployee*、*ContractEmployee* 和 *TemporaryEmployee* 创建对象赋值给基类变量 `e`，然后调用 `e` 的 `CalculateBonus()` 方法。
 
