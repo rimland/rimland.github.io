@@ -33,6 +33,7 @@ permalink: /links/
   - [ASP.NET Core 安全](https://docs.microsoft.com/zh-cn/aspnet/core/security/)
 - Manual Collection
   - [Getting started with .NET on RHEL](https://access.redhat.com/documentation/en-us/net/5.0/)
+  - [Protocol Buffer Basics: C#](https://developers.google.com/protocol-buffers/docs/csharptutorial)
 
 ## Programming Language
 
