@@ -119,6 +119,7 @@ permalink: /links/
 
 ## Others
 
+- [A Cool Tutorials](https://zetcode.com/)
 - Emoji
   - [emojipedia.org](https://emojipedia.org/)
   - [github markdown emoji](https://gist.github.com/rxaviers/7360908)
