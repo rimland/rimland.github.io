@@ -131,3 +131,10 @@ permalink: /links/
 ## Easy to understand knowledge
 
 - [使用 Async 和 Await 的异步编程](https://docs.microsoft.com/zh-cn/dotnet/csharp/programming-guide/concepts/async/)
+
+---
+
+## Application Program
+
+- [Geek Uninstaller](https://geekuninstaller.com/)
+- [CCleaner:PC cleaner](https://www.ccleaner.com/ccleaner/download)
