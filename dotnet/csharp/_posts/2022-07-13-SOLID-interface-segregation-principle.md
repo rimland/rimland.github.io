@@ -68,7 +68,7 @@ class ACompany : ICompanyDepartment
 
 如果在接口 *ICompanyDepartment* 上添加一个 `ManufacturingDepartment` 生产部门，那我们就不得不在 *ACompany* 和 *BCompany* 两个类上都实现该签名。
 
-也就是说，为了使用 *ICompanyDepartment* 接口，我们不得不在 *ACompany* 类上实现不必要的 `ManufacturingDepartment` 方法，在 *BCompany* 类上实现不必要的 *ITDepartment* 方法。这明显违反了*接口隔离原则*。
+也就是说，为了使用 *ICompanyDepartment* 接口，我们不得不在 *ACompany* 类上实现不必要的 `ManufacturingDepartment` 方法，在 *BCompany* 类上实现不必要的 `ITDepartment` 方法。这明显违反了*接口隔离原则*。
 
 为了使其符合*接口隔离原则*，我们需要进行一些修改。
 
