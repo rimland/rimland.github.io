@@ -47,19 +47,19 @@ class ACompany : ICompanyDepartment
 {
     public void AdminDepartment()
     {
-        //TO DO
+        //DO SOMETHING
     }
     public void FinanaceDepartment()
     {
-        //TO DO
+        //DO SOMETHING
     }
     public void HRDepartment()
     {
-        //TO DO
+        //DO SOMETHING
     }
     public void ITDepartment()
     {
-        //TO DO
+        //DO SOMETHING
     }
 }
 ```
@@ -105,19 +105,19 @@ class ACompany : ICompanyDepartment, IACompanyUniqueFeature
 {
     public void AdminDepartment()
     {
-        //TO DO
+        //DO SOMETHING
     }
     public void FinanaceDepartment()
     {
-        //TO DO
+        //DO SOMETHING
     }
     public void HRDepartment()
     {
-        //TO DO
+        //DO SOMETHING
     }
     public void ITDepartment()
     {
-        //TO DO
+        //DO SOMETHING
     }
 }
 
@@ -125,19 +125,19 @@ class BCompany : ICompanyDepartment, IBCompanyUniqueFeature
 {
     public void AdminDepartment()
     {
-        //TO DO
+        //DO SOMETHING
     }
     public void FinanaceDepartment()
     {
-        //TO DO
+        //DO SOMETHING
     }
     public void HRDepartment()
     {
-        //TO DO
+        //DO SOMETHING
     }
     public void ManufacturingDepartment()
     {
-        //TO DO
+        //DO SOMETHING
     }
 }
 ```
