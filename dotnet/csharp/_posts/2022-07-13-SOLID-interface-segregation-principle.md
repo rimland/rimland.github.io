@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "C# 实例解释面向对象编程中的接口隔离原则"
-date:   2022-03-10 00:10:00 +0800
+date:   2022-07-13 00:10:00 +0800
 categories: dotnet csharp
 published: true
 ---
