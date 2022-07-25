@@ -26,7 +26,7 @@ SOLID 原则包含：
 
 ![dependency inversion](/assets/images/2022/Dependency_inversion.png#center)
 
-（图1 中，高层 对象A 依赖于底层 对象B 的实现；图2 中，把高层 对象A 对底层对象的需求抽象为一个 接口A，底层 对象B 实现了 接口A，这就是依赖反转。）
+（图1 中，高层 对象A 依赖于低层 对象B 的实现；图2 中，把高层 对象A 对低层对象的需求抽象为一个 接口A，低层 对象B 实现了 接口A，这就是依赖反转。）
 
 依赖反转原则规定：
 
@@ -35,7 +35,7 @@ SOLID 原则包含：
 
 该原则颠倒了一部分人对于面向对象设计的认识方式（如高层次和低层次对象都应该依赖于相同的抽象接口）。
 
-依赖注入是该原则的一种实现方式。
+*依赖注入*是该原则的一种实现方式。
 
 ## C# 示例
 
@@ -86,11 +86,11 @@ public class ProductBusinessLogic
 }
 ```
 
-高层次的类 *ProductBusinessLogic* 直接依赖于低层次的类 *ProductDataAccess*，这明显违反了 *依赖反转原则*。
+在上面的代码中，高层次的类 *ProductBusinessLogic* 直接依赖于低层次的类 *ProductDataAccess*，这明显违反了 *依赖反转原则*。
 
 ### 正确的示范
 
-根据 *依赖反转原则* 的要求，我们把高层对象 *ProductBusinessLogic* 对底层对象的需求抽象为一个接口 *IProductDataAccess*：
+根据 *依赖反转原则* 的要求，我们**把高层对象** *ProductBusinessLogic* 对低层对象**的需求抽象为一个接口** *IProductDataAccess*：
 
 ```csharp
 public interface IProductDataAccess
@@ -99,7 +99,7 @@ public interface IProductDataAccess
 }
 ```
 
-在底层对象 *ProductDataAccess* 中实现接口 *IProductDataAccess*，然后在高层对象 *ProductBusinessLogic* 中引用（注入）接口 *IProductDataAccess*：
+在低层对象 *ProductDataAccess* 中实现接口 *IProductDataAccess*，然后在高层对象 *ProductBusinessLogic* 中引用（注入）接口 *IProductDataAccess*：
 
 ```csharp
 public class ProductDataAccess : IProductDataAccess
