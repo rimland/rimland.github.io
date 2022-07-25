@@ -26,7 +26,7 @@ SOLID 原则包含：
 
 ![dependency inversion](/assets/images/2022/Dependency_inversion.png#center)
 
-（图1 中，高层 对象A 依赖于低层 对象B 的实现；图2 中，把高层 对象A 对低层对象的需求抽象为一个 接口A，低层 对象B 实现了 接口A，这就是依赖反转。）
+（*图1 中，高层 对象A 依赖于低层 对象B 的实现；图2 中，把高层 对象A 对低层对象的需求抽象为一个 接口A，低层 对象B 实现了 接口A，这就是依赖反转。*）
 
 依赖反转原则规定：
 
