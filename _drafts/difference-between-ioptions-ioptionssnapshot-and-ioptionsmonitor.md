@@ -1,0 +1,18 @@
+---
+layout: post
+title:  "Blazor 模板化组件开发指南"
+date:   2021-08-16 00:10:10 +0800
+categories: dotnet csharp
+tags: [DotNet]
+published: true
+---
+
+> 翻译自 Farhad Zamani 2021年3月29日的文章 [《Difference between IOptions, IOptionsSnapshot and IOptionsMonitor》](https://dotnetdocs.ir/Post/42/difference-between-ioptions-ioptionssnapshot-and-ioptionsmonitor) [^1]
+
+[^1]: <https://dotnetdocs.ir/Post/42/difference-between-ioptions-ioptionssnapshot-and-ioptionsmonitor>
+
+本文我们来讨论一下 *IOptions*, *IOptionsMonitor* 和 *IOptionsSnapshot* 之间的区别。
+
+The IOptions interface works as a Singleton and therefore can be injected into all services with any lifetime (Lifetime). If you change the value of the appsettings.json file after running the program and use this interface to read the data, you will not see your changes, because this service is Singleton and is only validated at the time of running the program. If the program does not run again, it shows the same initial values.
+
+接口 *IOptions* 作为 **Singleton**（单例）工作，因此可以被注入到任何生命周期（Lifetime）的所有的服务中。
