@@ -76,10 +76,12 @@ permalink: /links/
 - [Git](https://git-scm.com/)
   - [Git Docs](https://git-scm.com/book/zh/v2)
 - [TortoiseGit](https://tortoisegit.org/)
-- 正则表达式在线测试
-  - <https://regex101.com/>
-  - <http://c.runoob.com/front-end/854>
-  - [Named capture groups](https://learnbyexample.github.io/learn_js_regexp/groupings-and-backreferences.html#named-capture-groups)
+- 正则表达式
+  - Online Test
+    - <https://regex101.com/>
+    - <http://c.runoob.com/front-end/854>
+  - Knowledge
+    - [Named capture groups](https://learnbyexample.github.io/learn_js_regexp/groupings-and-backreferences.html#named-capture-groups)
 - Markdown
   - [MarkText](https://github.com/marktext/marktext)
   - [Typora](https://typora.io/)
