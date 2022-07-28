@@ -296,7 +296,7 @@ var configuration = new ConfigurationBuilder()
 
 > 作为 Windows Service 运行时，默认情况下，Directory.GetCurrentDirectory() 为 *C:\WINDOWS\system32*，  
 > AppDomain.CurrentDomain.BaseDirectory 和 AppContext.BaseDirectory 为应用程序所在的实际目录。  
-> 因为在有的依赖程序包中有用到 Directory.GetCurrentDirectory() 获取来程序所在目录，所以这里必须使用 Directory.SetCurrentDirectory 设置当前工作目录。
+> 因为在有的依赖程序包中有用到 Directory.GetCurrentDirectory() 来获取程序所在目录，所以这里必须使用 Directory.SetCurrentDirectory 设置当前工作目录。
 
 再次启动服务：
 
