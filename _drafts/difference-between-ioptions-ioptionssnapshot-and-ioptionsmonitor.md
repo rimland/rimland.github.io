@@ -86,10 +86,10 @@ public class HomeController : Controller
 
 <!-- If you change the Name value in the appsetting.json file to dntips and reload the page, you will get the following values: -->
 
-如果您将 *appsetting.json* 文件中的 `Name` 值更改为 **技术译站** 并重新加载页面，您将得到以下值：
+如果您将 *appsetting.json* 文件中的 `Name` 值更改为 **ITTranslator** 并重新加载页面，您将得到以下值：
 
 ```json
-{"options":"DotNetDocs","snapshot":"技术译站"}
+{"options":"DotNetDocs","snapshot":"ITTranslator"}
 ```
 
 <!-- The Name value received from the IOptionsSnapshot interface receives the changes, but the IOptions interface does not receive the changes because it is registered as a Singleton. -->
@@ -124,3 +124,21 @@ public class HostedService : BackgroundService
     }
 }
 ```
+
+注册宿主服务：
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    //...
+    services.AddHostedService<HostedService>();
+}
+```
+
+Now if you run the program, the host service will also run and read the values from appsettings.json once and put the Name value inside the name variable next time (in ExecuteAsync method). But when a change is made in the appsettings.json file, the OnChange method is called and puts the new values in the config parameter of the OnChange method, and using this method we can get the new changes and change the _optionsMonitor.
+
+现在，如果您运行该程序，宿主服务也将运行并从 *appsettings.json* 读取一次值，然后将 `Name` 的值赋值给 `name` 变量（在 `ExecuteAsync` 方法中）。但是当 *appsettings.json* 文件发生更改时，会调用 OnChange 方法并将新值放入 `OnChange` 方法的 `config` 参数中，使用这种方法我们便可以获取更新并改变 `_optionsMonitor`。
+
+- If you have a service that is registered as Singleton and reads a set of values from appsettings.json, if the data may change, it is best to use IOptionsMonitor to apply the changes using the OnChange method. The IOptionsMonitor interface is more commonly used in Singleton services such as HostedServices because IOptionsSnapshot cannot be used to refresh data.
+- If the changes to the appsettings.json file are not very important and should not be applied immediately, you can use IOptions.
+- If the changes to the appsettings.json file are important and need to be changed, you can use IOptionsSnapshot because it re-reads the data from appsettings.json for each request. This interface cannot be used in Singleton services.
