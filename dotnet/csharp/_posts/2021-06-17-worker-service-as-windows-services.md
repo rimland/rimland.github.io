@@ -193,7 +193,7 @@ dotnet publish -c Release -r win-x64 -o c:\test\workerpub
 - **service name**：指定 **getkeyname** 操作返回的服务名称。
 - **binPath=**：指定服务二进制文件的路径。 binPath= 没有默认值，必须提供此字符串。
 - **displayname= "显示名称"**：指定一个友好名称，用于标识用户界面程序中的服务。
-- **start= {boot|system|auto|demand|disabled|delayed-auto}**：指定服务的启动类型。选项包括：
+- **start=** {**boot|system|auto|demand|disabled|delayed-auto**}：指定服务的启动类型。选项包括：
   - boot - 指定由启动加载程序加载的设备驱动程序。
   - system - 指定在内核初始化过程中启动的设备驱动程序。
   - auto - 指定一项服务，该服务在计算机每次重新启动时自动启动并运行（即使没有人登录到计算机）。
