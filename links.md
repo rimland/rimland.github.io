@@ -35,6 +35,7 @@ permalink: /links/
 - Manual Collection
   - [Getting started with .NET on RHEL](https://access.redhat.com/documentation/en-us/net/5.0/)
   - [Protocol Buffer Basics: C#](https://developers.google.com/protocol-buffers/docs/csharptutorial)
+  - [Dapper.NET Tutorial](https://riptutorial.com/dapper)
 
 ## Programming Language
 
