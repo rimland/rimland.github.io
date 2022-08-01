@@ -138,13 +138,20 @@ public void ConfigureServices(IServiceCollection services)
 <!-- Now if you run the program, the host service will also run and read the values from appsettings.json once and put the Name value inside the name variable next time (in ExecuteAsync method). But when a change is made in the appsettings.json file, the OnChange method is called and puts the new values in the config parameter of the OnChange method, and using this method we can get the new changes and change the _optionsMonitor. -->
 
 现在，如果您运行该程序，宿主服务也将运行并从 *appsettings.json* 读取一次值，然后将 `Name` 的值赋值给 `name` 变量（在 `ExecuteAsync` 方法中）。但是当 *appsettings.json* 文件发生变更时，会调用 `OnChange` 方法并将新值放入 `OnChange` 方法的 `config` 参数中，使用这种方法我们便可以获取更新并改变 `_optionsMonitor`。
-
+<!-- 
 - If you have a service that is registered as Singleton and reads a set of values from appsettings.json, if the data may change, it is best to use IOptionsMonitor to apply the changes using the OnChange method. The IOptionsMonitor interface is more commonly used in Singleton services such as HostedServices because IOptionsSnapshot cannot be used to refresh data.
 - If the changes to the appsettings.json file are not very important and should not be applied immediately, you can use IOptions.
-- If the changes to the appsettings.json file are important and need to be changed, you can use IOptionsSnapshot because it re-reads the data from appsettings.json for each request. This interface cannot be used in Singleton services.
+- If the changes to the appsettings.json file are important and need to be changed, you can use IOptionsSnapshot because it re-reads the data from appsettings.json for each request. This interface cannot be used in Singleton services. -->
 
 ## 总结
 
 - 如果您有一个注册为 **Singleton** 的服务并从 *appsettings.json* 读取一组值，假如数据可能发生变化，最好使用 *IOptionsMonitor*，然后使用 `OnChange` 方法应用更改。接口 *IOptionsMonitor* 在 HostedServices 之类的 **Singleton** 服务中更常用，因为这种情况下 *IOptionsSnapshot* 不能用来刷新数据。
-- 如果对 *appsettings.json* 文件的更改不是很重要，不必马上应用更新，则可以使用 *IOptions*。
-- 如果对 *appsettings.json* 文件的更改很重要，并且需要应用更新，则可以使用 *IOptionsSnapshot*，因为它会为每个请求从 *appsettings.json* 重新读取数据。 不过该接口不能在 **Singleton** 服务中使用。
+- 如果对 *appsettings.json* 文件的更改不是很重要，不必立即应用更新，则可以使用 *IOptions*。
+- 如果对 *appsettings.json* 文件的更改很重要，并且需要应用更新，则可以使用 *IOptionsSnapshot*，因为它会为每个请求从 *appsettings.json* 重新读取数据。不过该接口不能在 **Singleton** 服务中使用。
+
+<br/>
+
+> 作者 ： Farhad Zamani  
+> 译者 ： 技术译民  
+> 出品 ： [技术译站](https://ittranslator.cn/)  
+> 链接 ： [英文原文](https://dotnetdocs.ir/Post/42/difference-between-ioptions-ioptionssnapshot-and-ioptionsmonitor)
