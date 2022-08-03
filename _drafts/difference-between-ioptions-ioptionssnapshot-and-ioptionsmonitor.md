@@ -155,3 +155,7 @@ public void ConfigureServices(IServiceCollection services)
 > 译者 ： 技术译民  
 > 出品 ： [技术译站](https://ittranslator.cn/)  
 > 链接 ： [英文原文](https://dotnetdocs.ir/Post/42/difference-between-ioptions-ioptionssnapshot-and-ioptionsmonitor)
+
+<!-- https://dotnetdocs.ir/Post/42/difference-between-ioptions-ioptionssnapshot-and-ioptionsmonitor  
+https://docs.microsoft.com/zh-cn/aspnet/core/fundamentals/configuration/options?view=aspnetcore-6.0  
+https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-6.0 -->
