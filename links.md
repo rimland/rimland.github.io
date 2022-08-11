@@ -27,6 +27,7 @@ permalink: /links/
 - .NET Documentation
   - <https://docs.microsoft.com/en-us/dotnet/core/>
   - <https://docs.microsoft.com/zh-cn/dotnet/>
+- [WinUI（Windows 桌面应用）](https://docs.microsoft.com/zh-cn/windows/apps/desktop/)
 - ASP.NET Core
   - [ASP.NET Core 基础](https://docs.microsoft.com/zh-cn/aspnet/core/fundamentals/)
   - [ASP.NET Core Blazor](https://docs.microsoft.com/zh-cn/aspnet/core/blazor/)
