@@ -1,5 +1,5 @@
 (()=>{
-const article = document.querySelector("article");
+const article = document.querySelector("article.h-entry");
 if (article) {
   const text = article.textContent;
   const wordMatchRegExp = /[^\s]+/g;
