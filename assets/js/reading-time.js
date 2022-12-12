@@ -6,7 +6,7 @@ if (article) {
   const words = text.matchAll(wordMatchRegExp);
   // matchAll returns an iterator, convert to array to get word count
   const wordCount = [...words].length;
-  const readingTime = Math.ceil(wordCount / 160);
+  const readingTime = Math.ceil(wordCount / 150);
   const badge = document.createElement("p");
   // Use the same styling as the publish information in an article's header
   badge.classList.add("post-meta");
