@@ -12,7 +12,7 @@
     // 中文
     const blankMatchRegExp = /[\s]+/g;
     const charCount = text.replace(blankMatchRegExp, '').length;
-    const readingTime = Math.floor(charCount / 500);
+    const readingTime = Math.floor(charCount / 550);
 
     const badge = document.createElement("p");
     // Use the same styling as the publish information in an article's header
