@@ -111,6 +111,11 @@ permalink: /links/
 - [SheetJS](https://sheetjs.com/)
 - [Canvas Datagrid](https://canvas-datagrid.js.org/)
 - [AlertifyJS](https://alertifyjs.com/)
+- [Vue.js](https://cn.vuejs.org/)
+  - [Vite](https://cn.vitejs.dev/)
+  - [Pinia](https://pinia.vuejs.org/)
+  - [TypeScript](https://www.typescriptlang.org/)
+  - [Volar](https://github.com/johnsoncodehk/volar)
 
 ## Favorite Blogs
 <!-- Most Valuable Pepoles -->
