@@ -116,7 +116,7 @@ permalink: /links/
   - [Pinia](https://pinia.vuejs.org/)
   - [TypeScript](https://www.typescriptlang.org/)
   - [Volar](https://github.com/johnsoncodehk/volar)
-  - [mande](https://posva.net/mande/)
+  - [mande](https://github.com/posva/mande)
 
 ## Favorite Blogs
 <!-- Most Valuable Pepoles -->
