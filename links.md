@@ -112,6 +112,7 @@ permalink: /links/
 - [Canvas Datagrid](https://canvas-datagrid.js.org/)
 - [AlertifyJS](https://alertifyjs.com/)
 - [Vue.js](https://cn.vuejs.org/)
+  - [Vue CLI](https://cli.vuejs.org/)
   - [Vite](https://cn.vitejs.dev/)
   - [Pinia](https://pinia.vuejs.org/)
   - [TypeScript](https://www.typescriptlang.org/)
