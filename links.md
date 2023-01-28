@@ -118,6 +118,7 @@ permalink: /links/
   - [TypeScript](https://www.typescriptlang.org/)
   - [Volar](https://github.com/johnsoncodehk/volar)
   - [mande](https://github.com/posva/mande)
+  - [Axios](https://axios-http.com/)
 
 ## Favorite Blogs
 <!-- Most Valuable Pepoles -->
