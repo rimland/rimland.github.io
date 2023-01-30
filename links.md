@@ -119,6 +119,11 @@ permalink: /links/
   - [Volar](https://github.com/johnsoncodehk/volar)
   - [mande](https://github.com/posva/mande)
   - [Axios](https://axios-http.com/)
+- Redis
+  - [Redis](https://redis.io/)
+  - [Memurai for Windows](https://www.memurai.com/)
+  - [Microsoft's native port of redis - archived](https://github.com/microsoftarchive/redis)
+  - [Install Redis on Windows](https://docs.servicestack.net/install-redis-windows#live-demo-https-redis-web-app-io)
 
 ## Favorite Blogs
 <!-- Most Valuable Pepoles -->
