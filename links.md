@@ -78,7 +78,7 @@ permalink: /links/
 - [Git](https://git-scm.com/)
   - [Git Docs](https://git-scm.com/book/zh/v2)
 - [TortoiseGit](https://tortoisegit.org/)
-- 正则表达式
+- 正则表达式(Regular Expression Test)
   - Online Test
     - <https://regex101.com/>
     - <http://c.runoob.com/front-end/854>
@@ -90,7 +90,12 @@ permalink: /links/
 - [DDL 转 PO（Persistence Object）](https://codverter.com/src/sqltoclass)
 - [Fiddler](https://www.telerik.com/fiddler)
 - [Postman](https://www.getpostman.com/)
-- <https://crontab.guru/>
+- [crontab guru](https://crontab.guru/)
+- Redis
+  - [Redis](https://redis.io/)
+  - [Memurai for Windows](https://www.memurai.com/)
+  - [Microsoft's native port of redis - archived](https://github.com/microsoftarchive/redis)
+  - [Install Redis on Windows](https://docs.servicestack.net/install-redis-windows#live-demo-https-redis-web-app-io)
 
 ## Front End
 
@@ -119,11 +124,7 @@ permalink: /links/
   - [Volar](https://github.com/johnsoncodehk/volar)
   - [mande](https://github.com/posva/mande)
   - [Axios](https://axios-http.com/)
-- Redis
-  - [Redis](https://redis.io/)
-  - [Memurai for Windows](https://www.memurai.com/)
-  - [Microsoft's native port of redis - archived](https://github.com/microsoftarchive/redis)
-  - [Install Redis on Windows](https://docs.servicestack.net/install-redis-windows#live-demo-https-redis-web-app-io)
+
 
 ## Favorite Blogs
 <!-- Most Valuable Pepoles -->
