@@ -124,7 +124,7 @@ permalink: /links/
   - [Volar](https://github.com/johnsoncodehk/volar)
   - [mande](https://github.com/posva/mande)
   - [Axios](https://axios-http.com/)
-- [Day.js]
+- Day.js
   - <https://dayjs.fenxianglu.cn/>
   - <https://day.js.org/en/>
 
