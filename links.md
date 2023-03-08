@@ -49,6 +49,8 @@ permalink: /links/
 - [Node.js](https://nodejs.org/zh-cn/)
 - [React](https://reactjs.org/)
   - [React Docs](https://zh-hans.reactjs.org/docs/getting-started.html)
+- [Python](https://www.python.org/)
+- [Python 3 Docs](https://docs.python.org/3/)
 
 ## Tech
 
