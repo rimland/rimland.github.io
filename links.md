@@ -50,7 +50,22 @@ permalink: /links/
 - [React](https://reactjs.org/)
   - [React Docs](https://zh-hans.reactjs.org/docs/getting-started.html)
 - [Python](https://www.python.org/)
-- [Python 3 Docs](https://docs.python.org/3/)
+  - [Python 3 Docs](https://docs.python.org/3/)
+  - [Full Stack Python](https://www.fullstackpython.com/)
+  - [PyScaffold](https://pyscaffold.org/)
+  - [tox](https://tox.wiki/)
+
+## Artificial Intelligence
+
+- OpenAI
+  - [ChatGPT](https://ai.com)
+  - [OpenAI](https://openai.com/)
+  - [Docs](https://openai.com/docs)
+  - [Platform](https://platform.openai.com/)
+- Vector Database
+  - [Pinecone](https://www.pinecone.io/)
+  - [Qdrant](https://qdrant.tech/)
+  - [Weaviate](https://weaviate.io/)
 
 ## Tech
 
