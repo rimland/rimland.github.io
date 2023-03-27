@@ -66,6 +66,10 @@ permalink: /links/
   - [Pinecone](https://www.pinecone.io/)
   - [Qdrant](https://qdrant.tech/)
   - [Weaviate](https://weaviate.io/)
+- Weights & Biases
+  - <https://wandb.ai/>
+  - <https://docs.wandb.ai/>
+  - [integrations/openai](https://docs.wandb.ai/guides/integrations/openai?utm_source=wandb_docs&utm_medium=code&utm_campaign=OpenAI+API)
 
 ## Tech
 
@@ -113,6 +117,7 @@ permalink: /links/
   - [Memurai for Windows](https://www.memurai.com/)
   - [Microsoft's native port of redis - archived](https://github.com/microsoftarchive/redis)
   - [Install Redis on Windows](https://docs.servicestack.net/install-redis-windows#live-demo-https-redis-web-app-io)
+- [GitHub Copilot](https://github.com/features/copilot)
 
 ## Front End
 
@@ -130,21 +135,30 @@ permalink: /links/
 - [CodeSandbox](https://codesandbox.io/)
 - [JavaScript 调用 ASP.NET Core Web API](https://docs.microsoft.com/zh-cn/aspnet/core/tutorials/web-api-javascript)
   - [Fetch API](https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API)
-- [SheetJS](https://sheetjs.com/)
 - [Canvas Datagrid](https://canvas-datagrid.js.org/)
 - [AlertifyJS](https://alertifyjs.com/)
 - [Vue.js](https://cn.vuejs.org/)
-  - [Vue CLI](https://cli.vuejs.org/)
+  - [Vue CLI](https://cli.vuejs.org/) [Zh-CN](https://cli.vuejs.org/zh/)
   - [Vite](https://cn.vitejs.dev/)
+  - [eslint-plugin-vue](https://eslint.vuejs.org/)
   - [Pinia](https://pinia.vuejs.org/)
   - [TypeScript](https://www.typescriptlang.org/)
   - [Volar](https://github.com/johnsoncodehk/volar)
   - [mande](https://github.com/posva/mande)
   - [Axios](https://axios-http.com/)
   - [Ant Design Vue](https://www.antdv.com/components/overview-cn)
+  - [vite-plugin-checker](https://vite-plugin-checker.netlify.app/)
+  - [Vben Admin](https://doc.vvbin.cn/)
 - Day.js
   - <https://dayjs.fenxianglu.cn/>
   - <https://day.js.org/en/>
+- Excel
+  - [SheetJS](https://sheetjs.com/)
+  - [ExcelJS](https://github.com/exceljs/exceljs)
+
+## Online IDE
+
+- [StackBlitz](https://stackblitz.com/)
 
 ## Favorite Blogs
 <!-- Most Valuable Pepoles -->
