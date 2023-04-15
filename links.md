@@ -70,6 +70,12 @@ permalink: /links/
   - <https://wandb.ai/>
   - <https://docs.wandb.ai/>
   - [integrations/openai](https://docs.wandb.ai/guides/integrations/openai?utm_source=wandb_docs&utm_medium=code&utm_campaign=OpenAI+API)
+- AI Programming Assistant
+  - [GitHub Copilot](https://github.com/features/copilot)
+  - [Cursor AI](https://www.cursor.so/)
+  - [Bito AI](https://bito.ai/)
+- Productivity Tools
+  - [Notion AI](https://www.notion.so/)
 
 ## Tech
 
@@ -117,7 +123,7 @@ permalink: /links/
   - [Memurai for Windows](https://www.memurai.com/)
   - [Microsoft's native port of redis - archived](https://github.com/microsoftarchive/redis)
   - [Install Redis on Windows](https://docs.servicestack.net/install-redis-windows#live-demo-https-redis-web-app-io)
-- [GitHub Copilot](https://github.com/features/copilot)
+- [7-Zip](https://www.7-zip.org/)
 
 ## Front End
 
