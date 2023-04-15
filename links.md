@@ -32,7 +32,10 @@ permalink: /links/
   - [ASP.NET Core 基础](https://docs.microsoft.com/zh-cn/aspnet/core/fundamentals/)
   - [ASP.NET Core Blazor](https://docs.microsoft.com/zh-cn/aspnet/core/blazor/)
   - [ASP.NET Core 安全](https://docs.microsoft.com/zh-cn/aspnet/core/security/)
-  - [gRPC on .NET](https://docs.microsoft.com/en-us/aspnet/core/grpc/)
+  - SignalR
+    - [Real-time ASP.NET with SignalR](https://dotnet.microsoft.com/en-us/apps/aspnet/signalr)
+    - [Introduction to SignalR](https://learn.microsoft.com/en-us/aspnet/signalr/overview/getting-started/introduction-to-signalr)
+- [gRPC on .NET](https://docs.microsoft.com/en-us/aspnet/core/grpc/)
 - Manual Collection
   - [Getting started with .NET on RHEL](https://access.redhat.com/documentation/en-us/net/5.0/)
   - [Protocol Buffer Basics: C#](https://developers.google.com/protocol-buffers/docs/csharptutorial)
