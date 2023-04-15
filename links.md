@@ -40,6 +40,9 @@ permalink: /links/
   - [Getting started with .NET on RHEL](https://access.redhat.com/documentation/en-us/net/5.0/)
   - [Protocol Buffer Basics: C#](https://developers.google.com/protocol-buffers/docs/csharptutorial)
   - [Dapper.NET Tutorial](https://riptutorial.com/dapper)、[（2）](https://www.learndapper.com/)
+- Windows 命令行手册
+  - [Windows 命令 zh-cn](https://learn.microsoft.com/zh-cn/windows-server/administration/windows-commands/windows-commands)
+  - [Windows Commands en-us](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands)
 
 ## Programming Language
 
