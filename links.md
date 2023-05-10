@@ -84,6 +84,9 @@ permalink: /links/
   - [Bito AI](https://bito.ai/)
 - Productivity Tools
   - [Notion AI](https://www.notion.so/)
+- Programming
+  - [Jupyter Notebook](https://jupyter.org/)
+  - [Colab](https://colab.research.google.com)
 
 ## Tech
 
