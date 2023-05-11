@@ -83,7 +83,7 @@ permalink: /links/
   - [Cursor AI](https://www.cursor.so/)
   - [Bito AI](https://bito.ai/)
 - Productivity Tools
-  - [Notion AI](https://www.notion.so/)
+  - [Notion](https://www.notion.so/)
 - Programming
   - [Jupyter Notebook](https://jupyter.org/)
   - [Colab](https://colab.research.google.com)
@@ -91,7 +91,6 @@ permalink: /links/
 
 ## Tech
 
-- [kubernetes.io](https://kubernetes.io/)
 - [softether.org](https://www.softether.org/)
 - [JumpServer](https://www.jumpserver.org/)
 - [OAuth 2.0](https://oauth.net/2/)
