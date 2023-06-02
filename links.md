@@ -72,6 +72,7 @@ permalink: /links/
   - [Pinecone](https://www.pinecone.io/)
   - [Qdrant](https://qdrant.tech/)
     - [Qdrant Documentation](https://qdrant.tech/documentation/)
+    - [Qdrant REST API - API Schema definition](https://qdrant.github.io/qdrant/redoc/index.html)
     - [Python Qdrant Client](https://github.com/qdrant/qdrant-client)
   - [Weaviate](https://weaviate.io/)
 - Weights & Biases
