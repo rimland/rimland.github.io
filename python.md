@@ -9,6 +9,14 @@ permalink: /python/
 - [Python Home](https://www.python.org/){:target="_blank"}
 - [Python 3 Docs](https://docs.python.org/3/){:target="_blank"}
 
+## Python Tutorial
+
+- [Python Tutorial](https://www.w3schools.com/python/){:target="_blank"}
+- [30 Days Of Python](https://teclado.com/30-days-of-python/){:target="_blank"}
+- [Learn Python Programming](https://www.programiz.com/python-programming){:target="_blank"}
+  - [Python staticmethod](https://www.programiz.com/python-programming/methods/built-in/staticmethod){:target="_blank"}
+  - [Python classmethod](https://www.programiz.com/python-programming/methods/built-in/classmethod){:target="_blank"}
+
 ## Development Tools
 
 - [Full Stack Python](https://www.fullstackpython.com/){:target="_blank"}
@@ -18,13 +26,10 @@ permalink: /python/
 - [PyInstaller](https://pyinstaller.org/){:target="_blank"}
 - [Repl.it](https://repl.it/){:target="_blank"} / [Replit](https://replit.com/){:target="_blank"} - Replit: the collaborative browser based IDE
 
-## Python Tutorial
+## Python packages
 
-- [Python Tutorial](https://www.w3schools.com/python/){:target="_blank"}
-- [30 Days Of Python](https://teclado.com/30-days-of-python/){:target="_blank"}
-- [Learn Python Programming](https://www.programiz.com/python-programming){:target="_blank"}
-  - [Python staticmethod](https://www.programiz.com/python-programming/methods/built-in/staticmethod){:target="_blank"}
-  - [Python classmethod](https://www.programiz.com/python-programming/methods/built-in/classmethod){:target="_blank"}
+- [PyPI](https://pypi.org/)
+- [Python-Markdown](https://python-markdown.github.io/)
 
 ## Knowledge Collection
 
