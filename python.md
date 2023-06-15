@@ -1,10 +1,10 @@
 ---
 layout: page
-title: Fav links
+title: Python Tutorial
 permalink: /python/
 ---
 
-## The official home of the Python Programming Language
+## Official site of Python
 
 - <https://www.python.org/>
 - [Python 3 Docs](https://docs.python.org/3/)
