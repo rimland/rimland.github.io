@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Python Tutorial
-permalink: /python/
+permalink: /links/
 ---
 ## .NET
 
@@ -60,12 +60,12 @@ permalink: /python/
   - [Full Stack Python](https://www.fullstackpython.com/)
   - [PyScaffold](https://pyscaffold.org/)
   - [tox](https://tox.wiki/)
-- Python Tutorial
-  - [Python Tutorial](https://www.w3schools.com/python/)
+- [Python Tutorial](/python/)
+  <!-- - [Python Tutorial](https://www.w3schools.com/python/)
   - [30 Days Of Python](https://teclado.com/30-days-of-python/)
   - [Learn Python Programming](https://www.programiz.com/python-programming)
     - [Python staticmethod](https://www.programiz.com/python-programming/methods/built-in/staticmethod)
-    - [Python classmethod](https://www.programiz.com/python-programming/methods/built-in/classmethod)
+    - [Python classmethod](https://www.programiz.com/python-programming/methods/built-in/classmethod) -->
 
 ## Artificial Intelligence
 
