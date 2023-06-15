@@ -28,10 +28,11 @@ permalink: /python/
 
 ## Python packages
 
-- [PyPI](https://pypi.org/)
-- [Python-Markdown](https://python-markdown.github.io/)
+- [PyPI](https://pypi.org/){:target="_blank"}
+- [Python-Markdown](https://python-markdown.github.io/){:target="_blank"}
 
 ## Knowledge Collection
 
 - [Capturing and Handling OS signals like SIGINT (CTRL-C) in Python](https://www.xanthium.in/operating-system-signal-handling-in-python3#:~:text=The%20Python%20script%20will%20print,send%20to%20the%20executing%20script){:target="_blank"}
 - [Stream Responses from OpenAI API with Python: A Step-by-Step Guide](https://medium.com/codingthesmartway-com-blog/stream-responses-from-openai-api-with-python-a-step-by-step-guide-1f5d2fa5926f){:target="_blank"}
+- [Working with Markdown in Python](https://www.honeybadger.io/blog/python-markdown/){:target="_blank"}
