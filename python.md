@@ -14,6 +14,8 @@ permalink: /python/
 - [Full Stack Python](https://www.fullstackpython.com/)
 - [PyScaffold](https://pyscaffold.org/)
 - [tox](https://tox.wiki/)
+- [pytest](https://docs.pytest.org/)
+- [PyInstaller](https://pyinstaller.org/)
 
 ## Python Tutorial
 
