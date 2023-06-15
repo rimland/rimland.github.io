@@ -16,7 +16,7 @@ permalink: /python/
 - [tox](https://tox.wiki/){:target="_blank"}
 - [pytest](https://docs.pytest.org/){:target="_blank"}
 - [PyInstaller](https://pyinstaller.org/){:target="_blank"}
-- [Repl.it](https://repl.it/){:target="_blank"} | [Replit](https://replit.com/){:target="_blank"} - Replit: the collaborative browser based IDE
+- [Repl.it](https://repl.it/){:target="_blank"} - [Replit](https://replit.com/){:target="_blank"} - Replit: the collaborative browser based IDE
 
 ## Python Tutorial
 
