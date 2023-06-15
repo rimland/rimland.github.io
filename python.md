@@ -4,7 +4,7 @@ title: Python Tutorial
 permalink: /python/
 ---
 
-## Official Site of Python
+## Python Official Site
 
 - <https://www.python.org/>
 - [Python 3 Docs](https://docs.python.org/3/)
@@ -22,3 +22,8 @@ permalink: /python/
 - [Learn Python Programming](https://www.programiz.com/python-programming)
   - [Python staticmethod](https://www.programiz.com/python-programming/methods/built-in/staticmethod)
   - [Python classmethod](https://www.programiz.com/python-programming/methods/built-in/classmethod)
+
+## Knowledge Collection
+
+- [Capturing and Handling OS signals like SIGINT (CTRL-C) in Python](https://www.xanthium.in/operating-system-signal-handling-in-python3#:~:text=The%20Python%20script%20will%20print,send%20to%20the%20executing%20script)
+- [Stream Responses from OpenAI API with Python: A Step-by-Step Guide](https://medium.com/codingthesmartway-com-blog/stream-responses-from-openai-api-with-python-a-step-by-step-guide-1f5d2fa5926f)
