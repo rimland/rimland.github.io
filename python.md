@@ -4,7 +4,7 @@ title: Python Tutorial
 permalink: /python/
 ---
 
-## Official site of Python
+## Official Site of Python
 
 - <https://www.python.org/>
 - [Python 3 Docs](https://docs.python.org/3/)
