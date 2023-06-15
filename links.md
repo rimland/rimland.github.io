@@ -3,6 +3,7 @@ layout: page
 title: Fav links
 permalink: /links/
 ---
+
 ## .NET
 
 - [.NET](https://dotnet.microsoft.com/)
@@ -55,12 +56,7 @@ permalink: /links/
 - [Node.js](https://nodejs.org/zh-cn/)
 - [React](https://reactjs.org/)
   - [React Docs](https://zh-hans.reactjs.org/docs/getting-started.html)
-- [Python](https://www.python.org/)
-  - [Python 3 Docs](https://docs.python.org/3/)
-  - [Full Stack Python](https://www.fullstackpython.com/)
-  - [PyScaffold](https://pyscaffold.org/)
-  - [tox](https://tox.wiki/)
-- [Python Tutorial](/python/){:target="_blank"}
+- [Python](/python/){:target="_blank"}
 
 ## Artificial Intelligence
 
