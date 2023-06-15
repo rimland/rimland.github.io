@@ -60,7 +60,7 @@ permalink: /links/
   - [Full Stack Python](https://www.fullstackpython.com/)
   - [PyScaffold](https://pyscaffold.org/)
   - [tox](https://tox.wiki/)
-- [Python Tutorial](/python/)
+- [Python Tutorial](/python/){:target="_blank"}
 
 ## Artificial Intelligence
 
