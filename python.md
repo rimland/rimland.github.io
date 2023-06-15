@@ -30,7 +30,7 @@ permalink: /python/
 
 - [PyPI](https://pypi.org/){:target="_blank"}
 - [Python-Markdown](https://python-markdown.github.io/){:target="_blank"}
-  - [Python-Markdown Source Code](https://github.com/Python-Markdown/markdown)
+  - [Python-Markdown Source Code](https://github.com/Python-Markdown/markdown){:target="_blank"}
 
 ## Knowledge Collection
 
