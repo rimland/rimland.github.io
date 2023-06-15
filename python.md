@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Fav links
-permalink: /links/
+permalink: /python/
 ---
 
 ## The official home of the Python Programming Language
