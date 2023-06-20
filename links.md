@@ -86,6 +86,7 @@ permalink: /links/
   - [Jupyter Notebook](https://jupyter.org/)
   - [Colab](https://colab.research.google.com)
   - [Google Drive](https://drive.google.com/)
+  - [Kaggle.com](https://www.kaggle.com/)
 
 ## Tech
 
