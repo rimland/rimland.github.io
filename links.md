@@ -135,6 +135,7 @@ permalink: /links/
   - [Microsoft's native port of redis - archived](https://github.com/microsoftarchive/redis)
   - [Install Redis on Windows](https://docs.servicestack.net/install-redis-windows#live-demo-https-redis-web-app-io)
 - [7-Zip](https://www.7-zip.org/)
+- [Charles](https://www.charlesproxy.com/)
 
 ## Front End
 
