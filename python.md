@@ -38,3 +38,4 @@ permalink: /python/
 - [Stream Responses from OpenAI API with Python: A Step-by-Step Guide](https://medium.com/codingthesmartway-com-blog/stream-responses-from-openai-api-with-python-a-step-by-step-guide-1f5d2fa5926f){:target="_blank"}
 - [Working with Markdown in Python](https://www.honeybadger.io/blog/python-markdown/){:target="_blank"}
 - [Use Python-Markdown to Convert Markdown to HTML](https://www.linode.com/docs/guides/how-to-use-python-markdown-to-convert-markdown-to-html/){:target="_blank"}
+- [Check the version of Python package/library](https://note.nkmk.me/en/python-package-version/){:target="_blank"}
