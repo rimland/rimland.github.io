@@ -136,6 +136,8 @@ permalink: /links/
   - [Install Redis on Windows](https://docs.servicestack.net/install-redis-windows#live-demo-https-redis-web-app-io)
 - [7-Zip](https://www.7-zip.org/)
 - [Charles](https://www.charlesproxy.com/)
+- 截图工具
+  - [Snipaste - 截图 + 贴图](https://zh.snipaste.com/)
 
 ## Front End
 
