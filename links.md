@@ -87,6 +87,7 @@ permalink: /links/
   - [Colab](https://colab.research.google.com)
   - [Google Drive](https://drive.google.com/)
   - [Kaggle.com](https://www.kaggle.com/)
+- [Stable Diffusion web UI](https://github.com/AUTOMATIC1111/stable-diffusion-webui)
 
 ## Tech
 
@@ -175,6 +176,7 @@ permalink: /links/
 - Excel
   - [SheetJS](https://sheetjs.com/)
   - [ExcelJS](https://github.com/exceljs/exceljs)
+- [SVG Repo - Free SVG Vectors and Icons](https://www.svgrepo.com/)
 
 ## Containerized Applications
 
