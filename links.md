@@ -170,6 +170,7 @@ permalink: /links/
   - [Ant Design Vue](https://www.antdv.com/components/overview-cn)
   - [vite-plugin-checker](https://vite-plugin-checker.netlify.app/)
   - [Vben Admin](https://doc.vvbin.cn/)
+  - [Naive UI](https://www.naiveui.com/)
 - Day.js
   - <https://dayjs.fenxianglu.cn/>
   - <https://day.js.org/en/>
