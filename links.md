@@ -60,10 +60,12 @@ permalink: /links/
 
 ## Artificial Intelligence
 
-- AI Tools
+- AI Productivity Tools
   - [ChatGPT](https://chat.openai.com/)
   - [Gemini](https://gemini.google.com/app)
   - [Suno AI](https://www.suno.ai/)
+  - [Notion](https://www.notion.so/)
+  - [Stable Diffusion web UI](https://github.com/AUTOMATIC1111/stable-diffusion-webui)
 
 - OpenAI
   - [ChatGPT](https://ai.com)
@@ -85,14 +87,11 @@ permalink: /links/
   - [GitHub Copilot](https://github.com/features/copilot)
   - [Cursor AI](https://www.cursor.so/)
   - [Bito AI](https://bito.ai/)
-- Productivity Tools
-  - [Notion](https://www.notion.so/)
 - Programming
   - [Jupyter Notebook](https://jupyter.org/)
   - [Colab](https://colab.research.google.com)
   - [Google Drive](https://drive.google.com/)
   - [Kaggle.com](https://www.kaggle.com/)
-- [Stable Diffusion web UI](https://github.com/AUTOMATIC1111/stable-diffusion-webui)
 
 ## Tech
 
