@@ -60,6 +60,11 @@ permalink: /links/
 
 ## Artificial Intelligence
 
+- AI Tools
+  - [ChatGPT](https://chat.openai.com/)
+  - [Gemini](https://gemini.google.com/app)
+  - [Suno AI](https://www.suno.ai/)
+
 - OpenAI
   - [ChatGPT](https://ai.com)
   - [OpenAI](https://openai.com/)
