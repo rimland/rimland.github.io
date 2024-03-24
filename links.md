@@ -66,6 +66,8 @@ permalink: /links/
   - [Suno AI](https://www.suno.ai/)
   - [Notion](https://www.notion.so/)
   - [Stable Diffusion web UI](https://github.com/AUTOMATIC1111/stable-diffusion-webui)
+  - [Clipdrop](https://clipdrop.co/)
+  - [DomoAI](https://domoai.app/)
 
 - OpenAI
   - [ChatGPT](https://ai.com)
@@ -143,6 +145,9 @@ permalink: /links/
 - [Charles](https://www.charlesproxy.com/)
 - 截图工具
   - [Snipaste - 截图 + 贴图](https://zh.snipaste.com/)
+- Others
+  - [MindMeister](https://www.mindmeister.com/)
+  - [MindMaster](https://www.edrawsoft.cn/mindmaster/)
 
 ## Front End
 
