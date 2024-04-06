@@ -145,6 +145,7 @@ permalink: /links/
 - [Charles](https://www.charlesproxy.com/)
 - 截图工具
   - [Snipaste - 截图 + 贴图](https://zh.snipaste.com/)
+- [PDF to WORD](https://www.ilovepdf.com/zh-cn/pdf_to_word)
 - Others
   - [MindMeister](https://www.mindmeister.com/)
   - [MindMaster](https://www.edrawsoft.cn/mindmaster/)
